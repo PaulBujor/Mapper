@@ -1,4 +1,7 @@
 
 Client/.vs/Client/v16/.suo
-Client/bin
-Client/obj
+Client/Client/bin
+Client/Client/obj
+DataServer/.vs/DataServer/v16/.suo
+DataServer/DataServer/bin/
+DataServer/DataServer/obj/
