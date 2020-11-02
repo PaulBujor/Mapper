@@ -98,7 +98,7 @@ app {
             }
 
 .content {
-    padding-top: 1.1rem;
+    padding: 0 0 0 0 !important;
 }
 
 .navbar-toggler {
@@ -168,8 +168,8 @@ app {
     }
 
     .main > div {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+        padding-left: 2rem;
+        padding-right: 1.5rem;
     }
 
     .navbar-toggler {
@@ -183,6 +183,6 @@ app {
 }
 
 #map {
-    width: 100%;
+    width: auto;
     height: 500px;
 }
