@@ -5,8 +5,8 @@
 <div id='map'></div>
 
 @code{
-	protected override void OnAfterRender(bool firstRender)
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		Map.InitMapAsync();
+		await Map.InitMapAsync();
 	}
 }
