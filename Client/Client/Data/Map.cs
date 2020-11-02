@@ -15,7 +15,6 @@ namespace Client.Data
 		public Map(IJSRuntime jsRuntime)
 		{
 			this.jsRuntime = jsRuntime;
-			InitMapAsync();
 		}
 
 		public async Task AddMarkerAsync(double longitude, double latitude)
