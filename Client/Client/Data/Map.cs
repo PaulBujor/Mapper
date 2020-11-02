@@ -25,7 +25,7 @@ namespace Client.Data
 
 		public void SetJSRuntime(IJSRuntime jsRuntime)
 		{
-			//JSRuntime = jsRuntime;
+			JSRuntime = jsRuntime;
 		}
 	}
 }
