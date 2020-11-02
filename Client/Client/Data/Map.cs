@@ -13,9 +13,9 @@ namespace Client.Data
 		[Inject]
 		IJSRuntime JSRuntime { get; set; }
 
-		public void AddMarkerAsync(int longitude, int latitude)
+		public void AddMarkerAsync(double longitude, double latitude)
 		{
-			throw new NotImplementedException();
+			JSRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", longitude, latitude);
 		}
 
 		public void InitMapAsync()

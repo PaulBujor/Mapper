@@ -10,6 +10,6 @@ namespace Client.Data
 	{
 		void SetJSRuntime(IJSRuntime jSRuntime);
 		void InitMapAsync();
-		void AddMarkerAsync(int longitude, int latitude);
+		void AddMarkerAsync(double longitude, double latitude);
 	}
 }
