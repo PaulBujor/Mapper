@@ -8,8 +8,7 @@ namespace Client.Data
 {
 	public interface IMap
 	{
-		void SetJSRuntime(IJSRuntime jSRuntime);
-		void InitMapAsync();
-		void AddMarkerAsync(double longitude, double latitude);
+		Task InitMapAsync();
+		Task AddMarkerAsync(double longitude, double latitude);
 	}
 }

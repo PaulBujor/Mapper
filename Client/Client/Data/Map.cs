@@ -10,22 +10,22 @@ namespace Client.Data
 {
 	public class Map : IMap
 	{
-		[Inject]
-		IJSRuntime JSRuntime { get; set; }
+		private readonly IJSRuntime jsRuntime;
 
-		public void AddMarkerAsync(double longitude, double latitude)
+		public Map(IJSRuntime jsRuntime)
 		{
-			JSRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", longitude, latitude);
+			this.jsRuntime = jsRuntime;
+			InitMapAsync();
 		}
 
-		public void InitMapAsync()
+		public async Task AddMarkerAsync(double longitude, double latitude)
 		{
-			JSRuntime.InvokeVoidAsync("mapBoxFunctions.initMapBox");
+			await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", longitude, latitude);
 		}
 
-		public void SetJSRuntime(IJSRuntime jsRuntime)
+		public async Task InitMapAsync()
 		{
-			JSRuntime = jsRuntime;
+			await jsRuntime.InvokeVoidAsync("mapBoxFunctions.initMapBox");
 		}
 	}
 }
