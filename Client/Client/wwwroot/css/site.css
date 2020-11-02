@@ -99,6 +99,7 @@ app {
 
 .content {
     padding: 0 0 0 0 !important;
+    height: auto;
 }
 
 .navbar-toggler {
@@ -184,5 +185,5 @@ app {
 
 #map {
     width: auto;
-    height: 500px;
+    height: 700px;
 }
