@@ -11,6 +11,8 @@ namespace Client.Data
 	public class Map : IMap
 	{
 		private readonly IJSRuntime jsRuntime;
+		private DotNetObjectReference<Map> objRef;
+		//store List<Place> here, add markers on InitMapAsync
 
 		public Map(IJSRuntime jsRuntime)
 		{
@@ -24,7 +26,15 @@ namespace Client.Data
 
 		public async Task InitMapAsync()
 		{
-			await jsRuntime.InvokeVoidAsync("mapBoxFunctions.initMapBox");
+
+			objRef = DotNetObjectReference.Create(this);
+			await jsRuntime.InvokeVoidAsync("mapBoxFunctions.initMapBox", objRef);
+		}
+
+		[JSInvokable]
+		public async Task MapClickedAsync(double longitude, double latitude)
+		{
+			Console.WriteLine($"Click at lng: {longitude}; lat: {latitude}");
 		}
 	}
 }

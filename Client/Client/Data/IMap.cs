@@ -10,5 +10,7 @@ namespace Client.Data
 	{
 		Task InitMapAsync();
 		Task AddMarkerAsync(double longitude, double latitude);
+
+		Task MapClickedAsync(double longitude, double latitude);
 	}
 }
