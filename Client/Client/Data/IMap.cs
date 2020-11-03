@@ -12,5 +12,7 @@ namespace Client.Data
 		Task AddMarkerAsync(double longitude, double latitude);
 
 		Task MapClickedAsync(double longitude, double latitude);
+
+		void ChangeAddingMarkerMode();
 	}
 }

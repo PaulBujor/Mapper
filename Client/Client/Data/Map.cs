@@ -12,11 +12,14 @@ namespace Client.Data
 	{
 		private readonly IJSRuntime jsRuntime;
 		private DotNetObjectReference<Map> objRef;
+
+		private bool addingMarkerMode;
 		//store List<Place> here, add markers on InitMapAsync
 
 		public Map(IJSRuntime jsRuntime)
 		{
 			this.jsRuntime = jsRuntime;
+			addingMarkerMode = false;
 		}
 
 		public async Task AddMarkerAsync(double longitude, double latitude)
@@ -35,6 +38,16 @@ namespace Client.Data
 		public async Task MapClickedAsync(double longitude, double latitude)
 		{
 			Console.WriteLine($"Click at lng: {longitude}; lat: {latitude}");
+			if (addingMarkerMode)
+			{
+				AddMarkerAsync(longitude, latitude);
+			}
+			
+		}
+
+		public void ChangeAddingMarkerMode()
+		{
+			addingMarkerMode = !addingMarkerMode;
 		}
 	}
 }

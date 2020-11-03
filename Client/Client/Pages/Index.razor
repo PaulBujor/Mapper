@@ -3,10 +3,20 @@
 @inject Client.Data.IMap Map
 
 <div id='map'></div>
+<div class="map-overlay">
+    <div class="map-overlay-inner">
+        <button  @onclick="AddMarker">Add Marker</button>
+    </div>
+</div>
 
-@code{
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		await Map.InitMapAsync();
-	}
-}
+        @code{
+            protected override async Task OnAfterRenderAsync(bool firstRender)
+            {
+                await Map.InitMapAsync();
+            }
+
+            private void AddMarker()
+            {
+                Map.ChangeAddingMarkerMode();
+            }
+        }
