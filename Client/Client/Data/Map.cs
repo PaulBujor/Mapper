@@ -76,7 +76,7 @@ namespace Client.Data
 		{
 			currentLatitude = latitude;
 			currentLongitude = longitude;
-			Console.WriteLine($"Click at lng: {longitude}; lat: {latitude}");
+			Console.WriteLine($"Drag to lng: {longitude}; lat: {latitude}");
 		}
 
 
