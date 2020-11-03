@@ -26,27 +26,25 @@
 
 @code{
 
-    private string buttonText = "Add Marker";
+	private string buttonText = "Add Marker";
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-            await Map.InitMapAsync();
-    }
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+			await Map.InitMapAsync();
+	}
 
-    private void AddMarker()
-    {
-        if (buttonText.Equals("Add Marker"))
-        {
-            Map.ChangeAddingMarkerMode();
-            buttonText = "Save & Add Marker";
-        }
-        else
-        {
-            Map.SavePopupChanges();
-            Map.ChangeAddingMarkerMode();
-            buttonText = "Add Marker";
-        }
-
-    }
+	private async Task AddMarker()
+	{
+		if (buttonText.Equals("Add Marker"))
+		{
+			buttonText = "Save & Add Marker";
+		}
+		else
+		{
+			await Map.SavePopupChanges();
+			buttonText = "Add Marker";
+		}
+		Map.ChangeAddingMarkerMode();
+	}
 }

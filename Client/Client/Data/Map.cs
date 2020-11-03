@@ -43,9 +43,9 @@ namespace Client.Data
 			Console.WriteLine($"Click at lng: {longitude}; lat: {latitude}");
 			if (addingMarkerMode)
 			{
-				AddTemporaryMarkerAsync(longitude, latitude);
+				await SetTemporaryMarkerAsync(longitude, latitude);
 			}
-			
+
 		}
 
 		public void ChangeAddingMarkerMode()
@@ -53,9 +53,9 @@ namespace Client.Data
 			addingMarkerMode = !addingMarkerMode;
 		}
 
-		public async Task AddTemporaryMarkerAsync(double longitude, double latitude)
+		public async Task SetTemporaryMarkerAsync(double longitude, double latitude)
 		{
-			await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addTemporaryMarker", longitude, latitude);
+			await jsRuntime.InvokeVoidAsync("mapBoxFunctions.setTemporaryMarker", longitude, latitude);
 			currentLatitude = latitude;
 			currentLongitude = longitude;
 		}
@@ -65,10 +65,10 @@ namespace Client.Data
 			await jsRuntime.InvokeVoidAsync("mapBoxFunctions.removeTemporaryMarker");
 		}
 
-		public void SavePopupChanges()
+		public async Task SavePopupChanges()
 		{
-			AddMarkerAsync(currentLongitude, currentLatitude);
-			removeTemporaryMarkerAsync();
+			await AddMarkerAsync(currentLongitude, currentLatitude);
+			await removeTemporaryMarkerAsync();
 		}
 
 		[JSInvokable("UpdateCoordinates")]
@@ -79,6 +79,6 @@ namespace Client.Data
 			Console.WriteLine($"Click at lng: {longitude}; lat: {latitude}");
 		}
 
-		
+
 	}
 }
