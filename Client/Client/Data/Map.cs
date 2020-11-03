@@ -40,6 +40,10 @@ namespace Client.Data
 			Console.WriteLine($"Click at lng: {longitude}; lat: {latitude}");
 			if (addingMarkerMode)
 			{
+				AddTemporaryMarkerAsync(longitude, latitude);
+			}
+			else
+			{
 				AddMarkerAsync(longitude, latitude);
 			}
 			
@@ -50,6 +54,9 @@ namespace Client.Data
 			addingMarkerMode = !addingMarkerMode;
 		}
 
-	
+		public async Task AddTemporaryMarkerAsync(double longitude, double latitude)
+		{
+			await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addTemporaryMarker", longitude, latitude);
+		}
 	}
 }
