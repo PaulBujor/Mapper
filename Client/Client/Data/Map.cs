@@ -14,6 +14,9 @@ namespace Client.Data
 		private DotNetObjectReference<Map> objRef;
 
 		private bool addingMarkerMode;
+
+		private double currentLongitude = 0;
+		private double currentLatitude = 0;
 		//store List<Place> here, add markers on InitMapAsync
 
 		public Map(IJSRuntime jsRuntime)
@@ -42,10 +45,6 @@ namespace Client.Data
 			{
 				AddTemporaryMarkerAsync(longitude, latitude);
 			}
-			else
-			{
-				AddMarkerAsync(longitude, latitude);
-			}
 			
 		}
 
@@ -57,6 +56,29 @@ namespace Client.Data
 		public async Task AddTemporaryMarkerAsync(double longitude, double latitude)
 		{
 			await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addTemporaryMarker", longitude, latitude);
+			currentLatitude = latitude;
+			currentLongitude = longitude;
 		}
+
+		public async Task removeTemporaryMarkerAsync()
+		{
+			await jsRuntime.InvokeVoidAsync("mapBoxFunctions.removeTemporaryMarker");
+		}
+
+		public void SavePopupChanges()
+		{
+			AddMarkerAsync(currentLongitude, currentLatitude);
+			removeTemporaryMarkerAsync();
+		}
+
+		[JSInvokable("UpdateCoordinates")]
+		public void UpdateCoordinates(double longitude, double latitude)
+		{
+			currentLatitude = latitude;
+			currentLongitude = longitude;
+			Console.WriteLine($"Click at lng: {longitude}; lat: {latitude}");
+		}
+
+		
 	}
 }

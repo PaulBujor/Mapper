@@ -6,11 +6,12 @@
 <div class="map-overlay">
     <div class="map-overlay-inner">
         <button @onclick="AddMarker">@buttonText</button>
-        <fieldset>
+        @if (buttonText.Equals("Save & Add Marker"))
+        { <fieldset>
             <label for="title">Title:</label>
             <input type="text"
                    id="title"
-                   name="title"/>
+                   name="title" />
         </fieldset>
         <fieldset>
             <label for="description">Description:</label>
@@ -18,6 +19,8 @@
                    id="description"
                    name="description" />
         </fieldset>
+        }
+
     </div>
 </div>
 
@@ -40,6 +43,7 @@
         }
         else
         {
+            Map.SavePopupChanges();
             Map.ChangeAddingMarkerMode();
             buttonText = "Add Marker";
         }

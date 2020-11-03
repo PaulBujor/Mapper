@@ -17,5 +17,7 @@ namespace Client.Data
 		Task MapClickedAsync(double longitude, double latitude);
 
 		void ChangeAddingMarkerMode();
+
+		void SavePopupChanges();
 	}
 }

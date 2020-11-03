@@ -1,7 +1,9 @@
 ﻿var map;
-var _dotNetReference
+var _dotNetReference;
+var currentTemporaryMarker;
 
 window.mapBoxFunctions = {
+
     initMapBox: function (dotNetReference) {
         mapboxgl.accessToken = 'pk.eyJ1IjoiZ2xhZDFvIiwiYSI6ImNraDBzZ2RzMDAxOXcycXJybjBlc2FoYzIifQ.6aVRcqBFu8dA_JC8yVsboA';
         _dotNetReference = dotNetReference
@@ -19,8 +21,16 @@ window.mapBoxFunctions = {
             .addTo(map);
     },
     addTemporaryMarker: function (longitude, latitude) {
-        var marker = new mapboxgl.Marker({ color: "#32a852"})
-            .setLngLat([longitude, latitude])
+        if (currentTemporaryMarker == null)
+            currentTemporaryMarker = new mapboxgl.Marker({ color: "#32a852" });
+        currentTemporaryMarker.setLngLat([longitude, latitude])
+            .setDraggable(true)
             .addTo(map);
+        currentTemporaryMarker.on("dragend", function (e) {
+            _dotNetReference.invokeMethodAsync('UpdateCoordinates', currentTemporaryMarker.getLngLat().toArray()[0], currentTemporaryMarker.getLngLat().toArray()[1]);
+        });
+    },
+    removeTemporaryMarker: function () {
+        currentTemporaryMarker.remove();
     }
 }
