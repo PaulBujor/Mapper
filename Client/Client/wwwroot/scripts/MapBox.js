@@ -17,5 +17,10 @@ window.mapBoxFunctions = {
         var marker = new mapboxgl.Marker()
             .setLngLat([longitude, latitude])
             .addTo(map);
+    },
+    addTemporaryMarker: function (longitude, latitude) {
+        var marker = new mapboxgl.Marker({ color: "#32a852"})
+            .setLngLat([longitude, latitude])
+            .addTo(map);
     }
 }

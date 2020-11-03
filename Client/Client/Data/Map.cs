@@ -49,5 +49,7 @@ namespace Client.Data
 		{
 			addingMarkerMode = !addingMarkerMode;
 		}
+
+	
 	}
 }

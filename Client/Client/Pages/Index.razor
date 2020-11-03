@@ -4,20 +4,44 @@
 
 <div id='map'></div>
 <div class="map-overlay">
-	<div class="map-overlay-inner">
-		<button @onclick="AddMarker">Add Marker</button>
-	</div>
+    <div class="map-overlay-inner">
+        <button @onclick="AddMarker">@buttonText</button>
+        <fieldset>
+            <label for="title">Title:</label>
+            <input type="text"
+                   id="title"
+                   name="title"/>
+        </fieldset>
+        <fieldset>
+            <label for="description">Description:</label>
+            <input type="text"
+                   id="description"
+                   name="description" />
+        </fieldset>
+    </div>
 </div>
 
 @code{
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-			await Map.InitMapAsync();
-	}
 
-	private void AddMarker()
-	{
-		Map.ChangeAddingMarkerMode();
-	}
+    private string buttonText = "Add Marker";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await Map.InitMapAsync();
+    }
+
+    private void AddMarker()
+    {
+        if (buttonText.Equals("Add Marker")
+            {
+            Map.ChangeAddingMarkerMode();
+            buttonText = "Save & Add Marker";
+        }
+        else
+        {
+            Map.
+        }
+
+    }
 }
