@@ -26,12 +26,12 @@ namespace Client.Data
 
 		public async Task InitMapAsync()
 		{
-
-			objRef = DotNetObjectReference.Create(this);
+			if (objRef == null)
+				objRef = DotNetObjectReference.Create(this);
 			await jsRuntime.InvokeVoidAsync("mapBoxFunctions.initMapBox", objRef);
 		}
 
-		[JSInvokable]
+		[JSInvokable("MapClickAsync")]
 		public async Task MapClickedAsync(double longitude, double latitude)
 		{
 			Console.WriteLine($"Click at lng: {longitude}; lat: {latitude}");
