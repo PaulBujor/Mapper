@@ -7,7 +7,7 @@ window.mapBoxFunctions = {
         _dotNetReference = dotNetReference
         map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11'
+            style: 'mapbox://styles/mapbox/outdoors-v11'
         });
         map.on("click", function (e) {
             _dotNetReference.invokeMethodAsync('MapClickAsync', e.lngLat.toArray()[0], e.lngLat.toArray()[1]);
