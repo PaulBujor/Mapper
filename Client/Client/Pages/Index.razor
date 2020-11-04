@@ -1,13 +1,29 @@
 ﻿@page "/"
 @inject IJSRuntime JSRuntime
 @inject Client.Data.IMap Map
+@using Client.Models
 
 <div id='map'></div>
 <div class="map-overlay">
     <div class="map-overlay-inner">
         <button @onclick="AddMarker">@buttonText</button>
-        @if (buttonText.Equals("Save & Add Marker"))
-        { <fieldset>
+        @if (buttonText.Equals("Save & Add Place"))
+        { 
+    <div>
+        <EditForm Model="@popup" OnValidSubmit="@AddMarker">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            Title: <br />
+            <InputText id="title" @bind-Value="popup.Title" />
+            Description: <br />
+            <InputText id="description" @bind-Value="popup.Description" />
+
+        </EditForm>
+
+    </div>
+            
+            
+            @*<fieldset @bind-Value="PlaceTitle">
             <label for="title">Title:</label>
             <input type="text"
                    id="title"
@@ -18,33 +34,34 @@
             <input type="text"
                    id="description"
                    name="description" />
-        </fieldset>
+        </fieldset>*@
         }
 
     </div>
 </div>
 
 @code{
+    private Popup popup = new Popup(); 
+    private string buttonText = "Add Place";
 
-	private string buttonText = "Add Marker";
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await Map.InitMapAsync();
+    }
 
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-			await Map.InitMapAsync();
-	}
-
-	private async Task AddMarker()
-	{
-		if (buttonText.Equals("Add Marker"))
-		{
-			buttonText = "Save & Add Marker";
-		}
-		else
-		{
-			await Map.SavePopupChanges();
-			buttonText = "Add Marker";
-		}
-		Map.ChangeAddingMarkerMode();
-	}
+    private async Task AddMarker()
+    {
+        if (buttonText.Equals("Add Place"))
+        {
+            buttonText = "Save & Add Place";
+        }
+        else
+        {
+            await Map.CreatePlace(popup);
+            popup.Reset();
+            buttonText = "Add Place";
+        }
+        Map.ChangeAddingMarkerMode();
+    }
 }

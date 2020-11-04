@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Client.Models;
 
 namespace Client.Data
 {
 	public interface IMap
 	{
 		Task InitMapAsync();
-		Task AddMarkerAsync(double longitude, double latitude);
+		Task AddMarkerAsync(double longitude, double latitude, string title, string description);
 
 		Task SetTemporaryMarkerAsync(double longitude, double latitude);
 
@@ -17,6 +18,6 @@ namespace Client.Data
 
 		void ChangeAddingMarkerMode();
 
-		Task SavePopupChanges();
+		Task CreatePlace(Popup popup);
 	}
 }

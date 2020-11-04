@@ -2,6 +2,7 @@
 var _dotNetReference;
 var currentTemporaryMarker;
 
+
 window.mapBoxFunctions = {
     initMapBox: function (dotNetReference) {
         mapboxgl.accessToken = 'pk.eyJ1IjoiZ2xhZDFvIiwiYSI6ImNraDBzZ2RzMDAxOXcycXJybjBlc2FoYzIifQ.6aVRcqBFu8dA_JC8yVsboA';
@@ -17,9 +18,19 @@ window.mapBoxFunctions = {
         });
     },
 
-    addMarker: function (longitude, latitude) {
+    addMarker: function (longitude, latitude, placeTitle, placeDescription) {
+        
+        var popup = new mapboxgl.Popup({ offset: 25 }).setText(
+            "Title:\n" + placeTitle + "\nDescription:\n" + placeDescription
+        );
+
+        // create DOM element for the marker
+        var el = document.createElement('div');
+        el.id = 'marker';
+
         var marker = new mapboxgl.Marker()
             .setLngLat([longitude, latitude])
+            .setPopup(popup)
             .addTo(map);
     },
 
@@ -38,5 +49,9 @@ window.mapBoxFunctions = {
 
     removeTemporaryMarker: function () {
         currentTemporaryMarker.remove();
-    }
+    },
+
+
+
+
 }
