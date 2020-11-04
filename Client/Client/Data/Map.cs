@@ -25,8 +25,7 @@ namespace Client.Data
         {
             this.jsRuntime = jsRuntime;
             addingMarkerMode = false;
-            if (places == null)
-            { places = new List<Place>(); }
+            places = new List<Place>();
         }
 
         public async Task AddMarkerAsync(double longitude, double latitude, string title, string description)
