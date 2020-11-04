@@ -24,7 +24,7 @@ window.mapBoxFunctions = {
             "Title:\n" + placeTitle + "\nDescription:\n" + placeDescription
         );
 
-        // create DOM element for the marker
+        // create DOM element for the marker -- add styling to marker el.id or el.className
         var el = document.createElement('div');
         el.id = 'marker';
 
