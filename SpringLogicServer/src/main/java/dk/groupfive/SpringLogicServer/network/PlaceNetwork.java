@@ -9,8 +9,8 @@ public interface PlaceNetwork
   List<Place> getAllPlaces();
   Place getPlaceById(long id);
   Place addPlace(long id, double latitude, double longitude);
-  Place updatePlace(long id, double latitude,double longitude);
-  Place deletePlace(long id);
+  void updatePlace(long id, double latitude,double longitude);
+  void deletePlace(long id);
 
 
 

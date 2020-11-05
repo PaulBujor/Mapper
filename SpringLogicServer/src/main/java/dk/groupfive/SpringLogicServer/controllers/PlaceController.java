@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import org.yaml.snakeyaml.constructor.DuplicateKeyException;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/places")
 public class PlaceController
 {
 
@@ -26,7 +26,14 @@ public class PlaceController
 
   }
   @GetMapping("/places") List<Place> all(){
-    return placeNetwork.getAllPlaces();
+    List<Place> places = new ArrayList<>();
+    Place blet = new Place(1,2,3);
+    Place blet1 = new Place (2,3,4);
+    places.add(blet);
+    places.add(blet1);
+    return places;
+
+    /*return placeNetwork.getAllPlaces();*/
 
   }
 
@@ -44,7 +51,7 @@ public class PlaceController
     }
     }
 
-    /*@PatchMapping("{id}")
+   /* @PatchMapping("{id}")
     public ResponseEntity<Void> updatePlace(@PathVariable("id") long id,@Valid @RequestBody Place place){
 
     //Todo this patching is confusing, will come back to fix it
@@ -52,8 +59,8 @@ public class PlaceController
     placeNetwork.updatePlace(1,2,3);
 
     return  ResponseEntity.notFound().build();
-    }*/
-
+    }
+*/
 
 
 
@@ -63,6 +70,5 @@ public class PlaceController
     public void delete(@PathVariable("id") Long id){
     placeNetwork.deletePlace(id);
     }
-
 
 }
