@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Client.Data
+namespace Client.Networking
 {
-	public interface IModel
+	public interface IServer
 	{
-		Task AddPlaceAsync(Place place);
+		Task<IList<Place>> GetPlacesAsync();
 
-		IList<Place> GetPlaces();
+		Task AddPlaceAsync(Place place);
 	}
 }

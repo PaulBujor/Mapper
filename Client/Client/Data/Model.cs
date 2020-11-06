@@ -1,4 +1,6 @@
-﻿using Client.Models;
+﻿using Client.Data.Networking;
+using Client.Models;
+using Client.Networking;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,19 +8,27 @@ namespace Client.Data
 {
 	public class Model : IModel
 	{
-		private List<Place> places;
+		private IList<Place> places;
+		private readonly IServer server;
 
 		public Model()
 		{
-			places = new List<Place>();
+			server = new ClientImp();
+			//LoadPlaces();
 		}
 
-		public void AddPlace(Place place)
+		private void LoadPlaces()
 		{
+			places = server.GetPlacesAsync().Result;
+		}
+
+		public async Task AddPlaceAsync(Place place)
+		{
+			//await server.AddPlaceAsync(place);
 			places.Add(place);
 		}
 
-		public List<Place> GetPlaces()
+		public IList<Place> GetPlaces()
 		{
 			return places;
 		}
