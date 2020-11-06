@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+/*@RequestMapping("places")*/
 public class PlaceController
 {
 
@@ -35,6 +36,17 @@ public class PlaceController
 
     /*return placeNetwork.getAllPlaces();*/
 
+  }
+
+  @GetMapping(path ="/{id}")
+  public @ResponseBody Place place(@PathVariable("id") long id) {
+
+    if(id==1){
+      return new Place(1,2,3);
+    }
+
+
+   return placeNetwork.getPlaceById(id);
   }
 
   @PostMapping

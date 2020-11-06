@@ -26,7 +26,7 @@ public class PlaceImpl implements PlaceNetwork
 
   @Override public Place getPlaceById(long id )
   {
-    return null;
+    return place1;
   }
 
   @Override public Place addPlace(long id, double latitude, double longitude)
