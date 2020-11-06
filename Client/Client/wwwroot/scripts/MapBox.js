@@ -10,16 +10,19 @@ window.mapBoxFunctions = {
 
         map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/outdoors-v11'
+            style: 'mapbox://styles/mapbox/outdoors-v11',
+            center: [10.7522579808184, 56.03891165651774],
+            zoom: 6
         });
 
         map.on("click", function (e) {
+            console.log(e.lngLat);
             _dotNetReference.invokeMethodAsync('MapClickAsync', e.lngLat.toArray()[0], e.lngLat.toArray()[1]);
         });
     },
 
     addMarker: function (longitude, latitude, placeTitle, placeDescription) {
-        
+
         var popup = new mapboxgl.Popup({ offset: 25 }).setText(
             "Title:\n" + placeTitle + "\nDescription:\n" + placeDescription
         );

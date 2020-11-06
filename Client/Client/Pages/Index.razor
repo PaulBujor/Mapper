@@ -10,13 +10,13 @@
         @if (buttonText.Equals("Save & Add Place"))
         { 
     <div>
-        <EditForm Model="@popup" OnValidSubmit="@AddMarker">
+        <EditForm Model="@placeData" OnValidSubmit="@AddMarker">
             <DataAnnotationsValidator />
             <ValidationSummary />
             Title: <br />
-            <InputText id="title" @bind-Value="popup.Title" />
+            <InputText id="title" @bind-Value="placeData.Title" />
             Description: <br />
-            <InputText id="description" @bind-Value="popup.Description" />
+            <InputText id="description" @bind-Value="placeData.Description" />
 
         </EditForm>
 
@@ -41,7 +41,7 @@
 </div>
 
 @code{
-    private Popup popup = new Popup(); 
+    private PlaceData placeData = new PlaceData(); 
     private string buttonText = "Add Place";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -58,8 +58,8 @@
         }
         else
         {
-            await Map.CreatePlace(popup);
-            popup.Reset();
+            await Map.CreatePlace(placeData);
+            placeData.Reset();
             buttonText = "Add Place";
         }
         Map.ChangeAddingMarkerMode();

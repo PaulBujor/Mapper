@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 namespace Client.Models
 {
-    public class Popup
+    public class PlaceData
     {
         [Required]
         public string Title { get; set; }
@@ -16,8 +16,6 @@ namespace Client.Models
             Title = "";
             Description = "";
         }
-
-
 
     }
 }

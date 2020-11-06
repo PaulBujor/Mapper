@@ -28,6 +28,7 @@ namespace Client
 		{
 			services.AddRazorPages();
 			services.AddServerSideBlazor();
+			services.AddSingleton<IModel, Model>();
 			services.AddScoped<IMap, Map>();
 		}
 

@@ -10,14 +10,14 @@ namespace Client.Data
 	public interface IMap
 	{
 		Task InitMapAsync();
-		Task AddMarkerAsync(double longitude, double latitude, string title, string description);
+		Task AddMarkerAsync(Place place);
 
-		Task SetTemporaryMarkerAsync(double longitude, double latitude);
+		Task SetTemporaryMarkerAsync();
 
 		Task MapClickedAsync(double longitude, double latitude);
 
 		void ChangeAddingMarkerMode();
 
-		Task CreatePlace(Popup popup);
+		Task CreatePlace(PlaceData placeData);
 	}
 }
