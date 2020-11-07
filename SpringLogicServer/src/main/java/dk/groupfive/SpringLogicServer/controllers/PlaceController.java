@@ -57,10 +57,16 @@ public class PlaceController
 
   /*@RequestMapping(value = "/places", method = RequestMethod.POST)*//*
   @PostMapping(value = "/testing", consumes = "application/json",produces = "application/json")*/
-  @PostMapping(value = "/testing")
+  @PostMapping(value = "/places")
   @ResponseStatus(HttpStatus.CREATED)
   public Place create(@RequestBody Place place)
   {
+
+    System.out.println(place.getId());
+    System.out.println(place.getLatitude());
+    System.out.println(place.getLongitude());
+    System.out.println(place.getTitle());
+    System.out.println(place.getDescription());
 return place;
    /* try
     {
