@@ -6,13 +6,17 @@ public class Place
   private long id;
   private double latitude;
   private double longitude;
+  private String title;
+  private String description;
 
 
-  public Place(long id,double latitude, double longitude){
+
+  public Place(long id,double latitude, double longitude,String title, String description){
     this.id=id;
     this.latitude = latitude;
     this.longitude = longitude;
-
+    this.title= title;
+    this.description = description;
   }
 
   public long getId()
@@ -28,5 +32,13 @@ public class Place
     return this.longitude;
   }
 
+  public String getTitle(){
+    return this.title;
+
+  }
+
+  public String getDescription(){
+    return this.description;
+  }
 
 }

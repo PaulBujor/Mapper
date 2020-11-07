@@ -8,8 +8,8 @@ public interface PlaceNetwork
 {
   List<Place> getAllPlaces();
   Place getPlaceById(long id);
-  Place addPlace(long id, double latitude, double longitude);
-  void updatePlace(long id, double latitude,double longitude);
+  Place addPlace(Place place);
+  void updatePlace(long id, double latitude,double longitude,String title,String description);
   void deletePlace(long id);
 
 

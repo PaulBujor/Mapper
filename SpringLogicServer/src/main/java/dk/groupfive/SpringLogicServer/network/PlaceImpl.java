@@ -9,8 +9,8 @@ public class PlaceImpl implements PlaceNetwork
 {
   //TODO TCP connection to tier 3
    private List<Place> places;
-   Place place1 = new Place(1,2,3);
-   Place place2 = new Place(2,3,4);
+   Place place1 = new Place(1,2,3,"Horsens Beach","gucci vibes");
+   Place place2 = new Place(2,3,4,"aa","dss");
 
    public PlaceImpl(){
      this.places = new ArrayList<>();
@@ -29,13 +29,13 @@ public class PlaceImpl implements PlaceNetwork
     return place1;
   }
 
-  @Override public Place addPlace(long id, double latitude, double longitude)
+  @Override public Place addPlace(Place place)
   {
- places.add(new Place(id,latitude,longitude));
+
  return null;
   }
 
-  @Override public void updatePlace(long id, double latitude, double longitude)
+  @Override public void updatePlace(long id, double latitude, double longitude,String title,String description)
   {
 
   }
