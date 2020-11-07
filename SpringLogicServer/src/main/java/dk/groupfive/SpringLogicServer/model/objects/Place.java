@@ -10,6 +10,9 @@ public class Place
   private String description;
 
 
+public Place(){
+  super();
+}
 
   public Place(long id,double latitude, double longitude,String title, String description){
     this.id=id;
@@ -41,4 +44,28 @@ public class Place
     return this.description;
   }
 
+  public void setId(long id)
+  {
+    this.id = id;
+  }
+
+  public void setLatitude(double latitude)
+  {
+    this.latitude = latitude;
+  }
+
+  public void setLongitude(double longitude)
+  {
+    this.longitude = longitude;
+  }
+
+  public void setTitle(String title)
+  {
+    this.title = title;
+  }
+
+  public void setDescription(String description)
+  {
+    this.description = description;
+  }
 }

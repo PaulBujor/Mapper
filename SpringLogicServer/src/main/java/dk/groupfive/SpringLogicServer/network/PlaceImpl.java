@@ -32,7 +32,7 @@ public class PlaceImpl implements PlaceNetwork
   @Override public Place addPlace(Place place)
   {
 
- return null;
+ return new Place(1,2,3,"aaa","bbb");
   }
 
   @Override public void updatePlace(long id, double latitude, double longitude,String title,String description)

@@ -53,12 +53,16 @@ public class PlaceController
 
 /*  com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot construct instance of `dk.groupfive.SpringLogicServer.model.objects.Place` (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
   at [Source: (PushbackInputStream); line: 1, column: 2]*/
-  /*@RequestMapping(value = "/places", method = RequestMethod.POST)*/
-  @PostMapping(value = "/testing", consumes = "application/json",produces = "application/json")
- /* @ResponseStatus(HttpStatus.CREATED)*/
+
+
+  /*@RequestMapping(value = "/places", method = RequestMethod.POST)*//*
+  @PostMapping(value = "/testing", consumes = "application/json",produces = "application/json")*/
+  @PostMapping(value = "/testing")
+  @ResponseStatus(HttpStatus.CREATED)
   public Place create(@RequestBody Place place)
   {
-    try
+return place;
+   /* try
     {
       return placeNetwork.addPlace(place);
     }
@@ -66,7 +70,7 @@ public class PlaceController
     {
       e.printStackTrace();
       throw e;
-    }
+    }*/
   }
 
    /* @PatchMapping("{id}")
