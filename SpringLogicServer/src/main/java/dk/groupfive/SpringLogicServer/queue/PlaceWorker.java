@@ -1,7 +1,8 @@
-package dk.groupfive.SpringLogicServer.model;
+package dk.groupfive.SpringLogicServer.queue;
 
 import com.google.gson.Gson;
 import com.rabbitmq.client.*;
+import dk.groupfive.SpringLogicServer.model.Model;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 
