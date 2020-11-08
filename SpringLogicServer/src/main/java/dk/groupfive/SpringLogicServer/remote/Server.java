@@ -1,15 +1,16 @@
-package dk.groupfive.SpringLogicServer.network;
+package dk.groupfive.SpringLogicServer.remote;
 
+import dk.groupfive.SpringLogicServer.model.Model;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
 
 import java.util.List;
 
-public interface PlaceNetwork {
+public interface Server {
     List<Place> getAllPlaces();
 
     Place getPlaceByID(long id);
 
-    void addPlace(Place place);
+    Place addPlace(Place place);
 
     void updatePlace(Place place);
 

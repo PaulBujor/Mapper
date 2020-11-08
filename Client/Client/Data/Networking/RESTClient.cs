@@ -29,12 +29,21 @@ namespace Client.Networking
         }
 
         public async Task AddPlaceAsync(Place place)
-		{
-            //todo
-		}
+        {
+            HttpClient client = new HttpClient();
+            string placeSerialized = JsonSerializer.Serialize(place);
+
+            StringContent content = new StringContent(
+                placeSerialized,
+                Encoding.UTF8,
+                "application/json"
+            );
+
+            HttpResponseMessage response = await client.PostAsync(URI + "/places", content);
+			Console.WriteLine(response.ToString());
+        }
 
         //for testing i suppose :)
-
         private async Task GetData()
         {
             HttpClient client = new HttpClient();
