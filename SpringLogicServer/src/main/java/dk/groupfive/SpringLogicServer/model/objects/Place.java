@@ -1,6 +1,8 @@
 package dk.groupfive.SpringLogicServer.model.objects;
 
-public class Place {
+import java.io.Serializable;
+
+public class Place implements Serializable {
     //TODO might have to change variable to Latitude, Description instead of latitude, description etc. -- compatibility issue between C# and Java classes
     private long id;
     private double latitude;
@@ -35,7 +37,6 @@ public class Place {
 
     public String getTitle() {
         return this.title;
-
     }
 
     public String getDescription() {
