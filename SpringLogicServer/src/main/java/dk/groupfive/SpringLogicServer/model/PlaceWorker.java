@@ -2,6 +2,7 @@ package dk.groupfive.SpringLogicServer.model;
 
 import com.google.gson.Gson;
 import com.rabbitmq.client.*;
+import dk.groupfive.SpringLogicServer.model.objects.Place;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ public class PlaceWorker {
     private ConnectionFactory factory;
     private Channel channel;
     private Gson gson;
+    private Model model;
 
     public PlaceWorker() {
         gson = new Gson();
@@ -28,6 +30,8 @@ public class PlaceWorker {
                 PlaceTask task = gson.fromJson(message, PlaceTask.class);
                 try {
                     processTask(task);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 } finally {
                     channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
                 }
@@ -42,7 +46,31 @@ public class PlaceWorker {
         }
     }
 
-    public void processTask(PlaceTask task) {
+    public void processTask(PlaceTask task) throws Exception {
+        switch (task.getTaskName()){
+            case "addPlace":
+                addPlace(task.getPlace());
+                break;
+            case "updatePlace":
+                updatePlace(task.getPlace());
+                break;
+            case "deletePlace":
+                deletePlace(task.getPlaceID());
+                break;
+            default:
+                throw new Exception("Task undefined: " + task.getTaskName());
+        }
+    }
 
+    public void addPlace(Place place) {
+        model.addPlace(place);
+    }
+
+    public void updatePlace(Place place) {
+        model.updatePlace(place);
+    }
+
+    public void deletePlace(long id) {
+        model.deletePlace(id);
     }
 }

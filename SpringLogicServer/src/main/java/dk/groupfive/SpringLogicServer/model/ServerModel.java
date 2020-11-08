@@ -11,6 +11,8 @@ import java.util.List;
 //todo implement server task queue and thread pool resolvers
 public class ServerModel implements Model {
     //TODO TCP connection to tier 3
+    private static volatile ServerModel instance;
+    private final static Object lock = new Object();
 
     private final Cache cache;
     private final Server server;
