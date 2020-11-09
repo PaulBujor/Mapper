@@ -3,12 +3,11 @@ package dk.groupfive.SpringLogicServer.model.objects;
 import java.io.Serializable;
 
 public class Place implements Serializable {
-    //TODO might have to change variable to Latitude, Description instead of latitude, description etc. -- compatibility issue between C# and Java classes
-    private long id;
-    private double latitude;
-    private double longitude;
-    private String title;
-    private String description;
+    private long Id;
+    private double Latitude;
+    private double Longitude;
+    private String Title;
+    private String Description;
 
 
     public Place() {
@@ -16,50 +15,61 @@ public class Place implements Serializable {
     }
 
     public Place(long id, double latitude, double longitude, String title, String description) {
-        this.id = id;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.title = title;
-        this.description = description;
+        this.Id = id;
+        this.Latitude = latitude;
+        this.Longitude = longitude;
+        this.Title = title;
+        this.Description = description;
     }
 
     public long getId() {
-        return this.id;
+        return this.Id;
     }
 
     public double getLatitude() {
-        return this.latitude;
+        return this.Latitude;
     }
 
     public double getLongitude() {
-        return this.longitude;
+        return this.Longitude;
     }
 
     public String getTitle() {
-        return this.title;
+        return this.Title;
     }
 
     public String getDescription() {
-        return this.description;
+        return this.Description;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public void setLatitude(double latitude) {
-        this.latitude = latitude;
+        this.Latitude = latitude;
     }
 
     public void setLongitude(double longitude) {
-        this.longitude = longitude;
+        this.Longitude = longitude;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.Description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "id=" + Id +
+                ", latitude=" + Latitude +
+                ", longitude=" + Longitude +
+                ", title='" + Title + '\'' +
+                ", description='" + Description + '\'' +
+                '}';
     }
 }
