@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Client.Models;
+using System.Text;
 
-namespace Client.Models
+namespace DataServer
 {
 	public class Place
 	{

@@ -5,6 +5,7 @@ import dk.groupfive.SpringLogicServer.model.objects.Place;
 import dk.groupfive.SpringLogicServer.remote.Server;
 import dk.groupfive.SpringLogicServer.remote.Client;
 
+import java.io.IOException;
 import java.util.List;
 
 //todo implement server task queue and thread pool resolvers
@@ -17,11 +18,15 @@ public class ServerModel implements Model {
     private final Server server;
 
 
-    private ServerModel() {
+    private ServerModel() throws IOException {
         cache = new Cache();
         server = new Client();
         new Thread(() -> {
-            cache.load(server.getAllPlaces());
+            try {
+                cache.load(server.getAllPlaces());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }).start();
     }
 
@@ -29,7 +34,11 @@ public class ServerModel implements Model {
         if(instance == null) {
             synchronized (lock) {
                 if (instance == null) {
-                    instance = new ServerModel();
+                    try {
+                        instance = new ServerModel();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
