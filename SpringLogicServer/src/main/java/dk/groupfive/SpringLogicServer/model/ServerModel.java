@@ -3,9 +3,8 @@ package dk.groupfive.SpringLogicServer.model;
 import dk.groupfive.SpringLogicServer.local.Cache;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
 import dk.groupfive.SpringLogicServer.remote.Server;
-import dk.groupfive.SpringLogicServer.remote.ServerImp;
+import dk.groupfive.SpringLogicServer.remote.Client;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //todo implement server task queue and thread pool resolvers
@@ -19,7 +18,7 @@ public class ServerModel implements Model {
 
     private ServerModel() {
         cache = new Cache();
-        server = new ServerImp();
+        server = new Client();
     }
 
     public static ServerModel getInstance() {
