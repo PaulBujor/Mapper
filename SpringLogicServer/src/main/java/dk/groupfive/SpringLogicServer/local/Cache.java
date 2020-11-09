@@ -14,6 +14,10 @@ public class Cache implements Model {
         places = new ArrayList<Place>();
     }
 
+    public void load(List<Place> places) {
+        this.places = places;
+    }
+
     @Override
     public List<Place> getAllPlaces() {
         return places;

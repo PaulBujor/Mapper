@@ -16,15 +16,19 @@ public class ServerModel implements Model {
     private final Cache cache;
     private final Server server;
 
+
     private ServerModel() {
         cache = new Cache();
         server = new Client();
+        new Thread(() -> {
+            cache.load(server.getAllPlaces());
+        }).start();
     }
 
     public static ServerModel getInstance() {
         if(instance == null) {
             synchronized (lock) {
-                if(instance == null) {
+                if (instance == null) {
                     instance = new ServerModel();
                 }
             }
