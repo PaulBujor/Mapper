@@ -29,7 +29,7 @@ public class Client implements Server {
     public List<Place> getAllPlaces() throws IOException {
         List<Place> places;
         out.println("getAllPlaces");
-        byte[] response = in.readLine().getBytes();
+        String response = in.readLine();
         String stringResponse = new String(response);
         Type placeListType = new TypeToken<ArrayList<Place>>(){}.getType();
         System.out.println(stringResponse);
