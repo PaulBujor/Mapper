@@ -7,94 +7,123 @@ using System.Text.Json;
 
 namespace DataServer
 {
-	class ClientHandler
-	{
-		private TcpClient client;
-		private List<Place> places;
+    class ClientHandler
+    {
+        private TcpClient client;
+        private List<Place> places;
+        private Model model;
 
-		private StreamWriter writer;
-		private StreamReader reader;
+        private StreamWriter writer;
+        private StreamReader reader;
 
-		private bool clientConnected;
+        private bool clientConnected;
 
-		public ClientHandler(TcpClient client)
-		{
-			this.client = client;
+        public ClientHandler(TcpClient client, Model model)
+        {
+            this.client = client;
+            this.model = model;
 
-			NetworkStream stream = client.GetStream();
-			writer = new StreamWriter(stream, Encoding.ASCII) { AutoFlush = true };
-			reader = new StreamReader(stream, Encoding.ASCII);
+            NetworkStream stream = client.GetStream();
+            writer = new StreamWriter(stream, Encoding.ASCII) { AutoFlush = true };
+            reader = new StreamReader(stream, Encoding.ASCII);
 
-			Place place = new Place()
-			{
-				Longitude = 1,
-				Latitude = 2,
-				Title = "Title",
-				Description = "Description",
-				Id = 1
+            Place place = new Place()
+            {
+                Longitude = 1,
+                Latitude = 2,
+                Title = "Title",
+                Description = "Description",
+                Id = 1
 
-			};
-			places = new List<Place>();
-			places.Add(place);
-		}
+            };
+            places = new List<Place>();
+            places.Add(place);
+        }
 
-		public void Start()
-		{
-			clientConnected = true;
-			string request = null;
+        public void Start()
+        {
+            clientConnected = true;
+            string request = null;
 
-			// Loop to receive all the data sent by the client.
-			do
-			{
-				try
-				{
-					request = reader.ReadLine();
-					Console.WriteLine("Received: {0}", request);
+            // Loop to receive all the data sent by the client.
+            do
+            {
+                try
+                {
+                    request = reader.ReadLine();
+                    Console.WriteLine("Received: {0}", request);
 
-					ProcessClientRequest(request);
-				}
-				catch (System.IO.IOException e)
-				{
-					clientConnected = false;
-				}
+                    ProcessClientRequest(request);
+                }
+                catch (System.IO.IOException e)
+                {
+                    clientConnected = false;
+                }
 
-			} while (clientConnected);
+            } while (clientConnected);
 
-			// Shutdown and end connection
-			client.Close();
-		}
+            // Shutdown and end connection
+            client.Close();
+        }
 
-		public void ProcessClientRequest(string request)
-		{
-			switch (request)
-			{
-				case "getAllPlaces":
-					SendAllPlaces();
-					break;
-				case "getPlaceByID":
-					SendAllPlaces();
-					break;
-				case "addPlace":
-					SendAllPlaces();
-					break;
-				case "updatePlace":
-					SendAllPlaces();
-					break;
-				case "deletePlace":
-					SendAllPlaces();
-					break;
-				default:
-					Console.WriteLine("Default was called");
-					break;
+        public void ProcessClientRequest(string request)
+        {
+            switch (request)
+            {
+                case "getAllPlaces":
+                    SendAllPlaces();
+                    break;
+                case "getPlaceByID":
+                    SendAllPlaces();
+                    break;
+                case "addPlace":
+                    AddPlace();
+                    break;
+                case "updatePlace":
+                    UpdatePlace();
+                    break;
+                case "deletePlace":
+                    DeletePlace();
+                    break;
+                default:
+                    Console.WriteLine("Default was called");
+                    break;
 
-			}
-		}
+            }
+        }
 
-		public void SendAllPlaces()
-		{
-			string placeJson;
-			placeJson = JsonSerializer.Serialize(places);
-			writer.WriteLine(placeJson);
-		}
-	}
+        public void SendAllPlaces()
+        {
+            string placeJson;
+            placeJson = JsonSerializer.Serialize(model.GetAllPlaces());
+            writer.WriteLine(placeJson);
+        }
+
+        public void AddPlace()
+        {
+            string receive;
+            receive = reader.ReadLine();
+            Place place = JsonSerializer.Deserialize<Place>(receive);
+            string placeJson;
+            placeJson = JsonSerializer.Serialize(model.AddPlace(place));
+            writer.WriteLine(placeJson);
+        }
+
+        public void UpdatePlace()
+        {
+            string receive;
+            receive = reader.ReadLine();
+            Place place = JsonSerializer.Deserialize<Place>(receive);
+
+            model.UpdatePlace(place);
+        }
+
+        public void DeletePlace()
+        {
+            long receive = long.Parse(reader.ReadLine());
+            model.DeletePlace(receive);
+        }
+
+
+    }
 }

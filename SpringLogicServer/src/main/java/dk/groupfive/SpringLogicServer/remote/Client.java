@@ -19,7 +19,7 @@ public class Client implements Server {
     private Gson gson;
 
     public Client() throws IOException {
-        socket = new Socket("localhost", 6969);
+        socket = new Socket(HOST, PORT);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
         gson = new Gson();
@@ -44,20 +44,25 @@ public class Client implements Server {
 
     //todo this should wait for a place with id from the server, then return it
     @Override
-    public Place addPlace(Place place) {
+    public Place addPlace(Place place) throws IOException {
         out.println("addPlace");
-
-        return null;
-
+        String send = gson.toJson(place);
+        out.println(send);
+        String response = in.readLine();
+        Place receivedPlace = gson.fromJson(response, Place.class);
+        return receivedPlace;
     }
 
     @Override
     public void updatePlace(Place place) {
-
+        out.println("updatePlace");
+        String send = gson.toJson(place);
+        out.println(send);
     }
 
     @Override
     public void deletePlace(long id) {
-
+        out.println("deletePlace");
+        out.println(id);
     }
 }

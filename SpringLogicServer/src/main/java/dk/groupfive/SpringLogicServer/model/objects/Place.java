@@ -22,6 +22,13 @@ public class Place implements Serializable {
         this.Description = description;
     }
 
+    public Place(double latitude, double longitude, String title, String description) {
+        this.Latitude = latitude;
+        this.Longitude = longitude;
+        this.Title = title;
+        this.Description = description;
+    }
+
     public long getId() {
         return this.Id;
     }

@@ -57,7 +57,11 @@ public class ServerModel implements Model {
 
     @Override
     public void addPlace(Place place) {
-        place = server.addPlace(place);
+        try {
+            place = server.addPlace(place);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         cache.addPlace(place);
         //todo send to broadcaster
 

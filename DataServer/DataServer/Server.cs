@@ -11,9 +11,11 @@ namespace DataServer
     {
         private Int32 PORT = 6969;
         TcpListener server;
+        Model model;
 
         public Server()
         {
+            model = new Model();
             try
             {
                 IPAddress localAddr = IPAddress.Parse("127.0.0.1");
@@ -36,7 +38,7 @@ namespace DataServer
             {
                 TcpClient client = server.AcceptTcpClient();
                 
-                ClientHandler clientHandler = new ClientHandler(client);
+                ClientHandler clientHandler = new ClientHandler(client, model);
                 Thread thread = new Thread(clientHandler.Start);
                 thread.Start();
 

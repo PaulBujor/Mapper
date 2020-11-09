@@ -11,7 +11,7 @@ public interface Server {
 
     Place getPlaceByID(long id);
 
-    Place addPlace(Place place);
+    Place addPlace(Place place) throws IOException;
 
     void updatePlace(Place place);
 
