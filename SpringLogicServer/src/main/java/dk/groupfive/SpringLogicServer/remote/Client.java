@@ -30,11 +30,9 @@ public class Client implements Server {
         List<Place> places;
         out.println("getAllPlaces");
         String response = in.readLine();
-        String stringResponse = new String(response);
         Type placeListType = new TypeToken<ArrayList<Place>>(){}.getType();
-        System.out.println(stringResponse);
-        /*places = gson.fromJson(stringResponse, placeListType);*/
-        return null;
+        places = gson.fromJson(response, placeListType);
+        return places;
     }
 
     @Override

@@ -10,6 +10,7 @@ public class SocketTest {
         try {
             Client client = new Client();
             List<Place> places = client.getAllPlaces();
+            System.out.println(places);
         }
         catch (Exception e)
         {
