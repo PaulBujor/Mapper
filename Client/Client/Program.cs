@@ -15,6 +15,7 @@ namespace Client
 	{
 		public static void Main(string[] args)
 		{
+			//this will throw an exception when running in parallel, let it stay there for now
 			CreateHostBuilder(args).Build().Run();
 		}
 
