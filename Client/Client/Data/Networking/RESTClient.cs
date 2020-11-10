@@ -18,6 +18,12 @@ namespace Client.Networking
         }*/
 		private string URI = "http://127.0.0.1:8080";
 
+		public void Subscribe()
+		{
+			HttpClient client = new HttpClient();
+			HttpResponseMessage response = client.GetAsync(URI + "/subscribe").Result;
+			Console.WriteLine(response.ToString());
+		}
 
 		public async Task<IList<Place>> GetPlacesAsync()
 		{

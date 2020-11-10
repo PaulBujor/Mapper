@@ -1,7 +1,9 @@
 package dk.groupfive.SpringLogicServer.model;
 
+import dk.groupfive.SpringLogicServer.broadcast.Broadcaster;
 import dk.groupfive.SpringLogicServer.local.Cache;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
+import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 import dk.groupfive.SpringLogicServer.queue.PlaceWorker;
 import dk.groupfive.SpringLogicServer.remote.Server;
 import dk.groupfive.SpringLogicServer.remote.Client;
@@ -16,12 +18,14 @@ public class ServerModel implements Model {
 
     private final Cache cache;
     private final Server server;
+    private final Broadcaster broadcaster;
 
     private PlaceWorker worker;
 
     private ServerModel() throws IOException {
         cache = new Cache();
         server = new Client();
+        broadcaster = new Broadcaster();
         worker = new PlaceWorker(this);
 
         //we want this to be sync so data is loaded before anything else is added.
@@ -65,7 +69,7 @@ public class ServerModel implements Model {
             e.printStackTrace();
         }
         cache.addPlace(place);
-        //todo send to broadcaster
+        broadcaster.sendTask(new PlaceTask("addPlace", place));
     }
 
     @Override
@@ -78,5 +82,9 @@ public class ServerModel implements Model {
     public void deletePlace(long id) {
         server.deletePlace(id);
         cache.deletePlace(id);
+    }
+
+    public void subscribe(String ip) {
+        broadcaster.subscribe(ip);
     }
 }

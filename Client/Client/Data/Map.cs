@@ -70,7 +70,7 @@ namespace Client.Data
         public async Task CreatePlace(PlaceData placeData)
         {
             Place newPlace = new Place(currentLongitude, currentLatitude, placeData.Title, placeData.Description);
-            await AddMarkerAsync(newPlace); //line will be removed and place will be added when model gets it from broadcaster
+            //await AddMarkerAsync(newPlace); //line will be removed and place will be added when model gets it from broadcaster
             await removeTemporaryMarkerAsync();
             await model.AddPlaceAsync(newPlace);
         }

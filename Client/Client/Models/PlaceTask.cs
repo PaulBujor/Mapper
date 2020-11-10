@@ -12,11 +12,7 @@ namespace Client.Models
 		public Place place { get; set; }
 		public long placeID { get; set; }
 
-		public PlaceTask(string taskName, Place place, long placeID)
-		{
-			this.taskName = taskName;
-			this.place = place;
-			this.placeID = placeID;
-		}
+		public PlaceTask()
+		{ }
 	}
 }

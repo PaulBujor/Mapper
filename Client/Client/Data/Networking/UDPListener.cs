@@ -21,7 +21,7 @@ namespace Client.Data.Networking
 
 		public UDPListener()
 		{
-			client = new UdpClient(7000);
+			client = new UdpClient(15630);
 		}
 
 		public void Run()
@@ -32,6 +32,7 @@ namespace Client.Data.Networking
 				Byte[] receiveBytes = client.Receive(ref iPEndPoint);
 				string message = Encoding.ASCII.GetString(receiveBytes);
 				PlaceTask task = JsonSerializer.Deserialize<PlaceTask>(message);
+				Console.WriteLine("received task: " + task.taskName);
 				ProcessTask(task);
 			}
 		}

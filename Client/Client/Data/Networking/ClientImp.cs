@@ -18,7 +18,12 @@ namespace Client.Data.Networking
 		{
 			rest = new RESTClient();
 			listener = new UDPListener();
-			//subscribe method to delegate
+
+			var subscriberThread = new Thread(rest.Subscribe);
+			subscriberThread.Name = "Subscriber";
+			subscriberThread.Start();
+
+			//new Thread(() => rest.SubscribeAsync()).Start();
 			var listenerThread = new Thread(listener.Run);
 			listenerThread.Name = "UDP Listener";
 			listenerThread.Start();
