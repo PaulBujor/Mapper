@@ -25,6 +25,8 @@ namespace Client.Data
             this.jsRuntime = jsRuntime;
             this.model = model;
             addingMarkerMode = false;
+
+            model.OnNewPlace += AddMarker;
         }
 
         public async Task InitMapAsync()
@@ -44,6 +46,10 @@ namespace Client.Data
             await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", place.longitude, place.latitude, place.title, place.description);
         }
 
+        public void AddMarker(Place place)
+		{
+            jsRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", place.longitude, place.latitude, place.title, place.description);
+        }
 
         public void ChangeAddingMarkerMode()
         {

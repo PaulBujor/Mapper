@@ -9,12 +9,13 @@ namespace Client.Data
 	public class Model : IModel
 	{
 		private IList<Place> places;
-		private readonly IServer server;
+		private readonly ClientImp server;
 
 		public Model()
 		{
 			server = new ClientImp();
 			LoadPlaces();
+			server.listener.OnNewPlace += ReceivePlace;
 		}
 
 		private void LoadPlaces()
@@ -22,15 +23,21 @@ namespace Client.Data
 			places = server.GetPlacesAsync().Result;
 		}
 
-		public async Task AddPlaceAsync(Place place)
+		public override async Task AddPlaceAsync(Place place)
 		{
 			await server.AddPlaceAsync(place);
 			places.Add(place);
 		}
 
-		public IList<Place> GetPlaces()
+		public override IList<Place> GetPlaces()
 		{
 			return places;
+		}
+
+		private void ReceivePlace(Place place)
+		{
+			places.Add(place);
+			OnNewPlace?.Invoke(place);
 		}
 	}
 }
