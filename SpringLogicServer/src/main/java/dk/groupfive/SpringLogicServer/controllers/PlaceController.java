@@ -1,47 +1,34 @@
 package dk.groupfive.SpringLogicServer.controllers;
 
+import dk.groupfive.SpringLogicServer.model.Model;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
 import dk.groupfive.SpringLogicServer.network.PlaceNetwork;
+import dk.groupfive.SpringLogicServer.queue.ServerQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 
-public class PlaceController implements PlaceNetwork{
-
-    private PlaceNetwork placeNetwork;
+public class PlaceController implements PlaceNetwork {
+    private Model model;
 
     @Autowired
     public PlaceController() {
-
+        model = ServerQueue.getInstance();
     }
 
     @GetMapping("/places")
     public List<Place> getAllPlaces() {
-        List<Place> places = new ArrayList<>();
-        Place blet = new Place(1, 2, 3, "aaa", "bbbb");
-        Place blet1 = new Place(2, 3, 4, "aaa", "nnnn");
-        places.add(blet);
-        places.add(blet1);
-        return places;
-
-        /*return placeNetwork.getAllPlaces();*/
-
+        return model.getAllPlaces();
     }
 
     @GetMapping(path = "/places/{id}")
     public @ResponseBody
     Place getPlaceByID(@PathVariable("id") long id) {
-
-        if (id == 1) {
-            return new Place(1, 2, 3, "aaa", "cccc");
-        }
-
-        return placeNetwork.getPlaceByID(id);
+        return model.getPlaceByID(id);
     }
 
 
@@ -52,13 +39,10 @@ public class PlaceController implements PlaceNetwork{
     /*@RequestMapping(value = "/places", method = RequestMethod.POST)*//*
   @PostMapping(value = "/testing", consumes = "application/json",produces = "application/json")*/
     @PostMapping(value = "/places")
-    @ResponseStatus(HttpStatus.CREATED) //todo make this respond with just OK instead of returning place, place will be returned by another service
+    @ResponseStatus(HttpStatus.CREATED)
+    //todo make this respond with just OK instead of returning place, place will be returned by another service
     public void addPlace(@RequestBody Place place) {
-        System.out.println(place.getId());
-        System.out.println(place.getLatitude());
-        System.out.println(place.getLongitude());
-        System.out.println(place.getTitle());
-        System.out.println(place.getDescription());
+        model.addPlace(place);
    /* try
     {
       return placeNetwork.addPlace(place);
@@ -78,7 +62,6 @@ public class PlaceController implements PlaceNetwork{
     @DeleteMapping(value = "/places/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePlace(@PathVariable("id") long id) {
-        placeNetwork.deletePlace(id);
+        model.deletePlace(id);
     }
-
 }

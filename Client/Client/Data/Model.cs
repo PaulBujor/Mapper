@@ -14,7 +14,7 @@ namespace Client.Data
 		public Model()
 		{
 			server = new ClientImp();
-			//LoadPlaces();
+			LoadPlaces();
 		}
 
 		private void LoadPlaces()
@@ -24,7 +24,7 @@ namespace Client.Data
 
 		public async Task AddPlaceAsync(Place place)
 		{
-			//await server.AddPlaceAsync(place);
+			await server.AddPlaceAsync(place);
 			places.Add(place);
 		}
 

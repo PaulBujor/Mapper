@@ -16,7 +16,8 @@ public class PlaceWorker {
     private Gson gson;
     private Model model;
 
-    public PlaceWorker() {
+    public PlaceWorker(Model model) {
+        this.model = model;
         gson = new Gson();
         factory = new ConnectionFactory();
         factory.setHost("localhost");

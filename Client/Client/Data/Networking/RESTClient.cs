@@ -16,7 +16,7 @@ namespace Client.Networking
             Task data = new Program().GetData();
             await data;
         }*/
-        private string URI = "http://localhost:5000";
+        private string URI = "http://localhost:8080";
 
 
         public async Task<IList<Place>> GetPlacesAsync()
