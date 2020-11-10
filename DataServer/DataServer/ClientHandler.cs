@@ -10,7 +10,6 @@ namespace DataServer
     class ClientHandler
     {
         private TcpClient client;
-        private List<Place> places;
         private Model model;
 
         private StreamWriter writer;
@@ -27,17 +26,6 @@ namespace DataServer
             writer = new StreamWriter(stream, Encoding.ASCII) { AutoFlush = true };
             reader = new StreamReader(stream, Encoding.ASCII);
 
-            Place place = new Place()
-            {
-                Longitude = 1,
-                Latitude = 2,
-                Title = "Title",
-                Description = "Description",
-                Id = 1
-
-            };
-            places = new List<Place>();
-            places.Add(place);
         }
 
         public void Start()

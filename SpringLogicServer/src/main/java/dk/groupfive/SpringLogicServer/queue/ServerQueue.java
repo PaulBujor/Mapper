@@ -69,7 +69,7 @@ public class ServerQueue implements Model {
     public void addPlace(Place place) {
         PlaceTask task = new PlaceTask("addPlace", place);
         try {
-            channel.basicPublish("", QUEUE_NAME, null, gson.toJson(task).getBytes());
+            channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ public class ServerQueue implements Model {
     public void updatePlace(Place place) {
         PlaceTask task = new PlaceTask("updatePlace", place);
         try {
-            channel.basicPublish("", QUEUE_NAME, null, gson.toJson(task).getBytes());
+            channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,7 +89,7 @@ public class ServerQueue implements Model {
     public void deletePlace(long id) {
         PlaceTask task = new PlaceTask("deletePlace", id);
         try {
-            channel.basicPublish("", QUEUE_NAME, null, gson.toJson(task).getBytes());
+            channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

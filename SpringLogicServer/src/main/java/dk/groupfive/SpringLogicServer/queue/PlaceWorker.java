@@ -49,7 +49,7 @@ public class PlaceWorker {
     }
 
     public void processTask(PlaceTask task) throws Exception {
-        switch (task.getTaskName()){
+        switch (task.getTaskName()) {
             case "addPlace":
                 addPlace(task.getPlace());
                 break;

@@ -21,11 +21,17 @@ namespace Client.Networking
 
         public async Task<IList<Place>> GetPlacesAsync()
         {
-            HttpClient client = new HttpClient();
-            Task<string> stringAsync = client.GetStringAsync(URI + "/places");
-            string message = await stringAsync;
-            List<Place> result = JsonSerializer.Deserialize<List<Place>>(message);
-            return result;
+            try
+            {
+                HttpClient client = new HttpClient();
+                string response = await client.GetStringAsync("http://localhost:8080/places");
+                List<Place> result = JsonSerializer.Deserialize<List<Place>>(response);
+                return result;
+            } catch (HttpRequestException e)
+			{
+				Console.WriteLine(e);
+			}
+            return null;
         }
 
         public async Task AddPlaceAsync(Place place)
