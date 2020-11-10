@@ -6,20 +6,20 @@ namespace DataServer
 {
 	public class Place
 	{
-		public double Longitude { get; set; }
-		public double Latitude { get; set; }
-		public string Title { get; set; }
-		public string Description { get; set; }
-		public long Id { get; set; }
+		public double longitude { get; set; }
+		public double latitude { get; set; }
+		public string title { get; set; }
+		public string description { get; set; }
+		public long id { get; set; }
 
 		public Place() { }
 
 		public Place(double longitude, double latitude, string title, string description)
 		{
-			Longitude = longitude;
-			Latitude = latitude;
-			Title = title;
-			Description = description;
+			this.longitude = longitude;
+			this.latitude = latitude;
+			this.title = title;
+			this.description = description;
 		}
 	}
 }

@@ -3,11 +3,11 @@ package dk.groupfive.SpringLogicServer.model.objects;
 import java.io.Serializable;
 
 public class Place implements Serializable {
-    private long Id;
-    private double Latitude;
-    private double Longitude;
-    private String Title;
-    private String Description;
+    private long id;
+    private double latitude;
+    private double longitude;
+    private String title;
+    private String description;
 
 
     public Place() {
@@ -15,68 +15,68 @@ public class Place implements Serializable {
     }
 
     public Place(long id, double latitude, double longitude, String title, String description) {
-        this.Id = id;
-        this.Latitude = latitude;
-        this.Longitude = longitude;
-        this.Title = title;
-        this.Description = description;
+        this.id = id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.title = title;
+        this.description = description;
     }
 
     public Place(double latitude, double longitude, String title, String description) {
-        this.Latitude = latitude;
-        this.Longitude = longitude;
-        this.Title = title;
-        this.Description = description;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.title = title;
+        this.description = description;
     }
 
     public long getId() {
-        return this.Id;
-    }
-
-    public double getLatitude() {
-        return this.Latitude;
-    }
-
-    public double getLongitude() {
-        return this.Longitude;
-    }
-
-    public String getTitle() {
-        return this.Title;
-    }
-
-    public String getDescription() {
-        return this.Description;
+        return id;
     }
 
     public void setId(long id) {
-        this.Id = id;
+        this.id = id;
+    }
+
+    public double getLatitude() {
+        return latitude;
     }
 
     public void setLatitude(double latitude) {
-        this.Latitude = latitude;
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 
     public void setLongitude(double longitude) {
-        this.Longitude = longitude;
+        this.longitude = longitude;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
-        this.Title = title;
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
-        this.Description = description;
+        this.description = description;
     }
 
     @Override
     public String toString() {
         return "Place{" +
-                "id=" + Id +
-                ", latitude=" + Latitude +
-                ", longitude=" + Longitude +
-                ", title='" + Title + '\'' +
-                ", description='" + Description + '\'' +
+                "id=" + id +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

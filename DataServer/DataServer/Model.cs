@@ -26,13 +26,13 @@ namespace DataServer
         public Place AddPlace(Place place)
         {
             places.Add(++key, place);
-            place.Id = key;
+            place.id = key;
             return place;
         }
 
         public void UpdatePlace(Place place)
         {
-            places[place.Id] = place;
+            places[place.id] = place;
         }
 
 

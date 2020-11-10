@@ -41,7 +41,7 @@ namespace Client.Data
 
         public async Task AddMarkerAsync(Place place)
         {
-            await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", place.Longitude, place.Latitude, place.Title, place.Description);
+            await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", place.longitude, place.latitude, place.title, place.description);
         }
 
 
