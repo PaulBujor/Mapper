@@ -16,7 +16,22 @@ namespace DataServer
         {
             key = 0;
             places = new Dictionary<long, Place>();
+
+            //for demo
+            InitPlace();
         }
+
+        private void InitPlace()
+		{
+            Place reitan = new Place()
+            {
+                title = "Reitan",
+                description = "Heaven",
+                longitude = 9.795995847440167,
+                latitude = 55.83663617092108
+            };
+            AddPlace(reitan);
+		}
 
         public List<Place> GetAllPlaces()
         {
