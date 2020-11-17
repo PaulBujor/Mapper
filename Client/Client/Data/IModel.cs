@@ -9,9 +9,11 @@ namespace Client.Data
 {
 	public abstract class IModel
 	{
-
 		public delegate void MapChange(Place place);
 		public MapChange OnNewPlace;
+
+		public delegate void MapLoaded();
+		public MapLoaded OnMapLoaded;
 
 		public abstract Task AddPlaceAsync(Place place);
 

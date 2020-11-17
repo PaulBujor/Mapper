@@ -2,6 +2,7 @@
 using Client.Models;
 using Client.Networking;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Client.Data
@@ -14,13 +15,16 @@ namespace Client.Data
 		public Model()
 		{
 			server = new ClientImp();
-			LoadPlaces();
+			var loaderThread = new Thread(LoadPlaces);
+			loaderThread.Name = "Init Place Loader";
+			loaderThread.Start();
 			server.listener.OnNewPlace += ReceivePlace;
 		}
 
 		private void LoadPlaces()
 		{
 			places = server.GetPlacesAsync().Result;
+			OnMapLoaded?.Invoke();
 		}
 
 		public override async Task AddPlaceAsync(Place place)

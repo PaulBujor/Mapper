@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Client.Models;
-
+using System.Threading;
 
 namespace Client.Data
 {
@@ -20,6 +20,8 @@ namespace Client.Data
         private double currentLongitude = 0;
         private double currentLatitude = 0;
 
+        private static bool dataReady = false;
+
         public Map(IJSRuntime jsRuntime, IModel model)
         {
             this.jsRuntime = jsRuntime;
@@ -27,6 +29,7 @@ namespace Client.Data
             addingMarkerMode = false;
 
             model.OnNewPlace += AddMarker;
+            model.OnMapLoaded += DataReady;
         }
 
         public async Task InitMapAsync()
@@ -35,11 +38,19 @@ namespace Client.Data
                 objRef = DotNetObjectReference.Create(this);
             await jsRuntime.InvokeVoidAsync("mapBoxFunctions.initMapBox", objRef);
 
+            while (!dataReady)
+                await Task.Delay(100);
+
             foreach (Place place in model.GetPlaces())
             {
                await AddMarkerAsync(place);
             }
         }
+
+        public void DataReady()
+		{
+            dataReady = true;
+		}
 
         public async Task AddMarkerAsync(Place place)
         {
