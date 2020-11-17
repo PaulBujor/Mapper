@@ -1,4 +1,7 @@
 package dk.groupfive.ModeratorServer.controllers;
 
-public class ModeratorController {
+import dk.groupfive.ModeratorServer.network.ModeratorNetwork;
+
+public class ModeratorController implements ModeratorNetwork { //todo interface
+
 }
