@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataServer.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
@@ -32,6 +33,8 @@ namespace DataServer
         {
             clientConnected = true;
             string request = null;
+
+            //todo security protocol for connetion
 
             // Loop to receive all the data sent by the client.
             do
@@ -73,6 +76,18 @@ namespace DataServer
                 case "deletePlace":
                     DeletePlace();
                     break;
+                case "getAllReports":
+                    GetAllReports();
+                    break;
+                case "removeReview":
+                    break;
+                case "banUser":
+                    break;
+                case "unbanUser":
+                    break;
+                case "authenticateUser":
+                    AuthenticateUser();
+                    break;
                 default:
                     Console.WriteLine("Default was called");
                     break;
@@ -112,6 +127,16 @@ namespace DataServer
             model.DeletePlace(receive);
         }
 
+        public void GetAllReports()
+		{
+            writer.WriteLine(JsonSerializer.Serialize(model.GetAllPlaces()));
+		}
 
+        public void AuthenticateUser()
+		{
+            string receive = reader.ReadLine();
+            User user = JsonSerializer.Deserialize<User>(receive);
+            writer.WriteLine(model.AuthroizeUser(user));
+		}
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataServer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,14 @@ namespace DataServer
     {
 
         private Dictionary<long, Place> places;
+        private Dictionary<String, User> users;
         private int key;
 
         public Model()
         {
             key = 0;
             places = new Dictionary<long, Place>();
+            users = new Dictionary<string, User>();
 
             //for demo
             InitPlace();
@@ -56,7 +59,13 @@ namespace DataServer
             places.Remove(id);
         }
 
-
-
-    }
+		internal bool AuthroizeUser(User user)
+		{
+            User check = null;
+            if (users.TryGetValue(user.username, out check))
+                return check.auth >= 2;
+            else
+                return false;
+		}
+	}
 }
