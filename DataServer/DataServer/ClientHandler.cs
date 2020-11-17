@@ -33,6 +33,8 @@ namespace DataServer
             clientConnected = true;
             string request = null;
 
+            //todo security protocol for connetion
+
             // Loop to receive all the data sent by the client.
             do
             {
@@ -73,6 +75,15 @@ namespace DataServer
                 case "deletePlace":
                     DeletePlace();
                     break;
+                case "getAllReports":
+                    GetAllReports();
+                    break;
+                case "removeReview":
+                    break;
+                case "banUser":
+                    break;
+                case "unbanUser":
+                    break;
                 default:
                     Console.WriteLine("Default was called");
                     break;
@@ -112,6 +123,9 @@ namespace DataServer
             model.DeletePlace(receive);
         }
 
-
+        public void GetAllReports()
+		{
+            writer.WriteLine(JsonSerializer.Serialize(model.GetAllPlaces()));
+		}
     }
 }
