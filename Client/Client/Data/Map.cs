@@ -43,12 +43,12 @@ namespace Client.Data
 
         public async Task AddMarkerAsync(Place place)
         {
-            await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", place.longitude, place.latitude, place.title, place.description);
+            await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", place.longitude, place.latitude, place.title, place.description, place.id);
         }
 
         public void AddMarker(Place place)
 		{
-            jsRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", place.longitude, place.latitude, place.title, place.description);
+            jsRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", place.longitude, place.latitude, place.title, place.description, place.id);
         }
 
         public void ChangeAddingMarkerMode()
@@ -92,6 +92,11 @@ namespace Client.Data
         {
             currentLatitude = latitude;
             currentLongitude = longitude;
+        }
+        [JSInvokable("ReportPlace")]
+        public void ReportPlace(long id)
+        {
+            Console.WriteLine(id);
         }
     }
 }

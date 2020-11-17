@@ -3,7 +3,12 @@ var _dotNetReference;
 var currentTemporaryMarker;
 
 
+
 window.mapBoxFunctions = {
+    reportPlace: function (placeId) {
+        _dotNetReference.invokeMethodAsync('ReportPlace', parseInt(placeId));
+
+    },
     initMapBox: function (dotNetReference) {
         mapboxgl.accessToken = 'pk.eyJ1IjoiZ2xhZDFvIiwiYSI6ImNraDBzZ2RzMDAxOXcycXJybjBlc2FoYzIifQ.6aVRcqBFu8dA_JC8yVsboA';
         _dotNetReference = dotNetReference;
@@ -21,12 +26,15 @@ window.mapBoxFunctions = {
         });
     },
 
-    addMarker: function (longitude, latitude, placeTitle, placeDescription) {
+    addMarker: function (longitude, latitude, placeTitle, placeDescription, placeId) {
 
-        var popup = new mapboxgl.Popup({ offset: 25 }).setText(
-            "Title:\n" + placeTitle + "\nDescription:\n" + placeDescription
+        var buttonReportHTML = "<button type='button' onclick='mapBoxFunctions.reportPlace(document.getElementById(\"placeId\").innerHTML)' class='btn btn-outline-danger btn-sm' style='position: absolute; right: 0; bottom: 0; margin: 5px;'> Report </button>";
+        var buttonDetailsHTML = "<button type='button' class='btn btn-outline-info btn-sm' style='position: absolute; left: 0; bottom: 0; margin: 5px;'> Comment & Review </button>";
+
+        var popup = new mapboxgl.Popup({ className: "popup-marker" }).setHTML(
+            "<div><h5>" + placeTitle + "</h5>" + "<a id= 'placeId' style = 'display: none;'>" + placeId + "</a>" + "<h6>Category</h6>" + "</div></br><div><a>" + placeDescription + "</a></div>" + buttonReportHTML + buttonDetailsHTML
         );
-
+        
         // create DOM element for the marker -- add styling to marker el.id or el.className
         var el = document.createElement('div');
         el.id = 'marker';
@@ -35,6 +43,8 @@ window.mapBoxFunctions = {
             .setLngLat([longitude, latitude])
             .setPopup(popup)
             .addTo(map);
+
+        
     },
 
     setTemporaryMarker: function (longitude, latitude) {
@@ -52,9 +62,6 @@ window.mapBoxFunctions = {
 
     removeTemporaryMarker: function () {
         currentTemporaryMarker.remove();
-    },
-
-
-
+    }
 
 }

@@ -228,3 +228,26 @@ app {
         transition: background-color 500ms linear;
     }
 
+.popup-marker .mapboxgl-popup-content {
+    min-height: 200px;
+    min-width: 500px;
+}
+
+.popup-marker h5 {
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+.popup-marker h6 {
+    color: darkgray;
+    font-style: italic;
+    word-wrap: break-word;
+}
+
+.popup-marker button {
+    
+}
+
+
+
+
