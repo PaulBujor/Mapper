@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataServer.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
@@ -84,6 +85,9 @@ namespace DataServer
                     break;
                 case "unbanUser":
                     break;
+                case "authenticateUser":
+                    AuthenticateUser();
+                    break;
                 default:
                     Console.WriteLine("Default was called");
                     break;
@@ -126,6 +130,13 @@ namespace DataServer
         public void GetAllReports()
 		{
             writer.WriteLine(JsonSerializer.Serialize(model.GetAllPlaces()));
+		}
+
+        public void AuthenticateUser()
+		{
+            string receive = reader.ReadLine();
+            User user = JsonSerializer.Deserialize<User>(receive);
+            writer.WriteLine(model.AuthroizeUser(user));
 		}
     }
 }

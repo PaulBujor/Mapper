@@ -5,7 +5,7 @@ import dk.groupfive.ModeratorServer.model.objects.Review;
 import dk.groupfive.ModeratorServer.model.objects.User;
 
 public interface Server {
-    boolean authenticateUser(User user);
+    boolean authenticateUser(User user) throws Exception;
 
     void removePlace(Place place);
 
