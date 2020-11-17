@@ -1,0 +1,24 @@
+@page "/register"
+
+
+
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h3>Register</h3>
+<AuthorizeView>
+    <Authorized>
+    <p> level 1 test</p>
+    </Authorized>
+    <NotAuthorized>test</NotAuthorized>
+</AuthorizeView>
+<AuthorizeView Policy="Moderator">
+    <p>level 2 test</p>
+  
+</AuthorizeView>
+
+
+
+@code {
+    
+}

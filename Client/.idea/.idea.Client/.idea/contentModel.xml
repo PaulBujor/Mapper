@@ -12,20 +12,26 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Client.csproj" t="IncludeRecursive" />
         <e p="Data" t="Include">
+          <e p="Authentication" t="Include">
+            <e p="CustomAuthenticationStateProvider.cs" t="Include" />
+          </e>
           <e p="IMap.cs" t="Include" />
           <e p="IModel.cs" t="Include" />
           <e p="Map.cs" t="Include" />
           <e p="Model.cs" t="Include" />
           <e p="Networking" t="Include">
+            <e p="AuthClient.cs" t="Include" />
             <e p="ClientImp.cs" t="Include" />
             <e p="IServer.cs" t="Include" />
-            <e p="RESTClient.cs" t="Include" />
+            <e p="PlaceClient.cs" t="Include" />
             <e p="UDPListener.cs" t="Include" />
           </e>
         </e>
         <e p="Models" t="Include">
           <e p="Place.cs" t="Include" />
           <e p="PlaceData.cs" t="Include" />
+          <e p="PlaceTask.cs" t="Include" />
+          <e p="User.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -41,6 +47,8 @@
           <e p="Error.cshtml" t="Include" />
           <e p="FetchData.razor" t="Include" />
           <e p="Index.razor" t="Include" />
+          <e p="Login.razor" t="Include" />
+          <e p="Register.razor" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">

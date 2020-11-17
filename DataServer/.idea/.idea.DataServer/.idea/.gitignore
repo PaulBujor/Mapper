@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.DataServer.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../../../:\MOKSLAI\3rd Semester\SEP3\DataServer\.idea\.idea.DataServer\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

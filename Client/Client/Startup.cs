@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Client.Data;
+using Client.Data.Authentication;
+using Client.Data.Networking;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Client
 {
@@ -30,6 +33,25 @@ namespace Client
 			services.AddServerSideBlazor();
 			services.AddSingleton<IModel, Model>();
 			services.AddScoped<IMap, Map>();
+			services.AddScoped<AuthClient>();
+			services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy("Banned", a => a.RequireAuthenticatedUser().RequireClaim("Level", "0"));
+			});
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy("User", a => a.RequireAuthenticatedUser().RequireClaim("Level", "1"));
+			});
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy("Moderator", a => a.RequireAuthenticatedUser().RequireClaim("Level", "2"));
+			});
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy("Admin", a => a.RequireAuthenticatedUser().RequireClaim("Level", "3"));
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

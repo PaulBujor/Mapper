@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Client.Networking
 {
-	class RESTClient : IServer
+	class PlaceClient : IServer
 	{
 		/*
         static async Task Main(string[] args)

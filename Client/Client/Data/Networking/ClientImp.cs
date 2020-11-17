@@ -11,15 +11,15 @@ namespace Client.Data.Networking
 {
 	public class ClientImp : IServer
 	{
-		private RESTClient rest;
+		private PlaceClient _place;
 		public UDPListener listener;
 
 		public ClientImp ()
 		{
-			rest = new RESTClient();
+			_place = new PlaceClient();
 			listener = new UDPListener();
 
-			var subscriberThread = new Thread(rest.Subscribe);
+			var subscriberThread = new Thread(_place.Subscribe);
 			subscriberThread.Name = "Subscriber";
 			subscriberThread.Start();
 
@@ -31,12 +31,12 @@ namespace Client.Data.Networking
 
 		public async Task AddPlaceAsync(Place place)
 		{
-			await rest.AddPlaceAsync(place);
+			await _place.AddPlaceAsync(place);
 		}
 
 		public async Task<IList<Place>> GetPlacesAsync()
 		{
-			return await rest.GetPlacesAsync();
+			return await _place.GetPlacesAsync();
 		}
 
 		public UDPDelegate GetDelegate(string delegateName)
