@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataServer
+namespace DataServer.Models
 {
 	public class Place
 	{

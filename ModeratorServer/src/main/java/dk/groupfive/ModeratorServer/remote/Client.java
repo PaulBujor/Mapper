@@ -27,13 +27,21 @@ public class Client implements Server {
     }
 
     @Override
-    public boolean authenticateUser(User user) {
-        return false;
+    public boolean authenticateUser(User user) throws Exception {
+        out.println("authenticateUser");
+        out.println(gson.toJson(user));
+        try {
+            return Boolean.parseBoolean(in.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("User not authorized");
+        }
     }
 
     @Override
     public void removePlace(Place place) {
-
+        out.println("deletePlace");
+        out.println(place.getId());
     }
 
     @Override
