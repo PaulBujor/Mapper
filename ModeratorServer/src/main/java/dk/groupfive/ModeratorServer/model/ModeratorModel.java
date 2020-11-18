@@ -1,7 +1,10 @@
 package dk.groupfive.ModeratorServer.model;
 
 import dk.groupfive.ModeratorServer.local.Cache;
+import dk.groupfive.ModeratorServer.model.objects.Place;
 import dk.groupfive.ModeratorServer.model.objects.Report;
+import dk.groupfive.ModeratorServer.model.objects.Review;
+import dk.groupfive.ModeratorServer.model.objects.User;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,10 +50,30 @@ public class ModeratorModel implements Model{
     // OR
     // removing -> moves/adds to another table so that data is nor removed, but made unavailable
     @Override
-    public void resolveReport(String action, String id) {
+    public void resolveReport(String action, long id) {
         switch (action) {
             default:
                 System.out.println("Action not implemented!");
         }
+    }
+
+    @Override
+    public List<Report<Review>> getReviewReports() {
+        return cache.getReviewReports();
+    }
+
+    @Override
+    public List<Report<Place>> getPlaceReports() {
+        return cache.getPlaceReports();
+    }
+
+    @Override
+    public void banUser(User user) {
+
+    }
+
+    @Override
+    public void unbanUser(User user) {
+
     }
 }

@@ -1,18 +1,18 @@
 package dk.groupfive.ModeratorServer.model.objects;
 
-        public class User {
-            private String username;
-            private String password;
-            private int auth;
-            //0 banned
-            //1 regular user
-            //2 moderator
-            //3 admin
+public class User {
+    private String username;
+    private String password;
+    private int auth;
+    //0 banned
+    //1 regular user
+    //2 moderator
+    //3 admin
 
-            public User(String username, int auth) {
-                this.username = username;
-                this.auth = auth;
-            }
+    public User(String username, int auth) {
+        this.username = username;
+        this.auth = auth;
+    }
 
     public String getUsername() {
         return username;

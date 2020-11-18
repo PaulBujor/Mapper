@@ -4,6 +4,7 @@ import dk.groupfive.ModeratorServer.model.objects.Place;
 import dk.groupfive.ModeratorServer.model.objects.Report;
 import dk.groupfive.ModeratorServer.model.objects.Review;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,5 +28,23 @@ public class Cache {
 
     public Report getReport(long id) {
         return reports.get(id);
+    }
+
+    public List<Report<Review>> getReviewReports() {
+        List<Report<Review>> reviewReports = new ArrayList<>();
+        for(Report report : reports.values()) {
+            if (report.getReportedClass().equals("Review"))
+                reviewReports.add((Report<Review>) report);
+        }
+        return reviewReports;
+    }
+
+    public List<Report<Place>> getPlaceReports() {
+        List<Report<Place>> placeReports = new ArrayList<>();
+        for(Report report : reports.values()) {
+            if (report.getReportedClass().equals("Place"))
+                placeReports.add((Report<Place>) report);
+        }
+        return placeReports;
     }
 }

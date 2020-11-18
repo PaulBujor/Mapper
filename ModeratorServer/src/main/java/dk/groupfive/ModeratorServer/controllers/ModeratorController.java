@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 public class ModeratorController implements ModeratorNetwork { //todo interface
     private Model model;
-    private Server server;
 
     @Autowired
     public ModeratorController() {
