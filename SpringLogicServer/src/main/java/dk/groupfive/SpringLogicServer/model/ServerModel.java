@@ -3,6 +3,7 @@ package dk.groupfive.SpringLogicServer.model;
 import dk.groupfive.SpringLogicServer.broadcast.Broadcaster;
 import dk.groupfive.SpringLogicServer.local.Cache;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
+import dk.groupfive.SpringLogicServer.model.objects.User;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 import dk.groupfive.SpringLogicServer.queue.PlaceWorker;
 import dk.groupfive.SpringLogicServer.remote.Server;
@@ -87,4 +88,6 @@ public class ServerModel implements Model {
     public void subscribe(String ip) {
         broadcaster.subscribe(ip);
     }
+
+
 }

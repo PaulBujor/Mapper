@@ -23,13 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c2c289a-efa5-4970-a296-cbcbccfe7bc3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Client/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Client/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Data/Authentication/CustomAuthenticationStateProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Data/Authentication/CustomAuthenticationStateProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Data/Networking/PlaceClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Data/Networking/PlaceClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Pages/Login.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Pages/Login.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Shared/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Shared/NavMenu.razor" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +50,9 @@
         <option value="$PROJECT_DIR$/Client/Pages/Login.razor" />
         <option value="$PROJECT_DIR$/Client/Shared/NavMenu.razor" />
         <option value="$PROJECT_DIR$/Client/Data/Authentication/Encryptor.cs" />
-        <option value="$PROJECT_DIR$/Client/Data/Networking/PlaceClient.cs" />
-        <option value="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" />
         <option value="$PROJECT_DIR$/Client/Data/Authentication/CustomAuthenticationStateProvider.cs" />
+        <option value="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" />
+        <option value="$PROJECT_DIR$/Client/Data/Networking/PlaceClient.cs" />
       </list>
     </option>
   </component>
@@ -116,7 +110,7 @@
       <updated>1604749582425</updated>
       <workItem from="1604749590609" duration="1870000" />
       <workItem from="1604761181903" duration="312000" />
-      <workItem from="1605656043548" duration="9927000" />
+      <workItem from="1605656043548" duration="15551000" />
     </task>
     <servers />
   </component>

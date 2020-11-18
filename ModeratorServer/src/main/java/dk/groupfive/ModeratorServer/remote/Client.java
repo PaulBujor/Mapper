@@ -12,12 +12,12 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Client implements Server {
-    final String HOST = "localhost";
-    final int PORT = 6969;
-    private Socket socket;
-    private PrintWriter out;
-    private BufferedReader in;
-    private Gson gson;
+        final String HOST = "localhost";
+        final int PORT = 6969;
+        private Socket socket;
+        private PrintWriter out;
+        private BufferedReader in;
+        private Gson gson;
 
     public Client() throws IOException {
         socket = new Socket(HOST, PORT);
@@ -50,12 +50,14 @@ public class Client implements Server {
     }
 
     @Override
-    public void banUser(User user) {
+    public User banUser(User user) {
 
+        return user;
     }
 
     @Override
-    public void unbanUser(User user) {
+    public User unbanUser(User user) {
 
+        return user;
     }
 }

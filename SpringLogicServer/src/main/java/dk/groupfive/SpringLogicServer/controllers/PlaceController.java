@@ -32,26 +32,13 @@ public class PlaceController implements PlaceNetwork {
     }
 
 
-/*  com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot construct instance of `dk.groupfive.SpringLogicServer.model.objects.Place` (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
-  at [Source: (PushbackInputStream); line: 1, column: 2]*/
 
-
-    /*@RequestMapping(value = "/places", method = RequestMethod.POST)*//*
-  @PostMapping(value = "/testing", consumes = "application/json",produces = "application/json")*/
     @PostMapping(value = "/places")
     @ResponseStatus(HttpStatus.CREATED)
     //todo make this respond with just OK instead of returning place, place will be returned by another service
     public void addPlace(@RequestBody Place place) {
         model.addPlace(place);
-   /* try
-    {
-      return placeNetwork.addPlace(place);
-    }
-    catch (RuntimeException e)
-    {
-      e.printStackTrace();
-      throw e;
-    }*/
+
     }
 
     @PatchMapping("{id}")
