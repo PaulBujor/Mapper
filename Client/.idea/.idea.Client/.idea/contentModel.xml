@@ -14,6 +14,7 @@
         <e p="Data" t="Include">
           <e p="Authentication" t="Include">
             <e p="CustomAuthenticationStateProvider.cs" t="Include" />
+            <e p="Encryptor.cs" t="Include" />
           </e>
           <e p="IMap.cs" t="Include" />
           <e p="IModel.cs" t="Include" />
