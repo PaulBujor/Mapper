@@ -13,7 +13,7 @@ public class ModeratorModel implements Model{
     private static volatile ModeratorModel instance;
     private final static Object lock = new Object();
 
-    private Cache cache;
+    private final Cache cache;
 
     private ModeratorModel() throws IOException {
         cache = new Cache();
