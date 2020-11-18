@@ -4,6 +4,8 @@ import dk.groupfive.ModeratorServer.model.objects.Place;
 import dk.groupfive.ModeratorServer.model.objects.Review;
 import dk.groupfive.ModeratorServer.model.objects.User;
 
+import java.util.Collection;
+
 public interface Server {
     boolean authenticateUser(User user) throws Exception;
 
@@ -11,7 +13,13 @@ public interface Server {
 
     void removeReview(Review review);
 
-    void banUser(User user);
+    User banUser(User user);
 
-    void unbanUser(User user);
+    User unbanUser(User user);
+
+    Collection<Review> getAllReviews();
+
+    Collection<User> getAllUsers();
+
+    User removeUser(User user);
 }
