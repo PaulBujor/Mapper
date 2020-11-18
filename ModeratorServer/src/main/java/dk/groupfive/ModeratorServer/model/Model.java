@@ -1,4 +1,6 @@
 package dk.groupfive.ModeratorServer.model;
 
-public interface Model {
+import dk.groupfive.ModeratorServer.network.ModeratorNetwork;
+
+public interface Model extends ModeratorNetwork {
 }
