@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace DataServer
 {
-    class ClientHandler
+    class ClientHandler : IHandler
     {
         private TcpClient client;
         private Model model;
@@ -57,7 +57,7 @@ namespace DataServer
             client.Close();
         }
 
-        public void ProcessClientRequest(string request)
+        private void ProcessClientRequest(string request)
         {
             switch (request)
             {
@@ -73,18 +73,6 @@ namespace DataServer
                 case "updatePlace":
                     UpdatePlace();
                     break;
-                case "deletePlace":
-                    DeletePlace();
-                    break;
-                case "getAllReports":
-                    GetAllReports();
-                    break;
-                case "removeReview":
-                    break;
-                case "banUser":
-                    break;
-                case "unbanUser":
-                    break;
                 case "authenticateUser":
                     AuthenticateUser();
                     break;
@@ -95,14 +83,14 @@ namespace DataServer
             }
         }
 
-        public void SendAllPlaces()
+        private void SendAllPlaces()
         {
             string placeJson;
             placeJson = JsonSerializer.Serialize(model.GetAllPlaces());
             writer.WriteLine(placeJson);
         }
 
-        public void AddPlace()
+        private void AddPlace()
         {
             string receive;
             receive = reader.ReadLine();
@@ -112,7 +100,7 @@ namespace DataServer
             writer.WriteLine(placeJson);
         }
 
-        public void UpdatePlace()
+        private void UpdatePlace()
         {
             string receive;
             receive = reader.ReadLine();
@@ -121,18 +109,7 @@ namespace DataServer
             model.UpdatePlace(place);
         }
 
-        public void DeletePlace()
-        {
-            long receive = long.Parse(reader.ReadLine());
-            model.DeletePlace(receive);
-        }
-
-        public void GetAllReports()
-		{
-            writer.WriteLine(JsonSerializer.Serialize(model.GetAllPlaces()));
-		}
-
-        public void AuthenticateUser()
+        private void AuthenticateUser()
 		{
             string receive = reader.ReadLine();
             User user = JsonSerializer.Deserialize<User>(receive);

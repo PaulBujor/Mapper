@@ -13,7 +13,7 @@ import java.net.Socket;
 
 public class Client implements Server {
         final String HOST = "localhost";
-        final int PORT = 6969;
+        final int PORT = 7010; //moderator port
         private Socket socket;
         private PrintWriter out;
         private BufferedReader in;
@@ -39,25 +39,26 @@ public class Client implements Server {
     }
 
     @Override
-    public void removePlace(Place place) {
-        out.println("deletePlace");
-        out.println(place.getId());
+    public void removePlace(long placeId) {
+        out.println("removePlace");
+        out.println(placeId);
     }
 
     @Override
-    public void removeReview(Review review) {
-
+    public void removeReview(long reviewId) {
+        out.println("removeReview");
+        out.println(reviewId);
     }
 
     @Override
-    public User banUser(User user) {
-
-        return user;
+    public void banUser(long userId) {
+        out.println("banUser");
+        out.println(userId);
     }
 
     @Override
-    public User unbanUser(User user) {
-
-        return user;
+    public void unbanUser(long userId) {
+        out.println("unbanUser");
+        out.println(userId);
     }
 }

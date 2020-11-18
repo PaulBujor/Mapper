@@ -9,14 +9,12 @@ import java.util.Collection;
 public interface Server {
     boolean authenticateUser(User user) throws Exception;
 
-//    void removePlace(Place place);
-//
-//    void removeReview(Review review);
-//
-//
-//    Collection<Review> getAllReviews();
-//
-//    Collection<User> getAllUsers();
-//
-//    User removeUser(User user);
+    //using just id to save some bandwidth
+    void removePlace(long placeId);
+
+    void removeReview(long reviewId);
+
+    void banUser(long userId);
+
+    void unbanUser(long userId);
 }

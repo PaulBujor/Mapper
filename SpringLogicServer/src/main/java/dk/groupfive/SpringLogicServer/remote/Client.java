@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Client implements Server {
     final String HOST = "localhost";
-    final int PORT = 6969;
+    final int PORT = 7000;
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
