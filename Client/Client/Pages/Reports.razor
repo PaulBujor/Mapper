@@ -1,5 +1,22 @@
-﻿<h3>Reports</h3>
+﻿@page "/reports"
+@attribute [Authorize(Policy = "Moderator")]
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+<h3>Reports</h3>
 
 @code {
+    [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        base.OnInitializedAsync();
+        var user = (await AuthStat).User;
+        if (!user.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo($"/login");
+        }
+    }
 
 }

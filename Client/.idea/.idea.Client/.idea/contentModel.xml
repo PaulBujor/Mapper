@@ -29,6 +29,7 @@
           </e>
         </e>
         <e p="Models" t="Include">
+          <e p="LoginMessage.cs" t="Include" />
           <e p="Place.cs" t="Include" />
           <e p="PlaceData.cs" t="Include" />
           <e p="PlaceTask.cs" t="Include" />
@@ -50,6 +51,7 @@
           <e p="Index.razor" t="Include" />
           <e p="Login.razor" t="Include" />
           <e p="Register.razor" t="Include" />
+          <e p="Reports.razor" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">

@@ -21,13 +21,16 @@ namespace Client.Data.Networking
         public async  Task<User> ValidateUser(string username, string password)
         {
 
-            /*try
+            /*Console.WriteLine("test");
+            try
             {
                 
                 HttpClient client = new HttpClient();
                 string serialized = JsonSerializer.Serialize(PackMessage(username,_encryptor.Encrypt(password)));
+                
                 StringContent content = new StringContent(serialized, Encoding.UTF8, "application/json");
-                HttpResponseMessage responseMessage = await client.PostAsync(URI + "/Auth", content);
+                Console.WriteLine(content);
+                HttpResponseMessage responseMessage = await client.PostAsync(URI + "/auth", content);
                 Console.WriteLine(responseMessage);
 
             }
@@ -35,6 +38,11 @@ namespace Client.Data.Networking
             {
                 Console.WriteLine(e);
             }*/
+
+            /*
+            LoginMessage loginMessage = PackMessage(username, _encryptor.Encrypt(password));
+            Console.WriteLine("test");
+            Console.WriteLine(loginMessage.password.ToString());*/
             
             
             if (username.Equals("test1") && password.Equals("test"))
@@ -49,12 +57,10 @@ namespace Client.Data.Networking
             return null;
         }
 
-         public List<string> PackMessage(string username, string password)
+         public LoginMessage PackMessage(string username, string password)
         {
-            List<string> message = new List<string>();
-            message.Add(username);
-            message.Add(password);
-            return message;
+            LoginMessage loginMessage = new LoginMessage{username= username,password=password};
+            return loginMessage;
         }
     }
 }
