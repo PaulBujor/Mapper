@@ -13,7 +13,7 @@
 
 		<li class="nav-item px-3">
 			<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-				<span class="oi oi-map" aria-hidden="true"></span> Map
+				<span class="oi oi-globe" aria-hidden="true"></span> Map
 			</NavLink>
 		</li>
 
@@ -21,13 +21,13 @@
 			<NotAuthorized>
 				<li class="nav-item px-3">
 					<NavLink class="nav-link" href="login">
-						<span class="oi oi-list-rich" aria-hidden="true"></span>Login
+						<span class="oi oi-account-login" aria-hidden="true"></span>Login
 					</NavLink>
 				</li>
 
 				<li class="nav-item px-3">
 					<NavLink class="nav-link" href="register">
-						<span class="oi oi-list-rich" aria-hidden="true"></span>Register
+						<span class="oi oi-key" aria-hidden="true"></span>Register
 					</NavLink>
 				</li>
 			</NotAuthorized>
@@ -44,85 +44,14 @@
 		<AuthorizeView>
 			<Authorized>
 				<li class="nav-item px-3">
-					<NavLink class="nav-link" href="/" @onclick="PerformLogout">
-						<span class="oi oi-list-rich" aria-hidden="true"></span>Log out
+					<NavLink class="nav-link logout" href="/" @onclick="PerformLogout">
+						<span class="oi oi-account-logout" aria-hidden="true"></span>Log out
 					</NavLink>
 				</li>
 			</Authorized>
 		</AuthorizeView>
-
-		<!--
-		<li class="nav-item px-3">
-			<NavLink class="nav-link" href="/reports">
-				<span class="oi oi-list-rich" aria-hidden="true"></span>Reports
-			</NavLink>
-		</li>
-		-->
-		<!--
-		<li class="nav-item px-3">
-			<NavLink class="nav-link" href="counter">
-				<span class="oi oi-plus" aria-hidden="true"></span> Counter
-			</NavLink>
-		</li>
-		<li class="nav-item px-3">
-			<NavLink class="nav-link" href="fetchdata">
-				<span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-			</NavLink>
-		</li>
-		-->
 	</ul>
 </div>
-
-<!--
-<AuthorizeView>
-	<NotAuthorized>
-		<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-			<ul class="nav flex-column">
-				<li class="nav-item px-3">
-					<NavLink class="nav-link" href="login">
-						<span class="oi oi-list-rich" aria-hidden="true"></span>Login
-					</NavLink>
-				</li>
-			</ul>
-		</div>
-		<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-			<ul class="nav flex-column">
-				<li class="nav-item px-3">
-					<NavLink class="nav-link" href="register">
-						<span class="oi oi-list-rich" aria-hidden="true"></span>Register
-					</NavLink>
-				</li>
-			</ul>
-		</div>
-
-	</NotAuthorized>
-	<Authorized>
-		<div class="@NavMenuCssClass" @onclick="PerformLogout">
-			<ul class="nav flex-column">
-				<li class="nav-item px-3">
-					<NavLink class="nav-link" href="/">
-						<span class="oi oi-list-rich" aria-hidden="true"></span>Log out
-					</NavLink>
-				</li>
-			</ul>
-		</div>
-
-	</Authorized>
-</AuthorizeView>
-<AuthorizeView Policy="Moderator">
-	<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-		<ul class="nav flex-column">
-			<li class="nav-item px-3">
-				<NavLink class="nav-link" href="/reports">
-					<span class="oi oi-list-rich" aria-hidden="true"></span>Reports
-				</NavLink>
-			</li>
-		</ul>
-	</div>
-</AuthorizeView>
--->
-
-
 
 @code {
 

@@ -1,0 +1,48 @@
+﻿@using Client.Data.Authentication
+@using LoginComponent
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="pl-4 navbar navbar-dark">
+	<a class="navbar-brand" href="reports">Reports</a>
+	<button class="navbar-toggler" @onclick="ToggleReportNavMenu">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+</div>
+	<div class="@ReportNavMenuCssClass " @onclick="ToggleReportNavMenu">
+		<ul class="nav flex-column">
+
+			<li class="nav-item px-3">
+				<NavLink class="nav-link" href="placereports" Match="NavLinkMatch.All">
+					<span class="oi oi-map" aria-hidden="true"></span> Places
+				</NavLink>
+			</li>
+
+			<li class="nav-item px-3">
+				<NavLink class="nav-link" href="reviewreports">
+					<span class="oi oi-star" aria-hidden="true"></span>Reviews
+				</NavLink>
+			</li>
+
+			<li class="nav-item px-3">
+				<NavLink class="nav-link" href="userreports">
+					<span class="oi oi-person" aria-hidden="true"></span>Users
+				</NavLink>
+			</li>
+		</ul>
+	</div>
+
+
+@code {
+
+	private bool collapseNavMenu = true;
+
+	private string ReportNavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+	private void ToggleReportNavMenu()
+	{
+		collapseNavMenu = !collapseNavMenu;
+	}
+
+}

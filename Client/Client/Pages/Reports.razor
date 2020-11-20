@@ -1,22 +1,42 @@
 ﻿@page "/reports"
 @attribute [Authorize(Policy = "Moderator")]
 
+@inherits LayoutComponentBase
+
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
 
-<h3>Reports</h3>
+<div class="sidebar reports">
+	<ReportNavMenu />
+</div>
+
+<div class="main">
+	<div class="content px-4">
+		@Body
+	</div>
+</div>
 
 @code {
-    [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
+	[CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
 
-    protected async override Task OnInitializedAsync()
-    {
-        base.OnInitializedAsync();
-        var user = (await AuthStat).User;
-        if (!user.Identity.IsAuthenticated)
-        {
-            NavigationManager.NavigateTo($"/login");
-        }
-    }
+	private bool collapseNavMenu = true;
+
+	private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+
+	protected async override Task OnInitializedAsync()
+	{
+		base.OnInitializedAsync();
+		var user = (await AuthStat).User;
+		if (!user.Identity.IsAuthenticated)
+		{
+			NavigationManager.NavigateTo($"/login");
+		}
+	}
+	private void ToggleNavMenu()
+	{
+		collapseNavMenu = !collapseNavMenu;
+	}
+
 
 }

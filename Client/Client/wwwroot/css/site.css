@@ -32,7 +32,7 @@ app {
 
     .main .top-row {
         background-color: #f7f7f7;
-        border-bottom: 1px solid #d6d5d5;
+        /*border-bottom: 1px solid #d6d5d5;*/
         justify-content: flex-end;
     }
 
@@ -96,6 +96,10 @@ app {
                 background-color: rgba(255,255,255,0.1);
                 color: white;
             }
+
+.reports {
+    background-image: linear-gradient(180deg, rgb(39, 109, 103) 100%, #3a0647 100%);
+}
 
 .content {
     padding: 0 0 0 0 !important;
@@ -163,6 +167,10 @@ app {
         top: 0;
     }
 
+    .reports {
+        height: 94vh;
+    }
+
     .main .top-row {
         position: sticky;
         top: 0;
@@ -183,6 +191,10 @@ app {
     }
 }
 
+.logout {
+    background-color: #ff2222 !important;
+}
+
 #map {
     width: auto;
     height: 700px;
@@ -190,7 +202,7 @@ app {
 
 .map-overlay {
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    width: 200px;
+    /*width: 200px;*/
     top: 0;
     left: 0;
     padding: 10px;
