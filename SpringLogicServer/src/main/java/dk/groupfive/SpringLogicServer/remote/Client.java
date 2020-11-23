@@ -2,7 +2,9 @@ package dk.groupfive.SpringLogicServer.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import dk.groupfive.SpringLogicServer.model.objects.LoginMessage;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
+import dk.groupfive.SpringLogicServer.model.objects.User;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -64,5 +66,20 @@ public class Client implements Server {
     public void deletePlace(long id) {
         out.println("deletePlace");
         out.println(id);
+    }
+
+    @Override public User validate(LoginMessage loginMessage) throws IOException
+    {
+        out.println("authenticateUser");
+        String send = gson.toJson(loginMessage);
+        out.println(send);
+        String response = in.readLine();
+        User user = gson.fromJson(response,User.class);
+        return user;
+    }
+
+    @Override public void register()
+    {
+
     }
 }
