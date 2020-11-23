@@ -10,7 +10,7 @@ namespace Client.Data.Authentication
 
         public  string Encrypt(string password)
         {
-            SHA512 hashSvc = SHA512.Create();
+            SHA256 hashSvc = SHA256.Create();
 
             byte[] hash = hashSvc.ComputeHash(Encoding.UTF8.GetBytes(password));
 

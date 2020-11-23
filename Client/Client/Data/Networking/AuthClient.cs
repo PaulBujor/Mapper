@@ -4,46 +4,52 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Client.Data.Authentication;
 using Client.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Client.Data.Networking
 {
-    public class AuthClient
+    public class AuthClient : IAuth
     {
         private Encryptor _encryptor;
 
         private string URI = "http://127.0.0.1:8080";
 
+        public AuthClient()
+        {
+            this._encryptor = new Encryptor();
+        }
 
 
         public async  Task<User> ValidateUser(string username, string password)
         {
-
-            /*Console.WriteLine("test");
+            User user = new User();
             try
             {
-                
+                LoginMessage loginMessage = new LoginMessage{username = username,password = _encryptor.Encrypt(password)};
                 HttpClient client = new HttpClient();
-                string serialized = JsonSerializer.Serialize(PackMessage(username,_encryptor.Encrypt(password)));
+                string serialized = JsonSerializer.Serialize(loginMessage);
+                Console.WriteLine(serialized);
                 
                 StringContent content = new StringContent(serialized, Encoding.UTF8, "application/json");
-                Console.WriteLine(content);
                 HttpResponseMessage responseMessage = await client.PostAsync(URI + "/auth", content);
-                Console.WriteLine(responseMessage);
-
+          
+                var reponseContent = await responseMessage.Content.ReadAsStringAsync();
+                 user = JsonSerializer.Deserialize<User>(reponseContent);
+                Console.WriteLine("Testing returns:");
+                Console.WriteLine(user.username);
+                Console.WriteLine(user.password);
             }
             catch (HttpRequestException e)
             {
                 Console.WriteLine(e);
-            }*/
+            }
 
-            /*
-            LoginMessage loginMessage = PackMessage(username, _encryptor.Encrypt(password));
-            Console.WriteLine("test");
-            Console.WriteLine(loginMessage.password.ToString());*/
-            
+            return user;
+
             
             if (username.Equals("test1") && password.Equals("test"))
             {
@@ -57,10 +63,11 @@ namespace Client.Data.Networking
             return null;
         }
 
-         public LoginMessage PackMessage(string username, string password)
+        public Task<User> Register(User user)
         {
-            LoginMessage loginMessage = new LoginMessage{username= username,password=password};
-            return loginMessage;
+            throw new NotImplementedException();
         }
+
+     
     }
 }

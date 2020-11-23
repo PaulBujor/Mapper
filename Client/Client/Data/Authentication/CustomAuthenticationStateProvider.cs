@@ -15,14 +15,14 @@ namespace Client.Data.Authentication
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {
         private readonly IJSRuntime JsRuntime;
-        private readonly AuthClient AuthClient;
+        private readonly IAuth IAuth;
         private User cachedUser;
 
 
-        public CustomAuthenticationStateProvider(IJSRuntime jsRuntime, AuthClient authClient)
+        public CustomAuthenticationStateProvider(IJSRuntime jsRuntime, IAuth Iauth)
         {
             this.JsRuntime = jsRuntime;
-            this.AuthClient = authClient;
+            this.IAuth = Iauth;
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -56,7 +56,7 @@ namespace Client.Data.Authentication
 
             try
             {
-                User user = await AuthClient.ValidateUser(username,password);
+                User user = await IAuth.ValidateUser(username,password);
                 identity = SetupClaimsForUser(user);
                 string serialisedData = JsonSerializer.Serialize(user);
                 JsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);

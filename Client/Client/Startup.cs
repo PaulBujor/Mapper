@@ -33,7 +33,7 @@ namespace Client
 			services.AddServerSideBlazor();
 			services.AddSingleton<IModel, Model>();
 			services.AddScoped<IMap, Map>();
-			services.AddScoped<AuthClient>();
+			services.AddScoped<IAuth,AuthClient>();
 			services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
 			services.AddAuthorization(options =>

@@ -16,6 +16,7 @@
             <e p="CustomAuthenticationStateProvider.cs" t="Include" />
             <e p="Encryptor.cs" t="Include" />
           </e>
+          <e p="IAuth.cs" t="Include" />
           <e p="IMap.cs" t="Include" />
           <e p="IModel.cs" t="Include" />
           <e p="Map.cs" t="Include" />
@@ -60,6 +61,7 @@
         <e p="Shared" t="Include">
           <e p="MainLayout.razor" t="Include" />
           <e p="NavMenu.razor" t="Include" />
+          <e p="ReportNavMenu.razor" t="Include" />
           <e p="SurveyPrompt.razor" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />

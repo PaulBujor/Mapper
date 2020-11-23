@@ -9,6 +9,7 @@ import dk.groupfive.SpringLogicServer.remote.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -25,11 +26,16 @@ accountModel = ServerAccountModel.getInstance();
 
 
   @PostMapping(value = "/auth")
+  @ResponseBody
    public User validate(@RequestBody LoginMessage loginMessage)
   {
+    System.out.println("Test");
+    System.out.println(loginMessage.password);
+    System.out.println(loginMessage.username);
 
-       return accountModel.validate(loginMessage.username,loginMessage.password);
-       
+   return new User("tester","teest",2);
+       /*return accountModel.validate(loginMessage.username,loginMessage.password);*/
+
   }
 
   @PostMapping(value = "/reg")
