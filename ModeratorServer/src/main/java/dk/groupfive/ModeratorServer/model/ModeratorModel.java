@@ -113,7 +113,7 @@ public class ModeratorModel implements Model{
     }
 
     private void banUser(long reportId) {
-        
+
     }
 
     private void unbanUser(long reportId) {

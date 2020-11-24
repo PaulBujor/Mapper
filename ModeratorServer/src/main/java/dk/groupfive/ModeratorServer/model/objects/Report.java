@@ -1,15 +1,13 @@
 package dk.groupfive.ModeratorServer.model.objects;
 
-import dk.groupfive.ModeratorServer.model.Model;
-
 public class Report<T> {
-    private long reportID;
+    private long reportId;
     private T reportedItem;
     private String reportedClass;
+    private boolean resolved;
 
-    private String reportCategory;
-    private String reportName;
-    private String reportDescription;
+    private String category;
+    private String description;
 
     public Report(T reportedItem) {
         this.reportedItem = reportedItem;
@@ -24,19 +22,15 @@ public class Report<T> {
         return reportedClass;
     }
 
-    public long getReportID() {
-        return reportID;
+    public long getReportId() {
+        return reportId;
     }
 
-    public String getReportCategory() {
-        return reportCategory;
+    public String getCategory() {
+        return category;
     }
 
-    public String getReportName() {
-        return reportName;
-    }
-
-    public String getReportDescription() {
-        return reportDescription;
+    public String getDescription() {
+        return description;
     }
 }

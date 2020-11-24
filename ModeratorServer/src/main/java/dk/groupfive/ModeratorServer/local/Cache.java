@@ -19,7 +19,7 @@ public class Cache {
 
     public void loadReports(List<Report> reports) {
         for(Report<Place> report : reports) {
-            this.reports.put(report.getReportID(), report);
+            this.reports.put(report.getReportId(), report);
         }
     }
 
