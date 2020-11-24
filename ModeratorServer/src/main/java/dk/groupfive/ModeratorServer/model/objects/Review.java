@@ -1,6 +1,6 @@
 package dk.groupfive.ModeratorServer.model.objects;
 
-public class Review {
+public class Review implements IReview {
     private long id;
     private int rating;
     private String title;
