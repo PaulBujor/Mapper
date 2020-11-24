@@ -169,6 +169,7 @@ app {
 
     .reports {
         height: 94vh;
+        float: left;
     }
 
     .main .top-row {

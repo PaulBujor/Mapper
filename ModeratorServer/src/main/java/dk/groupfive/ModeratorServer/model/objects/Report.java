@@ -14,6 +14,22 @@ public class Report<T> {
         reportedClass = reportedItem.getClass().getName();
     }
 
+    public Report(T reportedItem, String category, String description) {
+        this.reportedItem = reportedItem;
+        reportedClass = reportedItem.getClass().getName();
+        this.category = category;
+        this.description = description;
+        resolved = false;
+    }
+
+    public void setResolved(boolean resolved) {
+        this.resolved = resolved;
+    }
+
+    public long getReportId() {
+        return reportId;
+    }
+
     public T getReportedItem() {
         return reportedItem;
     }
@@ -22,8 +38,8 @@ public class Report<T> {
         return reportedClass;
     }
 
-    public long getReportId() {
-        return reportId;
+    public boolean isResolved() {
+        return resolved;
     }
 
     public String getCategory() {

@@ -1,13 +1,6 @@
 package dk.groupfive.ModeratorServer.network;
 
-import dk.groupfive.ModeratorServer.model.objects.Place;
-import dk.groupfive.ModeratorServer.model.objects.Report;
-import dk.groupfive.ModeratorServer.model.objects.Review;
-import dk.groupfive.ModeratorServer.model.objects.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import dk.groupfive.ModeratorServer.model.objects.*;
 
 import java.util.List;
 
@@ -18,7 +11,7 @@ public interface ModeratorNetwork {
 
     List<Report<Place>> getPlaceReports();
 
-    List<Report<Review>> getReviewReports();
+    List<Report<ReviewItem>> getReviewReports();
 
     List<Report<User>> getUserReports();
 

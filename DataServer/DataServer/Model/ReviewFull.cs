@@ -5,9 +5,15 @@ using System.Text;
 
 namespace DataServer.Models
 {
-	class Review : IReview
+	class ReviewFull : IReview
 	{
 		public List<ReviewItem> reviews { get; set; }
+
+		public ReviewFull()
+		{
+			reviews = new List<ReviewItem>();
+		}
+
 		public double GetRating()
 		{
 			long score = 0;
