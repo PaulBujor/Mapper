@@ -25,4 +25,8 @@ public class ReviewItem {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public long getId() {
+        return id;
+    }
 }
