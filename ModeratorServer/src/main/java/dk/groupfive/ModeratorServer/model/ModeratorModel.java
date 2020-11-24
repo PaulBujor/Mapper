@@ -18,7 +18,7 @@ public class ModeratorModel implements Model{
     private ModeratorModel() throws IOException {
         cache = new Cache();
         server = new Client();
-        cache.loadReports(null);//todo load with reports from the server -- put in new thread that reloads every x amount of time
+        //cache.loadReports(null);//todo load with reports from the server -- put in new thread that reloads every x amount of time
     }
 
     public static Model getInstance() {
@@ -34,16 +34,6 @@ public class ModeratorModel implements Model{
             }
         }
         return instance;
-    }
-
-    @Override
-    public List<Report> getReports() {
-        return cache.getReports();
-    }
-
-    @Override
-    public Report getReport(long id) {
-        return cache.getReport(id);
     }
 
     @Override
@@ -97,33 +87,16 @@ public class ModeratorModel implements Model{
         }
     }
 
-    //todo change
+    //todo also resolve report on t3
     private void removePlace(long reportId) {
-        Report report = cache.getReport(reportId);
-        Place reportedPlace = (Place) report.getReportedItem();
-        report.setResolved(true);
-        server.removePlace(reportedPlace.getId());
     }
 
     private void removeReview(long reportId) {
-        Report report = cache.getReport(reportId);
-        ReviewItem reportedReview = (ReviewItem) report.getReportedItem();
-        report.setResolved(true);
-        server.removeReview(reportedReview.getId());
     }
 
     private void banUser(long reportId) {
-        Report report = cache.getReport(reportId);
-        User user = (User) report.getReportedItem();
-        report.setResolved(true);
-        server.banUser(user.getId());
     }
 
     private void unbanUser(long reportId) {
-        //todo might have to change this
-//        Report report = cache.getReport(reportId);
-//        User user = (User) report.getReportedItem();
-//        report.setResolved(true);
-//        server.unbanUser(user.getId());
     }
 }

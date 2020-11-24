@@ -164,5 +164,20 @@ namespace DataServer.Persistence
 		{
 			userReports[userReport.reportId] = userReport;
 		}
+
+		public async Task<Dictionary<long, Report<Place>>> GetPlaceReports()
+		{
+			return placeReports;
+		}
+
+		public async Task<Dictionary<long, Report<ReviewItem>>> GetReviewReports()
+		{
+			return reviewReports;
+		}
+
+		public async Task<Dictionary<long, Report<User>>> GetUserReports()
+		{
+			return userReports;
+		}
 	}
 }

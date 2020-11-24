@@ -61,17 +61,27 @@ namespace DataServer.Handlers
 		{
 			switch (request)
 			{
-				case "deletePlace":
-					DeletePlace();
+				case "getPlaceReports":
+					GetPlaceReports();
 					break;
-				case "getAllReports":
-					GetAllReports();
+				case "getReviewReports":
+					GetReviewReports();
+					break;
+				case "getUserReports":
+					GetUserReports();
+					break;
+
+				case "removePlace":
+					RemovePlace();
 					break;
 				case "removeReview":
+					RemoveReview();
 					break;
 				case "banUser":
+					BanUser();
 					break;
 				case "unbanUser":
+					UnbanUser();
 					break;
 				case "authorizeUser":
 					AuthorizeUser();
@@ -81,15 +91,45 @@ namespace DataServer.Handlers
 					break;
 			}
 		}
-		public void DeletePlace()
+
+		private void UnbanUser()
 		{
 			long receive = long.Parse(reader.ReadLine());
-			model.DeletePlace(receive);
+			model.UnbanUser(receive);
 		}
 
-		public void GetAllReports()
+		private void BanUser()
 		{
-			writer.WriteLine(JsonSerializer.Serialize(model.GetAllPlaces()));
+
+			long receive = long.Parse(reader.ReadLine());
+			model.BanUser(receive);
+		}
+
+		private void RemoveReview()
+		{
+			long receive = long.Parse(reader.ReadLine());
+			model.RemoveReview(receive);
+		}
+
+		public void RemovePlace()
+		{
+			long receive = long.Parse(reader.ReadLine());
+			model.RemovePlace(receive);
+		}
+
+		private void GetUserReports()
+		{
+			writer.WriteLine(JsonSerializer.Serialize(model.GetUserReports().Result));
+		}
+
+		private void GetReviewReports()
+		{
+			writer.WriteLine(JsonSerializer.Serialize(model.GetReviewReports().Result));
+		}
+
+		private void GetPlaceReports()
+		{
+			writer.WriteLine(JsonSerializer.Serialize(model.GetPlaceReports().Result));
 		}
 
 		private void AuthorizeUser()

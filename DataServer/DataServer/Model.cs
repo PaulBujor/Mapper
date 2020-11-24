@@ -1,71 +1,95 @@
 ﻿using DataServer.Models;
+using DataServer.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataServer
 {
-    //todo store places here, evt. will connect to database
-    class Model
-    {
+	//todo store places here, evt. will connect to database
+	class Model
+	{
+		private IPersistence cache;
 
-        private Dictionary<long, Place> places;
-        private Dictionary<String, User> users;
-        private int key;
-
-        public Model()
-        {
-            key = 0;
-            places = new Dictionary<long, Place>();
-            users = new Dictionary<string, User>();
-
-            //for demo
-            InitPlace();
-        }
-
-        private void InitPlace()
+		public Model()
 		{
-            Place reitan = new Place()
-            {
-                title = "Reitan",
-                description = "Heaven",
-                longitude = 9.795995847440167,
-                latitude = 55.83663617092108
-            };
-            AddPlace(reitan);
+			cache = new Cache();
+
+			//for demo
+			InitPlace();
 		}
 
-        public List<Place> GetAllPlaces()
-        {
-            return places.Values.ToList();
-        }
-
-        public Place AddPlace(Place place)
-        {
-            places.Add(++key, place);
-            place.id = key;
-            return place;
-        }
-
-        public void UpdatePlace(Place place)
-        {
-            places[place.id] = place;
-        }
-
-
-        public void DeletePlace(long id)
-        {
-            places.Remove(id);
-        }
-
-		internal bool AuthroizeUser(User user)
+		private void InitPlace()
 		{
-            User check = null;
-            if (users.TryGetValue(user.username, out check))
-                return check.auth >= 2;
-            else
-                return false;
+			Place reitan = new Place()
+			{
+				title = "Reitan",
+				description = "Heaven",
+				longitude = 9.795995847440167,
+				latitude = 55.83663617092108
+			};
+			AddPlace(reitan);
+		}
+
+		public List<Place> GetAllPlaces()
+		{
+			return cache.GetPlaces().Result;
+		}
+
+		public Place AddPlace(Place place)
+		{
+			cache.AddPlace(place);
+			Console.WriteLine("returned place id: " + place.id);
+			return place;
+		}
+
+		public void UpdatePlace(Place place)
+		{
+			cache.UpdatePlace(place);
+		}
+
+
+		public void RemovePlace(long id)
+		{
+			cache.RemovePlace(id);
+		}
+
+		public bool AuthroizeUser(User user)
+		{
+			User check = cache.GetUser(user.username, user.password).Result;
+			return check.auth >= 2;
+		}
+
+		public Task<Dictionary<long, Report<Place>>> GetPlaceReports()
+		{
+			return cache.GetPlaceReports();
+		}
+
+		public Task<Dictionary<long, Report<ReviewItem>>> GetReviewReports()
+		{
+			return cache.GetReviewReports();
+		}
+
+		public Task<Dictionary<long, Report<User>>> GetUserReports()
+		{
+			return cache.GetUserReports();
+		}
+
+		internal void RemoveReview(long id)
+		{
+			cache.RemoveReview(id);
+		}
+
+		internal void BanUser(long id)
+		{
+			cache.BanUser(id);
+		}
+
+		internal void UnbanUser(long id)
+		{
+			cache.UnbanUser(id);
 		}
 	}
 }

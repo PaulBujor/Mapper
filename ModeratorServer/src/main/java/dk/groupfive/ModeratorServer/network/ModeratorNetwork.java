@@ -5,10 +5,6 @@ import dk.groupfive.ModeratorServer.model.objects.*;
 import java.util.List;
 
 public interface ModeratorNetwork {
-    List<Report> getReports();
-
-    Report getReport(long id);
-
     List<Report<Place>> getPlaceReports();
 
     List<Report<ReviewItem>> getReviewReports();

@@ -3,7 +3,7 @@ package dk.groupfive.ModeratorServer.remote;
 import dk.groupfive.ModeratorServer.model.objects.User;
 
 public interface Server {
-    boolean authenticateUser(User user) throws Exception;
+    boolean authorizeUser(User user) throws Exception;
 
     //using just id to save some bandwidth
     void removePlace(long placeId);

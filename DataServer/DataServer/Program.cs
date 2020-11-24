@@ -13,7 +13,8 @@ namespace DataServer
 			int accountPort = 7020;
 			int moderatorPort = 7010;
 			int logicServerPort = 7000;
-			List<int> ports = new List<int> { moderatorPort, logicServerPort, accountPort };
+			int reportingPort = 7030;
+			List<int> ports = new List<int> { moderatorPort, logicServerPort, accountPort, reportingPort };
 			//add more as needed
 
 			Model model = new Model();

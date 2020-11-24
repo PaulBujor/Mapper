@@ -25,7 +25,7 @@ public class Client implements Server {
     }
 
     @Override
-    public synchronized boolean authenticateUser(User user) throws Exception {
+    public synchronized boolean authorizeUser(User user) throws Exception {
         out.println("authorizeUser");
         out.println(gson.toJson(user));
         try {

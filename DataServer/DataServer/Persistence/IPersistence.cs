@@ -8,6 +8,8 @@ namespace DataServer.Persistence
 {
 	public interface IPersistence
 	{
+		//TODO some of these probably dont need to be async since some wait for data to be finished, and socket shouldnt do something else
+
 		//PLACES CRUD
 		Task<Place> AddPlace(Place place);
 
@@ -51,5 +53,11 @@ namespace DataServer.Persistence
 		Task UpdateReviewReport(Report<ReviewItem> reviewReport);
 
 		Task UpdateUserReport(Report<User> userReport);
+
+		Task<Dictionary<long, Report<Place>>> GetPlaceReports();
+
+		Task<Dictionary<long, Report<ReviewItem>>> GetReviewReports();
+
+		Task<Dictionary<long, Report<User>>> GetUserReports();
 	}
 }

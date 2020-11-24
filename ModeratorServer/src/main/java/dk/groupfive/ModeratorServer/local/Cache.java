@@ -8,54 +8,51 @@ import java.util.List;
 import java.util.Map;
 
 public class Cache {
-    private Map<Long, Report> reports;
+    private Map<Long, Report<Place>> placeReports;
+    private Map<Long, Report<ReviewItem>> reviewReports;
+    private Map<Long, Report<User>> userReports;
 
     public Cache() {
-        reports = new HashMap<>();
+        placeReports = new HashMap<>();
+        reviewReports = new HashMap<>();
+        userReports = new HashMap<>();
     }
 
-    public void loadReports(List<Report> reports) {
+    public void loadPlaceReports(List<Report<Place>> reports) {
         for(Report<Place> report : reports) {
-            this.reports.put(report.getReportId(), report);
+            placeReports.put(report.getReportId(), report);
         }
     }
 
-    public List<Report> getReports() {
-        return (List<Report>) reports.values();
+    public void loadReviewReports(List<Report<ReviewItem>> reports) {
+        for(Report<ReviewItem> report : reports) {
+            reviewReports.put(report.getReportId(), report);
+        }
     }
 
-    public Report getReport(long id) {
-        return reports.get(id);
+    public void loadUserReports(List<Report<User>> reports) {
+        for(Report<User> report : reports) {
+            userReports.put(report.getReportId(), report);
+        }
     }
+
+    //public Report getReport(long id) {
+//        return reports.get(id);
+//    }
 
     public List<Report<ReviewItem>> getReviewReports() {
-        List<Report<ReviewItem>> reviewReports = new ArrayList<>();
-        for(Report report : reports.values()) {
-            if (report.getReportedClass().equals("Review"))
-                reviewReports.add((Report<ReviewItem>) report);
-        }
-        return reviewReports;
+        return (ArrayList<Report<ReviewItem>>) reviewReports.values();
     }
 
     public List<Report<Place>> getPlaceReports() {
-        List<Report<Place>> placeReports = new ArrayList<>();
-        for(Report report : reports.values()) {
-            if (report.getReportedClass().equals("Place"))
-                placeReports.add((Report<Place>) report);
-        }
-        return placeReports;
+        return (ArrayList<Report<Place>>) placeReports.values();
     }
 
     public List<Report<User>> getUserReports() {
-        List<Report<User>> placeReports = new ArrayList<>();
-        for(Report report : reports.values()) {
-            if (report.getReportedClass().equals("User"))
-                placeReports.add((Report<User>) report);
-        }
-        return placeReports;
+        return (ArrayList<Report<User>>) userReports.values();
     }
 
-    public void removeReport(long reportId) {
-        reports.remove(reportId);
-    }
+    //public void removeReport(long reportId) {
+//        reports.remove(reportId);
+//    }
 }

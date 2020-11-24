@@ -44,6 +44,9 @@ namespace DataServer
 						case 7020:
 							handler = new AccountHandler(client, model);
 							break;
+						case 7030:
+							handler = new ReportingHandler(client, model);
+							break;
 						default:
 							handler = new ClientHandler(client, model);
 							break;
