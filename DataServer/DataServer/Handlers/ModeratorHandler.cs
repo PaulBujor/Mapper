@@ -73,8 +73,8 @@ namespace DataServer.Handlers
 					break;
 				case "unbanUser":
 					break;
-				case "authenticateUser":
-					AuthenticateUser();
+				case "authorizeUser":
+					AuthorizeUser();
 					break;
 				default:
 					Console.WriteLine("Default was called");
@@ -92,7 +92,7 @@ namespace DataServer.Handlers
 			writer.WriteLine(JsonSerializer.Serialize(model.GetAllPlaces()));
 		}
 
-		private void AuthenticateUser()
+		private void AuthorizeUser()
 		{
 			string receive = reader.ReadLine();
 			User user = JsonSerializer.Deserialize<User>(receive);

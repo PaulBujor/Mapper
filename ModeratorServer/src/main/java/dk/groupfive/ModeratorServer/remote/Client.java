@@ -28,7 +28,7 @@ public class Client implements Server {
 
     @Override
     public boolean authenticateUser(User user) throws Exception {
-        out.println("authenticateUser");
+        out.println("authorizeUser");
         out.println(gson.toJson(user));
         try {
             return Boolean.parseBoolean(in.readLine());

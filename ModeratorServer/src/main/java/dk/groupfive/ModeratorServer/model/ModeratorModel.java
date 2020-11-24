@@ -5,6 +5,8 @@ import dk.groupfive.ModeratorServer.model.objects.Place;
 import dk.groupfive.ModeratorServer.model.objects.Report;
 import dk.groupfive.ModeratorServer.model.objects.Review;
 import dk.groupfive.ModeratorServer.model.objects.User;
+import dk.groupfive.ModeratorServer.remote.Client;
+import dk.groupfive.ModeratorServer.remote.Server;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,9 +16,11 @@ public class ModeratorModel implements Model{
     private final static Object lock = new Object();
 
     private final Cache cache;
+    private final Server server;
 
     private ModeratorModel() throws IOException {
         cache = new Cache();
+        server = new Client();
         cache.loadReports(null);//todo load with reports from the server -- put in new thread that reloads every x amount of time
     }
 
@@ -45,18 +49,6 @@ public class ModeratorModel implements Model{
         return cache.getReport(id);
     }
 
-    //todo decide on what the actions do:
-    // removing -> removes from database
-    // OR
-    // removing -> moves/adds to another table so that data is nor removed, but made unavailable
-    @Override
-    public void resolveReport(String action, long id) {
-        switch (action) {
-            default:
-                System.out.println("Action not implemented!");
-        }
-    }
-
     @Override
     public List<Report<Review>> getReviewReports() {
         return cache.getReviewReports();
@@ -68,12 +60,63 @@ public class ModeratorModel implements Model{
     }
 
     @Override
-    public void banUser(User user) {
-
+    public List<Report<User>> getUserReports() {
+        return cache.getUserReports();
     }
 
     @Override
-    public void unbanUser(User user) {
+    public void resolvePlace(long reportId, String action) {
+        switch (action) {
+            case "remove":
+                removePlace(reportId);
+                break;
+            default:
+                System.out.println("Not implemented");
+        }
+    }
+
+    @Override
+    public void resolveReview(long reportId, String action) {
+        switch (action) {
+            case "remove":
+                removeReview(reportId);
+                break;
+            default:
+                System.out.println("Not implemented");
+        }
+    }
+
+    @Override
+    public void resolveUser(long reportId, String action) {
+        switch (action) {
+            case "ban":
+                banUser(reportId);
+                break;
+            case "unban":
+                unbanUser(reportId);
+                break;
+            default:
+                System.out.println("Not implemented");
+        }
+    }
+
+    private void removePlace(long reportId) {
+        Place reportedPlace = (Place) cache.getReport(reportId).getReportedItem();
+        cache.removeReport(reportId);
+        server.removePlace(reportedPlace.getId());
+    }
+
+    private void removeReview(long reportId) {
+        Review reportedReview = (Review) cache.getReport(reportId).getReportedItem();
+        cache.removeReport(reportId);
+        server.removeReview(reportedReview.getId());
+    }
+
+    private void banUser(long reportId) {
+        
+    }
+
+    private void unbanUser(long reportId) {
 
     }
 }

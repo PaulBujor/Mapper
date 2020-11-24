@@ -4,6 +4,8 @@ import dk.groupfive.ModeratorServer.model.objects.Place;
 import dk.groupfive.ModeratorServer.model.objects.Report;
 import dk.groupfive.ModeratorServer.model.objects.Review;
 import dk.groupfive.ModeratorServer.model.objects.User;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -14,13 +16,15 @@ public interface ModeratorNetwork {
 
     Report getReport(long id);
 
-    public void resolveReport(String action, long id);
+    List<Report<Place>> getPlaceReports();
 
     List<Report<Review>> getReviewReports();
 
-    List<Report<Place>> getPlaceReports();
+    List<Report<User>> getUserReports();
 
-    void banUser(User user);
+    void resolvePlace(long reportId, String action);
 
-    void unbanUser(User user);
+    void resolveReview(long reportId, String action);
+
+    void resolveUser(long reportId, String action);
 }
