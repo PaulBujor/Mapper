@@ -1,8 +1,6 @@
 package dk.groupfive.ModeratorServer.remote;
 
 import com.google.gson.Gson;
-import dk.groupfive.ModeratorServer.model.objects.Place;
-import dk.groupfive.ModeratorServer.model.objects.Review;
 import dk.groupfive.ModeratorServer.model.objects.User;
 
 import java.io.BufferedReader;

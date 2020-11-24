@@ -2,14 +2,9 @@ package dk.groupfive.ModeratorServer.controllers;
 
 import dk.groupfive.ModeratorServer.model.Model;
 import dk.groupfive.ModeratorServer.model.ModeratorModel;
-import dk.groupfive.ModeratorServer.model.objects.Place;
-import dk.groupfive.ModeratorServer.model.objects.Report;
-import dk.groupfive.ModeratorServer.model.objects.Review;
-import dk.groupfive.ModeratorServer.model.objects.User;
+import dk.groupfive.ModeratorServer.model.objects.*;
 import dk.groupfive.ModeratorServer.network.ModeratorNetwork;
-import dk.groupfive.ModeratorServer.remote.Server;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +34,7 @@ public class ModeratorController implements ModeratorNetwork {
     }
 
     @GetMapping("/reports/reviews")
-    public List<Report<Review>> getReviewReports() {
+    public List<Report<ReviewItem>> getReviewReports() {
         return model.getReviewReports();
     }
 

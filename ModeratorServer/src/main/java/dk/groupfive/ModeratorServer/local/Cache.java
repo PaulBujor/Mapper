@@ -1,9 +1,6 @@
 package dk.groupfive.ModeratorServer.local;
 
-import dk.groupfive.ModeratorServer.model.objects.Place;
-import dk.groupfive.ModeratorServer.model.objects.Report;
-import dk.groupfive.ModeratorServer.model.objects.Review;
-import dk.groupfive.ModeratorServer.model.objects.User;
+import dk.groupfive.ModeratorServer.model.objects.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,11 +28,11 @@ public class Cache {
         return reports.get(id);
     }
 
-    public List<Report<Review>> getReviewReports() {
-        List<Report<Review>> reviewReports = new ArrayList<>();
+    public List<Report<ReviewItem>> getReviewReports() {
+        List<Report<ReviewItem>> reviewReports = new ArrayList<>();
         for(Report report : reports.values()) {
             if (report.getReportedClass().equals("Review"))
-                reviewReports.add((Report<Review>) report);
+                reviewReports.add((Report<ReviewItem>) report);
         }
         return reviewReports;
     }

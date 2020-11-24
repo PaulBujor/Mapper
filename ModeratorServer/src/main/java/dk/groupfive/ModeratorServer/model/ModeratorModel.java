@@ -1,10 +1,7 @@
 package dk.groupfive.ModeratorServer.model;
 
 import dk.groupfive.ModeratorServer.local.Cache;
-import dk.groupfive.ModeratorServer.model.objects.Place;
-import dk.groupfive.ModeratorServer.model.objects.Report;
-import dk.groupfive.ModeratorServer.model.objects.Review;
-import dk.groupfive.ModeratorServer.model.objects.User;
+import dk.groupfive.ModeratorServer.model.objects.*;
 import dk.groupfive.ModeratorServer.remote.Client;
 import dk.groupfive.ModeratorServer.remote.Server;
 
@@ -50,7 +47,7 @@ public class ModeratorModel implements Model{
     }
 
     @Override
-    public List<Report<Review>> getReviewReports() {
+    public List<Report<ReviewItem>> getReviewReports() {
         return cache.getReviewReports();
     }
 
@@ -107,7 +104,7 @@ public class ModeratorModel implements Model{
     }
 
     private void removeReview(long reportId) {
-        Review reportedReview = (Review) cache.getReport(reportId).getReportedItem();
+        ReviewItem reportedReview = (ReviewItem) cache.getReport(reportId).getReportedItem();
         cache.removeReport(reportId);
         server.removeReview(reportedReview.getId());
     }
