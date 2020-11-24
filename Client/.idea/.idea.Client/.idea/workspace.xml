@@ -24,11 +24,12 @@
   <component name="ChangeListManager">
     <list default="true" id="1c2c289a-efa5-4970-a296-cbcbccfe7bc3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Data/IAuth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Data/IAuth.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Pages/Register.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Pages/Register.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/model/ServerAccountModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/model/ServerAccountModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/model/ServerModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/model/ServerModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/queue/QueueTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/queue/QueueTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/remote/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/remote/PlaceClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/remote/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/remote/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/remote/SocketTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/remote/SocketTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +128,7 @@
       <workItem from="1606135912245" duration="9616000" />
       <workItem from="1606147808978" duration="4950000" />
       <workItem from="1606173056219" duration="2150000" />
-      <workItem from="1606209044180" duration="12910000" />
+      <workItem from="1606209044180" duration="15043000" />
     </task>
     <servers />
   </component>

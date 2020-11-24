@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Client implements Server {
+public class PlaceClient implements Server {
     final String HOST = "localhost";
     final int PORT = 7000;
     private Socket socket;
@@ -20,7 +20,7 @@ public class Client implements Server {
     private BufferedReader in;
     private Gson gson;
 
-    public Client() throws IOException {
+    public PlaceClient() throws IOException {
         socket = new Socket(HOST, PORT);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
@@ -68,18 +68,5 @@ public class Client implements Server {
         out.println(id);
     }
 
-    @Override public User validate(LoginMessage loginMessage) throws IOException
-    {
-        out.println("authenticateUser");
-        String send = gson.toJson(loginMessage);
-        out.println(send);
-        String response = in.readLine();
-        User user = gson.fromJson(response,User.class);
-        return user;
-    }
 
-    @Override public void register()
-    {
-
-    }
 }

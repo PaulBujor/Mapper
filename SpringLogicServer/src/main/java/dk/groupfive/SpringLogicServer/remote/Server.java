@@ -19,8 +19,6 @@ public interface Server {
 
     void deletePlace(long id);
 
-    User validate(LoginMessage loginMessage) throws IOException;
-    void register();
 
 
 }

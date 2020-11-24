@@ -3,15 +3,13 @@ package dk.groupfive.SpringLogicServer.model;
 import dk.groupfive.SpringLogicServer.broadcast.Broadcaster;
 import dk.groupfive.SpringLogicServer.local.Cache;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.User;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 import dk.groupfive.SpringLogicServer.queue.PlaceWorker;
 import dk.groupfive.SpringLogicServer.remote.Server;
-import dk.groupfive.SpringLogicServer.remote.Client;
+import dk.groupfive.SpringLogicServer.remote.PlaceClient;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 
 public class ServerModel implements Model {
     private static volatile ServerModel instance;
@@ -25,7 +23,7 @@ public class ServerModel implements Model {
 
     private ServerModel() throws IOException {
         cache = new Cache();
-        server = new Client();
+        server = new PlaceClient();
         broadcaster = new Broadcaster();
         worker = new PlaceWorker(this);
 
