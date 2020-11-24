@@ -105,9 +105,17 @@ namespace Client.Data
             currentLongitude = longitude;
         }
         [JSInvokable("ReportPlace")]
-        public void ReportPlace(long id)
+        public async Task ReportPlace(long id)
         {
             Console.WriteLine(id);
+        }
+
+        [JSInvokable("GetPlaceDetails")]
+        public async Task GetPlaceDetails(long id)
+        {
+            Console.WriteLine(id);
+            Place place = model.GetPlaces().FirstOrDefault(p => p.id.Equals(id));
+            await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addReviewLite", place.reviews.GetRating());
         }
     }
 }

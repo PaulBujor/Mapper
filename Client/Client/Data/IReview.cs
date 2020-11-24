@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace Client.Data
 {
-    interface IReview
+    public interface IReview
     {
+        double GetRating();
+        List<ReviewItem> GetReviews();
+
     }
 }

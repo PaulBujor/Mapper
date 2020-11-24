@@ -18,5 +18,6 @@ namespace Client.Data
 		public abstract Task AddPlaceAsync(Place place);
 
 		public abstract IList<Place> GetPlaces();
+
 	}
 }

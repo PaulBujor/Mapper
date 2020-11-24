@@ -7,18 +7,21 @@ namespace Client.Data
 {
     public class ReviewFull : IReview
     {
-        double rating;
         List<ReviewItem> reviews;
 
-        public int GetRating()
+        public double GetRating()
         {
-            throw new NotImplementedException();
+            long score = 0;
+            foreach (ReviewItem item in reviews)
+            {
+                score += item.rating;
+            }
+            return (double)score / reviews.Count;
         }
 
-        List<ReviewItem> GetReviews()
+        public List<ReviewItem> GetReviews()
         {
-            throw new NotImplementedException();
+            return reviews;
         }
-
     }
 }
