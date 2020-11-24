@@ -28,5 +28,10 @@ namespace DataServer.Models
 		{
 			return reviews;
 		}
+
+		public void AddReview(ReviewItem review)
+		{
+			reviews.Add(review);
+		}
 	}
 }

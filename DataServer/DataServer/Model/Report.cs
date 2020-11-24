@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataServer.Models
 {
-	class Report<T>
+	public class Report<T>
 	{
 		public long reportId { get; set; }
 		public T reportedItem { get; set; }

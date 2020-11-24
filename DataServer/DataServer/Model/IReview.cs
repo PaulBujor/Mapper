@@ -6,5 +6,7 @@ namespace DataServer.Models
 	{
 		double GetRating();
 		List<ReviewItem> GetReviews();
+
+		void AddReview(ReviewItem review);
 	}
 }

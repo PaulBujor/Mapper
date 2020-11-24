@@ -8,6 +8,12 @@ namespace DataServer.Models
 	class ReviewLite : IReview
 	{
 		public double rating { get; set; }
+
+		public void AddReview(ReviewItem review)
+		{
+			//
+		}
+
 		public double GetRating()
 		{
 			return rating;

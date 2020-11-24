@@ -25,7 +25,7 @@ public class Client implements Server {
     }
 
     @Override
-    public boolean authenticateUser(User user) throws Exception {
+    public synchronized boolean authenticateUser(User user) throws Exception {
         out.println("authorizeUser");
         out.println(gson.toJson(user));
         try {
@@ -37,25 +37,25 @@ public class Client implements Server {
     }
 
     @Override
-    public void removePlace(long placeId) {
+    public synchronized void removePlace(long placeId) {
         out.println("removePlace");
         out.println(placeId);
     }
 
     @Override
-    public void removeReview(long reviewId) {
+    public synchronized void removeReview(long reviewId) {
         out.println("removeReview");
         out.println(reviewId);
     }
 
     @Override
-    public void banUser(long userId) {
+    public synchronized void banUser(long userId) {
         out.println("banUser");
         out.println(userId);
     }
 
     @Override
-    public void unbanUser(long userId) {
+    public synchronized void unbanUser(long userId) {
         out.println("unbanUser");
         out.println(userId);
     }

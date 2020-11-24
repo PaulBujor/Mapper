@@ -97,6 +97,7 @@ public class ModeratorModel implements Model{
         }
     }
 
+    //todo change
     private void removePlace(long reportId) {
         Report report = cache.getReport(reportId);
         Place reportedPlace = (Place) report.getReportedItem();
