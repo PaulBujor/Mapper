@@ -9,6 +9,16 @@ namespace Client.Data
     {
         List<ReviewItem> reviews;
 
+        public ReviewFull()
+        {
+            reviews = new List<ReviewItem>();
+        }
+
+        public void AddReview(ReviewItem review)
+        {
+            reviews.Add(review);
+        }
+
         public double GetRating()
         {
             long score = 0;
