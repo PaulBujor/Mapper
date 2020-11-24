@@ -63,9 +63,20 @@ namespace Client.Data.Networking
             return null;
         }
 
-        public Task<User> Register(User user)
+        public async Task Register(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                HttpClient client = new HttpClient();
+                string userSerialized = JsonSerializer.Serialize(user);
+                StringContent content = new StringContent(userSerialized, Encoding.UTF8, "application/json");
+                HttpResponseMessage responseMessage = await client.PostAsync(URI + "/reg", content);
+                Console.WriteLine(responseMessage);
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
      

@@ -25,9 +25,9 @@ public class ServerAccountModel implements AccountModel
     return server.validate(loginMessage);
   }
 
-  @Override public User register()
+  @Override public void register(User user)
   {
-    return null;
+
   }
 
   public static ServerAccountModel getInstance()

@@ -36,8 +36,8 @@ accountModel = ServerAccountModel.getInstance();
   }
 
   @PostMapping(value = "/reg")
-  public User register()
+  public void register(@RequestBody User user)
   {
-    return accountModel.register();
+    accountModel.register(user);
   }
 }

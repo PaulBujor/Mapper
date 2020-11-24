@@ -6,6 +6,6 @@ namespace Client.Data
     public interface IAuth
     {
         Task<User> ValidateUser(string username, string password);
-        Task<User> Register(User user);
+        Task Register(User user);
     }
 }

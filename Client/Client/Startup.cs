@@ -51,6 +51,7 @@ namespace Client
 			services.AddAuthorization(options =>
 			{
 				options.AddPolicy("Admin", a => a.RequireAuthenticatedUser().RequireClaim("Level", "3"));
+				options.AddPolicy("UMA", a => a.RequireAuthenticatedUser().RequireClaim("Level", "3,2,1"));
 			});
 		}
 

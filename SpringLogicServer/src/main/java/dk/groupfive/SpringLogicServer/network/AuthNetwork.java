@@ -9,7 +9,7 @@ public interface AuthNetwork
 {
 
   User validate(LoginMessage loginMessage) throws IOException;
-  User register();
+  void register(User user);
 
 
 }

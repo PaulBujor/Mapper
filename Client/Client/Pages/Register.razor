@@ -1,24 +1,82 @@
 @page "/register"
+@using Client.Models
+@using Client.Data
+@inject IAuth Auth
 
 
 
-
+@inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<h3>Register</h3>
 <AuthorizeView>
-    <Authorized>
-    <p> level 1 test</p>
-    </Authorized>
-    <NotAuthorized>test</NotAuthorized>
-</AuthorizeView>
-<AuthorizeView Policy="Moderator">
-    <p>level 2 test</p>
-  
+    <NotAuthorized>
+        <h3>Register v1</h3>
+        <div id="form">
+            <EditForm Context="formContext" Model="@newUser" OnValidSubmit="@Submit">
+                <DataAnnotationsValidator/>
+                <ValidationSummary/>
+
+                <p>
+                    <InputText id="firstname" @bind-Value="newUser.firstname"/>
+                    <label for="firstname">-First name</label>
+                </p>
+                
+                <p>
+                    <InputText id="lastname" @bind-Value="newUser.lastname"/>
+                    <label for="lastname">-Last name</label>
+                </p>
+                
+                <p>
+                    <InputText id="username" @bind-Value="newUser.username"/>
+                    <label for="username">-User name</label>
+                </p>
+                
+                <p>
+                    <InputText id="email" @bind-Value="newUser.email"/>
+                    <label for="email">-Email</label>
+                </p>
+                
+                <p>
+                    <InputText type="password" @bind-Value="@newUser.password" />
+                    <label for="password">-Password</label>
+                </p>
+                
+                <p>
+                    <InputText type="password" @bind-Value="@newUser.confirmpassword" />
+                    <label for="confirmpassword">-Confirm Password</label>
+                </p>
+                
+                
+                
+                <button type="submit">Submit</button>
+                
+            </EditForm>
+        </div>
+    </NotAuthorized>
 </AuthorizeView>
 
 
 
 @code {
-    
+    private User newUser = new User();
+
+
+    private async Task Submit()
+    {
+        await Auth.Register(newUser);
+        reset();
+
+
+    }
+
+    private void reset()
+    {
+        newUser.firstname = string.Empty;
+        newUser.lastname = string.Empty;
+        newUser.username = string.Empty;
+        newUser.password = string.Empty;
+        newUser.confirmpassword = string.Empty;
+        newUser.email = string.Empty;
+    }
+
 }
