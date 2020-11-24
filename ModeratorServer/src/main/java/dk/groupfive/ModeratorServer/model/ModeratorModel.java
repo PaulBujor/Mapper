@@ -98,22 +98,31 @@ public class ModeratorModel implements Model{
     }
 
     private void removePlace(long reportId) {
-        Place reportedPlace = (Place) cache.getReport(reportId).getReportedItem();
-        cache.removeReport(reportId);
+        Report report = cache.getReport(reportId);
+        Place reportedPlace = (Place) report.getReportedItem();
+        report.setResolved(true);
         server.removePlace(reportedPlace.getId());
     }
 
     private void removeReview(long reportId) {
-        ReviewItem reportedReview = (ReviewItem) cache.getReport(reportId).getReportedItem();
-        cache.removeReport(reportId);
+        Report report = cache.getReport(reportId);
+        ReviewItem reportedReview = (ReviewItem) report.getReportedItem();
+        report.setResolved(true);
         server.removeReview(reportedReview.getId());
     }
 
     private void banUser(long reportId) {
-
+        Report report = cache.getReport(reportId);
+        User user = (User) report.getReportedItem();
+        report.setResolved(true);
+        server.banUser(user.getId());
     }
 
     private void unbanUser(long reportId) {
-
+        //todo might have to change this
+//        Report report = cache.getReport(reportId);
+//        User user = (User) report.getReportedItem();
+//        report.setResolved(true);
+//        server.unbanUser(user.getId());
     }
 }
