@@ -3,6 +3,7 @@ package dk.groupfive.ModeratorServer.local;
 import dk.groupfive.ModeratorServer.model.objects.Place;
 import dk.groupfive.ModeratorServer.model.objects.Report;
 import dk.groupfive.ModeratorServer.model.objects.Review;
+import dk.groupfive.ModeratorServer.model.objects.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ public class Cache {
 
     public void loadReports(List<Report> reports) {
         for(Report<Place> report : reports) {
-            this.reports.put(report.getReportID(), report);
+            this.reports.put(report.getReportId(), report);
         }
     }
 
@@ -46,5 +47,18 @@ public class Cache {
                 placeReports.add((Report<Place>) report);
         }
         return placeReports;
+    }
+
+    public List<Report<User>> getUserReports() {
+        List<Report<User>> placeReports = new ArrayList<>();
+        for(Report report : reports.values()) {
+            if (report.getReportedClass().equals("User"))
+                placeReports.add((Report<User>) report);
+        }
+        return placeReports;
+    }
+
+    public void removeReport(long reportId) {
+        reports.remove(reportId);
     }
 }

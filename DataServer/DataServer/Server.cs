@@ -4,6 +4,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using DataServer.Handlers;
 
 namespace DataServer
 {
@@ -39,6 +40,9 @@ namespace DataServer
 					{
 						case 7010:
 							handler = new ModeratorHandler(client, model);
+							break;
+						case 7020:
+							handler = new AccountHandler(client, model);
 							break;
 						default:
 							handler = new ClientHandler(client, model);

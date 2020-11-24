@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 
-namespace DataServer
+namespace DataServer.Handlers
 {
 	class ModeratorHandler : IHandler
 	{
@@ -73,8 +73,8 @@ namespace DataServer
 					break;
 				case "unbanUser":
 					break;
-				case "authenticateUser":
-					AuthenticateUser();
+				case "authorizeUser":
+					AuthorizeUser();
 					break;
 				default:
 					Console.WriteLine("Default was called");
@@ -92,7 +92,7 @@ namespace DataServer
 			writer.WriteLine(JsonSerializer.Serialize(model.GetAllPlaces()));
 		}
 
-		private void AuthenticateUser()
+		private void AuthorizeUser()
 		{
 			string receive = reader.ReadLine();
 			User user = JsonSerializer.Deserialize<User>(receive);

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 public class AuthController
 {
@@ -38,6 +40,12 @@ accountModel = ServerAccountModel.getInstance();
   @PostMapping(value = "/reg")
   public void register(@RequestBody User user)
   {
-    accountModel.register(user);
+    try
+    {
+      accountModel.register(user);
+    }
+    catch (IOException e){
+
+    }
   }
 }

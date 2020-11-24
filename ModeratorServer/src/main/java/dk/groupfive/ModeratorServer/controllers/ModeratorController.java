@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class ModeratorController implements ModeratorNetwork { //todo interface
+public class ModeratorController implements ModeratorNetwork {
     private Model model;
 
     @Autowired
@@ -33,44 +33,60 @@ public class ModeratorController implements ModeratorNetwork { //todo interface
         return model.getReport(id);
     }
 
-    @PutMapping("/reports/{id}")
-    public void resolveReport(@RequestBody String action, @PathVariable long id) {
-        model.resolveReport(action, id);
-    }
-
-    /* PLACE cases */
-    //GET REVIEWS
-    //@RequestMapping(name = "/reviews", method = RequestMethod.GET)
     @GetMapping("/reports/places")
     public List<Report<Place>> getPlaceReports() {
         return model.getPlaceReports();
     }
 
-    /* REVIEWS cases */
-    //GET REVIEWS
-    //@RequestMapping(name = "/reviews", method = RequestMethod.GET)
     @GetMapping("/reports/reviews")
     public List<Report<Review>> getReviewReports() {
         return model.getReviewReports();
     }
 
+    @GetMapping("/reports/users")
+    public List<Report<User>> getUserReports() {
+        return model.getUserReports();
+    }
+
+    //todo check for authorization before
+    @PatchMapping("/reports/places/{reportId}?action={action}")
+    public void resolvePlace(@PathVariable long reportId, @PathVariable String action) {
+        model.resolvePlace(reportId, action);
+    }
+
+    @PatchMapping("/reports/reviews/{reportId}?action={action}")
+    public void resolveReview(@PathVariable long reportId, @PathVariable String action) {
+        model.resolveReview(reportId, action);
+    }
+
+    @PatchMapping("/reports/users/{reportId}?action={action}")
+    public void resolveUser(@PathVariable long reportId, @PathVariable String action) {
+        model.resolveUser(reportId, action);
+    }
+
+
+
+    /* PLACE cases */
+    //GET REVIEWS
+    //@RequestMapping(name = "/reviews", method = RequestMethod.GET)
+
+
+    /*
     //PUT BAN USER
-    @RequestMapping(name = "/users", method = RequestMethod.PUT)
+    @PatchMapping("/users/ban/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void banUser(User user) {
-        model.banUser(user);
+    public void banUser(@PathVariable long id) {
+        model.banUser(id);
     }
 
 
     //PUT UNBAN USER
-    @RequestMapping(value = "/users", method = RequestMethod.PUT)
+    @PatchMapping("/users/unban/{id}")
     @ResponseStatus(HttpStatus.OK)
-    //@PutMapping
-    public void unbanUser(User user) {
-        model.unbanUser(user);
+    public void unbanUser(@PathVariable long id) {
+        model.unbanUser(id);
     }
 
-    /*
     // USER cases
     //DELETE USER
 
