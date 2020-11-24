@@ -17,5 +17,10 @@ namespace Client.Data
         {
             return null;
         }
+
+        public void AddReview(ReviewItem review)
+        {
+
+        }
     }
 }

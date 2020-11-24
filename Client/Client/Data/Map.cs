@@ -60,6 +60,7 @@ namespace Client.Data
         public void AddMarker(Place place)
 		{
             jsRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", place.longitude, place.latitude, place.title, place.description, place.id);
+
         }
 
         public void ChangeAddingMarkerMode()

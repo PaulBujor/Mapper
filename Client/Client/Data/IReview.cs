@@ -9,6 +9,7 @@ namespace Client.Data
     {
         double GetRating();
         List<ReviewItem> GetReviews();
+        void AddReview(ReviewItem review);
 
     }
 }

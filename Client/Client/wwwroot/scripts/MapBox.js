@@ -13,8 +13,8 @@ window.mapBoxFunctions = {
         _dotNetReference.invokeMethodAsync('GetPlaceDetails', parseInt(placeId));
 
     },
-    addReviewLite: function (placeId, rating) {
-        for (i = 0; i < rating; i++)
+    addReviewLite: function (rating) {
+        for (i = 1; i <= rating; i++)
         {
             document.getElementById("star" + i).className += " checked";
         }
@@ -46,7 +46,11 @@ window.mapBoxFunctions = {
         var popup = new mapboxgl.Popup({ className: "popup-marker" }).setHTML(
             "<div><div><h5>" + placeTitle + "</h5>" + "<div style = 'float: right;'>" + ratingHTML + "</div>"+ "</div><a id= 'placeId' style = 'display: none;'>" + placeId + "</a>" + "<h6>Category</h6>" + "</div></br><div><a>" + placeDescription + "</a></div>" + buttonReportHTML + buttonDetailsHTML
         );
-        
+
+        popup.on("open", function () {
+            _dotNetReference.invokeMethodAsync('GetPlaceDetails', parseInt(placeId));
+        });
+
         // create DOM element for the marker -- add styling to marker el.id or el.className
         var el = document.createElement('div');
         el.id = 'marker';
