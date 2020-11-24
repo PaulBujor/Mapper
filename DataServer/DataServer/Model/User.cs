@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataServer.Models
 {
-	class User
+	public class User
 	{
 		public long id { get; set; } //we might have to make this a unique id as well, used for reporting users, since username will be string
 		public string email { get; set; }
