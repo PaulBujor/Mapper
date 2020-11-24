@@ -118,5 +118,10 @@ namespace Client.Data
             Place place = model.GetPlaces().FirstOrDefault(p => p.id.Equals(id));
             await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addReviewLite", place.reviews.GetRating());
         }
+
+        public async Task GetReviewFull()
+        { 
+
+        }
     }
 }

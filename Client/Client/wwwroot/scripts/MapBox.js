@@ -9,9 +9,8 @@ window.mapBoxFunctions = {
         _dotNetReference.invokeMethodAsync('ReportPlace', parseInt(placeId));
 
     },
-    getPlaceDetails: function (placeId) {
-        _dotNetReference.invokeMethodAsync('GetPlaceDetails', parseInt(placeId));
-
+    modifyHref: function (placeId) {
+        document.getElementById("replacehere").href = "/place/" + placeId;
     },
     addReviewLite: function (rating) {
         for (i = 1; i <= rating; i++)
@@ -40,7 +39,7 @@ window.mapBoxFunctions = {
     addMarker: function (longitude, latitude, placeTitle, placeDescription, placeId) {
 
         var buttonReportHTML = "<button type='button' onclick='mapBoxFunctions.reportPlace(document.getElementById(\"placeId\").innerHTML)' class='btn btn-outline-danger btn-sm' style='position: absolute; right: 0; bottom: 0; margin: 5px;'> Report </button>";
-        var buttonDetailsHTML = "<button type='button' onclick='mapBoxFunctions.getPlaceDetails(document.getElementById(\"placeId\").innerHTML)' class='btn btn-outline-info btn-sm' style='position: absolute; left: 0; bottom: 0; margin: 5px;'> Comment & Review </button>";
+        var buttonDetailsHTML = "<a id = 'replacehere' href = '#'><button onclick='mapBoxFunctions.modifyHref(document.getElementById(\"placeId\").innerHTML)' type='button' class='btn btn-outline-info btn-sm' style='position: absolute; left: 0; bottom: 0; margin: 5px;'> Comment & Review </button></a>";
         var ratingHTML = "<span id='star1' class='fa fa-star fa-2x'></span><span id='star2' class='fa fa-star fa-2x'></span><span id='star3' class='fa fa-star fa-2x'></span><span id='star4' class='fa fa-star fa-2x'></span><span id='star5' class='fa fa-star fa-2x'></span>";
 
         var popup = new mapboxgl.Popup({ className: "popup-marker" }).setHTML(
