@@ -1,0 +1,115 @@
+﻿@page "/reports"
+@attribute [Authorize(Policy = "Moderator")]
+
+@inherits LayoutComponentBase
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+<div class="sidebar reports">
+	<div class="pl-4 navbar navbar-dark">
+		<a class="navbar-brand" href="reports">Reports</a>
+		<button class="navbar-toggler" @onclick="ToggleReportNavMenu">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+	</div>
+	<div class="@ReportNavMenuCssClass " @onclick="ToggleReportNavMenu">
+		<ul class="nav flex-column">
+
+			<li class="nav-item px-3">
+				<NavLink class="nav-link" Match="NavLinkMatch.All" @onclick="SetPlaces">
+					<span class="oi oi-map" aria-hidden="true"></span> Places
+				</NavLink>
+			</li>
+
+			<li class="nav-item px-3">
+				<NavLink class="nav-link" @onclick="SetReviews">
+					<span class="oi oi-star" aria-hidden="true"></span>Reviews
+				</NavLink>
+			</li>
+
+			<li class="nav-item px-3">
+				<NavLink class="nav-link" @onclick="SetUsers">
+					<span class="oi oi-person" aria-hidden="true"></span>Users
+				</NavLink>
+			</li>
+
+			<li class="nav-item px-3">
+				<NavLink class="nav-link" @onclick="SetBanned">
+					<span class="oi oi-ban" aria-hidden="true"></span>Banned Users
+				</NavLink>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="main">
+	<div class="content px-4">
+		@switch (openedPage)
+		{
+			case "Default":
+				<p>Pick a category from the menu</p>
+				break;
+			case "Places":
+				<PlaceReports />
+				break;
+			case "Reviews":
+				<ReviewReports />
+				break;
+			case "Users":
+				<UserReports />
+				break;
+			case "Banned":
+				<BannedUsers />
+				break;
+
+		}
+	</div>
+</div>
+
+@code {
+	[CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
+
+	private bool collapseNavMenu = true;
+
+	private string ReportNavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+	private string openedPage;
+
+	private void ToggleReportNavMenu()
+	{
+		collapseNavMenu = !collapseNavMenu;
+	}
+
+	protected async override Task OnInitializedAsync()
+	{
+		base.OnInitializedAsync();
+		var user = (await AuthStat).User;
+		if (!user.Identity.IsAuthenticated)
+		{
+			NavigationManager.NavigateTo($"/login");
+		}
+		openedPage = "Default";
+	}
+
+	private void SetPlaces()
+	{
+		openedPage = "Places";
+	}
+
+	private void SetReviews()
+	{
+		openedPage = "Reviews";
+	}
+
+	private void SetUsers()
+	{
+		openedPage = "Users";
+	}
+
+	private void SetBanned()
+	{
+		openedPage = "Banned";
+	}
+}
