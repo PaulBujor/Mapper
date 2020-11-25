@@ -32,6 +32,16 @@ public class ServerAccountModel implements AccountModel
 server.register(user);
   }
 
+  @Override public String checkEmail(String message) throws IOException
+  {
+    return server.checkEmail(message);
+  }
+
+  @Override public String checkUserName(String message) throws IOException
+  {
+    return server.checkUserName(message);
+  }
+
   public static ServerAccountModel getInstance()
   {
     if (instance == null)

@@ -25,15 +25,22 @@
             <e p="AuthClient.cs" t="Include" />
             <e p="ClientImp.cs" t="Include" />
             <e p="IServer.cs" t="Include" />
+            <e p="ModeratorClient.cs" t="Include" />
             <e p="PlaceClient.cs" t="Include" />
             <e p="UDPListener.cs" t="Include" />
           </e>
         </e>
         <e p="Models" t="Include">
+          <e p="IReview.cs" t="Include" />
           <e p="LoginMessage.cs" t="Include" />
+          <e p="Message.cs" t="Include" />
           <e p="Place.cs" t="Include" />
           <e p="PlaceData.cs" t="Include" />
           <e p="PlaceTask.cs" t="Include" />
+          <e p="Report.cs" t="Include" />
+          <e p="ReviewFull.cs" t="Include" />
+          <e p="ReviewItem.cs" t="Include" />
+          <e p="ReviewLite.cs" t="Include" />
           <e p="User.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -51,8 +58,15 @@
           <e p="FetchData.razor" t="Include" />
           <e p="Index.razor" t="Include" />
           <e p="Login.razor" t="Include" />
+          <e p="Moderator" t="Include">
+            <e p="BannedUsers.razor" t="Include" />
+            <e p="PlaceReports.razor" t="Include" />
+            <e p="Reports.razor" t="Include" />
+            <e p="ReviewReports.razor" t="Include" />
+            <e p="UserReports.razor" t="Include" />
+          </e>
+          <e p="PlaceReviews.razor" t="Include" />
           <e p="Register.razor" t="Include" />
-          <e p="Reports.razor" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">

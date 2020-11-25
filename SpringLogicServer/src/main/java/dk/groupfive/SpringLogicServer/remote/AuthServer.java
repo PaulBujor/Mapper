@@ -9,6 +9,8 @@ public interface AuthServer
 {
   User validate(LoginMessage loginMessage) throws IOException;
   void register(User user) throws IOException;
+  String checkEmail(String message) throws IOException;
+  String checkUserName(String message) throws IOException;
 
 
 }

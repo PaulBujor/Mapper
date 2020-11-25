@@ -7,13 +7,20 @@ public class User implements Serializable
 
   private String username;
   private String password;
+  private String email;
   private int auth;
+  private String firstname;
+  private String lastname;
 
 
-  public User (String username,String password, int auth){
+  public User(){super();}
+  public User (String username,String password,String email, int auth,String firstname,String lastname){
     this.username = username;
     this.password = password;
-    this.auth=auth;
+    this.email = email;
+    this.auth= auth;
+    this.firstname = firstname;
+    this.lastname = lastname;
   }
 
   public String getUsername()
@@ -44,5 +51,35 @@ public class User implements Serializable
   public void setAuth(int auth)
   {
     this.auth = auth;
+  }
+
+  public String getEmail()
+  {
+    return email;
+  }
+
+  public void setEmail(String email)
+  {
+    this.email = email;
+  }
+
+  public String getFirstname()
+  {
+    return firstname;
+  }
+
+  public void setFirstname(String firstname)
+  {
+    this.firstname = firstname;
+  }
+
+  public String getLastname()
+  {
+    return lastname;
+  }
+
+  public void setLastname(String lastname)
+  {
+    this.lastname = lastname;
   }
 }

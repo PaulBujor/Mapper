@@ -1,6 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Client.Data;
+using Client.Data.Networking;
+
 
 namespace Client.Models
 {
@@ -10,6 +14,7 @@ namespace Client.Models
         [Required]
         [StringLength(16)]
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "For username only alphabet and numbers allowed.")]
+       
         public string username { get; set; }
         [Required]
         [ValidPassword]
@@ -17,6 +22,7 @@ namespace Client.Models
         public string password { get; set; }
         [Required]
         [EmailAddress]
+       
         public string email { get; set; }
         public int auth { get; set; }
         [Required]
@@ -27,6 +33,8 @@ namespace Client.Models
         [StringLength(16)]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please enter alphabet only.")] 
         public string lastname { get; set; }
+
+        
         
        
         [Compare("password", ErrorMessage = "Passwords must match.")]
@@ -45,14 +53,11 @@ namespace Client.Models
                 {
                     counter++;
                 }
-
                 if (Regex.IsMatch(tmpString, "[0-9]"))
                 {
                     counter++;
                    
                 }
-
-            
                 if (Regex.IsMatch(tmpString, "[!-)]"))
                 {
                     counter++;
@@ -65,8 +70,14 @@ namespace Client.Models
                 }
                 return ValidationResult.Success;
             }
+
             
-            //TODO validation for checking existing username and email
+            
+            
         }
+     
+              
+        }
+
+
     }
-}

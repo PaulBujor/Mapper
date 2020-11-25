@@ -12,6 +12,10 @@
     <NotAuthorized>
         <h3>Register v1</h3>
 
+        <div id="error">
+            <p><span style="color: #ff2222">@ErrorMessage</span></p>   
+        </div>
+      
         <div id="form">
             <EditForm Context="formContext" Model="@newUser" OnValidSubmit="@Submit">
                 <DataAnnotationsValidator />
@@ -47,6 +51,8 @@
                     <InputText type="password" @bind-Value="@newUser.confirmpassword" />
                     <label for="confirmpassword">-Confirm Password</label>
                 </p>
+                
+                
 
 
 
@@ -54,29 +60,52 @@
 
             </EditForm>
         </div>
+        
     </NotAuthorized>
 </AuthorizeView>
 
 
 
 @code {
+    public string ErrorMessage  { get; set; }
     private User newUser = new User();
 
 
     private async Task Submit()
     {
-        await Auth.Register(newUser);
-        reset();
+        ErrorMessage = "";
+        try
+        {
+            Message tmpEmail = await Auth.CheckEmail(newUser.email);
+            Message tmpUserName = await Auth.CheckUserName(newUser.username);
+
+            Console.WriteLine(tmpEmail.text);
+            Console.WriteLine(tmpUserName.text);
+    if (tmpEmail.text.Equals(newUser.email))
+            {
+                ErrorMessage = "Email already exists";
+           
+                throw new Exception("Email already exists");
+                
+            }
+            if (tmpUserName.text.Equals(newUser.username))
+            {
+                ErrorMessage = "Username already exists";
+               
+                throw new Exception("Username already exists");
+                
+            }
+            Console.WriteLine("-----------------------------------------------------------");
+            await Auth.Register(newUser);
+            NavigationManager.NavigateTo("/login");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+        
     }
 
-    private void reset()
-    {
-        newUser.firstname = string.Empty;
-        newUser.lastname = string.Empty;
-        newUser.username = string.Empty;
-        newUser.password = string.Empty;
-        newUser.confirmpassword = string.Empty;
-        newUser.email = string.Empty;
-    }
+
 
 }

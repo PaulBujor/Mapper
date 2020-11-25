@@ -7,5 +7,7 @@ namespace Client.Data
     {
         Task<User> ValidateUser(string username, string password);
         Task Register(User user);
+        Task<Message> CheckEmail(string message);
+        Task<Message> CheckUserName(string message);
     }
 }

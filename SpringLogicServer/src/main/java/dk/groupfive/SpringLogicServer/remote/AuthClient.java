@@ -51,4 +51,22 @@ public class AuthClient implements AuthServer
     out.println(send);
 
   }
+
+  @Override public String checkEmail(String message) throws IOException
+  {
+    out.println("checkEmail");
+    String send = gson.toJson(message);
+    out.println(send);
+    String response = in.readLine();
+    return gson.toJson(response);
+  }
+
+  @Override public String checkUserName(String message) throws IOException
+  {
+    out.println("checkUserName");
+    String send = gson.toJson(message);
+    out.println(send);
+    String response = in.readLine();
+    return gson.toJson(response);
+  }
 }
