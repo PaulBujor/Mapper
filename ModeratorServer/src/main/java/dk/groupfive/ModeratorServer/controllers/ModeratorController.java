@@ -18,15 +18,15 @@ public class ModeratorController implements ModeratorNetwork {
         model = ModeratorModel.getInstance();
     }
 
-    @GetMapping("/reports")
-    public List<Report> getReports() {
-        return model.getReports();
-    }
-
-    @GetMapping("/reports/{id}")
-    public Report getReport(@PathVariable long id) {
-        return model.getReport(id);
-    }
+//    @GetMapping("/reports")
+//    public List<Report> getReports() {
+//        return model.getReports();
+//    }
+//
+//    @GetMapping("/reports/{id}")
+//    public Report getReport(@PathVariable long id) {
+//        return model.getReport(id);
+//    }
 
     @GetMapping("/reports/places")
     public List<Report<Place>> getPlaceReports() {
@@ -43,7 +43,7 @@ public class ModeratorController implements ModeratorNetwork {
         return model.getUserReports();
     }
 
-    //todo check for authorization before
+    //not that restful but it works
     @PatchMapping("/reports/places/{reportId}?action={action}")
     public void resolvePlace(@PathVariable long reportId, @PathVariable String action) {
         model.resolvePlace(reportId, action);
