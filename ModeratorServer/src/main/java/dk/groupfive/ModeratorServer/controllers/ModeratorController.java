@@ -48,12 +48,13 @@ public class ModeratorController implements ModeratorNetwork {
     public void resolvePlace(@PathVariable long reportId, @PathVariable String action) {
         model.resolvePlace(reportId, action);
     }
-
+    //currently the only action is remove
     @PatchMapping("/reports/reviews/{reportId}?action={action}")
     public void resolveReview(@PathVariable long reportId, @PathVariable String action) {
         model.resolveReview(reportId, action);
     }
 
+    //example: to ban a user you'd call with action=ban
     @PatchMapping("/reports/users/{reportId}?action={action}")
     public void resolveUser(@PathVariable long reportId, @PathVariable String action) {
         model.resolveUser(reportId, action);
