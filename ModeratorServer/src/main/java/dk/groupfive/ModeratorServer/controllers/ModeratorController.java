@@ -48,6 +48,7 @@ public class ModeratorController implements ModeratorNetwork {
     public void resolvePlace(@PathVariable long reportId, @PathVariable String action) {
         model.resolvePlace(reportId, action);
     }
+
     //currently the only action is remove
     @PatchMapping("/reports/reviews/{reportId}?action={action}")
     public void resolveReview(@PathVariable long reportId, @PathVariable String action) {
