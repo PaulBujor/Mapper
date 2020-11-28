@@ -15,6 +15,7 @@ namespace DataServer.Models
 
 		public Report()
 		{
+			
 		}
 	}
 }

@@ -66,6 +66,12 @@
             <e p="UserReports.razor" t="Include" />
           </e>
           <e p="PlaceReviews.razor" t="Include" />
+          <e p="Profile" t="Include">
+            <e p="Collections.razor" t="Include" />
+            <e p="Edit.razor" t="Include" />
+            <e p="Places.razor" t="Include" />
+            <e p="Profile.razor" t="Include" />
+          </e>
           <e p="Register.razor" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
