@@ -18,7 +18,24 @@ public class ModeratorModel implements Model{
     private ModeratorModel() throws IOException {
         cache = new Cache();
         server = new Client();
-        cache.loadPlaceReports(server.getPlaceReports());
+        loader();
+    }
+
+    private void loader() {
+        //loads data from t3 every 10 minutes
+        new Thread(() -> {
+            try {
+                cache.loadPlaceReports(server.getPlaceReports());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                Thread.sleep(10*60*1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public static Model getInstance() {
