@@ -19,5 +19,11 @@ namespace Client.Data
 
 		public abstract IList<Place> GetPlaces();
 
+		public abstract Task<List<Report<Place>>> GetPlaceReportsAsync();
+
+		public abstract Task RemovePlaceAsync(long placeId);
+
+		public abstract Task DismissPlaceReportAsync(long reportId);
+
 	}
 }

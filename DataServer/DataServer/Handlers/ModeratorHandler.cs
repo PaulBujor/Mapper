@@ -129,7 +129,7 @@ namespace DataServer.Handlers
 
 		private void GetPlaceReports()
 		{
-			writer.WriteLine(JsonSerializer.Serialize(model.GetPlaceReports().Result));
+			writer.WriteLine(JsonSerializer.Serialize(model.GetPlaceReports()));
 		}
 
 		private void AuthorizeUser()

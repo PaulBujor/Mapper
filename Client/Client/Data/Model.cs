@@ -43,5 +43,20 @@ namespace Client.Data
 			places.Add(place);
 			OnNewPlace?.Invoke(place);
 		}
+
+		public override async Task<List<Report<Place>>> GetPlaceReportsAsync()
+		{
+			return await server.GetPlaceReportsAsync();
+		}
+
+		public override Task RemovePlaceAsync(long placeId)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public override Task DismissPlaceReportAsync(long reportId)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

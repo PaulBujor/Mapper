@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DataServer.Models
 {
+	[Serializable]
 	public class Report<T>
 	{
 		public long reportId { get; set; }

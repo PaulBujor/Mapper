@@ -45,7 +45,7 @@ public class Cache {
     }
 
     public List<Report<Place>> getPlaceReports() {
-        return (ArrayList<Report<Place>>) placeReports.values();
+        return new ArrayList<Report<Place>>(placeReports.values());
     }
 
     public List<Report<User>> getUserReports() {

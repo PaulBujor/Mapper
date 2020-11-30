@@ -31,6 +31,17 @@ namespace DataServer
 				latitude = 55.83663617092108
 			};
 			AddPlace(reitan);
+			Report<Place> report = new Report<Place>()
+			{
+				category = "Blyatity",
+				reportedItem = reitan
+			};
+			AddPlaceReport(report);
+		}
+
+		private void AddPlaceReport(Report<Place> report)
+		{
+			cache.CreatePlaceReport(report);
 		}
 
 		public List<Place> GetAllPlaces()
@@ -62,9 +73,9 @@ namespace DataServer
 			return check.auth >= 2;
 		}
 
-		public Task<Dictionary<long, Report<Place>>> GetPlaceReports()
+		public List<Report<Place>> GetPlaceReports()
 		{
-			return cache.GetPlaceReports();
+			return cache.GetPlaceReports().Result.Values.ToList();
 		}
 
 		public Task<Dictionary<long, Report<ReviewItem>>> GetReviewReports()

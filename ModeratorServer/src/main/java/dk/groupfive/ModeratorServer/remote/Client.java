@@ -1,13 +1,20 @@
 package dk.groupfive.ModeratorServer.remote;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import dk.groupfive.ModeratorServer.model.objects.Place;
+import dk.groupfive.ModeratorServer.model.objects.Report;
 import dk.groupfive.ModeratorServer.model.objects.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class Client implements Server {
         final String HOST = "localhost";
@@ -34,6 +41,13 @@ public class Client implements Server {
             e.printStackTrace();
             throw new Exception("User not authorized");
         }
+    }
+
+    @Override
+    public List<Report<Place>> getPlaceReports() throws IOException {
+        out.println("getPlaceReports");
+        Type placeReportsType = new TypeToken<List<Report<Place>>>(){}.getType();
+        return gson.fromJson(in.readLine(), placeReportsType);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class ModeratorModel implements Model{
     private ModeratorModel() throws IOException {
         cache = new Cache();
         server = new Client();
-        //cache.loadReports(null);//todo load with reports from the server -- put in new thread that reloads every x amount of time
+        cache.loadPlaceReports(server.getPlaceReports());
     }
 
     public static Model getInstance() {

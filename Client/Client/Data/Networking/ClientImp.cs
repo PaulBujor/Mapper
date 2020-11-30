@@ -12,11 +12,13 @@ namespace Client.Data.Networking
 	public class ClientImp : IServer
 	{
 		private PlaceClient _place;
+		private ModeratorClient _moderator;
 		public UDPListener listener;
 
 		public ClientImp ()
 		{
 			_place = new PlaceClient();
+			_moderator = new ModeratorClient();
 			listener = new UDPListener();
 
 			var subscriberThread = new Thread(_place.Subscribe);
@@ -56,6 +58,11 @@ namespace Client.Data.Networking
 					throw new ArgumentException("Delegate not found!");
 					break;
 			}
+		}
+
+		public async Task<List<Report<Place>>> GetPlaceReportsAsync()
+		{
+			return await _moderator.GetPlaceReportsAsync();
 		}
 	}
 }

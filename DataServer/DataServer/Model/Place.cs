@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DataServer.Models
 {
+	[Serializable]
 	public class Place
 	{
 		public long id { get; set; }
