@@ -25,7 +25,7 @@ window.mapBoxFunctions = {
 
         map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/outdoors-v11',
+            style: 'mapbox://styles/glad1o/cki39sl4n5smb1bqudg91k01y',
             center: [10.7522579808184, 56.03891165651774],
             zoom: 6
         });

@@ -43,5 +43,11 @@ namespace Client.Data
 			places.Add(place);
 			OnNewPlace?.Invoke(place);
 		}
+
+		//method (in the interface)
+		public void ReportPlace(Report<Place> report)
+		{ 
+			//async server.ReportPlace
+		}
 	}
 }

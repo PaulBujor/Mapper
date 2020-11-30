@@ -12,11 +12,13 @@ namespace Client.Data.Networking
 	public class ClientImp : IServer
 	{
 		private PlaceClient _place;
+		private ReportClient _report;
 		public UDPListener listener;
 
 		public ClientImp ()
 		{
 			_place = new PlaceClient();
+			_report = new ReportClient();
 			listener = new UDPListener();
 
 			var subscriberThread = new Thread(_place.Subscribe);
@@ -39,23 +41,9 @@ namespace Client.Data.Networking
 			return await _place.GetPlacesAsync();
 		}
 
-		public UDPDelegate GetDelegate(string delegateName)
+		public async Task ReportPlace(Report<Place> report)
 		{
-			switch (delegateName)
-			{
-				case "addPlace":
-					return listener.OnNewPlace;
-					break;
-				case "updatePlace":
-					return listener.OnUpdatePlace;
-					break;
-				case "deletePlace":
-					return listener.OnDeletePlace;
-					break;
-				default:
-					throw new ArgumentException("Delegate not found!");
-					break;
-			}
+			await _report.ReportPlaceAsync(report);
 		}
 	}
 }
