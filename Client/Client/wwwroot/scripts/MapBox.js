@@ -27,7 +27,8 @@ window.mapBoxFunctions = {
             container: 'map',
             style: 'mapbox://styles/glad1o/cki39sl4n5smb1bqudg91k01y',
             center: [10.7522579808184, 56.03891165651774],
-            zoom: 6
+            zoom: 6,
+            logoPosition: 'top-right'
         });
 
         map.on("click", function (e) {

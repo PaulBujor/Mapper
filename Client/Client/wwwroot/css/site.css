@@ -115,7 +115,7 @@ app {
 
 
 .reports {
-    background-image: linear-gradient(180deg, rgb(39, 109, 103) 100%, #3a0647 100%);
+    background-color: #eeeeee;
 }
 
 
@@ -237,18 +237,21 @@ app {
 
 .map-overlay {
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    /*width: 200px;*/
+    width: 100%;
     top: 0;
     left: 0;
-    padding: 10px;
 }
 
     .map-overlay .map-overlay-inner {
         background-color: #fff;
+        opacity: 0.8;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         border-radius: 3px;
         padding: 10px;
-        margin-bottom: 10px;
+        margin: 10px;
+
+        position: fixed;
+        bottom: 0;
     }
 
 
@@ -364,13 +367,13 @@ app {
 
 #place-description {
     width: 65%;
-    height: 15em;
+    height: 100%;
     margin: 10px;
 }
 
 #place-reviews {
     width: 35%;
-    height: 15em;
+    height: 100%;
     margin: 10px;
 }
 
