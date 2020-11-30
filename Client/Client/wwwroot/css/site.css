@@ -141,6 +141,13 @@ app {
     top: 0.5rem;
 }
 
+.card {
+    width: 33vh;
+    margin: 10px;
+    float: left;
+    box-sizing: border-box;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;
@@ -152,6 +159,10 @@ app {
 
     .main .top-row a, .main .top-row .btn-link {
         margin-left: 0;
+    }
+
+    .card {
+        width: 100%;
     }
 }
 
@@ -168,8 +179,12 @@ app {
     }
 
     .reports {
-        height: 94vh;
+        min-height: 100vh;
+        max-height: 100%;
         float: left;
+        position: sticky;
+        top: 0;
+        left: 250px;
     }
 
     .main .top-row {
@@ -240,6 +255,8 @@ app {
         -ms-transition: background-color 500ms linear;
         transition: background-color 500ms linear;
     }
+
+
 
 .popup-marker .mapboxgl-popup-content {
     min-height: 200px;

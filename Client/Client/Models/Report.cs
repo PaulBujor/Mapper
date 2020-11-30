@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataServer.Models
+namespace Client.Models
 {
-	class Report<T>
+	public class Report<T>
 	{
 		public long reportId { get; set; }
 		public T reportedItem { get; set; }
