@@ -161,7 +161,8 @@ app {
 }
 
 .card {
-    width: 33vh;
+    width: 33%;
+    min-width: 400px;
     margin: 10px;
     float: left;
     box-sizing: border-box;
@@ -182,6 +183,7 @@ app {
 
     .card {
         width: 100%;
+        margin: 0;
     }
 }
 
