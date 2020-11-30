@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Client.Data;
 using Client.Data.Networking;
+using Microsoft.JSInterop;
 
 
 namespace Client.Models
@@ -40,6 +41,7 @@ namespace Client.Models
         [Compare("password", ErrorMessage = "Passwords must match.")]
         public string confirmpassword { get; set; }
 
+        
         public class ValidPassword : ValidationAttribute
         {
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)

@@ -31,6 +31,7 @@
           </e>
         </e>
         <e p="Models" t="Include">
+          <e p="CustomUser.cs" t="Include" />
           <e p="IReview.cs" t="Include" />
           <e p="LoginMessage.cs" t="Include" />
           <e p="Message.cs" t="Include" />

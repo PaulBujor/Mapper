@@ -65,57 +65,50 @@ namespace Client.Data.Networking
                 Console.WriteLine(e);
             }
         }
-
-        public async Task<Message> CheckEmail(string message)
+        public Task EditProfile(User user)
         {
-            Message tmpMessageSend= new Message{text = message};
-            Message tmpMessage = new Message();
+            throw new NotImplementedException();
+        }
+        public async Task<bool> CheckEmail(string message)
+        {
             try
             {
                 HttpClient client = new HttpClient();
-                string emailSerialized = JsonSerializer.Serialize(tmpMessageSend);
-                StringContent content = new StringContent(emailSerialized, Encoding.UTF8, "application/json");
+                string emailSerialized = JsonSerializer.Serialize(message);
+                StringContent content = new StringContent(emailSerialized, Encoding.UTF8, "text/plain");
                 HttpResponseMessage responseMessage = await client.PostAsync(URI + "/email", content);
-                Console.WriteLine(responseMessage);
-                
-                var reponseContent = await responseMessage.Content.ReadAsStringAsync();
-                 tmpMessage = JsonSerializer.Deserialize<Message>(reponseContent);
-                 Console.WriteLine($"Returned result : {tmpMessage.text}");
+               
+                if (responseMessage.StatusCode == HttpStatusCode.OK)
+                {
+                    return true;
+                }
             }
             catch (HttpRequestException e)
             {
                 Console.WriteLine(e);
             }
-
-            Console.WriteLine(message);
-            return tmpMessage;
-
-
+            return false;
         }
 
-        public async Task<Message> CheckUserName(string message)
+        public async Task<bool> CheckUserName(string message)
         {
-            Message tmpMessage = new Message();
-            Message tmpMessageSend = new Message {text = message};
+   
             try
             {
                 HttpClient client = new HttpClient();
-                string emailSerialized = JsonSerializer.Serialize(tmpMessageSend);
-                StringContent content = new StringContent(emailSerialized, Encoding.UTF8, "application/json");
+                string emailSerialized = JsonSerializer.Serialize(message);
+                StringContent content = new StringContent(emailSerialized, Encoding.UTF8, "text/plain");
                 HttpResponseMessage responseMessage = await client.PostAsync(URI + "/uname", content);
-                /*Console.WriteLine(responseMessage);*/
-                
-                var reponseContent = await responseMessage.Content.ReadAsStringAsync();
-                tmpMessage = JsonSerializer.Deserialize<Message>(reponseContent);
-                Console.WriteLine($"Returned username AuthClient: {tmpMessage.text}");
+               if (responseMessage.StatusCode == HttpStatusCode.OK)
+                {
+                    return true;
+                }
             }
             catch (HttpRequestException e)
             {
                 Console.WriteLine(e);
             }
-
-            return tmpMessage;
-
+            return false;
         }
     }
 }
