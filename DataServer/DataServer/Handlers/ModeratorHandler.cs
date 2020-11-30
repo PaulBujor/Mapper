@@ -94,27 +94,27 @@ namespace DataServer.Handlers
 
 		private void UnbanUser()
 		{
-			long receive = long.Parse(reader.ReadLine());
-			model.UnbanUser(receive);
+			long userId = long.Parse(reader.ReadLine());
+			model.UnbanUser(userId);
 		}
 
 		private void BanUser()
 		{
 
-			long receive = long.Parse(reader.ReadLine());
-			model.BanUser(receive);
+			long userId = long.Parse(reader.ReadLine());
+			model.BanUser(userId);
 		}
 
 		private void RemoveReview()
 		{
-			long receive = long.Parse(reader.ReadLine());
-			model.RemoveReview(receive);
+			long reviewId = long.Parse(reader.ReadLine());
+			model.RemoveReview(reviewId);
 		}
 
 		public void RemovePlace()
 		{
-			long receive = long.Parse(reader.ReadLine());
-			model.RemovePlace(receive);
+			long placeId = long.Parse(reader.ReadLine());
+			model.RemovePlace(placeId);
 		}
 
 		private void GetUserReports()
