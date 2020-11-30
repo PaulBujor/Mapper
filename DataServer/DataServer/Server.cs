@@ -35,6 +35,7 @@ namespace DataServer
 				{
 					TcpClient client = server.AcceptTcpClient();
 
+					//start new handler depending on the incoming port connection (on new thread)
 					IHandler handler;
 					switch (port)
 					{
