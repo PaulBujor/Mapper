@@ -10,6 +10,7 @@ namespace DataServer
 
 		static void Main(string[] args)
 		{
+			//existing used ports by the system
 			int accountPort = 7020;
 			int moderatorPort = 7010;
 			int logicServerPort = 7000;
@@ -21,6 +22,7 @@ namespace DataServer
 
 			Console.WriteLine("Starting server...");
 
+			//start port listeners for every port, each has its own thread
 			foreach (int port in ports)
 			{
 				Server server = new Server(IPAddress.Parse("127.0.0.1"), port, model);

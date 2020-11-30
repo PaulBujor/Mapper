@@ -52,10 +52,10 @@ public class ModeratorModel implements Model{
     }
 
     @Override
-    public void resolvePlace(long reportId, String action) {
+    public void resolvePlace(long placeId, String action) {
         switch (action) {
             case "remove":
-                removePlace(reportId);
+                removePlace(placeId);
                 break;
             default:
                 System.out.println("Not implemented");
@@ -63,10 +63,10 @@ public class ModeratorModel implements Model{
     }
 
     @Override
-    public void resolveReview(long reportId, String action) {
+    public void resolveReview(long reviewId, String action) {
         switch (action) {
             case "remove":
-                removeReview(reportId);
+                removeReview(reviewId);
                 break;
             default:
                 System.out.println("Not implemented");
@@ -74,13 +74,16 @@ public class ModeratorModel implements Model{
     }
 
     @Override
-    public void resolveUser(long reportId, String action) {
+    public void resolveUser(long userId, String action) {
         switch (action) {
             case "ban":
-                banUser(reportId);
+                banUser(userId);
                 break;
             case "unban":
-                unbanUser(reportId);
+                unbanUser(userId);
+                break;
+            case "flag":
+                flagUser(userId);
                 break;
             default:
                 System.out.println("Not implemented");
@@ -88,15 +91,37 @@ public class ModeratorModel implements Model{
     }
 
     //todo also resolve report on t3
-    private void removePlace(long reportId) {
+    private void removePlace(long placeId) {
+        //gets the placeID of the first report that contains the reported place based on the id of the report (ask paul if unclear)
+        //long placeId = cache.getPlaceReports().stream().filter(report -> report.getReportId() == reportId).findFirst().get().getReportedItem().getId();
+
+        server.removePlace(placeId);
+
+        //marks all reports regarding that place as solved, as there may be multiple reports for the same item
+        cache.getPlaceReports().stream().filter(report -> report.getReportedItem().getId() == placeId).forEach(report -> report.setResolved(true));
     }
 
-    private void removeReview(long reportId) {
+    private void removeReview(long reviewId) {
+        //long reviewId = cache.getReviewReports().stream().filter(report -> report.getReportId() == reportId).findFirst().get().getReportedItem().getId();
+        server.removeReview(reviewId);
+        cache.getReviewReports().stream().filter(report -> report.getReportedItem().getId() == reviewId).forEach(report -> report.setResolved(true));
     }
 
-    private void banUser(long reportId) {
+    private void banUser(long userId) {
+        //long userId = cache.getUserReports().stream().filter(report -> report.getReportId() == reportId).findFirst().get().getReportedItem().getId();
+        server.banUser(userId);
+        cache.getUserReports().stream().filter(report -> report.getReportedItem().getId() == userId).forEach(report -> report.setResolved(true));
     }
 
-    private void unbanUser(long reportId) {
+    //maybe this should be changed to just userID, since a report to unban a user cannot be made
+    private void unbanUser(long userId) {
+
     }
+
+    private void flagUser(long userId) {
+        //moderator can flag a user = creates report for user with title "Flagged by {x}" where x is the id of the moderator user
+        //to be implemented on normal client side
+    }
+
+    //todo restores, leave for end (client would have section for solved reports
 }

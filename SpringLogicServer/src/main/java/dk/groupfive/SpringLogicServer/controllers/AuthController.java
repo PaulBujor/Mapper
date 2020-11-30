@@ -6,6 +6,8 @@ import dk.groupfive.SpringLogicServer.model.objects.LoginMessage;
 import dk.groupfive.SpringLogicServer.model.objects.Message;
 import dk.groupfive.SpringLogicServer.model.objects.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,23 +54,33 @@ accountModel = ServerAccountModel.getInstance();
     System.out.println("Register received ");
   }
   @PostMapping(value = "/email")
-  @ResponseBody
-  public Message checkEmail(@RequestBody Message message){
+  public ResponseEntity checkEmail(@RequestBody String message){
     System.out.println("check Email received");
+    System.out.println(message);
+    System.out.println("----------------------------------");
 
-    System.out.println(message.text);
+    if(message.contains("test@dk.dk")){
+      return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+    System.out.println(message);
    /* try{
     return  accountModel.checkEmail(email);
     }
     catch (IOException e){
       return null;
     }*/
-   return new Message("test@dk.dk");
+    return new ResponseEntity(HttpStatus.OK);
   }
+
   @PostMapping(value = "/uname")
-  @ResponseBody
-  public Message checkUserName(@RequestBody Message message){
+  public ResponseEntity checkUserName(@RequestBody String message){
     System.out.println("check username received");
+    System.out.println(message);
+    if(message.contains("tester")){
+      System.out.println("works");
+      return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity(HttpStatus.OK);
  /*   try
     {
       return accountModel.checkUserName(username);
@@ -76,8 +88,6 @@ accountModel = ServerAccountModel.getInstance();
       return null;
     }
 */
-    System.out.println(message.text);
 
- return new Message("tester");
   }
 }

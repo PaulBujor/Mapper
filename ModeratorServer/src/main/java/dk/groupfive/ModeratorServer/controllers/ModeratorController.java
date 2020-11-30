@@ -44,20 +44,21 @@ public class ModeratorController implements ModeratorNetwork {
     }
 
     //not that restful but it works
-    @PatchMapping("/reports/places/{reportId}?action={action}")
-    public void resolvePlace(@PathVariable long reportId, @PathVariable String action) {
-        model.resolvePlace(reportId, action);
+    @PatchMapping("/reports/places/{placeId}?action={action}")
+    public void resolvePlace(@PathVariable long placeId, @PathVariable String action) {
+        model.resolvePlace(placeId, action);
     }
+
     //currently the only action is remove
-    @PatchMapping("/reports/reviews/{reportId}?action={action}")
-    public void resolveReview(@PathVariable long reportId, @PathVariable String action) {
-        model.resolveReview(reportId, action);
+    @PatchMapping("/reports/reviews/{reviewId}?action={action}")
+    public void resolveReview(@PathVariable long reviewId, @PathVariable String action) {
+        model.resolveReview(reviewId, action);
     }
 
     //example: to ban a user you'd call with action=ban
-    @PatchMapping("/reports/users/{reportId}?action={action}")
-    public void resolveUser(@PathVariable long reportId, @PathVariable String action) {
-        model.resolveUser(reportId, action);
+    @PatchMapping("/reports/users/{userId}?action={action}")
+    public void resolveUser(@PathVariable long userId, @PathVariable String action) {
+        model.resolveUser(userId, action);
     }
 
 

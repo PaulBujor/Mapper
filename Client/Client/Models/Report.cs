@@ -15,6 +15,7 @@ namespace Client.Models
 
 		public Report()
 		{
+			
 		}
 	}
 }

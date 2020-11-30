@@ -60,6 +60,7 @@ namespace DataServer.Persistence
 		public async Task BanUser(long userId)
 		{
 			users[userId].auth = 0;
+			userReports.Values.ToList().ForEach(report => { if (report.reportedItem.id == userId) report.resolved = true; });
 		}
 
 		public async Task CreatePlaceReport(Report<Place> placeReport)
@@ -119,14 +120,16 @@ namespace DataServer.Persistence
 			return usernames.ContainsKey(username);
 		}
 
-		public async Task RemovePlace(long id)
+		public async Task RemovePlace(long placeId)
 		{
-			removedPlaces.Add(id);
+			removedPlaces.Add(placeId);
+			placeReports.Values.ToList().ForEach(report => { if (report.reportedItem.id == placeId) report.resolved = true; });
 		}
 
 		public async Task RemoveReview(long reviewId)
 		{
 			removedReviews.Add(reviewId);
+			reviewReports.Values.ToList().ForEach(report => { if (report.reportedItem.id == reviewId) report.resolved = true; });
 		}
 
 		public async Task UnbanUser(long userId)

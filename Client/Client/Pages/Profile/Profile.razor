@@ -1,0 +1,101 @@
+@page "/profile"
+
+@inherits LayoutComponentBase
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+<div class="sidebar reports">
+	<div class="pl-4 navbar navbar-dark">
+		<a class="navbar-brand" href="profile">Profile</a>
+		<button class="navbar-toggler" @onclick="ToggleProfileNavMenu">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+	</div>
+	<div class="@ProfileNavMenuCssClass " @onclick="ToggleProfileNavMenu">
+		<ul class="nav flex-column">
+			<li class="nav-item px-3">
+            				<NavLink class="nav-link"  Match="NavLinkMatch.All" @onclick="SetPlaces">
+            					<span class="oi oi-heart" aria-hidden="true"></span>My Places
+            				</NavLink>
+            			</li>
+            			<li class="nav-item px-3">
+            				<NavLink class="nav-link"  @onclick="SetCollections">
+            				<span class="oi oi-globe" aria-hidden="true"></span>My Collections
+            				         </NavLink>
+            				</li>
+            
+            			<li class="nav-item px-3">
+            				<NavLink class="nav-link"  @onclick="SetEdit">
+            					<span class="oi oi-cog" aria-hidden="true"></span>Edit
+            				</NavLink>
+            			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="main">
+	<div class="content px-4">
+		@switch (openedPage)
+		{
+			case "Default":
+				<p>Pick a category from the menu</p>
+				break;
+			case "Places":
+				<Places />
+				break;
+			case "Collections":
+				<Collections />
+				break;
+			case "Edit":
+				<Edit />
+				break;
+			
+
+		}
+	</div>
+</div>
+
+@code {
+	[CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
+
+	private bool collapseNavMenu = true;
+
+	private string ProfileNavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+	private string openedPage;
+
+	private void ToggleProfileNavMenu()
+	{
+		collapseNavMenu = !collapseNavMenu;
+	}
+
+	protected async override Task OnInitializedAsync()
+	{
+		base.OnInitializedAsync();
+		var user = (await AuthStat).User;
+		if (!user.Identity.IsAuthenticated)
+		{
+			NavigationManager.NavigateTo($"/login");
+		}
+		openedPage = "Default";
+	}
+
+	private void SetPlaces()
+	{
+		openedPage = "Places";
+	}
+
+	private void SetCollections()
+	{
+		openedPage = "Collections";
+	}
+
+	private void SetEdit()
+	{
+		openedPage = "Edit";
+	}
+
+	
+}

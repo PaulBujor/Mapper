@@ -31,6 +31,7 @@
           </e>
         </e>
         <e p="Models" t="Include">
+          <e p="CustomUser.cs" t="Include" />
           <e p="IReview.cs" t="Include" />
           <e p="LoginMessage.cs" t="Include" />
           <e p="Message.cs" t="Include" />
@@ -66,6 +67,12 @@
             <e p="UserReports.razor" t="Include" />
           </e>
           <e p="PlaceReviews.razor" t="Include" />
+          <e p="Profile" t="Include">
+            <e p="Collections.razor" t="Include" />
+            <e p="Edit.razor" t="Include" />
+            <e p="Places.razor" t="Include" />
+            <e p="Profile.razor" t="Include" />
+          </e>
           <e p="Register.razor" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />

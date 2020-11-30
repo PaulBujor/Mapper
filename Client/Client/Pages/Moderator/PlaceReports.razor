@@ -1,5 +1,65 @@
-﻿<h3>Place Reports</h3>
+﻿@using Client.Models 
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div style="padding: 10px;">
+	<h3>Place Reports</h3>
+
+	@foreach (Report<Place> item in reports)
+	{
+<div class="card">
+	<h5 class="card-header">Place: @item.reportedItem.title</h5>
+	<div class="card-body">
+		<h6 class="card-subtitle mb-2 text-muted">Category: @item.category</h6>
+		<p class="card-text">@item.description</p>
+		<a href="#" class="card-link">TODO Open place</a>
+		<a class="card-link">
+			<RadzenDropDown AllowClear="true" TValue="string"
+							Placeholder="Action"
+							Data=@options
+							TextProperty="ModAction" ValueProperty="Action" Change=@(args => OnChange(args, item.reportedItem.id)) />
+		</a>
+	</div>
+</div>
+	}
+</div>
 
 @code {
+	List<Report<Place>> reports;
+	List<string> options = new List<string> { "Remove place", "Flag user", "Dismiss" };
+
+	protected override async Task OnInitializedAsync()
+	{
+		reports = new List<Report<Place>>();
+		int id = 2;
+		for (int i = 0; i < 5; i++)
+		{
+			Place place = new Place() { id = id, title = "id = " + id++ };
+			Report<Place> report = new Report<Place>() { category = "blyat", description = "this is very offensive i feel very offended", reportedItem = place };
+			reports.Add(report);
+		}
+	}
+
+	public async Task RemovePlaceAsync(long placeId)
+	{
+		Console.WriteLine(placeId);
+		reports.RemoveAll(item => item.reportedItem.id == placeId);
+	}
+
+	void OnChange(object value, long placeId)
+	{
+		var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+		switch(str)
+		{
+			case "Remove place":
+				RemovePlaceAsync(placeId);
+				break;
+			default:
+				Console.WriteLine("not done");
+				break;
+		}
+	}
 
 }
+
+

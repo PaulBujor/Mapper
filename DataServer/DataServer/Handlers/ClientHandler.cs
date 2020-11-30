@@ -57,6 +57,7 @@ namespace DataServer.Handlers
             client.Close();
         }
 
+        //this method routes to the correct method based on the first received request
         private void ProcessClientRequest(string request)
         {
             switch (request)

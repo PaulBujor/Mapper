@@ -1,0 +1,151 @@
+@using Client.Models
+@using System.Text.Json
+@using Client.Data
+@using Client.Data.Authentication
+@using Client.Data.Networking
+@using System.Globalization
+
+<h3>Edit </h3>
+
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject IAuth Auth
+
+<AuthorizeView>
+    <Authorized>
+      <div id="error">
+                  <p><span style="color: #ff2222">@ErrorMessage</span></p>   
+              </div>
+            
+              <div id="form">
+                  <EditForm Context="formContext" Model="@cachedUser" OnValidSubmit="@Submit">
+                      <DataAnnotationsValidator/>
+                      <ValidationSummary />
+      
+      
+                      <p>
+                          <InputText id="firstname" @bind-Value="cachedUser.firstname" />
+                          <label for="firstname">-First name</label>
+                      </p>
+      
+                      <p>
+                          <InputText id="lastname" @bind-Value="cachedUser.lastname" />
+                          <label for="lastname">-Last name</label>
+                      </p>
+      
+                      <p>
+                          <InputText id="username" @bind-Value="cachedUser.username" />
+                          <label for="username">-User name</label>
+                      </p>
+      
+                      <p>
+                          <InputText id="email" @bind-Value="cachedUser.email" />
+                          <label for="email">-Email</label>
+                      </p>
+                      
+                 
+      
+                      <p>
+                          <InputText type="password" @bind-Value="@NewPassword" />
+                          <label for="password">-New Password</label>
+                      </p>
+      
+                      <p>
+                          <InputText type="password" @bind-Value="@ConfirmPassword" />
+                          <label for="confirmpassword">-Confirm Password</label>
+                      </p>
+                      
+                      
+      
+      
+      
+                      <button type="submit">Submit changes</button>
+      
+                  </EditForm>
+              </div>
+              
+    </Authorized>
+</AuthorizeView>
+
+@code {
+
+    [CascadingParameter]
+    protected Task<AuthenticationState> AuthStat { get; set; }
+
+    private CustomUser cachedUser = new CustomUser();
+    
+    private string ErrorMessage="Testing this";
+    
+    private string NewPassword;
+    private string ConfirmPassword;
+    private string TmpUserName;
+    private string TmpEmail;
+   
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        base.OnInitializedAsync();
+        var user = (await AuthStat).User;
+
+        if (!user.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo($"/login");
+        }
+        string userAsJson = await JsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
+
+        if (!string.IsNullOrEmpty(userAsJson))
+        {
+            cachedUser = JsonSerializer.Deserialize<CustomUser>(userAsJson);
+            Console.WriteLine(cachedUser.email);
+            TmpUserName = cachedUser.username;
+            TmpEmail = cachedUser.email;
+
+
+        }
+        
+      
+    }
+
+    private async Task Submit()
+    {
+      
+        ErrorMessage = "";
+        try
+        {
+
+            var checkEmail = await Auth.CheckEmail(cachedUser.email);
+           var checkUserName = await Auth.CheckUserName(cachedUser.username);
+            if (TmpEmail != cachedUser.email)
+            {
+                Console.WriteLine("Testing****************************123123123123123");
+                if (checkEmail == false)
+                {
+                    ErrorMessage = "Email already exists";
+                    throw new Exception("Email already exists");
+                }
+            }
+            if (TmpUserName != cachedUser.username)
+            {
+                if (checkUserName == false)
+                {
+                    ErrorMessage = "Username already exists";
+
+                    throw new Exception("Username already exists");
+                }
+            }
+    /*User user = new User{};
+        await Auth.EditProfile()*/
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = e.Message;
+            Console.WriteLine(e);
+        }
+        Console.WriteLine("gucci");
+      
+        
+    }
+
+
+    }

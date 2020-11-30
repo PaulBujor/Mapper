@@ -1,6 +1,7 @@
 @page "/register"
 @using Client.Models
 @using Client.Data
+@using Client.Data.Networking
 @inject IAuth Auth
 
 
@@ -76,26 +77,25 @@
         ErrorMessage = "";
         try
         {
-            Message tmpEmail = await Auth.CheckEmail(newUser.email);
-            Message tmpUserName = await Auth.CheckUserName(newUser.username);
+            var checkEmail = await Auth.CheckEmail(newUser.email);
+            var checkUserName = await Auth.CheckUserName(newUser.username);
 
-            Console.WriteLine(tmpEmail.text);
-            Console.WriteLine(tmpUserName.text);
-    if (tmpEmail.text.Equals(newUser.email))
+        
+    if (checkEmail==false)
             {
                 ErrorMessage = "Email already exists";
            
                 throw new Exception("Email already exists");
                 
             }
-            if (tmpUserName.text.Equals(newUser.username))
+            if (checkUserName==false)
             {
                 ErrorMessage = "Username already exists";
                
                 throw new Exception("Username already exists");
                 
             }
-            Console.WriteLine("-----------------------------------------------------------");
+            
             await Auth.Register(newUser);
             NavigationManager.NavigateTo("/login");
         }

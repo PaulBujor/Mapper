@@ -11,9 +11,9 @@ public interface ModeratorNetwork {
 
     List<Report<User>> getUserReports();
 
-    void resolvePlace(long reportId, String action);
+    void resolvePlace(long placeId, String action);
 
-    void resolveReview(long reportId, String action);
+    void resolveReview(long reviewId, String action);
 
-    void resolveUser(long reportId, String action);
+    void resolveUser(long userId, String action);
 }
