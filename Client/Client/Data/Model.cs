@@ -58,5 +58,11 @@ namespace Client.Data
 		{
 			throw new System.NotImplementedException();
 		}
+		
+		//method (in the interface)
+		public void ReportPlace(Report<Place> report)
+		{ 
+			//async server.ReportPlace
+		}
 	}
 }

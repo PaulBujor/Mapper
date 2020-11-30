@@ -1,25 +1,47 @@
-﻿@page "/place/{param}"
+﻿@page "/place/{placeid}"
 @using Radzen.Blazor
+@using Client.Models
+@inject Client.Data.IModel Model
 
-<div class="row">
-    <div class="col-xl-6">
-        <h3>Rating with 5 stars</h3>
-        <RadzenRating Change=@(v => OnChange(v, "Rating with 5 stars")) />
-
+<div class="page-container">
+    <div class="place-first-row">
+        <p class="place-title">
+            @place.title
+        </p>
+        <RadzenRating id="radzen-rating" Change=@(v => OnChange(v, "Rating with 5 stars")) />
     </div>
+
+    <div id="title-separator"></div>
+
+    <div class="place-section">
+        <div id="place-description">
+            <h3>/ Description /</h3>
+            <p>@place.description</p>
+        </div>
+        <div id="place-reviews">
+            <h3>/ Comments /</h3>
+        </div>
+    </div>
+
 </div>
+    @code {
+        [Parameter]
+        public string placeId { get; set; }
+        public Place place { get; set; }
 
-<h3>Place: @Param</h3>
+        protected override void OnInitialized()
+        {
 
-@code {
-    [Parameter]
-    public string Param { get; set; }
+            place = Model.GetPlaces().FirstOrDefault(p => (p.id == long.Parse(placeId)));
 
-    void OnChange(int value, string name)
-    {
-        Console.WriteLine($"Value: {value} Name: {name}");
+
+        }
+
+
+        void OnChange(int value, string name)
+        {
+            Console.WriteLine($"Value: {value} Name: {name}");
+        }
+
+
     }
-
-
-
-}

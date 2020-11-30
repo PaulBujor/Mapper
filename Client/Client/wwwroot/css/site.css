@@ -47,16 +47,22 @@ app {
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
+    background: #fafafa;
 }
 
     .sidebar .top-row {
-        background-color: rgba(0,0,0,0.4);
+        background-color: #fafafa;
+        
     }
 
-    .sidebar .navbar-brand {
-        font-size: 1.1rem;
-    }
+
+
+.sidebar .navbar-brand {
+    color: #432fc4;
+    font-size: 1.5em;
+    font-weight: bold;
+}
 
     .sidebar .oi {
         width: 2rem;
@@ -70,6 +76,7 @@ app {
         padding-bottom: 0.5rem;
     }
 
+
         .sidebar .nav-item:first-of-type {
             padding-top: 1rem;
         }
@@ -79,27 +86,39 @@ app {
         }
 
         .sidebar .nav-item a {
-            color: #d7d7d7;
-            border-radius: 4px;
+            color: #757575;
+            border-radius: 10px;
             height: 3rem;
             display: flex;
             align-items: center;
             line-height: 3rem;
         }
 
+        .sidebar .nav-item .logout {
+            background: #ff2222 !important;
+        }
+
+
             .sidebar .nav-item a.active {
-                background-color: rgba(255,255,255,0.25);
+                background-image: linear-gradient(to right, #6f59ff, #432fc4);
+                color: white;
+            }
+
+            .sidebar .nav-item a.active:hover {
                 color: white;
             }
 
             .sidebar .nav-item a:hover {
-                background-color: rgba(255,255,255,0.1);
-                color: white;
+                background-color: #a3a3ff;
+                color: #432fc4;
             }
+
 
 .reports {
     background-image: linear-gradient(180deg, rgb(39, 109, 103) 100%, #3a0647 100%);
 }
+
+
 
 .content {
     padding: 0 0 0 0 !important;
@@ -213,7 +232,7 @@ app {
 
 #map {
     width: auto;
-    height: 700px;
+    height: 100vh;
 }
 
 .map-overlay {
@@ -252,7 +271,6 @@ app {
         background-color: blue;
         box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
         -webkit-transition: background-color 500ms linear;
-        -ms-transition: background-color 500ms linear;
         transition: background-color 500ms linear;
     }
 
@@ -281,6 +299,82 @@ app {
 .checked {
     color: orange;
 }
+
+.bottom-container {
+    width: 100%;
+    height: 10em;;
+    position: sticky;
+    background-color: blue;
+    position: sticky;
+    z-index: 10;
+}
+
+.place-title {
+    font-family: Georgia, Helvetica, sans-serif;
+    font-size: 3.5em;
+    display: inline;
+    width: 16em;
+    word-wrap: break-word;
+}
+
+.page-container {
+    margin: 5px;
+    padding: 5px 15px 5px 15px;
+}
+
+#title-separator {
+    margin: 20px 0px 20px 0px;
+    height: 0.3em;
+    background-image: linear-gradient(to right, #6f59ff, #432fc4);
+}
+
+#radzen-rating {
+    
+}
+
+.place-first-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.place-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.place-section > div {
+    background: #f2f2f2;
+    border-radius: 15px;
+}
+
+    .place-section > div > h3 {
+        font-family: Georgia, Helvetica, sans-serif;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    .place-section > div > p {
+        margin-left: 5px;
+    }
+
+
+
+#place-description {
+    width: 65%;
+    height: 15em;
+    margin: 10px;
+}
+
+#place-reviews {
+    width: 35%;
+    height: 15em;
+    margin: 10px;
+}
+
+
 
 
 
