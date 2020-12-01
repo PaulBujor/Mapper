@@ -110,5 +110,30 @@ namespace Client.Data.Networking
             }
             return false;
         }
+
+        public Task EditFirstName(long id, string firstname)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task EditLastName(long id, string lastname)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task EditUserName(long id, string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task EditEmail(long id, string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ChangePassword(long id, string password)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

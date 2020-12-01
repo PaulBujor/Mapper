@@ -11,5 +11,11 @@ namespace Client.Data
       
         Task<bool> CheckEmail(string message);
         Task<bool> CheckUserName(string message);
+
+        Task EditFirstName(long id,string firstname);
+        Task EditLastName(long id, string lastname);
+        Task EditUserName(long id, string username);
+        Task EditEmail(long id, string email);
+        Task ChangePassword(long id, string password);
     }
 }

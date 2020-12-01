@@ -27,9 +27,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Client/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Data/IAuth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Data/IAuth.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Models/CustomUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Models/EditAcount/CustomUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Models/Message.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Pages/Profile/Edit.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Pages/Profile/Edit.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Pages/Register.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Pages/Register.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/wwwroot/css/site.css" beforeDir="false" afterPath="$PROJECT_DIR$/Client/wwwroot/css/site.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,11 +73,15 @@
         <option value="$PROJECT_DIR$/Client/Shared/NavMenu.razor" />
         <option value="$PROJECT_DIR$/Client/Pages/Profile/Collections.razor" />
         <option value="$PROJECT_DIR$/Client/Models/User.cs" />
-        <option value="$PROJECT_DIR$/Client/Models/CustomUser.cs" />
-        <option value="$PROJECT_DIR$/Client/Data/IAuth.cs" />
         <option value="$PROJECT_DIR$/Client/Pages/Register.razor" />
+        <option value="$PROJECT_DIR$/Client/Models/CustomUser.cs" />
+        <option value="$PROJECT_DIR$/Client/wwwroot/css/site.css" />
+        <option value="$PROJECT_DIR$/Client/Models/EditAcount/CustomPassword.cs" />
+        <option value="$PROJECT_DIR$/Client/Data/IAuth.cs" />
         <option value="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" />
+        <option value="$PROJECT_DIR$/Client/Pages/Profile/EditTest.razor" />
         <option value="$PROJECT_DIR$/Client/Pages/Profile/Edit.razor" />
+        <option value="$PROJECT_DIR$/Client/Models/EditAcount/CustomUser.cs" />
       </list>
     </option>
   </component>
@@ -146,7 +151,8 @@
       <workItem from="1606323414333" duration="6659000" />
       <workItem from="1606575672134" duration="15356000" />
       <workItem from="1606648117173" duration="24813000" />
-      <workItem from="1606741744239" duration="13064000" />
+      <workItem from="1606741744239" duration="16257000" />
+      <workItem from="1606825980137" duration="21060000" />
     </task>
     <servers />
   </component>
@@ -175,25 +181,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="699" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606585701197" />
-    <state width="1877" height="234" key="GridCell.Tab.0.bottom" timestamp="1606754483768">
+    <state width="1877" height="234" key="GridCell.Tab.0.bottom" timestamp="1606846865178">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="234" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606754483768" />
+    <state width="1877" height="234" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606846865178" />
     <state width="1877" height="244" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-122.1920.1040@1920.-122.1920.1040" timestamp="1606240833202" />
-    <state width="1877" height="234" key="GridCell.Tab.0.center" timestamp="1606754483767">
+    <state width="1877" height="234" key="GridCell.Tab.0.center" timestamp="1606846865178">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="234" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606754483767" />
+    <state width="1877" height="234" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606846865178" />
     <state width="1877" height="244" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-122.1920.1040@1920.-122.1920.1040" timestamp="1606240833202" />
-    <state width="1877" height="234" key="GridCell.Tab.0.left" timestamp="1606754483767">
+    <state width="1877" height="234" key="GridCell.Tab.0.left" timestamp="1606846865178">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="234" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606754483767" />
+    <state width="1877" height="234" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606846865178" />
     <state width="1877" height="244" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-122.1920.1040@1920.-122.1920.1040" timestamp="1606240833202" />
-    <state width="1877" height="234" key="GridCell.Tab.0.right" timestamp="1606754483768">
+    <state width="1877" height="234" key="GridCell.Tab.0.right" timestamp="1606846865178">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="234" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606754483768" />
+    <state width="1877" height="234" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606846865178" />
     <state width="1877" height="244" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-122.1920.1040@1920.-122.1920.1040" timestamp="1606240833202" />
     <state width="1877" height="375" key="GridCell.Tab.1.bottom" timestamp="1606682511670">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -263,10 +269,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="252" key="Rider.ProjectTemplateDialog.Size/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1605706411489" />
-    <state x="740" y="226" key="RiderGenerateDialog" timestamp="1606666538849">
+    <state x="740" y="226" key="RiderGenerateDialog" timestamp="1606843826406">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="226" key="RiderGenerateDialog/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606666538849" />
+    <state x="740" y="226" key="RiderGenerateDialog/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606843826406" />
     <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog" timestamp="1606227569406">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -275,9 +281,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606137406547" />
-    <state x="1920" y="-122" width="1206" height="1027" key="dock-window-1" timestamp="1606742117373">
+    <state x="1920" y="139" width="1484" height="765" maximized="true" key="dock-window-1" timestamp="1606837178672">
       <screen x="1920" y="-122" width="1920" height="1040" />
     </state>
-    <state x="1920" y="-122" width="1206" height="1027" key="dock-window-1/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606742117373" />
+    <state x="1920" y="139" width="1484" height="765" maximized="true" key="dock-window-1/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606837178672" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1606843319773">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606843319773" />
   </component>
 </project>

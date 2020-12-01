@@ -27,14 +27,16 @@
             <e p="IServer.cs" t="Include" />
             <e p="ModeratorClient.cs" t="Include" />
             <e p="PlaceClient.cs" t="Include" />
+            <e p="ReportClient.cs" t="Include" />
             <e p="UDPListener.cs" t="Include" />
           </e>
         </e>
         <e p="Models" t="Include">
-          <e p="CustomUser.cs" t="Include" />
+          <e p="EditAcount" t="Include">
+            <e p="CustomUser.cs" t="Include" />
+          </e>
           <e p="IReview.cs" t="Include" />
           <e p="LoginMessage.cs" t="Include" />
-          <e p="Message.cs" t="Include" />
           <e p="Place.cs" t="Include" />
           <e p="PlaceData.cs" t="Include" />
           <e p="PlaceTask.cs" t="Include" />

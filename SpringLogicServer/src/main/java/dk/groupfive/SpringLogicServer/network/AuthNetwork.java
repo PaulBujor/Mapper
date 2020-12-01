@@ -14,4 +14,5 @@ public interface AuthNetwork
   String checkUserName(String message) throws IOException;
 
 
+
 }
