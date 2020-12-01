@@ -107,6 +107,18 @@ public class ModeratorModel implements Model{
         }
     }
 
+    @Override
+    public void resolveReport(long reportId, String action) {
+        switch (action) {
+            case "dismiss":
+                //todo
+                //dismissReport(reportId);
+                break;
+            default:
+                System.out.println("Not implemented");
+        }
+    }
+
     //todo also resolve report on t3
     private void removePlace(long placeId) {
         //gets the placeID of the first report that contains the reported place based on the id of the report (ask paul if unclear)

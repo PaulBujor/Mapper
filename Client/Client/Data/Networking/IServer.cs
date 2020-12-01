@@ -12,5 +12,9 @@ namespace Client.Networking
 		Task<IList<Place>> GetPlacesAsync();
 
 		Task AddPlaceAsync(Place place);
+
+		Task RemovePlaceAsync(long placeId);
+
+		Task DismissReportAsync(long reportId);
 	}
 }

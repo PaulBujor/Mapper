@@ -47,6 +47,7 @@ public class ModeratorController implements ModeratorNetwork {
     @PatchMapping("/reports/places/{placeId}?action={action}")
     public void resolvePlace(@PathVariable long placeId, @PathVariable String action) {
         model.resolvePlace(placeId, action);
+        System.out.println(placeId);
     }
 
     //currently the only action is remove
@@ -59,6 +60,11 @@ public class ModeratorController implements ModeratorNetwork {
     @PatchMapping("/reports/users/{userId}?action={action}")
     public void resolveUser(@PathVariable long userId, @PathVariable String action) {
         model.resolveUser(userId, action);
+    }
+
+    @PatchMapping("/reports/{reportId}?action={action}")
+    public void resolveReport(@PathVariable long reportId, @PathVariable String action) {
+        model.resolveReport(reportId, action);
     }
 
 

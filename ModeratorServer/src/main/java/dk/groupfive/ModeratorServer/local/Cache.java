@@ -45,7 +45,9 @@ public class Cache {
     }
 
     public List<Report<Place>> getPlaceReports() {
-        return new ArrayList<Report<Place>>(placeReports.values());
+        ArrayList<Report<Place>> reports = new ArrayList<Report<Place>>(placeReports.values());
+        reports.stream().dropWhile(item -> item.isResolved());
+        return reports;
     }
 
     public List<Report<User>> getUserReports() {

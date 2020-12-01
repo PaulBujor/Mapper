@@ -13,9 +13,9 @@
 			<div class="card-body">
 				<h6 class="card-subtitle mb-2 text-muted">Category: @item.category</h6>
 				<p class="card-text">@item.description</p>
-				<a href="#" class="card-link">TODO Open place</a>
+				<a href="/place/@item.reportedItem.id" class="card-link">Open place</a>
 				<a class="card-link">
-					<RadzenDropDown AllowClear="true" TValue="string"
+					<RadzenDropDown class="align-middle" AllowClear="true" TValue="string"
 									Placeholder="Action"
 									Data=@options
 									TextProperty="ModAction" ValueProperty="Action" Change=@(args => OnChange(args, item)) />

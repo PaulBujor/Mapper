@@ -52,5 +52,15 @@ namespace Client.Data.Networking
 		{
 			return await _moderator.GetPlaceReportsAsync();
 		}
+
+		public async Task RemovePlaceAsync(long placeId)
+		{
+			await _moderator.RemovePlaceAsync(placeId);
+		}
+
+		public async Task DismissReportAsync(long reportId)
+		{
+			await _moderator.DismissReportAsync(reportId);
+		}
 	}
 }
