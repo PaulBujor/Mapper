@@ -42,6 +42,7 @@ namespace Client.Data.Networking
                 Console.WriteLine("Testing returns:");
                 Console.WriteLine(user.username);
                 Console.WriteLine(user.password);
+                Console.WriteLine(user.id);
             }
             catch (HttpRequestException e)
             {
@@ -65,10 +66,7 @@ namespace Client.Data.Networking
                 Console.WriteLine(e);
             }
         }
-        public Task EditProfile(User user)
-        {
-            throw new NotImplementedException();
-        }
+     
         public async Task<bool> CheckEmail(string message)
         {
             try
@@ -96,8 +94,8 @@ namespace Client.Data.Networking
             try
             {
                 HttpClient client = new HttpClient();
-                string emailSerialized = JsonSerializer.Serialize(message);
-                StringContent content = new StringContent(emailSerialized, Encoding.UTF8, "text/plain");
+                string userNameSerialized = JsonSerializer.Serialize(message);
+                StringContent content = new StringContent(userNameSerialized, Encoding.UTF8, "text/plain");
                 HttpResponseMessage responseMessage = await client.PostAsync(URI + "/uname", content);
                if (responseMessage.StatusCode == HttpStatusCode.OK)
                 {
@@ -111,29 +109,111 @@ namespace Client.Data.Networking
             return false;
         }
 
-        public Task EditFirstName(long id, string firstname)
+        public async Task UpdateFirstName(long id, string firstname)
         {
-            throw new NotImplementedException();
+           
+            try
+            {
+
+                HttpClient client = new HttpClient();
+                string tmpName = JsonSerializer.Serialize(firstname);
+                StringContent content = new StringContent(tmpName,Encoding.UTF8,"text/plain");
+                HttpResponseMessage responseMessage = await client.PatchAsync(URI + $"/auth/users/{id}/firstname", content);
+                Console.WriteLine(responseMessage);
+                if (responseMessage.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception("Internal Server Error");
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
-        public Task EditLastName(long id, string lastname)
+        public async Task UpdateLastName(long id, string lastname)
         {
-            throw new NotImplementedException();
+            
+            try
+            {
+
+                HttpClient client = new HttpClient();
+                string tmpLastName = JsonSerializer.Serialize(lastname);
+                StringContent content = new StringContent(tmpLastName,Encoding.UTF8,"text/plain");
+                HttpResponseMessage responseMessage = await client.PatchAsync(URI + $"/auth/users/{id}/lastname", content);
+                Console.WriteLine(responseMessage);
+                if (responseMessage.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception("Internal Server Error");
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
-        public Task EditUserName(long id, string username)
+        public async Task UpdateUserName(long id, string username)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                HttpClient client = new HttpClient();
+                string tmpuserName = JsonSerializer.Serialize(username);
+                StringContent content = new StringContent(tmpuserName,Encoding.UTF8,"text/plain");
+                HttpResponseMessage responseMessage = await client.PatchAsync(URI + $"/auth/users/{id}/username", content);
+                Console.WriteLine(responseMessage);
+                if (responseMessage.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception("Internal Server Error");
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
-        public Task EditEmail(long id, string email)
+        public async Task UpdateEmail(long id, string email)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                HttpClient client = new HttpClient();
+                string tmpEmail = JsonSerializer.Serialize(email);
+                StringContent content = new StringContent(tmpEmail,Encoding.UTF8,"text/plain");
+                HttpResponseMessage responseMessage = await client.PatchAsync(URI + $"/auth/users/{id}/email", content);
+                Console.WriteLine(responseMessage);
+                if (responseMessage.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception("Internal Server Error");
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
-        public Task ChangePassword(long id, string password)
+        public async Task UpdatePassword(long id, string password)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                HttpClient client = new HttpClient();
+                string tmpPassword = JsonSerializer.Serialize(password);
+                StringContent content = new StringContent(tmpPassword,Encoding.UTF8,"text/plain");
+                HttpResponseMessage responseMessage = await client.PatchAsync(URI + $"/auth/users/{id}/password", content);
+                Console.WriteLine(responseMessage);
+                if (responseMessage.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception("Internal Server Error");
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }

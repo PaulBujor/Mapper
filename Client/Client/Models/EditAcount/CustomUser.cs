@@ -29,6 +29,7 @@ namespace Client.Models
         
         public string password { get; set; }
         public long id { get; set; }
+        
 
     }
 }

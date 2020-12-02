@@ -11,16 +11,18 @@ public class User implements Serializable
   private int auth;
   private String firstname;
   private String lastname;
+  private long id;
 
 
   public User(){super();}
-  public User (String username,String password,String email, int auth,String firstname,String lastname){
+  public User (String username,String password,String email, int auth,String firstname,String lastname,long id){
     this.username = username;
     this.password = password;
     this.email = email;
     this.auth= auth;
     this.firstname = firstname;
     this.lastname = lastname;
+    this.id=id;
   }
 
   public String getUsername()
@@ -81,5 +83,15 @@ public class User implements Serializable
   public void setLastname(String lastname)
   {
     this.lastname = lastname;
+  }
+
+  public long getId()
+  {
+    return id;
+  }
+
+  public void setId(long id)
+  {
+    this.id = id;
   }
 }

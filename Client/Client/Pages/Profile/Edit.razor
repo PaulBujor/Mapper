@@ -32,7 +32,6 @@
     <p>
         <label for="lastname">Last name</label><br>
         <InputText id="lastname" @bind-Value="cachedUser.lastname"/>
-
         <button class="button1" type="submit">Save</button>
     </p>
 </EditForm>
@@ -43,7 +42,6 @@
     <p>
         <label for="username">Username</label><br>
         <InputText id="username" @bind-Value="cachedUser.username"/>
-
         <button class="button1" type="submit">Save</button>
     </p>
 </EditForm>
@@ -54,7 +52,6 @@
     <p>
         <label for="email">Email</label><br>
         <InputText id="email" @bind-Value="cachedUser.email"/>
-
         <button class="button1" type="submit">Save</button>
     </p>
 </EditForm>
@@ -67,10 +64,11 @@
         <InputText id="newpassword" @bind-Value="NewPassword"/>
         </p>
     <p>
-            <label for="confirmpassword">Confirm Password</label><br>
-            <InputText id="confirmpassword" @bind-Value="ConfirmPassword"/>
-            <button class="button1" type="submit">Save</button>
-        </p>
+        <label for="confirmpassword">Confirm Password</label><br>
+        <InputText id="confirmpassword" @bind-Value="ConfirmPassword"/>
+        <button class="button1" type="submit">Save</button>
+    </p>
+    
 </EditForm>
 
 
@@ -90,6 +88,7 @@
     private string TmpEmail;
     private string TmpFirstName;
     private string TmpLastName;
+    private long TmpId;
     
    
 
@@ -112,6 +111,7 @@
             TmpEmail = cachedUser.email;
             TmpFirstName = cachedUser.firstname;
             TmpLastName = cachedUser.lastname;
+            TmpId = cachedUser.id;
         }
     }
     
@@ -123,7 +123,7 @@
             if (TmpFirstName != cachedUser.firstname)
             {
 
-                await Auth.EditFirstName(cachedUser.id, cachedUser.firstname);
+                await Auth.UpdateFirstName(TmpId, cachedUser.firstname);
             }
         }
         catch (Exception e)
@@ -140,7 +140,7 @@
         {
             if (TmpLastName != cachedUser.lastname)
             {
-                await Auth.EditLastName(cachedUser.id, cachedUser.lastname);
+                await Auth.UpdateLastName(TmpId, cachedUser.lastname);
             }
         }
         catch (Exception e)
@@ -163,7 +163,7 @@
                     ErrorMessage = "Username already exists";
                     throw new Exception("Username already exists");
                 }
-                await Auth.EditUserName(cachedUser.id, cachedUser.username);
+                await Auth.UpdateUserName(TmpId, cachedUser.username);
             }
             
         }
@@ -186,7 +186,7 @@
                     ErrorMessage = "Email already exists";
                     throw new Exception("Email already exists");
                 }
-                await Auth.EditEmail(cachedUser.id, cachedUser.email);
+                await Auth.UpdateEmail(TmpId, cachedUser.email);
             }
             
         }
@@ -217,7 +217,7 @@
                     throw new Exception("Passwords must match.");
                     
                 }
-                await Auth.ChangePassword(cachedUser.id, NewPassword);
+                await Auth.UpdatePassword(TmpId, NewPassword);
                 
             }
         }
