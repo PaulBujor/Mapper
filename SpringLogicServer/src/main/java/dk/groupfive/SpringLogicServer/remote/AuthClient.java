@@ -120,7 +120,7 @@ public class AuthClient implements AuthServer
       return true;
     }else return false;
   }
-  
+
   @Override public synchronized boolean updateEmail(long id, String email) throws IOException
   {
     out.println("updateEmail");
