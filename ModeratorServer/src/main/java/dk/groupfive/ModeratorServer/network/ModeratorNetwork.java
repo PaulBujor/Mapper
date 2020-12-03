@@ -16,4 +16,6 @@ public interface ModeratorNetwork {
     void resolveReview(long reviewId, String action);
 
     void resolveUser(long userId, String action);
+
+    void resolveReport(long reportId, String action);
 }

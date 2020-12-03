@@ -43,30 +43,104 @@ public class AuthClient implements AuthServer
     return user;
   }
 
-  @Override public void register (User user) throws IOException
+  //TODO have t3 return a boolean
+  //True means that task was successful
+  @Override public boolean register (User user) throws IOException
   {
 
     out.println("register");
     String send = gson.toJson(user);
     out.println(send);
+    String response = in.readLine();
+    if(true)
+    {
+     return true;
+    }else return false;
 
   }
 
-  @Override public String checkEmail(String message) throws IOException
+  @Override public boolean checkEmail(String message) throws IOException
   {
     out.println("checkEmail");
     String send = gson.toJson(message);
     out.println(send);
     String response = in.readLine();
-    return gson.toJson(response);
+    if(true){
+      return true;
+    }else return false;
   }
 
-  @Override public String checkUserName(String message) throws IOException
+  //TODO have t3 return a boolean
+  @Override public boolean checkUserName(String message) throws IOException
   {
     out.println("checkUserName");
     String send = gson.toJson(message);
     out.println(send);
     String response = in.readLine();
-    return gson.toJson(response);
+    if(true){
+      return true;
+    }else return false;
+  }
+
+  @Override public synchronized boolean updateFirstName(long id, String firstname)
+      throws IOException
+  {
+      out.println("updateFirstName");
+
+      out.println(id);
+      out.println(firstname);
+    String response = in.readLine();
+
+    if(true){
+      return true;
+    }else return false;
+  }
+
+  @Override public synchronized boolean updateLastName(long id, String lastname)
+      throws IOException
+  {
+    out.println("updateLastName");
+    out.println(id);
+    out.println(lastname);
+    String response = in.readLine();
+
+    if(true){
+      return true;
+    }else return false;
+  }
+
+  @Override public synchronized boolean updateUserName(long id, String username)
+      throws IOException
+  {
+    out.println("updateUserName");
+    out.println(id);
+    out.println(username);
+    String response = in.readLine();
+    if(true){
+      return true;
+    }else return false;
+  }
+
+  @Override public synchronized boolean updateEmail(long id, String email) throws IOException
+  {
+    out.println("updateEmail");
+    out.println(id);
+    out.println(email);
+    String response = in.readLine();
+    if(true){
+      return true;
+    }else return false;
+  }
+
+  @Override public synchronized boolean updatePassword(long id, String password)
+      throws IOException
+  {
+    out.println("updatePassword");
+    out.println(id);
+    out.println(password);
+    String response = in.readLine();
+    if(true){
+      return true;
+    }else return false;
   }
 }

@@ -11,7 +11,8 @@ namespace Client.Models
 {
     public class User
     {
-       
+
+        
         [Required]
         [StringLength(16)]
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "For username only alphabet and numbers allowed.")]
@@ -34,6 +35,7 @@ namespace Client.Models
         [StringLength(16)]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please enter alphabet only.")] 
         public string lastname { get; set; }
+        public long id { get; set; }
 
         
         

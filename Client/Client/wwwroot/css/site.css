@@ -161,8 +161,7 @@ app {
 }
 
 .card {
-    width: 33%;
-    min-width: 400px;
+    width: 350px;
     margin: 10px;
     float: left;
     box-sizing: border-box;
@@ -378,7 +377,13 @@ app {
     height: 100%;
     margin: 10px;
 }
+.button1 {
+    background-color: #E8E8E8;
+    color: #606060;
+    border: 2px solid #555555;
+    border-radius: 20%;
 
+}
 
 
 

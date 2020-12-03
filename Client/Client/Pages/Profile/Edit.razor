@@ -1,74 +1,80 @@
+
+@using Client.Data
 @using Client.Models
 @using System.Text.Json
-@using Client.Data
-@using Client.Data.Authentication
-@using Client.Data.Networking
-@using System.Globalization
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+<h3>Edit</h3>
 
-<h3>Edit </h3>
 
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject IAuth Auth
 
-<AuthorizeView>
-    <Authorized>
-      <div id="error">
-                  <p><span style="color: #ff2222">@ErrorMessage</span></p>   
-              </div>
-            
-              <div id="form">
-                  <EditForm Context="formContext" Model="@cachedUser" OnValidSubmit="@Submit">
-                      <DataAnnotationsValidator/>
-                      <ValidationSummary />
-      
-      
-                      <p>
-                          <InputText id="firstname" @bind-Value="cachedUser.firstname" />
-                          <label for="firstname">-First name</label>
-                      </p>
-      
-                      <p>
-                          <InputText id="lastname" @bind-Value="cachedUser.lastname" />
-                          <label for="lastname">-Last name</label>
-                      </p>
-      
-                      <p>
-                          <InputText id="username" @bind-Value="cachedUser.username" />
-                          <label for="username">-User name</label>
-                      </p>
-      
-                      <p>
-                          <InputText id="email" @bind-Value="cachedUser.email" />
-                          <label for="email">-Email</label>
-                      </p>
-                      
-                 
-      
-                      <p>
-                          <InputText type="password" @bind-Value="@NewPassword" />
-                          <label for="password">-New Password</label>
-                      </p>
-      
-                      <p>
-                          <InputText type="password" @bind-Value="@ConfirmPassword" />
-                          <label for="confirmpassword">-Confirm Password</label>
-                      </p>
-                      
-                      
-      
-      
-      
-                      <button type="submit">Submit changes</button>
-      
-                  </EditForm>
-              </div>
-              
-    </Authorized>
-</AuthorizeView>
+
+<div id="error">
+    <p><span style="color: #ff2222">@ErrorMessage</span></p>   
+</div>
+
+<EditForm Context="editForm" Model="@cachedUser" OnValidSubmit="@EditFirstName">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <p>
+        <label for="firstname">First name</label><br>
+        <InputText id="firstname" @bind-Value="cachedUser.firstname"/>
+        <button class="button1" type="submit">Save</button>
+    </p>
+</EditForm>
+
+<EditForm Context="editForm" Model="@cachedUser" OnValidSubmit="@EditLastName">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <p>
+        <label for="lastname">Last name</label><br>
+        <InputText id="lastname" @bind-Value="cachedUser.lastname"/>
+        <button class="button1" type="submit">Save</button>
+    </p>
+</EditForm>
+
+<EditForm Context="editForm" Model="@cachedUser" OnValidSubmit="@EditUserName">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <p>
+        <label for="username">Username</label><br>
+        <InputText id="username" @bind-Value="cachedUser.username"/>
+        <button class="button1" type="submit">Save</button>
+    </p>
+</EditForm>
+
+<EditForm Context="editForm" Model="@cachedUser" OnValidSubmit="@EditEmail">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <p>
+        <label for="email">Email</label><br>
+        <InputText id="email" @bind-Value="cachedUser.email"/>
+        <button class="button1" type="submit">Save</button>
+    </p>
+</EditForm>
+
+<EditForm Context="editForm" Model="@cachedUser" OnValidSubmit="@ChangePassword">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <p>
+        <label for="newpassword">New Password</label><br>
+        <InputText id="newpassword" @bind-Value="NewPassword"/>
+        </p>
+    <p>
+        <label for="confirmpassword">Confirm Password</label><br>
+        <InputText id="confirmpassword" @bind-Value="ConfirmPassword"/>
+        <button class="button1" type="submit">Save</button>
+    </p>
+    
+</EditForm>
+
+
+
 
 @code {
-
     [CascadingParameter]
     protected Task<AuthenticationState> AuthStat { get; set; }
 
@@ -80,6 +86,10 @@
     private string ConfirmPassword;
     private string TmpUserName;
     private string TmpEmail;
+    private string TmpFirstName;
+    private string TmpLastName;
+    private long TmpId;
+    
    
 
 
@@ -97,55 +107,146 @@
         if (!string.IsNullOrEmpty(userAsJson))
         {
             cachedUser = JsonSerializer.Deserialize<CustomUser>(userAsJson);
-            Console.WriteLine(cachedUser.email);
             TmpUserName = cachedUser.username;
             TmpEmail = cachedUser.email;
-
-
+            TmpFirstName = cachedUser.firstname;
+            TmpLastName = cachedUser.lastname;
+            TmpId = cachedUser.id;
         }
-        
-      
     }
-
-    private async Task Submit()
+    
+    private async Task EditFirstName()
     {
-      
         ErrorMessage = "";
         try
         {
+            if (TmpFirstName != cachedUser.firstname)
+            {
 
-            var checkEmail = await Auth.CheckEmail(cachedUser.email);
-           var checkUserName = await Auth.CheckUserName(cachedUser.username);
+                await Auth.UpdateFirstName(TmpId, cachedUser.firstname);
+            }
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = e.Message;
+        }
+
+    }
+
+    private async Task EditLastName()
+    {
+        ErrorMessage = "";
+        try
+        {
+            if (TmpLastName != cachedUser.lastname)
+            {
+                await Auth.UpdateLastName(TmpId, cachedUser.lastname);
+            }
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = e.Message;
+        }
+    }
+
+    private async Task EditUserName()
+    {
+        ErrorMessage = "";
+        Console.WriteLine("Testing username");
+        try
+        {
+            if (TmpUserName != cachedUser.username)
+            {
+                var checkUserName = await Auth.CheckUserName(cachedUser.username);
+                if (checkUserName == false)
+                {
+                    ErrorMessage = "Username already exists";
+                    throw new Exception("Username already exists");
+                }
+                await Auth.UpdateUserName(TmpId, cachedUser.username);
+            }
+            
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = e.Message;
+        }
+    }
+
+    private async Task EditEmail()
+    {
+        ErrorMessage = "";
+        try
+        {
             if (TmpEmail != cachedUser.email)
             {
-                Console.WriteLine("Testing****************************123123123123123");
+                var checkEmail = await Auth.CheckEmail(cachedUser.email);
                 if (checkEmail == false)
                 {
                     ErrorMessage = "Email already exists";
                     throw new Exception("Email already exists");
                 }
+                await Auth.UpdateEmail(TmpId, cachedUser.email);
             }
-            if (TmpUserName != cachedUser.username)
-            {
-                if (checkUserName == false)
-                {
-                    ErrorMessage = "Username already exists";
-
-                    throw new Exception("Username already exists");
-                }
-            }
-    /*User user = new User{};
-        await Auth.EditProfile()*/
+            
         }
         catch (Exception e)
         {
             ErrorMessage = e.Message;
-            Console.WriteLine(e);
         }
-        Console.WriteLine("gucci");
-      
-        
+    }
+
+    private async Task ChangePassword()
+    {
+        ErrorMessage = "";
+        try
+        {
+            Console.WriteLine("edit password");
+            if (NewPassword != null)
+            {
+                if (PasswordStrength(NewPassword) < 3)
+                {
+
+                    ErrorMessage = "New password is too weak, must contain a capital letter, a number and a special character ";
+                    throw new Exception("New password is too weak, must contain a capital letter, a number and a special character");
+                }
+                if (NewPassword != ConfirmPassword)
+                {
+
+                    ErrorMessage = "Passwords must match.";
+                    throw new Exception("Passwords must match.");
+                    
+                }
+                await Auth.UpdatePassword(TmpId, NewPassword);
+                
+            }
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = e.Message;
+        }
     }
 
 
+    public int PasswordStrength(string password)
+    {
+        int counter = 0;
+       
+        if (Regex.IsMatch(password, "[A-Z]",RegexOptions.ECMAScript))
+        {
+            counter++;
+        }
+        if (Regex.IsMatch(password, "[0-9]"))
+        {
+            counter++;
+                   
+        }
+        if (Regex.IsMatch(password, "[!-)]"))
+        {
+            counter++;
+                    
+        }
+        return counter;
     }
+    }
+}

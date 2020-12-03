@@ -27,17 +27,17 @@ public class ServerAccountModel implements AccountModel
     return server.validate(loginMessage);
   }
 
-  @Override public void register(User user) throws IOException
+  @Override public boolean register(User user) throws IOException
   {
-server.register(user);
+ return server.register(user);
   }
 
-  @Override public String checkEmail(String message) throws IOException
+  @Override public boolean checkEmail(String message) throws IOException
   {
     return server.checkEmail(message);
   }
 
-  @Override public String checkUserName(String message) throws IOException
+  @Override public boolean checkUserName(String message) throws IOException
   {
     return server.checkUserName(message);
   }
@@ -62,5 +62,39 @@ server.register(user);
       }
     }
     return instance;
+  }
+
+  @Override public boolean updateFirstName(long id, String firstname)
+      throws IOException
+  {
+   return server.updateFirstName(id,firstname);
+
+  }
+
+  @Override public boolean updateLastName(long id, String lastname)
+      throws IOException
+  {
+
+   return server.updateLastName(id,lastname);
+  }
+
+  @Override public boolean updateUsername(long id, String username)
+      throws IOException
+  {
+
+   return server.updateUserName(id,username);
+  }
+
+  @Override public boolean updateEmail(long id, String email) throws IOException
+  {
+
+   return server.updateEmail(id,email);
+  }
+
+  @Override public boolean updatePassword(long id, String password)
+      throws IOException
+  {
+
+  return   server.updatePassword(id,password);
   }
 }
