@@ -10,6 +10,7 @@ namespace Client.Data
 	public interface IMap
 	{
 		Task InitMapAsync();
+		Task InitMapMarkerAsync(long id);
 		Task AddMarkerAsync(Place place);
 
 		Task SetTemporaryMarkerAsync();

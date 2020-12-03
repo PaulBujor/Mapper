@@ -2,6 +2,7 @@
 @using Radzen.Blazor
 @using Client.Models
 @inject Client.Data.IModel Model
+@inject Client.Data.IMap Map
 
 <div class="page-container">
     <div class="place-first-row">
@@ -22,26 +23,33 @@
             <h3>/ Comments /</h3>
         </div>
     </div>
+    <div id='map'></div>
 
 </div>
-    @code {
-        [Parameter]
-        public string placeId { get; set; }
-        public Place place { get; set; }
+@code {
+    [Parameter]
+    public string placeId { get; set; }
+    public Place place { get; set; }
 
-        protected override void OnInitialized()
-        {
+    protected override void OnInitialized()
+    {
 
-            place = Model.GetPlaces().FirstOrDefault(p => (p.id == long.Parse(placeId)));
-
-
-        }
-
-
-        void OnChange(int value, string name)
-        {
-            Console.WriteLine($"Value: {value} Name: {name}");
-        }
+        place = Model.GetPlaces().FirstOrDefault(p => (p.id == long.Parse(placeId)));
 
 
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await Map.InitMapMarkerAsync(long.Parse(placeId));
+    }
+
+
+    void OnChange(int value, string name)
+    {
+        Console.WriteLine($"Value: {value} Name: {name}");
+    }
+
+
+}

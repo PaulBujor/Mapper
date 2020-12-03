@@ -70,5 +70,10 @@ namespace Client.Data
 			};
 			await server.ReportPlaceAsync(report);
 		}
-	}
+
+		public override Place GetPlaceById(long id)
+        {
+			return GetPlaces().FirstOrDefault(p => p.id.Equals(id));
+		}
+    }
 }

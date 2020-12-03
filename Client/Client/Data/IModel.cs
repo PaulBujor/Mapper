@@ -18,6 +18,7 @@ namespace Client.Data
 		public abstract Task AddPlaceAsync(Place place);
 
 		public abstract IList<Place> GetPlaces();
+		public abstract Place GetPlaceById(long id);
 
 		public abstract Task<List<Report<Place>>> GetPlaceReportsAsync();
 
