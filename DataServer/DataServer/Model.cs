@@ -39,7 +39,7 @@ namespace DataServer
 			AddPlaceReport(report);
 		}
 
-		private void AddPlaceReport(Report<Place> report)
+		public void AddPlaceReport(Report<Place> report)
 		{
 			cache.CreatePlaceReport(report);
 		}
@@ -60,7 +60,6 @@ namespace DataServer
 		{
 			cache.UpdatePlace(place);
 		}
-
 
 		public void RemovePlace(long id)
 		{

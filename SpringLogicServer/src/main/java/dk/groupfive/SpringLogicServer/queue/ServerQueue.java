@@ -8,6 +8,9 @@ import com.rabbitmq.client.MessageProperties;
 import dk.groupfive.SpringLogicServer.model.Model;
 import dk.groupfive.SpringLogicServer.model.ServerModel;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
+import dk.groupfive.SpringLogicServer.model.objects.Report;
+import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
+import dk.groupfive.SpringLogicServer.model.objects.User;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 
 import java.io.IOException;
@@ -18,7 +21,8 @@ public class ServerQueue implements Model {
     private static volatile ServerQueue instance;
     private final static Object lock = new Object();
 
-    private final static String QUEUE_NAME = "places";
+    private final static String PLACE_QUEUE = "places";
+    private final static String REPORT_QUEUE = "reports";
     private ConnectionFactory factory;
     private Channel channel;
     private Gson gson;
@@ -35,7 +39,8 @@ public class ServerQueue implements Model {
              */
             Connection connection = factory.newConnection();
             channel = connection.createChannel();
-            channel.queueDeclare(QUEUE_NAME, true, false, false, null);
+            channel.queueDeclare(PLACE_QUEUE, true, false, false, null);
+            channel.queueDeclare(REPORT_QUEUE, true, false, false, null);
             channel.basicQos(1);
         } catch (TimeoutException e) {
             e.printStackTrace();
@@ -69,7 +74,7 @@ public class ServerQueue implements Model {
     public void addPlace(Place place) {
         PlaceTask task = new PlaceTask("addPlace", place);
         try {
-            channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
+            channel.basicPublish("", PLACE_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,7 +84,7 @@ public class ServerQueue implements Model {
     public void updatePlace(Place place) {
         PlaceTask task = new PlaceTask("updatePlace", place);
         try {
-            channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
+            channel.basicPublish("", PLACE_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,7 +94,34 @@ public class ServerQueue implements Model {
     public void deletePlace(long id) {
         PlaceTask task = new PlaceTask("deletePlace", id);
         try {
-            channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
+            channel.basicPublish("", PLACE_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addReportPlace(Report<Place> report) {
+        try {
+            channel.basicPublish("", REPORT_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(report).getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addReportUser(Report<User> report) {
+        try {
+            channel.basicPublish("", REPORT_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(report).getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addReportReview(Report<ReviewItem> report) {
+        try {
+            channel.basicPublish("", REPORT_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(report).getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -18,15 +18,15 @@ namespace Client.Data.Networking
 		public async Task ReportPlaceAsync(Report<Place> report)
 		{
 			HttpClient client = new HttpClient();
-			string placeSerialized = JsonSerializer.Serialize(report);
+			string reportSerialized = JsonSerializer.Serialize(report);
 
 			StringContent content = new StringContent(
-				placeSerialized,
+				reportSerialized,
 				Encoding.UTF8,
 				"application/json"
 			);
 
-			HttpResponseMessage response = await client.PostAsync(URI + "/places", content);
+			HttpResponseMessage response = await client.PostAsync(URI + "/reports/places", content);
 			Console.WriteLine(response.ToString());
 		}
 

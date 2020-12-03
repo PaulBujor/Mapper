@@ -25,5 +25,7 @@ namespace Client.Data
 
 		public abstract Task DismissPlaceReportAsync(long reportId);
 
+		public abstract Task ReportPlaceAsync(long id);
+
 	}
 }

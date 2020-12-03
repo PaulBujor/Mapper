@@ -1,6 +1,7 @@
 package dk.groupfive.SpringLogicServer.model.objects;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 public class Place implements Serializable {
     private long id;

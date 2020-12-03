@@ -2,6 +2,7 @@
 using Client.Models;
 using Client.Networking;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -59,10 +60,15 @@ namespace Client.Data
 			throw new System.NotImplementedException();
 		}
 		
-		//method (in the interface)
-		public void ReportPlace(Report<Place> report)
-		{ 
-			//async server.ReportPlace
+		public override async Task ReportPlaceAsync(long id)
+		{
+			Place place = GetPlaces().FirstOrDefault(p => p.id.Equals(id));
+			Report<Place> report = new Report<Place>
+			{
+				reportedItem = place,
+				reportedClass = "Place"
+			};
+			await server.ReportPlaceAsync(report);
 		}
 	}
 }

@@ -43,7 +43,7 @@ namespace Client.Data.Networking
 			return await _place.GetPlacesAsync();
 		}
 
-		public async Task ReportPlace(Report<Place> report)
+		public async Task ReportPlaceAsync(Report<Place> report)
 		{
 			await _report.ReportPlaceAsync(report);
 		}

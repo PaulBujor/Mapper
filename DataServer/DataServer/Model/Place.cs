@@ -24,5 +24,15 @@ namespace DataServer.Models
 			this.title = title;
 			this.description = description;
 		}
+
+		public Place(PlaceForDeserialization place)
+		{
+			id = (long) place.id;
+			longitude = place.longitude;
+			latitude = place.latitude;
+			title = place.title;
+			description = place.description;
+			reviews = place.reviews;
+		}
 	}
 }

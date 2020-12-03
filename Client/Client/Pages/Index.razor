@@ -7,36 +7,37 @@
 <div class="map-overlay">
 	<div class="map-overlay-inner">
 		<AuthorizeView Context="authorize">
-			<Authorized>
-				<button @onclick="AddMarker">@buttonText</button>
-				@if (buttonText.Equals("Save & Add Place"))
-				{
-					<div>
-						<EditForm Model="@placeData" OnValidSubmit="@AddMarker">
-							<DataAnnotationsValidator />
-							<ValidationSummary />
-							Title: <br />
-							<InputText id="title" @bind-Value="placeData.Title" /> <br />
-							Description: <br />
-							<InputText id="description" @bind-Value="placeData.Description" />
-						</EditForm>
-					</div>
+            <Authorized>
+                <button @onclick="AddMarker">@buttonText</button>
+                
+                @if (buttonText.Equals("Save & Add Place"))
+                {
+                    <div>
+                        <EditForm Model="@placeData" OnValidSubmit="@AddMarker">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+                            Title: <br />
+                            <InputText id="title" @bind-Value="placeData.Title" /> <br />
+                            Description: <br />
+                            <InputText id="description" @bind-Value="placeData.Description" />
+                        </EditForm>
+                    </div>
 
 
-					@*<fieldset @bind-Value="PlaceTitle">
-				<label for="title">Title:</label>
-				<input type="text"
-					   id="title"
-					   name="title" />
-			</fieldset>
-			<fieldset>
-				<label for="description">Description:</label>
-				<input type="text"
-					   id="description"
-					   name="description" />
-			</fieldset>*@
-				}
-			</Authorized>
+                    @*<fieldset @bind-Value="PlaceTitle">
+                <label for="title">Title:</label>
+                <input type="text"
+                       id="title"
+                       name="title" />
+            </fieldset>
+            <fieldset>
+                <label for="description">Description:</label>
+                <input type="text"
+                       id="description"
+                       name="description" />
+            </fieldset>*@
+                }
+            </Authorized>
 			<NotAuthorized>
 				<h6>You need to be logged in to add a place!</h6>
 				<a href="login">Login</a>

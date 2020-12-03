@@ -1,9 +1,7 @@
 package dk.groupfive.SpringLogicServer.remote;
 
 import dk.groupfive.SpringLogicServer.model.Model;
-import dk.groupfive.SpringLogicServer.model.objects.LoginMessage;
-import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.User;
+import dk.groupfive.SpringLogicServer.model.objects.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,6 +17,9 @@ public interface Server {
 
     void deletePlace(long id);
 
+    void addReportPlace(Report<Place> report) throws IOException;
 
+    void addReportUser(Report<User> report) throws IOException;
 
+    void addReportReview(Report<ReviewItem> report) throws IOException;
 }

@@ -3,10 +3,14 @@ package dk.groupfive.SpringLogicServer.model;
 import dk.groupfive.SpringLogicServer.broadcast.Broadcaster;
 import dk.groupfive.SpringLogicServer.local.Cache;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
+import dk.groupfive.SpringLogicServer.model.objects.Report;
+import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
+import dk.groupfive.SpringLogicServer.model.objects.User;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 import dk.groupfive.SpringLogicServer.queue.PlaceWorker;
+import dk.groupfive.SpringLogicServer.queue.ReportWorker;
+import dk.groupfive.SpringLogicServer.remote.Router;
 import dk.groupfive.SpringLogicServer.remote.Server;
-import dk.groupfive.SpringLogicServer.remote.PlaceClient;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,13 +23,15 @@ public class ServerModel implements Model {
     private final Server server;
     private final Broadcaster broadcaster;
 
-    private PlaceWorker worker;
+    private PlaceWorker placeWorker;
+    private ReportWorker reportWorker;
 
     private ServerModel() throws IOException {
         cache = new Cache();
-        server = new PlaceClient();
+        server = new Router();
         broadcaster = new Broadcaster();
-        worker = new PlaceWorker(this);
+        placeWorker = new PlaceWorker(this);
+        reportWorker = new ReportWorker(this);
 
         //we want this to be sync so data is loaded before anything else is added.
         try {
@@ -88,4 +94,30 @@ public class ServerModel implements Model {
     }
 
 
+    @Override
+    public void addReportPlace(Report<Place> report){
+        try {
+            server.addReportPlace(report);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addReportUser(Report<User> report) {
+        try {
+            server.addReportUser(report);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addReportReview(Report<ReviewItem> report) {
+        try {
+            server.addReportReview(report);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

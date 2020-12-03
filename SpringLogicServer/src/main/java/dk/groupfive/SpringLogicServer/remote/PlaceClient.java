@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dk.groupfive.SpringLogicServer.model.objects.LoginMessage;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
+import dk.groupfive.SpringLogicServer.model.objects.Report;
 import dk.groupfive.SpringLogicServer.model.objects.User;
 
 import java.io.*;
@@ -12,7 +13,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaceClient implements Server {
+public class PlaceClient {
     final String HOST = "localhost";
     final int PORT = 7000;
     private Socket socket;
@@ -27,7 +28,6 @@ public class PlaceClient implements Server {
         gson = new Gson();
     }
 
-    @Override
     public List<Place> getAllPlaces() throws IOException {
         List<Place> places;
         out.println("getAllPlaces");
@@ -37,7 +37,7 @@ public class PlaceClient implements Server {
         return places;
     }
 
-    @Override
+
     public Place getPlaceByID(long id) {
 
 
@@ -45,7 +45,6 @@ public class PlaceClient implements Server {
     }
 
     //todo this should wait for a place with id from the server, then return it
-    @Override
     public Place addPlace(Place place) throws IOException {
         out.println("addPlace");
         String send = gson.toJson(place);
@@ -55,18 +54,18 @@ public class PlaceClient implements Server {
         return receivedPlace;
     }
 
-    @Override
     public void updatePlace(Place place) {
         out.println("updatePlace");
         String send = gson.toJson(place);
         out.println(send);
     }
 
-    @Override
     public void deletePlace(long id) {
         out.println("deletePlace");
         out.println(id);
     }
+
+
 
 
 }

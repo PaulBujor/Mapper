@@ -18,6 +18,8 @@ namespace DataServer.Handlers
 
 		private bool clientConnected;
 
+		
+
 		public ReportingHandler(TcpClient client, Model model)
 		{
 			this.client = client;
@@ -89,7 +91,14 @@ namespace DataServer.Handlers
 
 		private void ReportsPlace()
 		{
-			Report<Place> reportedPlace = JsonSerializer.Deserialize<Report<Place>>(reader.ReadLine());
+          
+			string aux = reader.ReadLine();
+            Console.WriteLine(aux);
+			Report<PlaceForDeserialization> reportedPlaceForDeserialization = JsonSerializer.Deserialize<Report<PlaceForDeserialization>>(aux);
+			Report<Place> reportedPlace = new Report<Place>();
+			reportedPlace.reportedItem = new Place(reportedPlaceForDeserialization.reportedItem);
+			reportedPlace.reportedClass = reportedPlaceForDeserialization.reportedClass;
+			model.AddPlaceReport(reportedPlace);
 		}
 	}
 }

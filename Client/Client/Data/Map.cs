@@ -109,12 +109,7 @@ namespace Client.Data
         public async Task ReportPlace(long id)
         {
             Console.WriteLine(id);
-           /* Report<Place> report = new Report<Place>
-            {
-                
-            }*/
-            //create report object
-            //send it to model
+            await model.ReportPlaceAsync(id);
         }
 
         [JSInvokable("GetPlaceDetails")]
