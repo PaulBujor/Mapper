@@ -59,5 +59,6 @@ namespace DataServer.Persistence
 		Task<Dictionary<long, Report<ReviewItem>>> GetReviewReports();
 
 		Task<Dictionary<long, Report<User>>> GetUserReports();
+		Task DismissPlaceReport(long reportId);
 	}
 }

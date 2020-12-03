@@ -182,5 +182,12 @@ namespace DataServer.Persistence
 		{
 			return userReports;
 		}
+
+		public async Task DismissPlaceReport(long reportId)
+		{
+			Report<Place> report;
+			placeReports.TryGetValue(reportId, out report);
+			report.resolved = true;
+		}
 	}
 }

@@ -22,4 +22,6 @@ public interface Server {
     void banUser(long userId);
 
     void unbanUser(long userId);
+
+    void dismissReport(long reportId);
 }

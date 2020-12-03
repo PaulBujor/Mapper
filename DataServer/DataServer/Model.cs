@@ -101,5 +101,12 @@ namespace DataServer
 		{
 			cache.UnbanUser(id);
 		}
+
+		internal void DismissReport(long reportId)
+		{
+			if (GetPlaceReports().FirstOrDefault(report => report.reportId == reportId) != null)
+				cache.DismissPlaceReport(reportId);
+			//todo remaining dismiss or better/ more efficient solution
+		}
 	}
 }

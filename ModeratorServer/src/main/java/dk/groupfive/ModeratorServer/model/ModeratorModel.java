@@ -8,7 +8,7 @@ import dk.groupfive.ModeratorServer.remote.Server;
 import java.io.IOException;
 import java.util.List;
 
-public class ModeratorModel implements Model{
+public class ModeratorModel implements Model {
     private static volatile ModeratorModel instance;
     private final static Object lock = new Object();
 
@@ -31,7 +31,7 @@ public class ModeratorModel implements Model{
             }
 
             try {
-                Thread.sleep(10*60*1000);
+                Thread.sleep(10 * 60 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -111,19 +111,26 @@ public class ModeratorModel implements Model{
     public void resolveReport(long reportId, String action) {
         switch (action) {
             case "dismiss":
-                //todo
-                //dismissReport(reportId);
+                dismissReport(reportId);
                 break;
             default:
                 System.out.println("Not implemented");
         }
     }
 
+    private void dismissReport(long reportId) {
+        server.dismissReport(reportId);
+        new Thread(() -> {
+            cache.getPlaceReports().stream().filter(report -> report.getReportId() == reportId).forEach(report -> report.setResolved(true));
+//            cache.getReviewReports().stream().filter(report -> report.getReportId() == reportId).forEach(report -> report.setResolved(true));
+//            cache.getUserReports().stream().filter(report -> report.getReportId() == reportId).forEach(report -> report.setResolved(true));
+        }).start();
+    }
+
     //todo also resolve report on t3
     private void removePlace(long placeId) {
         //gets the placeID of the first report that contains the reported place based on the id of the report (ask paul if unclear)
         //long placeId = cache.getPlaceReports().stream().filter(report -> report.getReportId() == reportId).findFirst().get().getReportedItem().getId();
-
         server.removePlace(placeId);
 
         //marks all reports regarding that place as solved, as there may be multiple reports for the same item

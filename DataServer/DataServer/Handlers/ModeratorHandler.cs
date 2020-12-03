@@ -83,6 +83,9 @@ namespace DataServer.Handlers
 				case "unbanUser":
 					UnbanUser();
 					break;
+				case "dismissReport":
+					DismissReport();
+					break;
 				case "authorizeUser":
 					AuthorizeUser();
 					break;
@@ -90,6 +93,12 @@ namespace DataServer.Handlers
 					Console.WriteLine("Default was called");
 					break;
 			}
+		}
+
+		private void DismissReport()
+		{
+			long reportId = long.Parse(reader.ReadLine());
+			model.DismissReport(reportId);
 		}
 
 		private void UnbanUser()

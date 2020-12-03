@@ -19,19 +19,19 @@ public class Cache {
     }
 
     public void loadPlaceReports(List<Report<Place>> reports) {
-        for(Report<Place> report : reports) {
+        for (Report<Place> report : reports) {
             placeReports.put(report.getReportId(), report);
         }
     }
 
     public void loadReviewReports(List<Report<ReviewItem>> reports) {
-        for(Report<ReviewItem> report : reports) {
+        for (Report<ReviewItem> report : reports) {
             reviewReports.put(report.getReportId(), report);
         }
     }
 
     public void loadUserReports(List<Report<User>> reports) {
-        for(Report<User> report : reports) {
+        for (Report<User> report : reports) {
             userReports.put(report.getReportId(), report);
         }
     }
@@ -45,8 +45,11 @@ public class Cache {
     }
 
     public List<Report<Place>> getPlaceReports() {
-        ArrayList<Report<Place>> reports = new ArrayList<Report<Place>>(placeReports.values());
-        reports.stream().dropWhile(item -> item.isResolved());
+        ArrayList<Report<Place>> reports = new ArrayList<Report<Place>>();
+        for (Report<Place> report : placeReports.values()) {
+            if(!report.isResolved())
+                reports.add(report);
+        }
         return reports;
     }
 
