@@ -189,5 +189,45 @@ namespace DataServer.Persistence
 			placeReports.TryGetValue(reportId, out report);
 			report.resolved = true;
 		}
+
+		public void Register(User user)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void CheckUsername(string username)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void CheckEmail(string email)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdateFirstName(long id, string firstName)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdateLastName(long id, string lastName)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdateUsername(long id, string userName)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdateEmail(long id, string email)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdatePassword(long id, string password)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

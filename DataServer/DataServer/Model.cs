@@ -108,5 +108,52 @@ namespace DataServer
 				cache.DismissPlaceReport(reportId);
 			//todo remaining dismiss or better/ more efficient solution
 		}
+		
+		
+		//User CRUD
+
+		public Task<User> Login(string username, string password)
+		{
+			return cache.GetUser(username, password);
+		}
+
+		public void Register(User user)
+		{
+			cache.Register(user);
+		}
+		public void CheckUsername(string username)
+		{
+			cache.CheckUsername(username);
+		}
+
+		public void CheckEmail(string email)
+		{
+			cache.CheckEmail(email);
+		}
+
+		public void UpdateFirstName(long id, string firstName)
+		{
+			cache.UpdateFirstName(id,firstName);
+		}
+
+		public void UpdateLastName(long id, string lastName)
+		{
+			cache.UpdateLastName(id,lastName);
+		}
+
+		public void UpdateUsername(long id, string userName)
+		{
+			cache.UpdateUsername(id,userName);
+		}
+
+		public void UpdateEmail(long id, string email)
+		{
+			cache.UpdateEmail(id,email);
+		}
+
+		public void UpdatePassword(long id, string password)
+		{
+			cache.UpdatePassword(id,password);
+		}
 	}
 }
