@@ -28,7 +28,7 @@ namespace Client.Data
             this.model = model;
             addingMarkerMode = false;
 
-            model.OnNewPlace += AddMarker;
+            /*model.OnNewPlace += AddMarker;*/
             model.OnMapLoaded += DataReady;
         }
 
@@ -41,16 +41,28 @@ namespace Client.Data
             while (!dataReady)
                 await Task.Delay(100);
 
+            model.OnNewPlace += AddMarker;
+
             foreach (Place place in model.GetPlaces())
             {
-               await AddMarkerAsync(place);
+                await AddMarkerAsync(place);
             }
         }
 
+        public async Task InitMapMarkerAsync(long id)
+        {
+            if (objRef == null)
+                objRef = DotNetObjectReference.Create(this);
+            model.OnNewPlace -= AddMarker;
+            await jsRuntime.InvokeVoidAsync("mapBoxFunctions.initMapBox", objRef);
+            await AddMarkerAsync(model.GetPlaceById(id));
+
+        }
+
         public void DataReady()
-		{
+        {
             dataReady = true;
-		}
+        }
 
         public async Task AddMarkerAsync(Place place)
         {
@@ -58,7 +70,7 @@ namespace Client.Data
         }
 
         public void AddMarker(Place place)
-		{
+        {
             jsRuntime.InvokeVoidAsync("mapBoxFunctions.addMarker", place.longitude, place.latitude, place.title, place.description, place.id);
 
         }
@@ -121,7 +133,7 @@ namespace Client.Data
         }
 
         public async Task GetReviewFull()
-        { 
+        {
 
         }
     }
