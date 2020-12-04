@@ -1,9 +1,7 @@
 package dk.groupfive.SpringLogicServer.local;
 
 import dk.groupfive.SpringLogicServer.model.Model;
-import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.User;
+import dk.groupfive.SpringLogicServer.model.objects.*;
 
 import java.math.BigInteger;
 import java.util.*;
@@ -45,6 +43,11 @@ public class Cache {
 
     public void deletePlace(long id) {
         places.remove(id);
+    }
+
+    public void addPlaceReview(long id, ReviewItem reviewItem)
+    {
+        places.get(id).addReview(reviewItem);
     }
 
 }

@@ -1,13 +1,14 @@
 package dk.groupfive.SpringLogicServer.model.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReviewFull implements IReview {
+public class ReviewFull implements IReview, Serializable {
     private ArrayList<ReviewItem> reviews;
 
     public ReviewFull() {
-        reviews = new ArrayList<>();
+        /*reviews = new ArrayList<>();*/
     }
 
     @Override
@@ -23,5 +24,17 @@ public class ReviewFull implements IReview {
     @Override
     public List<ReviewItem> getReviews() {
         return reviews;
+    }
+
+    public void addReview(ReviewItem reviewItem)
+    {
+        reviews.add(reviewItem);
+    }
+
+    @Override
+    public String toString() {
+        return "ReviewFull{" +
+                "reviews=" + reviews +
+                '}';
     }
 }

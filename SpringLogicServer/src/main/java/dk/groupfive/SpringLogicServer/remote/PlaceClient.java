@@ -2,10 +2,7 @@ package dk.groupfive.SpringLogicServer.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import dk.groupfive.SpringLogicServer.model.objects.LoginMessage;
-import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.User;
+import dk.groupfive.SpringLogicServer.model.objects.*;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -32,8 +29,12 @@ public class PlaceClient {
         List<Place> places;
         out.println("getAllPlaces");
         String response = in.readLine();
+        System.out.println(response);
+
         Type placeListType = new TypeToken<ArrayList<Place>>(){}.getType();
         places = gson.fromJson(response, placeListType);
+        System.out.println(places);
+        System.out.println(gson.toJson(places));
         return places;
     }
 
@@ -63,6 +64,17 @@ public class PlaceClient {
     public void deletePlace(long id) {
         out.println("deletePlace");
         out.println(id);
+    }
+
+    public ReviewItem addPlaceReview(long id, ReviewItem reviewItem) throws IOException {
+        out.println("addPlaceReview");
+        String sendPlaceId = gson.toJson(id);
+        out.println(sendPlaceId);
+        String sendReviewItem = gson.toJson(reviewItem);
+        out.println(sendReviewItem);
+        String response = in.readLine();
+        ReviewItem receivedReviewItem = gson.fromJson(response, ReviewItem.class);
+        return receivedReviewItem;
     }
 
 

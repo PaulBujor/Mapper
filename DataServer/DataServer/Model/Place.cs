@@ -12,10 +12,11 @@ namespace DataServer.Models
 		public double latitude { get; set; }
 		public string title { get; set; }
 		public string description { get; set; }
-		public IReview reviews { get; set; }
+		public ReviewFull reviews { get; set; }
 
-
-		public Place() { }
+		public Place()
+		{
+		}
 
 		public Place(double longitude, double latitude, string title, string description)
 		{
@@ -23,6 +24,7 @@ namespace DataServer.Models
 			this.latitude = latitude;
 			this.title = title;
 			this.description = description;
+			reviews = new ReviewFull();
 		}
 
 		public Place(PlaceForDeserialization place)

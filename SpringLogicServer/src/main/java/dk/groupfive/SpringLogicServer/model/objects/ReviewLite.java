@@ -5,6 +5,9 @@ import java.util.List;
 public class ReviewLite implements IReview {
     private double rating;
 
+    public ReviewLite() {
+    }
+
     public ReviewLite(double rating) {
         this.rating = rating;
     }
@@ -17,5 +20,10 @@ public class ReviewLite implements IReview {
     @Override
     public List<ReviewItem> getReviews() {
         return null;
+    }
+
+    @Override
+    public void addReview(ReviewItem reviewItem) {
+
     }
 }

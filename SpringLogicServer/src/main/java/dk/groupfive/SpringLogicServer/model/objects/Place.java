@@ -9,10 +9,10 @@ public class Place implements Serializable {
     private double longitude;
     private String title;
     private String description;
-
+    private ReviewFull reviews;
 
     public Place() {
-        super();
+
     }
 
     public Place(long id, double latitude, double longitude, String title, String description) {
@@ -68,6 +68,19 @@ public class Place implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public IReview getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(ReviewFull reviews) {
+        this.reviews = reviews;
+    }
+
+    public void addReview(ReviewItem reviewItem)
+    {
+        reviews.addReview(reviewItem);
     }
 
     @Override

@@ -28,7 +28,8 @@ namespace DataServer
 				title = "Reitan",
 				description = "Heaven",
 				longitude = 9.795995847440167,
-				latitude = 55.83663617092108
+				latitude = 55.83663617092108,
+				reviews = new ReviewFull()
 			};
 			AddPlace(reitan);
 			Report<Place> report = new Report<Place>()
@@ -37,7 +38,13 @@ namespace DataServer
 				reportedItem = reitan
 			};
 			AddPlaceReport(report);
-		}
+            ReviewItem review = new ReviewItem()
+            {
+                rating = 1
+            };
+
+            AddPlaceReview(reitan.id, review);
+        }
 
 		public void AddPlaceReport(Report<Place> report)
 		{
@@ -102,6 +109,12 @@ namespace DataServer
 			cache.UnbanUser(id);
 		}
 
+
+		public Task<ReviewItem> AddPlaceReview(long id, ReviewItem review)
+		{
+			return cache.AddPlaceReview(id, review);
+		}
+
 		public void DismissPlaceReport(long reportId)
 		{
 			cache.DismissPlaceReport(reportId);
@@ -120,6 +133,53 @@ namespace DataServer
 		public User GetUserById(long userId)
 		{
 			return cache.GetUserById(userId);
+		}
+		
+		
+		//User CRUD
+
+		public Task<User> Login(string username, string password)
+		{
+			return cache.GetUser(username, password);
+		}
+
+		public void Register(User user)
+		{
+			cache.Register(user);
+		}
+		public void CheckUsername(string username)
+		{
+			cache.CheckUsername(username);
+		}
+
+		public void CheckEmail(string email)
+		{
+			cache.CheckEmail(email);
+		}
+
+		public void UpdateFirstName(long id, string firstName)
+		{
+			cache.UpdateFirstName(id,firstName);
+		}
+
+		public void UpdateLastName(long id, string lastName)
+		{
+			cache.UpdateLastName(id,lastName);
+		}
+
+		public void UpdateUsername(long id, string userName)
+		{
+			cache.UpdateUsername(id,userName);
+		}
+
+		public void UpdateEmail(long id, string email)
+		{
+			cache.UpdateEmail(id,email);
+		}
+
+		public void UpdatePassword(long id, string password)
+		{
+			cache.UpdatePassword(id,password);
 		}
 	}
 }

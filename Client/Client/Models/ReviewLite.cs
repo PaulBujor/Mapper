@@ -20,7 +20,7 @@ namespace Client.Data
 
         public void AddReview(ReviewItem review)
         {
-
+            //nothing
         }
     }
 }

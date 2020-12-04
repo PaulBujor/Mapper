@@ -14,7 +14,7 @@ namespace Client.Models
         public string title { get; set; }
         public string description { get; set; }
         public long id { get; set; }
-        public IReview reviews { get; set; }
+        public ReviewFull reviews { get; set; }
 
 
         public Place()

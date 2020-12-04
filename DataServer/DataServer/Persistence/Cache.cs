@@ -183,6 +183,16 @@ namespace DataServer.Persistence
 			return userReports;
 		}
 
+		public async Task<ReviewItem> AddPlaceReview(long placeId, ReviewItem review)
+		{
+			Place place;
+			places.TryGetValue(placeId, out place);
+			place.reviews.AddReview(review);
+			review.id = ++reviewKey;
+
+			Console.WriteLine("Reitan id: " + place.id + " " + "Reitan rating " + place.reviews.GetRating());
+
+			return review;
 		public async Task DismissPlaceReport(long reportId)
 		{
 			Report<Place> report;
@@ -209,6 +219,46 @@ namespace DataServer.Persistence
 			User user;
 			users.TryGetValue(userId, out user);
 			return user;
+		}
+		
+		public void Register(User user)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void CheckUsername(string username)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void CheckEmail(string email)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdateFirstName(long id, string firstName)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdateLastName(long id, string lastName)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdateUsername(long id, string userName)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdateEmail(long id, string email)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdatePassword(long id, string password)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

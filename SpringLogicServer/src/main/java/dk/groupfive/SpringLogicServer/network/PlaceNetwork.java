@@ -1,6 +1,7 @@
 package dk.groupfive.SpringLogicServer.network;
 
 import dk.groupfive.SpringLogicServer.model.objects.Place;
+import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface PlaceNetwork {
     void updatePlace(Place place);
 
     void deletePlace(long id);
+
+    void addPlaceReview(long id, ReviewItem reviewItem);
 }

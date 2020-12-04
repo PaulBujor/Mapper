@@ -35,15 +35,15 @@ public class AuthClient implements AuthServer
 
   @Override public User validate(LoginMessage loginMessage) throws IOException
   {
-    out.println("authenticateUser");
-    String send = gson.toJson(loginMessage);
-    out.println(send);
+    out.println("login");
+   out.println(loginMessage.username);
+   out.println(loginMessage.password);
     String response = in.readLine();
     User user = gson.fromJson(response,User.class);
     return user;
   }
 
-  //TODO have t3 return a boolean
+
   //True means that task was successful
   @Override public boolean register (User user) throws IOException
   {
@@ -52,7 +52,7 @@ public class AuthClient implements AuthServer
     String send = gson.toJson(user);
     out.println(send);
     String response = in.readLine();
-    if(true)
+    if(response.contains("true"))
     {
      return true;
     }else return false;
@@ -62,10 +62,9 @@ public class AuthClient implements AuthServer
   @Override public boolean checkEmail(String message) throws IOException
   {
     out.println("checkEmail");
-    String send = gson.toJson(message);
-    out.println(send);
+  out.println(message);
     String response = in.readLine();
-    if(true){
+    if(response.contains("true")){
       return true;
     }else return false;
   }
@@ -74,10 +73,9 @@ public class AuthClient implements AuthServer
   @Override public boolean checkUserName(String message) throws IOException
   {
     out.println("checkUserName");
-    String send = gson.toJson(message);
-    out.println(send);
+    out.println(message);
     String response = in.readLine();
-    if(true){
+    if(response.contains("true")){
       return true;
     }else return false;
   }
@@ -91,7 +89,7 @@ public class AuthClient implements AuthServer
       out.println(firstname);
     String response = in.readLine();
 
-    if(true){
+    if(response.contains("true")){
       return true;
     }else return false;
   }
@@ -104,7 +102,7 @@ public class AuthClient implements AuthServer
     out.println(lastname);
     String response = in.readLine();
 
-    if(true){
+    if(response.contains("true")){
       return true;
     }else return false;
   }
@@ -116,7 +114,7 @@ public class AuthClient implements AuthServer
     out.println(id);
     out.println(username);
     String response = in.readLine();
-    if(true){
+    if(response.contains("true")){
       return true;
     }else return false;
   }
@@ -127,7 +125,7 @@ public class AuthClient implements AuthServer
     out.println(id);
     out.println(email);
     String response = in.readLine();
-    if(true){
+    if(response.contains("true")){
       return true;
     }else return false;
   }
@@ -139,7 +137,7 @@ public class AuthClient implements AuthServer
     out.println(id);
     out.println(password);
     String response = in.readLine();
-    if(true){
+    if(response.contains("true")){
       return true;
     }else return false;
   }

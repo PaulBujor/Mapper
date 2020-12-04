@@ -106,5 +106,10 @@ namespace Client.Data.Networking
 			await _moderator.DismissUserReportAsync(reportId);
 		}
 
+
+		public async Task AddPlaceReviewAsync(long placeId, ReviewItem review)
+		{
+			await _place.AddPlaceReviewAsync(placeId, review);
+		}
 	}
 }

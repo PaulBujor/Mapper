@@ -2,6 +2,7 @@ package dk.groupfive.SpringLogicServer.controllers;
 
 import dk.groupfive.SpringLogicServer.model.Model;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
+import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
 import dk.groupfive.SpringLogicServer.network.PlaceNetwork;
 import dk.groupfive.SpringLogicServer.queue.ServerQueue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class PlaceController implements PlaceNetwork {
 
     @GetMapping("/places")
     public List<Place> getAllPlaces() {
-        return model.getAllPlaces();
+        System.out.println(model.getAllPlaces()); return model.getAllPlaces();
     }
 
     @GetMapping(path = "/places/{id}")
@@ -39,6 +40,12 @@ public class PlaceController implements PlaceNetwork {
     public void addPlace(@RequestBody Place place) {
         model.addPlace(place);
 
+    }
+
+    @PostMapping(value = "/places/{id}/reviews")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addPlaceReview(@PathVariable("id") long id, @RequestBody ReviewItem review) {
+        model.addPlaceReview(id, review);
     }
 
     @PatchMapping("{id}")
