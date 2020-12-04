@@ -41,6 +41,16 @@ namespace DataServer.Persistence
 
 		Task UnbanUser(long userId);
 
+		//Maybe some can be async
+		public void Register(User user);
+		public void CheckUsername(string username);
+		public void CheckEmail(string email);
+		public void UpdateFirstName(long id, string firstName);
+		public void UpdateLastName(long id, string lastName);
+		public void UpdateUsername(long id, string userName);
+		public void UpdateEmail(long id, string email);
+		public void UpdatePassword(long id, string password);
+
 		//REPORT CRUD
 		Task CreatePlaceReport(Report<Place> placeReport);
 
@@ -62,5 +72,6 @@ namespace DataServer.Persistence
 
 		Task<ReviewItem> AddPlaceReview(long placeId, ReviewItem review);
 
+		Task DismissPlaceReport(long reportId);
 	}
 }

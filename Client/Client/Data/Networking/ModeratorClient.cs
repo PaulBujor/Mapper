@@ -22,14 +22,15 @@ namespace Client.Data.Networking
 		public async Task RemovePlaceAsync(long placeId)
 		{
 			HttpClient client = new HttpClient();
-			HttpResponseMessage response = await client.PatchAsync(URI + "/reports/places/" + placeId +"?action=remove", null);
+			HttpResponseMessage response = await client.PatchAsync(URI + "/reports/places?placeId=" + placeId +"&action=remove", null);
+			Console.WriteLine(URI + "/reports/places/" + placeId + "?action=remove");
 			Console.WriteLine(response.ToString());
 		}
 
 		public async Task DismissReportAsync(long reportId)
 		{
 			HttpClient client = new HttpClient();
-			HttpResponseMessage response = await client.PatchAsync(URI + "/reports/" + reportId + "?action=dismiss", null);
+			HttpResponseMessage response = await client.PatchAsync(URI + "/reports?reportId=" + reportId + "&action=dismiss", null);
 			Console.WriteLine(response.ToString());
 		}
 	}

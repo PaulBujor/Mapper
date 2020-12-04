@@ -73,4 +73,10 @@ public class Client implements Server {
         out.println("unbanUser");
         out.println(userId);
     }
+
+    @Override
+    public void dismissReport(long reportId) {
+        out.println("dismissReport");
+        out.println(reportId);
+    }
 }

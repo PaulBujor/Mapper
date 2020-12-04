@@ -52,14 +52,14 @@ namespace Client.Data
 			return await server.GetPlaceReportsAsync();
 		}
 
-		public override Task RemovePlaceAsync(long placeId)
+		public override async Task RemovePlaceAsync(long placeId)
 		{
-			throw new System.NotImplementedException();
+			await server.RemovePlaceAsync(placeId);
 		}
 
-		public override Task DismissPlaceReportAsync(long reportId)
+		public override async Task DismissPlaceReportAsync(long reportId)
 		{
-			throw new System.NotImplementedException();
+			await server.DismissReportAsync(reportId);
 		}
 		
 		public override async Task ReportPlaceAsync(long id)
