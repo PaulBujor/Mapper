@@ -23,5 +23,11 @@ public interface Server {
 
     void unbanUser(long userId);
 
-    void dismissReport(long reportId);
+    void dismissPlaceReport(long reportId);
+
+    void dismissReviewReport(long reportId);
+
+    void dismissUserReport(long reportId);
+
+    User getUserById(long userId) throws IOException;
 }

@@ -87,26 +87,39 @@ namespace DataServer
 			return cache.GetUserReports();
 		}
 
-		internal void RemoveReview(long id)
+		public void RemoveReview(long id)
 		{
 			cache.RemoveReview(id);
 		}
 
-		internal void BanUser(long id)
+		public void BanUser(long id)
 		{
 			cache.BanUser(id);
 		}
 
-		internal void UnbanUser(long id)
+		public void UnbanUser(long id)
 		{
 			cache.UnbanUser(id);
 		}
 
-		internal void DismissReport(long reportId)
+		public void DismissPlaceReport(long reportId)
 		{
-			if (GetPlaceReports().FirstOrDefault(report => report.reportId == reportId) != null)
-				cache.DismissPlaceReport(reportId);
-			//todo remaining dismiss or better/ more efficient solution
+			cache.DismissPlaceReport(reportId);
+		}
+
+		public void DismissReviewReport(long reportId)
+		{
+			cache.DismissReviewReport(reportId);
+		}
+
+		public void DismissUserReport(long reportId)
+		{
+			cache.DismissUserReport(reportId);
+		}
+
+		public User GetUserById(long userId)
+		{
+			return cache.GetUserById(userId);
 		}
 	}
 }

@@ -30,7 +30,7 @@ public class ReportController {
         model.addReportPlace(report);
     }
 
-    @PostMapping(value = "/report/user")
+    @PostMapping(value = "/reports/users")
     @ResponseStatus(HttpStatus.CREATED)
     public void reportUser(@RequestBody Report<User> report) {
         model.addReportUser(report);

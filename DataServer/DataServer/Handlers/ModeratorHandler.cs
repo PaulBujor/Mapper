@@ -83,8 +83,17 @@ namespace DataServer.Handlers
 				case "unbanUser":
 					UnbanUser();
 					break;
-				case "dismissReport":
-					DismissReport();
+				case "getUserById":
+					GetUserById();
+					break;
+				case "dismissPlaceReport":
+					DismissPlaceReport();
+					break;
+				case "dismissReviewReport":
+					DismissReviewReport();
+					break;
+				case "dismissUserReport":
+					DismissUserReport();
 					break;
 				case "authorizeUser":
 					AuthorizeUser();
@@ -95,10 +104,28 @@ namespace DataServer.Handlers
 			}
 		}
 
-		private void DismissReport()
+		private void GetUserById()
+		{
+			long userId = long.Parse(reader.ReadLine());
+			writer.WriteLine(JsonSerializer.Serialize(model.GetUserById(userId)));
+		}
+
+		private void DismissPlaceReport()
 		{
 			long reportId = long.Parse(reader.ReadLine());
-			model.DismissReport(reportId);
+			model.DismissPlaceReport(reportId);
+		}
+
+		private void DismissReviewReport()
+		{
+			long reportId = long.Parse(reader.ReadLine());
+			model.DismissPlaceReport(reportId);
+		}
+
+		private void DismissUserReport()
+		{
+			long reportId = long.Parse(reader.ReadLine());
+			model.DismissPlaceReport(reportId);
 		}
 
 		private void UnbanUser()

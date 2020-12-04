@@ -48,9 +48,28 @@ namespace Client.Data.Networking
 			await _report.ReportPlaceAsync(report);
 		}
 
+		public async Task ReportUserAsync(Report<User> report)
+		{
+			await _report.ReportUserAsync(report);
+		}
+
 		public async Task<List<Report<Place>>> GetPlaceReportsAsync()
 		{
 			return await _moderator.GetPlaceReportsAsync();
+		}
+		public async Task<List<Report<ReviewItem>>> GetReviewReportsAsync()
+		{
+			return await _moderator.GetReviewReportsAsync();
+		}
+
+		public async Task<List<Report<User>>> GetUserReportsAsync()
+		{
+			return await _moderator.GetUserReportsAsync();
+		}
+
+		public async Task<List<User>> GetBannedUsersAsync()
+		{
+			return await _moderator.GetBannedUsersAsync();
 		}
 
 		public async Task RemovePlaceAsync(long placeId)
@@ -58,9 +77,34 @@ namespace Client.Data.Networking
 			await _moderator.RemovePlaceAsync(placeId);
 		}
 
-		public async Task DismissReportAsync(long reportId)
+		public async Task DismissPlaceReportAsync(long reportId)
 		{
-			await _moderator.DismissReportAsync(reportId);
+			await _moderator.DismissPlaceReportAsync(reportId);
 		}
+
+		public async Task RemoveReviewAsync(long reviewId)
+		{
+			await _moderator.RemoveReviewAsync(reviewId);
+		}
+
+		public async Task DismissReviewReportAsync(long reportId)
+		{
+			await _moderator.DismissReviewReportAsync(reportId);
+		}
+		public async Task BanUserAsync(long userId)
+		{
+			await _moderator.BanUserAsync(userId);
+		}
+
+		public async Task UnbanUserAsync(long userId)
+		{
+			await _moderator.UnbanUserAsync(userId);
+		}
+
+		public async Task DismissUserReportAsync(long reportId)
+		{
+			await _moderator.DismissUserReportAsync(reportId);
+		}
+
 	}
 }

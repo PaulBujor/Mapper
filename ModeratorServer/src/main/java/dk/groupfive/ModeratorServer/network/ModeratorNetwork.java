@@ -17,5 +17,11 @@ public interface ModeratorNetwork {
 
     void resolveUser(long userId, String action);
 
-    void resolveReport(long reportId, String action);
+    void dismissPlaceReport(long reportId);
+
+    void dismissReviewReport(long reportId);
+
+    void dismissUserReport(long reportId);
+
+    List<User> getBannedUsers();
 }

@@ -108,22 +108,28 @@ public class ModeratorModel implements Model {
     }
 
     @Override
-    public void resolveReport(long reportId, String action) {
-        switch (action) {
-            case "dismiss":
-                dismissReport(reportId);
-                break;
-            default:
-                System.out.println("Not implemented");
-        }
+    public List<User> getBannedUsers() {
+        return cache.getBannedUsers();
     }
 
-    private void dismissReport(long reportId) {
-        server.dismissReport(reportId);
+    public void dismissPlaceReport(long reportId) {
+        server.dismissPlaceReport(reportId);
         new Thread(() -> {
             cache.getPlaceReports().stream().filter(report -> report.getReportId() == reportId).forEach(report -> report.setResolved(true));
-//            cache.getReviewReports().stream().filter(report -> report.getReportId() == reportId).forEach(report -> report.setResolved(true));
-//            cache.getUserReports().stream().filter(report -> report.getReportId() == reportId).forEach(report -> report.setResolved(true));
+        }).start();
+    }
+
+    public void dismissReviewReport(long reportId) {
+        server.dismissReviewReport(reportId);
+        new Thread(() -> {
+            cache.getReviewReports().stream().filter(report -> report.getReportId() == reportId).forEach(report -> report.setResolved(true));
+        }).start();
+    }
+
+    public void dismissUserReport(long reportId) {
+        server.dismissUserReport(reportId);
+        new Thread(() -> {
+            cache.getUserReports().stream().filter(report -> report.getReportId() == reportId).forEach(report -> report.setResolved(true));
         }).start();
     }
 
@@ -146,6 +152,11 @@ public class ModeratorModel implements Model {
     private void banUser(long userId) {
         //long userId = cache.getUserReports().stream().filter(report -> report.getReportId() == reportId).findFirst().get().getReportedItem().getId();
         server.banUser(userId);
+        try {
+            cache.addBannedUser(server.getUserById(userId));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         cache.getUserReports().stream().filter(report -> report.getReportedItem().getId() == userId).forEach(report -> report.setResolved(true));
     }
 

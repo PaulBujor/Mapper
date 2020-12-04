@@ -11,6 +11,7 @@ public class Cache {
     private Map<Long, Report<Place>> placeReports;
     private Map<Long, Report<ReviewItem>> reviewReports;
     private Map<Long, Report<User>> userReports;
+    private Map<Long, User> bannedUsers;
 
     public Cache() {
         placeReports = new HashMap<>();
@@ -36,6 +37,12 @@ public class Cache {
         }
     }
 
+    public void laodBanneeUsers(List<User> users) {
+        for (User user : users) {
+            bannedUsers.put(user.getId(), user);
+        }
+    }
+
     //public Report getReport(long id) {
 //        return reports.get(id);
 //    }
@@ -55,6 +62,14 @@ public class Cache {
 
     public List<Report<User>> getUserReports() {
         return (ArrayList<Report<User>>) userReports.values();
+    }
+
+    public List<User> getBannedUsers() {
+        return (List<User>) bannedUsers.values();
+    }
+
+    public void addBannedUser(User user) {
+        bannedUsers.put(user.getId(), user);
     }
 
     //public void removeReport(long reportId) {

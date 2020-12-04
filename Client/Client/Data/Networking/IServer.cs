@@ -15,6 +15,6 @@ namespace Client.Networking
 
 		Task RemovePlaceAsync(long placeId);
 
-		Task DismissReportAsync(long reportId);
+		Task DismissPlaceReportAsync(long reportId);
 	}
 }

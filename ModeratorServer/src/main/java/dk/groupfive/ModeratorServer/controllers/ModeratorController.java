@@ -43,6 +43,11 @@ public class ModeratorController implements ModeratorNetwork {
         return model.getUserReports();
     }
 
+    @GetMapping("/bannedUsers")
+    public List<User> getBannedUsers() {
+        return model.getBannedUsers();
+    }
+
     //not that restful but it works
     @PatchMapping("/reports/places")
     public void resolvePlace(@RequestParam long placeId, @RequestParam String action) {
@@ -62,9 +67,19 @@ public class ModeratorController implements ModeratorNetwork {
         model.resolveUser(userId, action);
     }
 
-    @PatchMapping("/reports")
-    public void resolveReport(@RequestParam long reportId, @RequestParam String action) {
-        model.resolveReport(reportId, action);
+    @PutMapping("/reports/places/dismissed")
+    public void dismissPlaceReport(@RequestParam long reportId) {
+        model.dismissPlaceReport(reportId);
+    }
+
+    @PutMapping("/reports/reviews/dismissed")
+    public void dismissReviewReport(@RequestParam long reportId) {
+        model.dismissReviewReport(reportId);
+    }
+
+    @PutMapping("/reports/users/dismissed")
+    public void dismissUserReport(@RequestParam long reportId) {
+        model.dismissUserReport(reportId);
     }
 
 
