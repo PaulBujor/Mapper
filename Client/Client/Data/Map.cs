@@ -28,7 +28,8 @@ namespace Client.Data
             this.model = model;
             addingMarkerMode = false;
 
-            /*model.OnNewPlace += AddMarker;*/
+            model.OnNewPlace -= AddMarker;
+            model.OnMapLoaded -= DataReady;
             model.OnMapLoaded += DataReady;
         }
 
@@ -41,6 +42,7 @@ namespace Client.Data
             while (!dataReady)
                 await Task.Delay(100);
 
+            model.OnNewPlace -= AddMarker;
             model.OnNewPlace += AddMarker;
 
             foreach (Place place in model.GetPlaces())

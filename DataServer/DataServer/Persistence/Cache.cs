@@ -193,6 +193,8 @@ namespace DataServer.Persistence
 			Console.WriteLine("Reitan id: " + place.id + " " + "Reitan rating " + place.reviews.GetRating());
 
 			return review;
+		}
+
 		public async Task DismissPlaceReport(long reportId)
 		{
 			Report<Place> report;

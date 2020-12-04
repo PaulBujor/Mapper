@@ -9,14 +9,13 @@ public class Place implements Serializable {
     private double longitude;
     private String title;
     private String description;
-    private IReview reviews;
+    private ReviewFull reviews;
 
 
     public Place() {
-        super();
     }
 
-    public Place(long id, double latitude, double longitude, String title, String description, IReview reviews) {
+    public Place(long id, double latitude, double longitude, String title, String description, ReviewFull reviews) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -25,7 +24,7 @@ public class Place implements Serializable {
         this.reviews = reviews;
     }
 
-    public Place(double latitude, double longitude, String title, String description, IReview reviews) {
+    public Place(double latitude, double longitude, String title, String description, ReviewFull reviews) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.title = title;
@@ -73,7 +72,7 @@ public class Place implements Serializable {
         return reviews;
     }
 
-    public void setReviews(IReview reviews) {
+    public void setReviews(ReviewFull reviews) {
         this.reviews = reviews;
     }
 
