@@ -12,6 +12,7 @@ import dk.groupfive.SpringLogicServer.model.objects.Report;
 import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
 import dk.groupfive.SpringLogicServer.model.objects.User;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
+import dk.groupfive.SpringLogicServer.model.tasks.ReviewTask;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,6 +24,7 @@ public class ServerQueue implements Model {
 
     private final static String PLACE_QUEUE = "places";
     private final static String REPORT_QUEUE = "reports";
+    private final static String REVIEW_QUEUE = "reviews";
     private ConnectionFactory factory;
     private Channel channel;
     private Gson gson;
@@ -41,6 +43,7 @@ public class ServerQueue implements Model {
             channel = connection.createChannel();
             channel.queueDeclare(PLACE_QUEUE, true, false, false, null);
             channel.queueDeclare(REPORT_QUEUE, true, false, false, null);
+            channel.queueDeclare(REVIEW_QUEUE, true, false, false, null);
             channel.basicQos(1);
         } catch (TimeoutException e) {
             e.printStackTrace();
@@ -95,6 +98,16 @@ public class ServerQueue implements Model {
         PlaceTask task = new PlaceTask("deletePlace", id);
         try {
             channel.basicPublish("", PLACE_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addPlaceReview(long id, ReviewItem reviewItem) {
+        ReviewTask task = new ReviewTask("addPlaceReview", id, reviewItem);
+        try {
+            channel.basicPublish("", REVIEW_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

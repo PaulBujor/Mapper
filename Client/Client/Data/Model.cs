@@ -20,12 +20,14 @@ namespace Client.Data
 			loaderThread.Name = "Init Place Loader";
 			loaderThread.Start();
 			server.listener.OnNewPlace += ReceivePlace;
+			server.listener.OnUpdatePlace += UpdatePlace;
 		}
 
 		private void LoadPlaces()
 		{
 			places = server.GetPlacesAsync().Result;
 			OnMapLoaded?.Invoke();
+            System.Console.WriteLine(places.FirstOrDefault().reviews.GetRating());
 		}
 
 		public override async Task AddPlaceAsync(Place place)
@@ -75,5 +77,19 @@ namespace Client.Data
         {
 			return GetPlaces().FirstOrDefault(p => p.id.Equals(id));
 		}
-    }
+
+		public override async Task AddPlaceRatingAsync(long placeId, int r)
+		{
+			ReviewItem review = new ReviewItem() {
+				rating = r
+			};
+			await server.AddPlaceReviewAsync(placeId, review);
+		}
+
+		private void UpdatePlace(Place place)
+		{
+			places.Remove(GetPlaceById(place.id));
+			places.Add(place);
+		}
+	}
 }

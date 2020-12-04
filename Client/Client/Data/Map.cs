@@ -93,7 +93,13 @@ namespace Client.Data
 
         public async Task CreatePlace(PlaceData placeData)
         {
-            Place newPlace = new Place(currentLongitude, currentLatitude, placeData.Title, placeData.Description);
+            Place newPlace = new Place() {
+                longitude = currentLongitude,
+                latitude = currentLatitude,
+                title = placeData.Title,
+                description = placeData.Description,
+                reviews = new ReviewFull()
+            };
             //await AddMarkerAsync(newPlace); //line will be removed and place will be added when model gets it from broadcaster
             await removeTemporaryMarkerAsync();
             await model.AddPlaceAsync(newPlace);
@@ -117,6 +123,7 @@ namespace Client.Data
             currentLatitude = latitude;
             currentLongitude = longitude;
         }
+
         [JSInvokable("ReportPlace")]
         public async Task ReportPlace(long id)
         {

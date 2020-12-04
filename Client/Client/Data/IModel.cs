@@ -28,5 +28,7 @@ namespace Client.Data
 
 		public abstract Task ReportPlaceAsync(long id);
 
+		public abstract Task AddPlaceRatingAsync(long placeId, int r);
+
 	}
 }

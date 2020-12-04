@@ -28,7 +28,8 @@ namespace DataServer
 				title = "Reitan",
 				description = "Heaven",
 				longitude = 9.795995847440167,
-				latitude = 55.83663617092108
+				latitude = 55.83663617092108,
+				reviews = new ReviewFull()
 			};
 			AddPlace(reitan);
 			Report<Place> report = new Report<Place>()
@@ -37,7 +38,13 @@ namespace DataServer
 				reportedItem = reitan
 			};
 			AddPlaceReport(report);
-		}
+            ReviewItem review = new ReviewItem()
+            {
+                rating = 1
+            };
+
+            AddPlaceReview(reitan.id, review);
+        }
 
 		public void AddPlaceReport(Report<Place> report)
 		{
@@ -100,6 +107,11 @@ namespace DataServer
 		internal void UnbanUser(long id)
 		{
 			cache.UnbanUser(id);
+		}
+
+		public Task<ReviewItem> AddPlaceReview(long id, ReviewItem review)
+		{
+			return cache.AddPlaceReview(id, review);
 		}
 	}
 }

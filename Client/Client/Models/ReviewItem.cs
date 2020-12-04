@@ -12,5 +12,10 @@ namespace Client.Data
         public User user { get; set; }
         public int rating { get; set; }
         public string comment { get; set; }
+
+        public ReviewItem()
+        {
+            rating = 0;
+        }
     }
 }

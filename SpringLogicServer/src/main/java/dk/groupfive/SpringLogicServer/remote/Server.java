@@ -13,6 +13,8 @@ public interface Server {
 
     Place addPlace(Place place) throws IOException;
 
+    ReviewItem addPlaceReview(long id, ReviewItem reviewItem) throws IOException;
+
     void updatePlace(Place place);
 
     void deletePlace(long id);
@@ -22,4 +24,6 @@ public interface Server {
     void addReportUser(Report<User> report) throws IOException;
 
     void addReportReview(Report<ReviewItem> report) throws IOException;
+
+
 }

@@ -77,6 +77,9 @@ namespace DataServer.Handlers
                 case "authenticateUser":
                     AuthenticateUser();
                     break;
+                case "addPlaceReview":
+                    AddPlaceReview();
+                    break;
                 default:
                     Console.WriteLine("Default was called");
                     break;
@@ -116,5 +119,15 @@ namespace DataServer.Handlers
             User user = JsonSerializer.Deserialize<User>(receive);
             writer.WriteLine(model.AuthroizeUser(user));
 		}
+
+        private void AddPlaceReview()
+        {
+            string receivePlaceId = reader.ReadLine();
+            string receiveReviewItem = reader.ReadLine();
+            long placeId = long.Parse(receivePlaceId);
+            ReviewItem review = JsonSerializer.Deserialize<ReviewItem>(receiveReviewItem);
+            writer.WriteLine(JsonSerializer.Serialize<ReviewItem>(model.AddPlaceReview(placeId, review).Result));
+
+        }
     }
 }

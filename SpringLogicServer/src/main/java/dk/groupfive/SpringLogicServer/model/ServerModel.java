@@ -9,6 +9,7 @@ import dk.groupfive.SpringLogicServer.model.objects.User;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 import dk.groupfive.SpringLogicServer.queue.PlaceWorker;
 import dk.groupfive.SpringLogicServer.queue.ReportWorker;
+import dk.groupfive.SpringLogicServer.queue.ReviewWorker;
 import dk.groupfive.SpringLogicServer.remote.Router;
 import dk.groupfive.SpringLogicServer.remote.Server;
 
@@ -25,6 +26,7 @@ public class ServerModel implements Model {
 
     private PlaceWorker placeWorker;
     private ReportWorker reportWorker;
+    private ReviewWorker reviewWorker;
 
     private ServerModel() throws IOException {
         cache = new Cache();
@@ -32,6 +34,7 @@ public class ServerModel implements Model {
         broadcaster = new Broadcaster();
         placeWorker = new PlaceWorker(this);
         reportWorker = new ReportWorker(this);
+        reviewWorker = new ReviewWorker(this);
 
         //we want this to be sync so data is loaded before anything else is added.
         try {
@@ -75,6 +78,17 @@ public class ServerModel implements Model {
         }
         cache.addPlace(place);
         broadcaster.sendTask(new PlaceTask("addPlace", place));
+    }
+
+    @Override
+    public void addPlaceReview(long id, ReviewItem reviewItem) {
+        try {
+            reviewItem = server.addPlaceReview(id, reviewItem);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        cache.addPlaceReview(id, reviewItem);
+        broadcaster.sendTask(new PlaceTask("updatePlace", cache.getPlaceByID(id)));
     }
 
     @Override

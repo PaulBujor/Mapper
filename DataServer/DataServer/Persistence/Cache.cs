@@ -182,5 +182,17 @@ namespace DataServer.Persistence
 		{
 			return userReports;
 		}
+
+		public async Task<ReviewItem> AddPlaceReview(long placeId, ReviewItem review)
+		{
+			Place place;
+			places.TryGetValue(placeId, out place);
+			place.reviews.AddReview(review);
+			review.id = ++reviewKey;
+
+			Console.WriteLine("Reitan id: " + place.id + " " + "Reitan rating " + place.reviews.GetRating());
+
+			return review;
+		}
 	}
 }

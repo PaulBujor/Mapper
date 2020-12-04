@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataServer.Models
 {
-	class ReviewFull : IReview
+	public class ReviewFull : IReview
 	{
 		public List<ReviewItem> reviews { get; set; }
 
@@ -17,10 +17,12 @@ namespace DataServer.Models
 		public double GetRating()
 		{
 			long score = 0;
+            Console.WriteLine("Reviews.Count " + reviews.Count);
 			foreach (ReviewItem item in reviews)
 			{
 				score += item.rating;
 			}
+            Console.WriteLine((double)(score / reviews.Count));
 			return (double)score / reviews.Count;
 		}
 

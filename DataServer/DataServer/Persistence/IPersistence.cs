@@ -59,5 +59,8 @@ namespace DataServer.Persistence
 		Task<Dictionary<long, Report<ReviewItem>>> GetReviewReports();
 
 		Task<Dictionary<long, Report<User>>> GetUserReports();
+
+		Task<ReviewItem> AddPlaceReview(long placeId, ReviewItem review);
+
 	}
 }

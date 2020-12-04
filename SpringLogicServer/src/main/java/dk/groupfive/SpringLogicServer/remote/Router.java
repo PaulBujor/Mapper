@@ -35,6 +35,11 @@ public class Router implements Server{
     }
 
     @Override
+    public ReviewItem addPlaceReview(long id, ReviewItem reviewItem) throws IOException {
+        return placeClient.addPlaceReview(id, reviewItem);
+    }
+
+    @Override
     public void updatePlace(Place place) {
         placeClient.updatePlace(place);
     }

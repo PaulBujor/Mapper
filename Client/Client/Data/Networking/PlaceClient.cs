@@ -1,3 +1,4 @@
+using Client.Data;
 using Client.Models;
 using System;
 using System.Collections.Generic;
@@ -47,5 +48,22 @@ namespace Client.Networking
 			HttpResponseMessage response = await client.PostAsync(URI + "/places", content);
 			Console.WriteLine(response.ToString());
 		}
+
+		public async Task AddPlaceReviewAsync(long id, ReviewItem review)
+		{
+			HttpClient client = new HttpClient();
+			string reviewSerialized = JsonSerializer.Serialize(review);
+
+			StringContent content = new StringContent(
+				reviewSerialized,
+				Encoding.UTF8,
+				"application/json"
+			);
+
+			HttpResponseMessage response = await client.PostAsync(URI + $"/places/{id}/reviews", content);
+			Console.WriteLine(response.ToString());
+		}
+
+
 	}
 }

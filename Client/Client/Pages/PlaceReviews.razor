@@ -31,6 +31,8 @@
     public string placeId { get; set; }
     public Place place { get; set; }
 
+    private bool isRated { get; set; }
+
     protected override void OnInitialized()
     {
 
@@ -46,9 +48,9 @@
     }
 
 
-    void OnChange(int value, string name)
+    public async Task OnChange(int rating, string name)
     {
-        Console.WriteLine($"Value: {value} Name: {name}");
+        await Model.AddPlaceRatingAsync(long.Parse(placeId), rating);
     }
 
 
