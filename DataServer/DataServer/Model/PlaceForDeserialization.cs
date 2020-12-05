@@ -12,7 +12,7 @@ namespace DataServer.Models
 		public double latitude { get; set; }
 		public string title { get; set; }
 		public string description { get; set; }
-		public ReviewFull reviews { get; set; }
+		public List<Review> reviews;
 
 
 		public PlaceForDeserialization() { }

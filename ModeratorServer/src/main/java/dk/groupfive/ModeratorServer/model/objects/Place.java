@@ -9,31 +9,34 @@ public class Place implements Serializable {
     private double longitude;
     private String title;
     private String description;
-    private ReviewFull reviews;
-
+    private ArrayList<Review> reviews;
+    private UserData addedBy;
 
     public Place() {
+
     }
 
-    public Place(long id, double latitude, double longitude, String title, String description, ReviewFull reviews) {
+    public Place(long id, double latitude, double longitude, String title, String description) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.title = title;
         this.description = description;
-        this.reviews = reviews;
     }
 
-    public Place(double latitude, double longitude, String title, String description, ReviewFull reviews) {
+    public Place(double latitude, double longitude, String title, String description) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.title = title;
         this.description = description;
-        this.reviews = reviews;
     }
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public double getLatitude() {
@@ -68,12 +71,17 @@ public class Place implements Serializable {
         this.description = description;
     }
 
-    public IReview getReviews() {
+    public ArrayList<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(ReviewFull reviews) {
+    public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public void addReview(Review reviewItem)
+    {
+        reviews.add(reviewItem);
     }
 
     @Override

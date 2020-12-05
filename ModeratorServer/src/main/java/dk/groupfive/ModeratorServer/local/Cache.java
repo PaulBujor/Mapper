@@ -1,6 +1,7 @@
 package dk.groupfive.ModeratorServer.local;
 
 import dk.groupfive.ModeratorServer.model.objects.*;
+import dk.groupfive.ModeratorServer.model.objects.obsolete.ReviewItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;

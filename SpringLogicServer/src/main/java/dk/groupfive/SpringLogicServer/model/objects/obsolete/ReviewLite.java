@@ -1,4 +1,4 @@
-package dk.groupfive.SpringLogicServer.model.objects;
+package dk.groupfive.SpringLogicServer.model.objects.obsolete;
 
 import java.util.List;
 

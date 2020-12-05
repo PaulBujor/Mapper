@@ -8,9 +8,9 @@ import com.rabbitmq.client.DeliverCallback;
 import dk.groupfive.SpringLogicServer.model.Model;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
 import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
+import dk.groupfive.SpringLogicServer.model.objects.Review;
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
 import dk.groupfive.SpringLogicServer.model.objects.User;
-import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -66,7 +66,7 @@ public class ReportWorker {
                 addReportUser((Report<User>) task);
                 break;
             case "ReviewItem" :
-                addReportReview((Report<ReviewItem>) task);
+                addReportReview((Report<Review>) task);
                 break;
             default:
                 System.out.println(task.getReportedClass());
@@ -83,7 +83,7 @@ public class ReportWorker {
         model.addReportUser(report);
     }
 
-    public void addReportReview(Report<ReviewItem> report)
+    public void addReportReview(Report<Review> report)
     {
         model.addReportReview(report);
     }

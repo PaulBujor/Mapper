@@ -1,4 +1,4 @@
-package dk.groupfive.ModeratorServer.model.objects;
+package dk.groupfive.ModeratorServer.model.objects.obsolete;
 
 public class ReviewItem {
     private long id;

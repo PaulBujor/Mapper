@@ -22,11 +22,11 @@ namespace DataServer.Persistence
 		Task RemovePlace(long id);
 
 		//REVIEW CRUD
-		Task AddReview(ReviewItem review, long placeId);
+		Task AddReview(Review review, long placeId);
 
-		Task<List<ReviewItem>> GetReviews(long placeId);
+		Task<List<Review>> GetReviews(long placeId);
 
-		Task UpdateReview(ReviewItem reviewItem);
+		Task UpdateReview(Review reviewItem);
 
 		Task RemoveReview(long reviewId);
 
@@ -54,23 +54,23 @@ namespace DataServer.Persistence
 		//REPORT CRUD
 		Task CreatePlaceReport(Report<Place> placeReport);
 
-		Task CreateReviewReport(Report<ReviewItem> reviewReport);
+		Task CreateReviewReport(Report<Review> reviewReport);
 
 		Task CreateUserReport(Report<User> userReport);
 
 		Task UpdatePlaceReport(Report<Place> placeReport);
 
-		Task UpdateReviewReport(Report<ReviewItem> reviewReport);
+		Task UpdateReviewReport(Report<Review> reviewReport);
 
 		Task UpdateUserReport(Report<User> userReport);
 
 		Task<Dictionary<long, Report<Place>>> GetPlaceReports();
 
-		Task<Dictionary<long, Report<ReviewItem>>> GetReviewReports();
+		Task<Dictionary<long, Report<Review>>> GetReviewReports();
 
 		Task<Dictionary<long, Report<User>>> GetUserReports();
 
-		Task<ReviewItem> AddPlaceReview(long placeId, ReviewItem review);
+		Task<Review> AddPlaceReview(long placeId, Review review);
 
 		Task DismissPlaceReport(long reportId);
 

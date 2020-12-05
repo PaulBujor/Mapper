@@ -2,7 +2,8 @@ package dk.groupfive.SpringLogicServer.controllers;
 
 import dk.groupfive.SpringLogicServer.model.Model;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
+import dk.groupfive.SpringLogicServer.model.objects.Review;
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
 import dk.groupfive.SpringLogicServer.network.PlaceNetwork;
 import dk.groupfive.SpringLogicServer.queue.ServerQueue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class PlaceController implements PlaceNetwork {
 
     @PostMapping(value = "/places/{id}/reviews")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addPlaceReview(@PathVariable("id") long id, @RequestBody ReviewItem review) {
+    public void addPlaceReview(@PathVariable("id") long id, @RequestBody Review review) {
         model.addPlaceReview(id, review);
     }
 

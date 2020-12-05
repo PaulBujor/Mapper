@@ -9,7 +9,8 @@ import dk.groupfive.SpringLogicServer.model.Model;
 import dk.groupfive.SpringLogicServer.model.ServerModel;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
 import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
+import dk.groupfive.SpringLogicServer.model.objects.Review;
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
 import dk.groupfive.SpringLogicServer.model.objects.User;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 import dk.groupfive.SpringLogicServer.model.tasks.ReviewTask;
@@ -104,7 +105,7 @@ public class ServerQueue implements Model {
     }
 
     @Override
-    public void addPlaceReview(long id, ReviewItem reviewItem) {
+    public void addPlaceReview(long id, Review reviewItem) {
         ReviewTask task = new ReviewTask("addPlaceReview", id, reviewItem);
         try {
             channel.basicPublish("", REVIEW_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(task).getBytes());
@@ -132,7 +133,7 @@ public class ServerQueue implements Model {
     }
 
     @Override
-    public void addReportReview(Report<ReviewItem> report) {
+    public void addReportReview(Report<Review> report) {
         try {
             channel.basicPublish("", REPORT_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(report).getBytes());
         } catch (IOException e) {

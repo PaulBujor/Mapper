@@ -29,7 +29,7 @@ namespace DataServer
 				description = "Heaven",
 				longitude = 9.795995847440167,
 				latitude = 55.83663617092108,
-				reviews = new ReviewFull()
+				reviews = new List<Review>()
 			};
 			AddPlace(reitan);
 			Report<Place> report = new Report<Place>()
@@ -38,12 +38,13 @@ namespace DataServer
 				reportedItem = reitan
 			};
 			AddPlaceReport(report);
-            ReviewItem review = new ReviewItem()
+            Review review = new Review()
             {
                 rating = 1
             };
 
             AddPlaceReview(reitan.id, review);
+			Console.WriteLine(reitan.reviews.Count);
         }
 
 		public void AddPlaceReport(Report<Place> report)
@@ -84,7 +85,7 @@ namespace DataServer
 			return cache.GetPlaceReports().Result.Values.ToList();
 		}
 
-		public Task<Dictionary<long, Report<ReviewItem>>> GetReviewReports()
+		public Task<Dictionary<long, Report<Review>>> GetReviewReports()
 		{
 			return cache.GetReviewReports();
 		}
@@ -110,7 +111,7 @@ namespace DataServer
 		}
 
 
-		public Task<ReviewItem> AddPlaceReview(long id, ReviewItem review)
+		public Task<Review> AddPlaceReview(long id, Review review)
 		{
 			return cache.AddPlaceReview(id, review);
 		}

@@ -4,7 +4,8 @@ import dk.groupfive.SpringLogicServer.broadcast.Broadcaster;
 import dk.groupfive.SpringLogicServer.local.Cache;
 import dk.groupfive.SpringLogicServer.model.objects.Place;
 import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
+import dk.groupfive.SpringLogicServer.model.objects.Review;
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
 import dk.groupfive.SpringLogicServer.model.objects.User;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 import dk.groupfive.SpringLogicServer.queue.PlaceWorker;
@@ -81,7 +82,7 @@ public class ServerModel implements Model {
     }
 
     @Override
-    public void addPlaceReview(long id, ReviewItem reviewItem) {
+    public void addPlaceReview(long id, Review reviewItem) {
         try {
             reviewItem = server.addPlaceReview(id, reviewItem);
         } catch (IOException e) {
@@ -127,7 +128,7 @@ public class ServerModel implements Model {
     }
 
     @Override
-    public void addReportReview(Report<ReviewItem> report) {
+    public void addReportReview(Report<Review> report) {
         try {
             server.addReportReview(report);
         } catch (IOException e) {

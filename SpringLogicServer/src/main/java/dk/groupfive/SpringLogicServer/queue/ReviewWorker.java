@@ -6,8 +6,8 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import dk.groupfive.SpringLogicServer.model.Model;
-import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
-import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
+import dk.groupfive.SpringLogicServer.model.objects.Review;
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
 import dk.groupfive.SpringLogicServer.model.tasks.ReviewTask;
 
 import java.io.IOException;
@@ -54,7 +54,7 @@ public class ReviewWorker {
     }
 
 
-    public void addPlaceReview(long id, ReviewItem reviewItem)
+    public void addPlaceReview(long id, Review reviewItem)
     {
         model.addPlaceReview(id, reviewItem);
     }

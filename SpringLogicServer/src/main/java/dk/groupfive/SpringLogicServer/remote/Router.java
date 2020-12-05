@@ -2,7 +2,8 @@ package dk.groupfive.SpringLogicServer.remote;
 
 import dk.groupfive.SpringLogicServer.model.objects.Place;
 import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
+import dk.groupfive.SpringLogicServer.model.objects.Review;
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
 import dk.groupfive.SpringLogicServer.model.objects.User;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class Router implements Server{
     }
 
     @Override
-    public ReviewItem addPlaceReview(long id, ReviewItem reviewItem) throws IOException {
+    public Review addPlaceReview(long id, Review reviewItem) throws IOException {
         return placeClient.addPlaceReview(id, reviewItem);
     }
 
@@ -60,7 +61,7 @@ public class Router implements Server{
     }
 
     @Override
-    public void addReportReview(Report<ReviewItem> report){
+    public void addReportReview(Report<Review> report){
         reportClient.addReportReview(report);
     }
 }

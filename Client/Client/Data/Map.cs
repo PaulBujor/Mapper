@@ -100,7 +100,7 @@ namespace Client.Data
                 latitude = currentLatitude,
                 title = placeData.Title,
                 description = placeData.Description,
-                reviews = new ReviewFull()
+                reviews = new List<Review>()
             };
             //await AddMarkerAsync(newPlace); //line will be removed and place will be added when model gets it from broadcaster
             await removeTemporaryMarkerAsync();
@@ -138,7 +138,7 @@ namespace Client.Data
         {
             Console.WriteLine(id);
             Place place = model.GetPlaces().FirstOrDefault(p => p.id.Equals(id));
-            await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addReviewLite", place.reviews.GetRating());
+            await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addReviewLite", place.GetRating());
         }
 
         public async Task GetReviewFull()

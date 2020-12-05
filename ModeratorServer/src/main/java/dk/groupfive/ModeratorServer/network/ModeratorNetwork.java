@@ -1,6 +1,7 @@
 package dk.groupfive.ModeratorServer.network;
 
 import dk.groupfive.ModeratorServer.model.objects.*;
+import dk.groupfive.ModeratorServer.model.objects.obsolete.ReviewItem;
 
 import java.util.List;
 

@@ -3,6 +3,7 @@ package dk.groupfive.ModeratorServer.controllers;
 import dk.groupfive.ModeratorServer.model.Model;
 import dk.groupfive.ModeratorServer.model.ModeratorModel;
 import dk.groupfive.ModeratorServer.model.objects.*;
+import dk.groupfive.ModeratorServer.model.objects.obsolete.ReviewItem;
 import dk.groupfive.ModeratorServer.network.ModeratorNetwork;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

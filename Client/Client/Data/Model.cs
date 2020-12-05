@@ -27,7 +27,7 @@ namespace Client.Data
 		{
 			places = server.GetPlacesAsync().Result;
 			OnMapLoaded?.Invoke();
-            System.Console.WriteLine(places.FirstOrDefault().reviews.GetRating());
+            System.Console.WriteLine(places.FirstOrDefault().GetRating());
 		}
 
 		public override async Task AddPlaceAsync(Place place)

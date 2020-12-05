@@ -3,6 +3,7 @@ package dk.groupfive.SpringLogicServer.remote;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dk.groupfive.SpringLogicServer.model.objects.*;
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -66,14 +67,14 @@ public class PlaceClient {
         out.println(id);
     }
 
-    public ReviewItem addPlaceReview(long id, ReviewItem reviewItem) throws IOException {
+    public Review addPlaceReview(long id, Review reviewItem) throws IOException {
         out.println("addPlaceReview");
         String sendPlaceId = gson.toJson(id);
         out.println(sendPlaceId);
         String sendReviewItem = gson.toJson(reviewItem);
         out.println(sendReviewItem);
         String response = in.readLine();
-        ReviewItem receivedReviewItem = gson.fromJson(response, ReviewItem.class);
+        Review receivedReviewItem = gson.fromJson(response, Review.class);
         return receivedReviewItem;
     }
 

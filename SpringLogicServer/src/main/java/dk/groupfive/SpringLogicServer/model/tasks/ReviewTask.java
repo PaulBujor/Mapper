@@ -1,23 +1,24 @@
 package dk.groupfive.SpringLogicServer.model.tasks;
 
-import dk.groupfive.SpringLogicServer.model.objects.ReviewItem;
+import dk.groupfive.SpringLogicServer.model.objects.Review;
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
 
 public class ReviewTask {
     private String taskName;
     private long id;
-    private ReviewItem reviewItem;
+    private Review reviewItem;
 
     public ReviewTask(String taskName, long id) {
         this.taskName = taskName;
         this.id = id;
     }
 
-    public ReviewTask(String taskName, ReviewItem reviewItem) {
+    public ReviewTask(String taskName, Review reviewItem) {
         this.taskName = taskName;
         this.reviewItem = reviewItem;
     }
 
-    public ReviewTask(String taskName, long id, ReviewItem reviewItem) {
+    public ReviewTask(String taskName, long id, Review reviewItem) {
         this.taskName = taskName;
         this.id = id;
         this.reviewItem = reviewItem;
@@ -31,7 +32,7 @@ public class ReviewTask {
         return id;
     }
 
-    public ReviewItem getReviewItem() {
+    public Review getReviewItem() {
         return reviewItem;
     }
 }

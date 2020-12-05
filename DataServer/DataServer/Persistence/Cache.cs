@@ -19,7 +19,7 @@ namespace DataServer.Persistence
 		private Dictionary<string, long> usernames;
 
 		private Dictionary<long, Report<Place>> placeReports;
-		private Dictionary<long, Report<ReviewItem>> reviewReports;
+		private Dictionary<long, Report<Review>> reviewReports;
 		private Dictionary<long, Report<User>> userReports;
 
 		private List<long> removedPlaces;
@@ -33,7 +33,7 @@ namespace DataServer.Persistence
 			usernames = new Dictionary<string, long>();
 
 			placeReports = new Dictionary<long, Report<Place>>();
-			reviewReports = new Dictionary<long, Report<ReviewItem>>();
+			reviewReports = new Dictionary<long, Report<Review>>();
 			userReports = new Dictionary<long, Report<User>>();
 
 			removedPlaces = new List<long>();
@@ -49,12 +49,12 @@ namespace DataServer.Persistence
 			return place;
 		}
 
-		public async Task AddReview(ReviewItem review, long placeId)
+		public async Task AddReview(Review review, long placeId)
 		{
 			Place place;
 			places.TryGetValue(placeId, out place);
 			review.id = ++reviewKey;
-			place.reviews.AddReview(review);
+			place.AddReview(review);
 		}
 
 		public async Task BanUser(long userId)
@@ -69,7 +69,7 @@ namespace DataServer.Persistence
 			placeReports.Add(reportKey, placeReport);
 		}
 
-		public async Task CreateReviewReport(Report<ReviewItem> reviewReport)
+		public async Task CreateReviewReport(Report<Review> reviewReport)
 		{
 			reviewReport.reportId = ++reportKey;
 			reviewReports.Add(reportKey, reviewReport);
@@ -99,9 +99,9 @@ namespace DataServer.Persistence
 			return places.Values.Where(c => !removedPlaces.Contains(c.id)).ToList();
 		}
 
-		public async Task<List<ReviewItem>> GetReviews(long placeId)
+		public async Task<List<Review>> GetReviews(long placeId)
 		{
-			return GetPlace(placeId).Result.reviews.GetReviews().Where(c => !removedReviews.Contains(c.id)).ToList();
+			return GetPlace(placeId).Result.GetReviews().Where(c => !removedReviews.Contains(c.id)).ToList();
 		}
 
 		public async Task<User> GetUser(string username, string password)
@@ -147,12 +147,12 @@ namespace DataServer.Persistence
 			placeReports[placeReport.reportId] = placeReport;
 		}
 
-		public async Task UpdateReview(ReviewItem reviewItem)
+		public async Task UpdateReview(Review reviewItem)
 		{
 			//todo
 		}
 
-		public async Task UpdateReviewReport(Report<ReviewItem> reviewReport)
+		public async Task UpdateReviewReport(Report<Review> reviewReport)
 		{
 			reviewReports[reviewReport.reportId] = reviewReport;
 		}
@@ -173,7 +173,7 @@ namespace DataServer.Persistence
 			return placeReports;
 		}
 
-		public async Task<Dictionary<long, Report<ReviewItem>>> GetReviewReports()
+		public async Task<Dictionary<long, Report<Review>>> GetReviewReports()
 		{
 			return reviewReports;
 		}
@@ -183,14 +183,14 @@ namespace DataServer.Persistence
 			return userReports;
 		}
 
-		public async Task<ReviewItem> AddPlaceReview(long placeId, ReviewItem review)
+		public async Task<Review> AddPlaceReview(long placeId, Review review)
 		{
 			Place place;
 			places.TryGetValue(placeId, out place);
-			place.reviews.AddReview(review);
+			place.AddReview(review);
 			review.id = ++reviewKey;
 
-			Console.WriteLine("Reitan id: " + place.id + " " + "Reitan rating " + place.reviews.GetRating());
+			Console.WriteLine("Reitan id: " + place.id + " " + "Reitan rating " + place.GetRating());
 
 			return review;
 		}
@@ -204,7 +204,7 @@ namespace DataServer.Persistence
 
 		public async Task DismissReviewReport(long reportId)
 		{
-			Report<ReviewItem> report;
+			Report<Review> report;
 			reviewReports.TryGetValue(reportId, out report);
 			report.resolved = true;
 		}

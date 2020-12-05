@@ -12,7 +12,8 @@ namespace DataServer.Models
 		public double latitude { get; set; }
 		public string title { get; set; }
 		public string description { get; set; }
-		public ReviewFull reviews { get; set; }
+		public List<Review> reviews { get; set; }
+		public UserData addedBy { get; set; }
 
 		public Place()
 		{
@@ -24,7 +25,7 @@ namespace DataServer.Models
 			this.latitude = latitude;
 			this.title = title;
 			this.description = description;
-			reviews = new ReviewFull();
+			reviews = new List<Review>();
 		}
 
 		public Place(PlaceForDeserialization place)
@@ -35,6 +36,25 @@ namespace DataServer.Models
 			title = place.title;
 			description = place.description;
 			reviews = place.reviews;
+		}
+		public void AddReview(Review review)
+		{
+			reviews.Add(review);
+		}
+
+		public double GetRating()
+		{
+			long score = 0;
+			foreach (Review item in reviews)
+			{
+				score += item.rating;
+			}
+			return (double)score / reviews.Count;
+		}
+
+		public List<Review> GetReviews()
+		{
+			return reviews;
 		}
 	}
 }

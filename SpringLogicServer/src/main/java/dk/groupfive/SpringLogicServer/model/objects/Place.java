@@ -1,7 +1,11 @@
 package dk.groupfive.SpringLogicServer.model.objects;
 
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.IReview;
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewFull;
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
+
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.util.ArrayList;
 
 public class Place implements Serializable {
     private long id;
@@ -9,7 +13,8 @@ public class Place implements Serializable {
     private double longitude;
     private String title;
     private String description;
-    private ReviewFull reviews;
+    private ArrayList<Review> reviews;
+    private UserData addedBy;
 
     public Place() {
 
@@ -70,17 +75,17 @@ public class Place implements Serializable {
         this.description = description;
     }
 
-    public IReview getReviews() {
+    public ArrayList<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(ReviewFull reviews) {
+    public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
     }
 
-    public void addReview(ReviewItem reviewItem)
+    public void addReview(Review reviewItem)
     {
-        reviews.addReview(reviewItem);
+        reviews.add(reviewItem);
     }
 
     @Override
@@ -91,6 +96,8 @@ public class Place implements Serializable {
                 ", longitude=" + longitude +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", reviews=" + reviews +
+                ", addedBy=" + addedBy +
                 '}';
     }
 }

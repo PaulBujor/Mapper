@@ -91,6 +91,8 @@ namespace DataServer.Handlers
         {
             string placeJson;
             placeJson = JsonSerializer.Serialize(model.GetAllPlaces());
+			Console.WriteLine(placeJson);
+			Console.WriteLine(model.GetAllPlaces()[0].GetRating());
             writer.WriteLine(placeJson);
         }
 
@@ -125,8 +127,8 @@ namespace DataServer.Handlers
             string receivePlaceId = reader.ReadLine();
             string receiveReviewItem = reader.ReadLine();
             long placeId = long.Parse(receivePlaceId);
-            ReviewItem review = JsonSerializer.Deserialize<ReviewItem>(receiveReviewItem);
-            writer.WriteLine(JsonSerializer.Serialize<ReviewItem>(model.AddPlaceReview(placeId, review).Result));
+            Review review = JsonSerializer.Deserialize<Review>(receiveReviewItem);
+            writer.WriteLine(JsonSerializer.Serialize<Review>(model.AddPlaceReview(placeId, review).Result));
 
         }
     }

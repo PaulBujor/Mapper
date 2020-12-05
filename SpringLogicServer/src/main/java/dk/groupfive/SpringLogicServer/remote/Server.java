@@ -1,7 +1,7 @@
 package dk.groupfive.SpringLogicServer.remote;
 
-import dk.groupfive.SpringLogicServer.model.Model;
 import dk.groupfive.SpringLogicServer.model.objects.*;
+import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,7 +13,7 @@ public interface Server {
 
     Place addPlace(Place place) throws IOException;
 
-    ReviewItem addPlaceReview(long id, ReviewItem reviewItem) throws IOException;
+    Review addPlaceReview(long id, Review reviewItem) throws IOException;
 
     void updatePlace(Place place);
 
@@ -23,7 +23,7 @@ public interface Server {
 
     void addReportUser(Report<User> report) throws IOException;
 
-    void addReportReview(Report<ReviewItem> report) throws IOException;
+    void addReportReview(Report<Review> report) throws IOException;
 
 
 }
