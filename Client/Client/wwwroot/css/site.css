@@ -1,5 +1,10 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+* {
+    
+}
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -234,6 +239,7 @@ app {
 #map {
     width: auto;
     height: 100vh;
+    flex: 1;
 }
 
 .map-overlay {
@@ -314,17 +320,32 @@ app {
 }
 
 .place-title {
-    font-family: Georgia, Helvetica, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
     font-size: 3.5em;
     display: inline;
     width: 16em;
     word-wrap: break-word;
+    text-align: left;
+    transition-property: all;
+    transition-duration: .6s;
+    transition-timing-function: ease;
 }
 
-.page-container {
-    margin: 5px;
-    padding: 5px 15px 5px 15px;
-}
+    .place-title:hover,
+    .place-title:active {
+        letter-spacing: 5px;
+        transition: all 280ms ease-in-out;
+    }
+        .place-title:hover:after,
+        .place-title:hover:before {
+            transition: all 280ms ease-in-out;
+        }
+
+        .page-container {
+            margin: 5px;
+            padding: 5px 15px 5px 15px;
+        }
 
 #title-separator {
     margin: 20px 0px 20px 0px;
@@ -340,40 +361,37 @@ app {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    margin-bottom: 2em;
+    box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.29);
 }
 
 .place-section {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
 }
 
-.place-section > div {
-    background: #f2f2f2;
-    border-radius: 15px;
-}
 
-    .place-section > div > h3 {
-        font-family: Georgia, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: center;
-        margin-top: 5px;
-    }
 
-    .place-section > div > p {
-        margin-left: 5px;
+
+    #place-description p {
+        margin-left: 10px;
+        margin-top: 15px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+        font-size: 1.5em;
+        text-align: left;
     }
 
 
 
 #place-description {
-    width: 65%;
+    flex: 5;
     height: 100%;
     margin: 10px;
 }
 
 #place-reviews {
-    width: 35%;
+    flex: 7;
     height: 100%;
     margin: 10px;
 }
@@ -384,6 +402,97 @@ app {
     border-radius: 20%;
 
 }
+
+
+
+.place-section-item {
+    min-height: 30em;
+    background: #f2f2f2;
+}
+
+
+.place-section-item-header {
+    display: flex;
+    width: 100%;
+    height: 2em;
+    background: rgb(78,10,145);
+    /*background: linear-gradient(132deg, rgba(78,10,145,1) 22%, rgba(0,212,255,1) 100%);*/
+    background: linear-gradient(208deg, rgba(67,47,196,1) 0%, rgba(141,60,255,1) 100%);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 2em;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+
+.place-section-item ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.place-section-item ul li {
+    margin-bottom: 30px;
+    margin-left: 0;
+}
+
+.review-container {
+    padding: 20px;
+    width: 100%;
+    height: 6em;
+    background: white;
+}
+
+.review-container > .first-line {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.first-line-title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 1.2em;
+    color: black;
+}
+
+.first-line-rating {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 1.5em;
+    color: forestgreen;
+}
+
+.first-line-report {
+    cursor: pointer;
+}
+
+.place-section-item-container {
+    position: relative;
+    padding: 20px;
+    overflow: scroll;
+    max-height: 27em;
+}
+
+#review-input {
+    width: 100%;
+
+}
+
+.review-input {
+    height: 5em;
+    width: 100%;
+    position: sticky;
+    left:0;
+    bottom: 0;
+    background: white;
+    margin-bottom: -20px;
+}
+
+
+
 
 
 

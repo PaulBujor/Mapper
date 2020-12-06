@@ -2,8 +2,6 @@
 var _dotNetReference;
 var currentTemporaryMarker;
 
-
-
 window.mapBoxFunctions = {
     reportPlace: function (placeId) {
         _dotNetReference.invokeMethodAsync('ReportPlace', parseInt(placeId));

@@ -12,24 +12,56 @@
         <RadzenRating id="radzen-rating" Change=@(v => OnChange(v, "Rating with 5 stars")) />
     </div>
 
-    <div id="title-separator"></div>
 
     <div class="place-section">
-        <div id="place-description">
-            <h3>/ Description /</h3>
+        <div class="place-section-item" id="place-description">
+            <div class="place-section-item-header">
+                Description
+            </div>
             <p>@place.description</p>
         </div>
-        <div id="place-reviews">
-            <h3>/ Comments /</h3>
+
+        <div class="place-section-item" id="place-reviews">
+            <div class="place-section-item-header">
+                Reviews
+            </div>
+            <div class="place-section-item-container">
+                <ul>
+                    @foreach (var review in mockPlace.GetReviews())
+                    {
+                        <li>
+                            <div class="review-container">
+                                <div class="first-line">
+                                    <span class="first-line-title">&commat;@review.addedBy.username</span>
+                                    <span class="first-line-rating">@review.rating</span>
+                                    <span id=@review.id.ToString() class="first-line-report" @onclick="ReportReview"><RadzenIcon Icon="flag" /></span>
+                                </div>
+                                <p>@review.comment</p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <div class="review-input">
+                    <div id="review-input" class="input-group">
+                        <input type="text" class="form-control" placeholder="Leave a comment!" aria-label="Leave a comment!" aria-describedby="button-addon2" @bind-value="comment">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" id="button-addon2" @onclick="ButtonClicked">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+        </div>
     <div id='map'></div>
+
 
 </div>
 @code {
     [Parameter]
     public string placeId { get; set; }
     public Place place { get; set; }
+    public Place mockPlace { get; set; }
+    public string comment { get; set; }
 
     private bool isRated { get; set; }
 
@@ -37,6 +69,11 @@
     {
 
         place = Model.GetPlaces().FirstOrDefault(p => (p.id == long.Parse(placeId)));
+        mockPlace = new Place();
+        mockPlace.AddReview(new Review() {id = 1, rating = 4, comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", addedBy = new UserData() {username = "johndoe" } });
+        mockPlace.AddReview(new Review() { id = 2, rating = 4, comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", addedBy = new UserData() { username = "johndoe" } });
+        mockPlace.AddReview(new Review() { id = 3, rating = 4, comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", addedBy = new UserData() { username = "johndoe" } });
+        mockPlace.AddReview(new Review() { id = 4, rating = 4, comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", addedBy = new UserData() { username = "johndoe" } });
 
 
     }
@@ -51,6 +88,17 @@
     public async Task OnChange(int rating, string name)
     {
         await Model.AddPlaceRatingAsync(long.Parse(placeId), rating);
+    }
+
+    public async Task ReportReview()
+    {
+        Console.WriteLine("Flag works");
+    }
+
+    public void ButtonClicked()
+    {
+        Console.WriteLine(comment);
+        comment = "";
     }
 
 
