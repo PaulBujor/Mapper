@@ -41,12 +41,13 @@
                         </li>
                     }
                 </ul>
-                <div class="review-input">
-                    <div id="review-input" class="input-group">
-                        <input type="text" class="form-control" placeholder="Leave a comment!" aria-label="Leave a comment!" aria-describedby="button-addon2" @bind-value="comment">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button" id="button-addon2" @onclick="ButtonClicked">Send</button>
-                        </div>
+
+            </div>
+            <div class="review-input">
+                <div id="review-input-group" class="input-group">
+                    <input type="text" id="review-input-comment" class="form-control" placeholder="Leave a comment!" aria-label="Leave a comment!" aria-describedby="button-addon2" @bind-value="comment">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="button-addon2" @onclick="ButtonClicked">Send</button>
                     </div>
                 </div>
             </div>

@@ -408,6 +408,7 @@ app {
 .place-section-item {
     min-height: 30em;
     background: #f2f2f2;
+    position: relative;
 }
 
 
@@ -431,11 +432,16 @@ app {
 .place-section-item ul {
     list-style-type: none;
     padding: 0;
+    
 }
 
 .place-section-item ul li {
     margin-bottom: 30px;
     margin-left: 0;
+}
+
+.place-section-item ul li:last-child {
+    margin-bottom: 60px;
 }
 
 .review-container {
@@ -473,23 +479,33 @@ app {
     position: relative;
     padding: 20px;
     overflow: scroll;
-    max-height: 27em;
+    max-height: 26em;
 }
 
-#review-input {
+#review-input-group {
     width: 100%;
-
+    display: flex;
+    align-items: stretch;
 }
 
 .review-input {
+    display: flex;
+    position: absolute;
     height: 5em;
     width: 100%;
-    position: sticky;
     left:0;
     bottom: 0;
     background: white;
-    margin-bottom: -20px;
+    align-items: stretch;
+    padding-top: 10px;
+
 }
+
+#review-input-comment {
+    height: auto;
+}
+
+
 
 
 
