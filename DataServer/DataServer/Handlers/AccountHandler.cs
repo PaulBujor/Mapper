@@ -103,7 +103,7 @@ namespace DataServer.Handlers
             string receivedPassword = reader.ReadLine();
             
               User tmpUser =  await model.Login(receivedUserName, receivedPassword);
-             string tmpUserSerialize = JsonSerializer.Serialize(tmpUser);
+            string tmpUserSerialize = JsonSerializer.Serialize(tmpUser);
               writer.WriteLine(tmpUserSerialize);
               
         }
@@ -223,6 +223,7 @@ namespace DataServer.Handlers
         {
             long id = long.Parse(reader.ReadLine());
             string receivedPassword = reader.ReadLine();
+            Console.WriteLine(receivedPassword);
             try
             {
                 model.UpdatePassword(id,receivedPassword); 

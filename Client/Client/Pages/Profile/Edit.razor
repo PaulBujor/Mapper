@@ -10,12 +10,11 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 @inject IAuth Auth
+@inject IToastService ToastService
 
 
-<div id="error">
-    <p><span style="color: #ff2222">@ErrorMessage</span></p>   
-</div>
 
+<div>
 <EditForm Context="editForm" Model="@cachedUser" OnValidSubmit="@EditFirstName">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
@@ -62,7 +61,7 @@
     <p>
         <label for="newpassword">New Password</label><br>
         <InputText id="newpassword" @bind-Value="NewPassword"/>
-        </p>
+    </p>
     <p>
         <label for="confirmpassword">Confirm Password</label><br>
         <InputText id="confirmpassword" @bind-Value="ConfirmPassword"/>
@@ -70,6 +69,7 @@
     </p>
     
 </EditForm>
+</div>
 
 
 
@@ -79,9 +79,7 @@
     protected Task<AuthenticationState> AuthStat { get; set; }
 
     private CustomUser cachedUser = new CustomUser();
-    
-    private string ErrorMessage="Testing this";
-    
+    private string Name;
     private string NewPassword;
     private string ConfirmPassword;
     private string TmpUserName;
@@ -112,47 +110,55 @@
             TmpFirstName = cachedUser.firstname;
             TmpLastName = cachedUser.lastname;
             TmpId = cachedUser.id;
+            Name = cachedUser.firstname;
         }
     }
     
     private async Task EditFirstName()
     {
-        ErrorMessage = "";
+        
         try
         {
             if (TmpFirstName != cachedUser.firstname)
             {
-
+                
                 await Auth.UpdateFirstName(TmpId, cachedUser.firstname);
+                string serialisedData = JsonSerializer.Serialize(cachedUser);
+                JsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
+                TmpFirstName = cachedUser.firstname;
+                ToastService.ShowSuccess("First name changed successfully.");
             }
         }
         catch (Exception e)
         {
-            ErrorMessage = e.Message;
+            ToastService.ShowError("There was an error trying to process this request, try again later.");
         }
 
     }
 
     private async Task EditLastName()
     {
-        ErrorMessage = "";
+        
         try
         {
             if (TmpLastName != cachedUser.lastname)
             {
                 await Auth.UpdateLastName(TmpId, cachedUser.lastname);
+                string serialisedData = JsonSerializer.Serialize(cachedUser);
+                JsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
+                TmpLastName = cachedUser.lastname;
+                ToastService.ShowSuccess("Last name changed successfully.");
             }
         }
         catch (Exception e)
         {
-            ErrorMessage = e.Message;
+            ToastService.ShowError("There was an error trying to process this request, try again later.");
         }
     }
 
     private async Task EditUserName()
     {
-        ErrorMessage = "";
-        Console.WriteLine("Testing username");
+        
         try
         {
             if (TmpUserName != cachedUser.username)
@@ -160,22 +166,26 @@
                 var checkUserName = await Auth.CheckUserName(cachedUser.username);
                 if (checkUserName == false)
                 {
-                    ErrorMessage = "Username already exists";
-                    throw new Exception("Username already exists");
+                    ToastService.ShowWarning("Username already exists."); 
+                    throw new Exception("Username already exists.");
                 }
                 await Auth.UpdateUserName(TmpId, cachedUser.username);
+                string serialisedData = JsonSerializer.Serialize(cachedUser);
+                JsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
+                TmpUserName = cachedUser.username;
+                ToastService.ShowSuccess("Username changed successfully.");
             }
             
         }
         catch (Exception e)
         {
-            ErrorMessage = e.Message;
+       
         }
     }
 
     private async Task EditEmail()
     {
-        ErrorMessage = "";
+       
         try
         {
             if (TmpEmail != cachedUser.email)
@@ -183,22 +193,26 @@
                 var checkEmail = await Auth.CheckEmail(cachedUser.email);
                 if (checkEmail == false)
                 {
-                    ErrorMessage = "Email already exists";
+                    ToastService.ShowWarning("Email already exists");
                     throw new Exception("Email already exists");
                 }
                 await Auth.UpdateEmail(TmpId, cachedUser.email);
+                string serialisedData = JsonSerializer.Serialize(cachedUser);
+                JsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
+                TmpEmail = cachedUser.email;
+                ToastService.ShowSuccess("Email changed successfully.");
             }
             
         }
         catch (Exception e)
         {
-            ErrorMessage = e.Message;
+            
         }
     }
 
     private async Task ChangePassword()
     {
-        ErrorMessage = "";
+        
         try
         {
             Console.WriteLine("edit password");
@@ -207,23 +221,24 @@
                 if (PasswordStrength(NewPassword) < 3)
                 {
 
-                    ErrorMessage = "New password is too weak, must contain a capital letter, a number and a special character ";
+                    ToastService.ShowWarning("New password is too weak, must contain a capital letter, a number and a special character ");
                     throw new Exception("New password is too weak, must contain a capital letter, a number and a special character");
                 }
                 if (NewPassword != ConfirmPassword)
                 {
 
-                    ErrorMessage = "Passwords must match.";
+                    ToastService.ShowWarning("Passwords must match.");
                     throw new Exception("Passwords must match.");
                     
                 }
                 await Auth.UpdatePassword(TmpId, NewPassword);
+                ToastService.ShowSuccess("Password changed successfully");
                 
             }
         }
         catch (Exception e)
         {
-            ErrorMessage = e.Message;
+            ToastService.ShowError("There was an error trying to process this request, try again later.");
         }
     }
 
@@ -249,4 +264,3 @@
         return counter;
     }
     }
-}
