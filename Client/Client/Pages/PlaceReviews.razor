@@ -1,15 +1,22 @@
 ﻿@page "/place/{placeid}"
 @using Radzen.Blazor
 @using Client.Models
+@using System.Text.Json
 @inject Client.Data.IModel Model
 @inject Client.Data.IMap Map
+@inject IJSRuntime JsRuntime
 
 <div class="page-container">
     <div class="place-first-row">
-        <p class="place-title">
+        <div class="place-title">
             @place.title
-        </p>
-        <RadzenRating id="radzen-rating" Change=@(v => OnChange(v, "Rating with 5 stars")) />
+           
+            
+        </div>
+
+            <RadzenIcon id=@(IsPlaceSaved ? "save-place-added" : "save-place") @onclick="() => IsPlaceSaved = !IsPlaceSaved" Icon="favorite" />
+
+
     </div>
 
 
@@ -25,35 +32,59 @@
             <div class="place-section-item-header">
                 Reviews
             </div>
-            <div class="place-section-item-container">
-                <ul>
-                    @foreach (var review in mockPlace.GetReviews())
-                    {
-                        <li>
-                            <div class="review-container">
-                                <div class="first-line">
-                                    <span class="first-line-title">&commat;@review.addedBy.username</span>
-                                    <span class="first-line-rating">@review.rating</span>
-                                    <span id=@review.id.ToString() class="first-line-report" @onclick="ReportReview"><RadzenIcon Icon="flag" /></span>
+            @if (place.GetReviews().Count() > 0)
+            {
+                <div class="place-section-item-container">
+                    <ul>
+                        @foreach (var review in place.GetReviews())
+                        {
+                            <li>
+                                <div class="review-container">
+                                    <div class="first-line">
+                                        <span class="first-line-title">&commat;@review.addedBy.username</span>
+                                        <span class="first-line-rating">@review.rating</span>
+                                        <span id=@review.id.ToString() class="first-line-report" @onclick="() => ReportReview(review.id)"><RadzenIcon Icon="flag" /></span>
+                                    </div>
+                                    <p>@review.comment</p>
                                 </div>
-                                <p>@review.comment</p>
-                            </div>
-                        </li>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="review-input-container">
+                <div class="review-input-rating">
+                    @if (place.GetReviews().FirstOrDefault(item => item.addedBy.userId == currentUser.id) == null)
+                    {
+                        <RadzenRating Change=@(v => OnChange(v)) />
                     }
-                </ul>
+                    else
+                    {
+                        <RadzenRating Disabled="true" Value=@int.Parse(place.GetReviews().FirstOrDefault(item => item.addedBy.userId == currentUser.id).rating.ToString()[0].ToString()) />
+                        <i class="alert-message">You've already rated this place!</i>
+                    }
+                </div>
+                <div class="review-input">
+                    <div id="review-input-group" class="input-group">
+                        @if (place.GetReviews().FirstOrDefault(item => item.addedBy.userId == currentUser.id) == null)
+                        {<input type="text" id="review-input-comment" class="form-control" placeholder="Leave a comment (optional)" aria-label="Leave a comment!" aria-describedby="button-addon2" @bind-value="comment">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="button-addon2" @onclick="SendReview">Submit</button>
+                            </div>}
+                        else
+                        {
+                            <input type="text" id="review-input-comment" class="form-control" placeholder="Leave a comment (optional)" aria-label="Leave a comment!" aria-describedby="button-addon2" disabled @bind-value="comment">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="button-addon2" disabled @onclick="SendReview">Submit</button>
+                            </div>
+                        }
 
-            </div>
-            <div class="review-input">
-                <div id="review-input-group" class="input-group">
-                    <input type="text" id="review-input-comment" class="form-control" placeholder="Leave a comment!" aria-label="Leave a comment!" aria-describedby="button-addon2" @bind-value="comment">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" id="button-addon2" @onclick="ButtonClicked">Send</button>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
-    <div id='map'></div>
+    </div>
+    <div class="map-place-reviews" id='map'></div>
 
 
 </div>
@@ -63,44 +94,72 @@
     public Place place { get; set; }
     public Place mockPlace { get; set; }
     public string comment { get; set; }
+    public int rating { get; set; }
+
+    public bool IsPlaceSaved { get; set; }
+
+    public User currentUser = new User();
+
+
 
     private bool isRated { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-
         place = Model.GetPlaces().FirstOrDefault(p => (p.id == long.Parse(placeId)));
-        mockPlace = new Place();
-        mockPlace.AddReview(new Review() {id = 1, rating = 4, comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", addedBy = new UserData() {username = "johndoe" } });
-        mockPlace.AddReview(new Review() { id = 2, rating = 4, comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", addedBy = new UserData() { username = "johndoe" } });
-        mockPlace.AddReview(new Review() { id = 3, rating = 4, comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", addedBy = new UserData() { username = "johndoe" } });
-        mockPlace.AddReview(new Review() { id = 4, rating = 4, comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", addedBy = new UserData() { username = "johndoe" } });
+        currentUser = JsonSerializer.Deserialize<User>(await JsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser"));
+        Console.WriteLine("Current user id: " + currentUser.id);
+
 
 
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+
         if (firstRender)
+        {
             await Map.InitMapMarkerAsync(long.Parse(placeId));
+
+            //todo fix
+
+            //IsPlaceSaved = currentUser.savedPlaces.FirstOrDefault(p => p.id == place.id) == null;
+        }
+
     }
 
-
-    public async Task OnChange(int rating, string name)
+    public void OnChange(int rating)
     {
-        await Model.AddPlaceRatingAsync(long.Parse(placeId), rating);
+        this.rating = rating;
+
     }
 
-    public async Task ReportReview()
+    public async Task ReportReview(long id)
     {
-        Console.WriteLine("Flag works");
+        Console.WriteLine($"Flag works {id}");
     }
 
-    public void ButtonClicked()
+    public async Task SendReview()
     {
-        Console.WriteLine(comment);
-        comment = "";
+
+        Review review = new Review()
+        {
+            rating = this.rating,
+            addedBy = new UserData()
+            {
+                userId = currentUser.id,
+                username = currentUser.username
+            }
+        };
+
+        if (!comment.Equals(""))
+            review.comment = this.comment;
+
+        await Model.AddPlaceReviewAsync(long.Parse(placeId), review);
     }
 
+    public async Task SavePlace()
+    {
 
+    }
 }

@@ -23,12 +23,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c2c289a-efa5-4970-a296-cbcbccfe7bc3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Client/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Client/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Client.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Client.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Pages/Login.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Pages/Login.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Pages/Profile/Edit.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Pages/Profile/Edit.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Pages/_Host.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Pages/_Host.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Shared/MainLayout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Shared/MainLayout.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/_Imports.razor" beforeDir="false" afterPath="$PROJECT_DIR$/Client/_Imports.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DataServer/DataServer/Handlers/AccountHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DataServer/DataServer/Handlers/AccountHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataServer/DataServer/Model.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DataServer/DataServer/Model.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataServer/DataServer/Persistence/Cache.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DataServer/DataServer/Persistence/Cache.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataServer/DataServer/Persistence/IPersistence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DataServer/DataServer/Persistence/IPersistence.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/remote/AuthClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringLogicServer/src/main/java/dk/groupfive/SpringLogicServer/remote/AuthClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +45,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/812C73AD-FF78-4DB3-8383-BDE4DA2511F8/e4/53cada4e/ToastPosition.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/035422E9-68E0-4BA0-B7A9-7953F1E57E78/42/HttpResponseMessage.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/812C73AD-FF78-4DB3-8383-BDE4DA2511F8/08/15bbf23f/BlazoredToasts.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3294A405-33A5-4510-A2B8-2FF3AA301412/20/ValidationAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3294A405-33A5-4510-A2B8-2FF3AA301412/24/ValidationResult.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Client/Data/Networking/PlaceClient.cs" root0="FORCE_HIGHLIGHTING" />
@@ -49,12 +57,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Client/App.razor" />
-        <option value="$PROJECT_DIR$/Client/Pages/_Host.cshtml" />
         <option value="$PROJECT_DIR$/Client/Pages/Login.cshtml" />
         <option value="$PROJECT_DIR$/Client/Data/Authentication/IUserService.cs" />
-        <option value="$PROJECT_DIR$/Client/Shared/MainLayout.razor" />
         <option value="$PROJECT_DIR$/Client/Data/Networking/PlaceClient.cs" />
-        <option value="$PROJECT_DIR$/Client/Pages/Login.razor" />
         <option value="$PROJECT_DIR$/Client/Models/LoginMessage.cs" />
         <option value="$PROJECT_DIR$/Client/Pages/Reports.razor" />
         <option value="$PROJECT_DIR$/Client/Data/Authentication/CustomAuthenticationStateProvider.cs" />
@@ -75,11 +80,17 @@
         <option value="$PROJECT_DIR$/Client/Models/EditAcount/CustomPassword.cs" />
         <option value="$PROJECT_DIR$/Client/Pages/Profile/EditTest.razor" />
         <option value="$PROJECT_DIR$/Client/Data/IAuth.cs" />
-        <option value="$PROJECT_DIR$/Client/Pages/Profile/Edit.razor" />
         <option value="$PROJECT_DIR$/Client/Models/User.cs" />
         <option value="$PROJECT_DIR$/Client/Models/EditAcount/CustomUser.cs" />
         <option value="$PROJECT_DIR$/Client/Data/Networking/AuthClient.cs" />
+        <option value="$PROJECT_DIR$/Client/Program.cs" />
+        <option value="$PROJECT_DIR$/Client/Shared/MainLayout.razor" />
+        <option value="$PROJECT_DIR$/Client/_Imports.razor" />
+        <option value="$PROJECT_DIR$/Client/Pages/toastdemo.razor" />
+        <option value="$PROJECT_DIR$/Client/Pages/_Host.cshtml" />
+        <option value="$PROJECT_DIR$/Client/Pages/Profile/Edit.razor" />
         <option value="$PROJECT_DIR$/Client/wwwroot/css/site.css" />
+        <option value="$PROJECT_DIR$/Client/Pages/Login.razor" />
       </list>
     </option>
   </component>
@@ -181,25 +192,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="699" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606585701197" />
-    <state width="1877" height="234" key="GridCell.Tab.0.bottom" timestamp="1607022981812">
+    <state width="1877" height="234" key="GridCell.Tab.0.bottom" timestamp="1607361903500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="234" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1607022981812" />
+    <state width="1877" height="234" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1607361903500" />
     <state width="1877" height="244" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-122.1920.1040@1920.-122.1920.1040" timestamp="1606240833202" />
-    <state width="1877" height="234" key="GridCell.Tab.0.center" timestamp="1607022981811">
+    <state width="1877" height="234" key="GridCell.Tab.0.center" timestamp="1607361903500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="234" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1607022981811" />
+    <state width="1877" height="234" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1607361903500" />
     <state width="1877" height="244" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-122.1920.1040@1920.-122.1920.1040" timestamp="1606240833202" />
-    <state width="1877" height="234" key="GridCell.Tab.0.left" timestamp="1607022981811">
+    <state width="1877" height="234" key="GridCell.Tab.0.left" timestamp="1607361903500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="234" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1607022981811" />
+    <state width="1877" height="234" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1607361903500" />
     <state width="1877" height="244" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-122.1920.1040@1920.-122.1920.1040" timestamp="1606240833202" />
-    <state width="1877" height="234" key="GridCell.Tab.0.right" timestamp="1607022981811">
+    <state width="1877" height="234" key="GridCell.Tab.0.right" timestamp="1607361903500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="234" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1607022981811" />
+    <state width="1877" height="234" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1607361903500" />
     <state width="1877" height="244" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-122.1920.1040@1920.-122.1920.1040" timestamp="1606240833202" />
     <state width="1877" height="375" key="GridCell.Tab.1.bottom" timestamp="1606682511670">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -281,10 +292,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606137406547" />
-    <state x="1920" y="139" width="1484" height="765" maximized="true" key="dock-window-1" timestamp="1606837178672">
+    <state x="2129" y="4" width="1456" height="765" maximized="true" key="dock-window-1" timestamp="1607355063956">
       <screen x="1920" y="-122" width="1920" height="1040" />
     </state>
-    <state x="1920" y="139" width="1484" height="765" maximized="true" key="dock-window-1/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1606837178672" />
+    <state x="2129" y="4" width="1456" height="765" maximized="true" key="dock-window-1/0.0.1920.1040/1920.-122.1920.1040@0.0.1920.1040" timestamp="1607355063956" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1606843319773">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

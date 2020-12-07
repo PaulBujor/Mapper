@@ -127,12 +127,9 @@ namespace Client.Data
 			return GetPlaces().FirstOrDefault(p => p.id.Equals(id));
 		}
 
-		public override async Task AddPlaceRatingAsync(long placeId, int r)
+		public override async Task AddPlaceReviewAsync(long placeId, Review r)
 		{
-			ReviewItem review = new ReviewItem() {
-				rating = r
-			};
-			await server.AddPlaceReviewAsync(placeId, review);
+			await server.AddPlaceReviewAsync(placeId, r);
 		}
 
 		private void UpdatePlace(Place place)
@@ -141,5 +138,5 @@ namespace Client.Data
 			places.Remove(GetPlaceById(place.id));
 			places.Add(place);
 		}
-	}
+    }
 }

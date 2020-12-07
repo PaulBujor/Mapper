@@ -44,7 +44,7 @@ namespace Client.Data
 		public abstract Task DismissUserReportAsync(long reportId);
 
 		public abstract Task ReportUserAsync(User user);
-		public abstract Task AddPlaceRatingAsync(long placeId, int r);
+		public abstract Task AddPlaceReviewAsync(long placeId, Review r);
 
 	}
 }

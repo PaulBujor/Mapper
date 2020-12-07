@@ -320,16 +320,25 @@ app {
 }
 
 .place-title {
+    flex: 1;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 3.5em;
-    display: inline;
-    width: 16em;
-    word-wrap: break-word;
     text-align: left;
     transition-property: all;
     transition-duration: .6s;
     transition-timing-function: ease;
+    overflow: hidden;
+    display: inline-block;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.place-title > p {
+    text-overflow: ellipsis;
+    min-width: 0;
 }
 
     .place-title:hover,
@@ -360,7 +369,8 @@ app {
 .place-first-row {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 2em;
     box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.29);
 }
@@ -441,7 +451,7 @@ app {
 }
 
 .place-section-item ul li:last-child {
-    margin-bottom: 60px;
+    margin-bottom: 8em;
 }
 
 .review-container {
@@ -490,20 +500,65 @@ app {
 
 .review-input {
     display: flex;
-    position: absolute;
     height: 5em;
     width: 100%;
     left:0;
     bottom: 0;
     background: white;
     align-items: stretch;
-    padding-top: 10px;
-
 }
 
 #review-input-comment {
     height: auto;
 }
+
+.map-place-reviews {
+    height: 300px !important;
+}
+
+.review-input-container {
+    display: flex;
+    position: absolute;
+    box-sizing: border-box;
+    left:0;
+    bottom: 0;
+    height: 8em;
+    width: 100%;
+    background: white;
+    padding-top: 10px;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+.review-input-rating {
+    display: flex;
+    justify-content: space-between;
+}
+
+.alert-message {
+    font-family: "Montserrat", sans-serif;
+    color: red;
+    display: none;
+}
+
+.review-input-rating:hover > .alert-message  {
+        display: inline;
+}
+
+#save-place {
+    font-size: 2.5em;
+    color: black;
+  user-select: none;
+  cursor: pointer;
+}
+
+#save-place-added {
+    font-size: 2.5em;
+    color: red;
+    user-select: none;
+    cursor: pointer;
+}
+
 
 
 

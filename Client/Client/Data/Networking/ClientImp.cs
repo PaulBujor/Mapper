@@ -107,7 +107,7 @@ namespace Client.Data.Networking
 		}
 
 
-		public async Task AddPlaceReviewAsync(long placeId, ReviewItem review)
+		public async Task AddPlaceReviewAsync(long placeId, Review review)
 		{
 			await _place.AddPlaceReviewAsync(placeId, review);
 		}
