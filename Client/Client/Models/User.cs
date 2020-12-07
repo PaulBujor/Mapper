@@ -1,9 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Client.Data;
-using Client.Data.Networking;
 using Microsoft.JSInterop;
 
 
@@ -36,6 +36,8 @@ namespace Client.Models
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please enter alphabet only.")] 
         public string lastname { get; set; }
         public long id { get; set; }
+
+        public List<Place> savedPlaces { get; set; }
 
         
         

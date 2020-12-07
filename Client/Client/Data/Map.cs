@@ -61,6 +61,19 @@ namespace Client.Data
 
         }
 
+        public async Task InitSavedPlacesAsync(List<Place> places)
+        {
+            if (objRef == null)
+                objRef = DotNetObjectReference.Create(this);
+            model.OnNewPlace -= AddMarker;
+            await jsRuntime.InvokeVoidAsync("mapBoxFunctions.initMapBox", objRef);
+
+            /*
+            foreach (Place place in places)
+                await AddMarkerAsync(place);
+            */
+        }
+
         public void DataReady()
         {
             dataReady = true;
