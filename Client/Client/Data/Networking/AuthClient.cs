@@ -201,7 +201,7 @@ namespace Client.Data.Networking
             {
 
                 HttpClient client = new HttpClient();
-                string tmpPassword = JsonSerializer.Serialize(password);
+                string tmpPassword = JsonSerializer.Serialize(_encryptor.Encrypt(password));
                 StringContent content = new StringContent(tmpPassword,Encoding.UTF8,"text/plain");
                 HttpResponseMessage responseMessage = await client.PatchAsync(URI + $"/auth/users/{id}/password", content);
                 Console.WriteLine(responseMessage);

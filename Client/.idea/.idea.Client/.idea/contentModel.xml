@@ -35,16 +35,20 @@
           <e p="EditAcount" t="Include">
             <e p="CustomUser.cs" t="Include" />
           </e>
-          <e p="IReview.cs" t="Include" />
           <e p="LoginMessage.cs" t="Include" />
+          <e p="Obsolete" t="Include">
+            <e p="IReview.cs" t="Include" />
+            <e p="ReviewFull.cs" t="Include" />
+            <e p="ReviewItem.cs" t="Include" />
+            <e p="ReviewLite.cs" t="Include" />
+          </e>
           <e p="Place.cs" t="Include" />
           <e p="PlaceData.cs" t="Include" />
           <e p="PlaceTask.cs" t="Include" />
           <e p="Report.cs" t="Include" />
-          <e p="ReviewFull.cs" t="Include" />
-          <e p="ReviewItem.cs" t="Include" />
-          <e p="ReviewLite.cs" t="Include" />
+          <e p="Review.cs" t="Include" />
           <e p="User.cs" t="Include" />
+          <e p="UserData.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
