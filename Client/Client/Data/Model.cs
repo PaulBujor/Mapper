@@ -33,7 +33,7 @@ namespace Client.Data
 		public override async Task AddPlaceAsync(Place place)
 		{
 			await server.AddPlaceAsync(place);
-			places.Add(place);
+			//places.Add(place);
 		}
 
 		public override IList<Place> GetPlaces()

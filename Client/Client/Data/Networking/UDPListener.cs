@@ -33,6 +33,7 @@ namespace Client.Data.Networking
 				string message = Encoding.ASCII.GetString(receiveBytes);
 				PlaceTask task = JsonSerializer.Deserialize<PlaceTask>(message);
 				Console.WriteLine("received task: " + task.taskName);
+				//Console.WriteLine("received task: " + task.place.addedBy.username);
 				ProcessTask(task);
 			}
 		}

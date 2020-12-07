@@ -1,5 +1,8 @@
-﻿namespace DataServer.Models
+﻿using System;
+
+namespace DataServer.Models
 {
+	[Serializable]
 	public class UserData
 	{
 		public long userId { get; set; }

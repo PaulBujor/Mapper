@@ -11,10 +11,13 @@ namespace Client.Models
         public string Title { get; set; }
         public string Description { get; set; }
 
+        public UserData addedBy {get; set;}
+
         public void Reset()
         {
             Title = "";
             Description = "";
+            addedBy = new UserData();
         }
 
     }

@@ -39,8 +39,7 @@ public class PlaceController implements PlaceNetwork {
     @ResponseStatus(HttpStatus.CREATED)
     //todo make this respond with just OK instead of returning place, place will be returned by another service
     public void addPlace(@RequestBody Place place) {
-        model.addPlace(place);
-
+        model.addPlace(place);;
     }
 
     @PostMapping(value = "/places/{id}/reviews")

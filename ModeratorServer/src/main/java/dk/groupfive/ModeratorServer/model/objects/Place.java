@@ -84,6 +84,14 @@ public class Place implements Serializable {
         reviews.add(reviewItem);
     }
 
+    public UserData getAddedBy() {
+        return addedBy;
+    }
+
+    public void setAddedBy(UserData addedBy) {
+        this.addedBy = addedBy;
+    }
+
     @Override
     public String toString() {
         return "Place{" +

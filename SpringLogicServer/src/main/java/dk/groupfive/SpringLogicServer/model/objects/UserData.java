@@ -1,6 +1,8 @@
 package dk.groupfive.SpringLogicServer.model.objects;
 
-public class UserData {
+import java.io.Serializable;
+
+public class UserData implements Serializable {
     private long userId;
     private String username;
 
