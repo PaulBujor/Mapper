@@ -8,9 +8,13 @@
 
 <div class="page-container">
     <div class="place-first-row">
-        <p class="place-title">
+        <div class="place-title">
             @place.title
-        </p>
+           
+            
+        </div>
+
+            <RadzenIcon id=@(IsPlaceSaved ? "save-place-added" : "save-place") @onclick="() => IsPlaceSaved = !IsPlaceSaved" Icon="favorite" />
 
 
     </div>
@@ -39,7 +43,7 @@
                                     <div class="first-line">
                                         <span class="first-line-title">&commat;@review.addedBy.username</span>
                                         <span class="first-line-rating">@review.rating</span>
-                                        <span id=@review.id.ToString() class="first-line-report" @onclick="ReportReview"><RadzenIcon Icon="flag" /></span>
+                                        <span id=@review.id.ToString() class="first-line-report" @onclick="() => ReportReview(review.id)"><RadzenIcon Icon="flag" /></span>
                                     </div>
                                     <p>@review.comment</p>
                                 </div>
@@ -56,16 +60,25 @@
                     }
                     else
                     {
-                        <RadzenRating Disabled="true" Value=@int.Parse(mockPlace.GetRating().ToString()[0].ToString()) />
+                        <RadzenRating Disabled="true" Value=@int.Parse(place.GetReviews().FirstOrDefault(item => item.addedBy.userId == currentUser.id).rating.ToString()[0].ToString()) />
                         <i class="alert-message">You've already rated this place!</i>
                     }
                 </div>
                 <div class="review-input">
                     <div id="review-input-group" class="input-group">
-                        <input type="text" id="review-input-comment" class="form-control" placeholder="Leave a comment (optional)" aria-label="Leave a comment!" aria-describedby="button-addon2" @bind-value="comment">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button" id="button-addon2" @onclick="SendReview">Submit</button>
-                        </div>
+                        @if (place.GetReviews().FirstOrDefault(item => item.addedBy.userId == currentUser.id) == null)
+                        {<input type="text" id="review-input-comment" class="form-control" placeholder="Leave a comment (optional)" aria-label="Leave a comment!" aria-describedby="button-addon2" @bind-value="comment">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="button-addon2" @onclick="SendReview">Submit</button>
+                            </div>}
+                        else
+                        {
+                            <input type="text" id="review-input-comment" class="form-control" placeholder="Leave a comment (optional)" aria-label="Leave a comment!" aria-describedby="button-addon2" disabled @bind-value="comment">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="button-addon2" disabled @onclick="SendReview">Submit</button>
+                            </div>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -83,7 +96,9 @@
     public string comment { get; set; }
     public int rating { get; set; }
 
-    public User currentUser { get; set; }
+    public bool IsPlaceSaved { get; set; }
+
+    public User currentUser = new User();
 
 
 
@@ -92,8 +107,10 @@
     protected override async Task OnInitializedAsync()
     {
         place = Model.GetPlaces().FirstOrDefault(p => (p.id == long.Parse(placeId)));
-        currentUser = JsonSerializer.Deserialize<User>(await JsRuntime.InvokeAsync<string>("sessionStorage.currentUser"));
+        currentUser = JsonSerializer.Deserialize<User>(await JsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser"));
         Console.WriteLine("Current user id: " + currentUser.id);
+
+
 
     }
 
@@ -103,6 +120,10 @@
         if (firstRender)
         {
             await Map.InitMapMarkerAsync(long.Parse(placeId));
+
+            //todo fix
+
+            //IsPlaceSaved = currentUser.savedPlaces.FirstOrDefault(p => p.id == place.id) == null;
         }
 
     }
@@ -113,9 +134,9 @@
 
     }
 
-    public async Task ReportReview()
+    public async Task ReportReview(long id)
     {
-        Console.WriteLine("Flag works");
+        Console.WriteLine($"Flag works {id}");
     }
 
     public async Task SendReview()
@@ -137,5 +158,8 @@
         await Model.AddPlaceReviewAsync(long.Parse(placeId), review);
     }
 
+    public async Task SavePlace()
+    {
 
+    }
 }
