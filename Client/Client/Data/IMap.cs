@@ -13,6 +13,8 @@ namespace Client.Data
 		Task InitMapMarkerAsync(long id);
 		Task AddMarkerAsync(Place place);
 
+		Task InitSavedPlacesAsync(List<Place> places);
+
 		Task SetTemporaryMarkerAsync();
 
 		Task MapClickedAsync(double longitude, double latitude);

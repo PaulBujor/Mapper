@@ -1,6 +1,7 @@
 package dk.groupfive.SpringLogicServer.model.objects;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable
 {
@@ -12,6 +13,7 @@ public class User implements Serializable
   private String firstname;
   private String lastname;
   private long id;
+  private ArrayList<Place> savedPlaces;
 
 
   public User(){super();}
@@ -23,6 +25,7 @@ public class User implements Serializable
     this.firstname = firstname;
     this.lastname = lastname;
     this.id=id;
+    savedPlaces = new ArrayList<Place>();
   }
 
   public String getUsername()
@@ -93,5 +96,13 @@ public class User implements Serializable
   public void setId(long id)
   {
     this.id = id;
+  }
+
+  public ArrayList<Place> getSavedPlaces() {
+    return savedPlaces;
+  }
+
+  public void setSavedPlaces(ArrayList<Place> savedPlaces) {
+    this.savedPlaces = savedPlaces;
   }
 }
