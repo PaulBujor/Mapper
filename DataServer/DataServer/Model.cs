@@ -38,9 +38,16 @@ namespace DataServer
 				reportedItem = reitan
 			};
 			AddPlaceReport(report);
-            Review review = new Review()
-            {
-                rating = 1
+			Review review = new Review()
+			{
+				id = 1,
+				rating = 1,
+				comment = "very beautiful, but my back hurts",
+				addedBy = new UserData()
+				{
+					userId = 1,
+					username = "admin"
+				}
             };
 
             AddPlaceReview(reitan.id, review);

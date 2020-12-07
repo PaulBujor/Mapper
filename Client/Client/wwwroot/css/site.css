@@ -441,7 +441,7 @@ app {
 }
 
 .place-section-item ul li:last-child {
-    margin-bottom: 60px;
+    margin-bottom: 8em;
 }
 
 .review-container {
@@ -490,20 +490,51 @@ app {
 
 .review-input {
     display: flex;
-    position: absolute;
     height: 5em;
     width: 100%;
     left:0;
     bottom: 0;
     background: white;
     align-items: stretch;
-    padding-top: 10px;
-
 }
 
 #review-input-comment {
     height: auto;
 }
+
+.map-place-reviews {
+    height: 300px !important;
+}
+
+.review-input-container {
+    display: flex;
+    position: absolute;
+    box-sizing: border-box;
+    left:0;
+    bottom: 0;
+    height: 8em;
+    width: 100%;
+    background: white;
+    padding-top: 10px;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+.review-input-rating {
+    display: flex;
+    justify-content: space-between;
+}
+
+.alert-message {
+    font-family: "Montserrat", sans-serif;
+    color: red;
+    display: none;
+}
+
+.review-input-rating:hover > .alert-message  {
+        display: inline;
+}
+
 
 
 

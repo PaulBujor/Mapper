@@ -49,7 +49,7 @@ namespace Client.Networking
 			Console.WriteLine(response.ToString());
 		}
 
-		public async Task AddPlaceReviewAsync(long id, ReviewItem review)
+		public async Task AddPlaceReviewAsync(long id, Review review)
 		{
 			HttpClient client = new HttpClient();
 			string reviewSerialized = JsonSerializer.Serialize(review);
