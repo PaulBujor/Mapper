@@ -137,6 +137,7 @@ namespace Client.Data
 
 		private void UpdatePlace(Place place)
 		{
+			//possible bug here
 			places.Remove(GetPlaceById(place.id));
 			places.Add(place);
 		}
