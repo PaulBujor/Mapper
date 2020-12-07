@@ -1,37 +1,12 @@
-﻿using DataServer.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using DataServer.Models;
 
 namespace DataServer.Persistence
 {
-    public interface IPersistence : IPlaces_Persistance, IUser_Persistence, IReview_Persistance
+    public interface IUser_Persistence
     {
-        //TODO some of these probably dont need to be async since some wait for data to be finished, and socket shouldnt do something else
-
-        //PLACES CRUD
-        /*Task<Place> AddPlace(Place place);
-
-        Task<List<Place>> GetPlaces();
-
-        Task<Place> GetPlace(long id);
-
-        Task UpdatePlace(Place place);
-
-        Task RemovePlace(long id);*/
-
-        //REVIEW CRUD
-        /*Task AddReview(Review review, long placeId);
-
-        Task<List<Review>> GetReviews(long placeId);
-
-        Task UpdateReview(Review reviewItem);
-
-        Task RemoveReview(long reviewId);*/
-
-        //USER CRUD
-        /*Task CreateUser(User user);
+         Task CreateUser(User user);
 
         Task<User> GetUser(string username, string password);
 
@@ -77,6 +52,6 @@ namespace DataServer.Persistence
         public Task DismissReviewReport(long reportId);
 
         public Task DismissUserReport(long reportId);
-        User GetUserById(long userId);*/
+        User GetUserById(long userId);
     }
 }
