@@ -1,10 +1,14 @@
-﻿namespace DataServer.Models
-{
-	public class UserData
-	{
-		public long userId { get; set; }
-		public string username { get; set; }
+﻿using System.ComponentModel.DataAnnotations;
 
-		public UserData() { }
-	}
+namespace DataServer.Models
+{
+    public class UserData
+    {
+        [Key]
+        public long userId { get; set; }
+        [Required]
+        public string username { get; set; }
+
+        public UserData() { }
+    }
 }
