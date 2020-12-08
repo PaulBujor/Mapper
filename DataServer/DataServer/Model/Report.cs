@@ -8,17 +8,17 @@ namespace DataServer.Models
     [Serializable]
     public class Report<T>
     {
-        [Key]
+        //[Key]
         public long reportId { get; set; }
-        [Required] //??
+        //[Required] //??
         public T reportedItem { get; set; }
-        [MaxLength(200)] //??
+        //[MaxLength(200)] //??
         public string reportedClass { get; set; }
         //Should resolved have an attribute??
         public bool resolved { get; set; }
-        [MaxLength(100)]
+        //[MaxLength(100)]
         public string category { get; set; }
-        [MaxLength(500)]
+        //[MaxLength(500)]
         public string description { get; set; }
 
         public Report()
