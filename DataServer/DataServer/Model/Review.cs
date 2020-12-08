@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataServer.Models
 {
-	[Serializable]
-	public class Review
-	{
-		public long id { get; set; }
-		public int rating { get; set; }
-		public string comment { get; set; }
-		public UserData addedBy { get; set; }
-	}
+    [Serializable]
+    public class Review
+    {
+        [Key]
+        public long id { get; set; }
+        [Required]
+        public int rating { get; set; }
+        [MaxLength(500)]
+        public string comment { get; set; }
+        [Required]
+        public UserData addedBy { get; set; }
+    }
 }
