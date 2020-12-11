@@ -93,6 +93,16 @@ public class ServerModel implements Model {
     }
 
     @Override
+    public void addSavedPlace(long userId, long placeId) {
+        server.addSavedPlace(userId, placeId);
+    }
+
+    @Override
+    public void removeSavedPlace(long userId, long placeId) {
+        server.removeSavedPlace(userId, placeId);
+    }
+
+    @Override
     public void updatePlace(Place place) {
         server.updatePlace(place);
         cache.updatePlace(place);

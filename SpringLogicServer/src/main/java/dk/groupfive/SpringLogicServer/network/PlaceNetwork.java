@@ -18,4 +18,8 @@ public interface PlaceNetwork {
     void deletePlace(long id);
 
     void addPlaceReview(long id, Review reviewItem);
+
+    void addSavedPlace(long userId, long placeId);
+
+    void removeSavedPlace(long userId, long placeId);
 }

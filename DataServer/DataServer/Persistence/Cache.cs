@@ -57,6 +57,26 @@ namespace DataServer.Persistence
 			place.AddReview(review);
 		}
 
+		public async Task AddSavedPlace(long userId, long placeId)
+		{
+			User user;
+			users.TryGetValue(userId, out user);
+			Place place;
+			places.TryGetValue(placeId, out place);
+			Console.WriteLine("SavedPlaces = " + user.savedPlaces.Count);
+			user.savedPlaces.Add(place);
+            Console.WriteLine("SavedPlaces = " + user.savedPlaces.Count);
+		}
+
+		public async Task RemoveSavedPlace(long userId, long placeId)
+		{
+			User user;
+			users.TryGetValue(userId, out user);
+			Console.WriteLine("SavedPlaces = " + user.savedPlaces.Count);
+			user.savedPlaces.RemoveAll(p => p.id == placeId);
+			Console.WriteLine("SavedPlaces = " + user.savedPlaces.Count);
+		}
+
 		public async Task BanUser(long userId)
 		{
 			users[userId].auth = 0;
@@ -225,7 +245,7 @@ namespace DataServer.Persistence
 		
 		public void Register(User user)
 		{
-			throw new NotImplementedException();
+			users.Add(user.id, user);
 		}
 
 		public void CheckUsername(string username)
@@ -262,5 +282,7 @@ namespace DataServer.Persistence
 		{
 			throw new NotImplementedException();
 		}
-	}
+
+        
+    }
 }

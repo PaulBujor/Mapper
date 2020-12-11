@@ -9,80 +9,93 @@
 
 
 
-<h3>Login v1</h3>
+
 
 <AuthorizeView>
-  <NotAuthorized>
-    <div class="form-group">
-      <label>User name:</label>
-      <input type="text" placeholder="user name" @bind-value="username"/>
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="text" placeholder="password" @bind-value="password">
-    </div>
-    
-    <div style="color:red">@errorMessage</div>
-    
-    <a href="" @onclick="PerfomLogin">Login</a>
-    <a href="" @onclick="PerformRegister">
-      Register
-    </a>
-  </NotAuthorized>
-  
+    <NotAuthorized>
+        <div class="page-container-login">
+            <div class="main-container">
+                <p class="login-title">Log in</p>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">#</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <h3>Login v1</h3>
+                <div class="">
+                    <label>User name:</label>
+                    <input type="text" placeholder="user name" @bind-value="username" />
+                </div>
+                <div class="">
+                    <label>Password</label>
+                    <input type="text" placeholder="password" @bind-value="password">
+                </div>
+
+                <div style="color:red">@errorMessage</div>
+
+                <a href="" @onclick="PerfomLogin">Login</a>
+                <a href="" @onclick="PerformRegister">
+                    Register
+                </a>
+            </div>
+        </div>
+
+    </NotAuthorized>
+
 </AuthorizeView>
 
 
 
 @code {
-  private string username;
-  private string password;
-  private string errorMessage;
+    private string username;
+    private string password;
+    private string errorMessage;
 
-  public async Task PerfomLogin()
-  {
-    errorMessage = "";
-    try
+    public async Task PerfomLogin()
     {
-await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username,password);
-      username = "";
-      password = "";
-      NavigationManager.NavigateTo("/");
+        errorMessage = "";
+        try
+        {
+            await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
+            username = "";
+            password = "";
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            errorMessage = e.Message;
+        }
     }
-    catch (Exception e)
-    {
-      errorMessage = e.Message;
-    }
-  }
 
-  public async Task PerformLogout()
-  {
-    errorMessage = "";
-    username = "";
-    password = "";
-    try
+    public async Task PerformLogout()
     {
-      ((CustomAuthenticationStateProvider) AuthenticationStateProvider).Logout();
-      NavigationManager.NavigateTo("/");
+        errorMessage = "";
+        username = "";
+        password = "";
+        try
+        {
+            ((CustomAuthenticationStateProvider)AuthenticationStateProvider).Logout();
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            errorMessage = e.Message;
+        }
     }
-    catch (Exception e)
+
+    public async Task PerformRegister()
     {
-      errorMessage = e.Message;
+        errorMessage = "";
+        try
+        {
+            NavigationManager.NavigateTo("/register");
+        }
+        catch (Exception e)
+        {
+            errorMessage = e.Message;
+        }
     }
-  }
-  
-  public async Task PerformRegister()
-  {
-    errorMessage = "";
-    try
-    {
-      NavigationManager.NavigateTo("/register");
-    }
-    catch (Exception e)
-    {
-      errorMessage = e.Message;
-    }
-  }
-  
+
 
 }

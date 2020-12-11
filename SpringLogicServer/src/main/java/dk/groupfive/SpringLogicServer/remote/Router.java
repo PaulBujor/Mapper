@@ -64,4 +64,14 @@ public class Router implements Server{
     public void addReportReview(Report<Review> report){
         reportClient.addReportReview(report);
     }
+
+    @Override
+    public void addSavedPlace(long userId, long placeId) {
+        placeClient.addSavedPlace(userId,placeId);
+    }
+
+    @Override
+    public void removeSavedPlace(long userId, long placeId) {
+        placeClient.removeSavedPlace(userId,placeId);
+    }
 }

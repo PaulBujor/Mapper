@@ -132,11 +132,23 @@ namespace Client.Data
 			await server.AddPlaceReviewAsync(placeId, r);
 		}
 
+		public override async Task AddSavedPlaceAsync(long userId, long placeId)
+		{
+			await server.AddSavedPlaceAsync(userId, placeId);
+		}
+
+		public override async Task RemoveSavedPlaceAsync(long userId, long placeId)
+		{
+			await server.RemoveSavedPlaceAsync(userId, placeId);
+		}
+
 		private void UpdatePlace(Place place)
 		{
 			//possible bug here
 			places.Remove(GetPlaceById(place.id));
 			places.Add(place);
 		}
+
+        
     }
 }

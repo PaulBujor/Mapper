@@ -21,6 +21,10 @@ namespace DataServer.Persistence
 
 		Task RemovePlace(long id);
 
+		Task AddSavedPlace(long userId, long placeId);
+
+		Task RemoveSavedPlace(long userId, long placeId);
+
 		//REVIEW CRUD
 		Task AddReview(Review review, long placeId);
 

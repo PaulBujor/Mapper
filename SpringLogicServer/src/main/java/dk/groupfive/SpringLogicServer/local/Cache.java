@@ -49,4 +49,9 @@ public class Cache {
         places.get(id).addReview(reviewItem);
     }
 
+    public void addSavedPlace(long userId, long placeId)
+    {
+
+    }
+
 }

@@ -25,5 +25,7 @@ public interface Server {
 
     void addReportReview(Report<Review> report) throws IOException;
 
+    void addSavedPlace(long userId, long placeId);
 
+    void removeSavedPlace(long userId, long placeId);
 }

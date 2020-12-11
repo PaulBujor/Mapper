@@ -23,6 +23,13 @@ namespace DataServer
 
 		private void InitPlace()
 		{
+
+			User user = new User()
+			{
+				id = 200,
+				savedPlaces = new List<Place>()
+			};
+			cache.Register(user);
 			Place reitan = new Place()
 			{
 				title = "Reitan",
@@ -49,8 +56,20 @@ namespace DataServer
 					username = "admin"
 				}
             };
+			Review newReview = new Review()
+			{
+				id = 2,
+				rating = 1,
+				comment = "rema 1000 tak",
+				addedBy = new UserData()
+				{
+					userId = 2,
+					username = "adminomnom"
+				}
+			};
 
-            AddPlaceReview(reitan.id, review);
+			AddPlaceReview(reitan.id, review);
+			AddPlaceReview(reitan.id, newReview);
 			Console.WriteLine(reitan.reviews.Count);
         }
 
@@ -79,6 +98,16 @@ namespace DataServer
 		public void RemovePlace(long id)
 		{
 			cache.RemovePlace(id);
+		}
+
+		public void AddSavedPlace(long userId, long placeId)
+		{
+			cache.AddSavedPlace(userId, placeId);
+		}
+
+		public void RemoveSavedPlace(long userId, long placeId)
+		{
+			cache.RemoveSavedPlace(userId, placeId);
 		}
 
 		public bool AuthroizeUser(User user)
