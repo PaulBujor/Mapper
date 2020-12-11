@@ -1,7 +1,7 @@
 namespace DataServer.Persistence
 {
-    public class UserController
+    public class UserImpl
     {
-        
+
     }
 }

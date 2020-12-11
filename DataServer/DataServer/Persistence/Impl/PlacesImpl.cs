@@ -52,7 +52,7 @@ namespace DataServer.Persistence
             }
             catch (Exception e)
             {
-                throw new System.Exception($"Did not find todo with id{place.id}");
+                throw new System.Exception($"Did not find place with id{place.id}");
             }
         }
     }
