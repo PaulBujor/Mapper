@@ -39,7 +39,6 @@ namespace DataServer.Persistence
             removedPlaces = new List<long>();
             removedReviews = new List<long>();
             bannedUsers = new List<long>();
-
         }
 
         public async Task<Place> AddPlace(Place place)
