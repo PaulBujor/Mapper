@@ -80,6 +80,12 @@ namespace DataServer.Handlers
                 case "addPlaceReview":
                     AddPlaceReview();
                     break;
+                case "addSavedPlace":
+                    AddSavedPlace();
+                    break;
+                case "removeSavedPlace":
+                    RemoveSavedPlace();
+                    break;
                 default:
                     Console.WriteLine("Default was called");
                     break;
@@ -91,8 +97,8 @@ namespace DataServer.Handlers
         {
             string placeJson;
             placeJson = JsonSerializer.Serialize(model.GetAllPlaces());
-			Console.WriteLine(placeJson);
-			Console.WriteLine(model.GetAllPlaces()[0].GetRating());
+            Console.WriteLine(placeJson);
+            Console.WriteLine(model.GetAllPlaces()[0].GetRating());
             writer.WriteLine(placeJson);
         }
 
@@ -116,11 +122,11 @@ namespace DataServer.Handlers
         }
 
         private void AuthenticateUser()
-		{
+        {
             string receive = reader.ReadLine();
             User user = JsonSerializer.Deserialize<User>(receive);
             writer.WriteLine(model.AuthroizeUser(user));
-		}
+        }
 
         private void AddPlaceReview()
         {
@@ -129,7 +135,27 @@ namespace DataServer.Handlers
             long placeId = long.Parse(receivePlaceId);
             Review review = JsonSerializer.Deserialize<Review>(receiveReviewItem);
             writer.WriteLine(JsonSerializer.Serialize<Review>(model.AddPlaceReview(placeId, review).Result));
-
         }
+
+        private void AddSavedPlace()
+        {
+            Console.WriteLine("AddSavedPlace called");
+            string receiveUserId = reader.ReadLine();
+            string receivePlaceId = reader.ReadLine();
+            long userId = long.Parse(receiveUserId);
+            long placeId = long.Parse(receivePlaceId);
+            model.AddSavedPlace(userId, placeId);
+        }
+
+        private void RemoveSavedPlace()
+        {
+            Console.WriteLine("RempveSavedPlace called");
+            string receiveUserId = reader.ReadLine();
+            string receivePlaceId = reader.ReadLine();
+            long userId = long.Parse(receiveUserId);
+            long placeId = long.Parse(receivePlaceId);
+            model.RemoveSavedPlace(userId, placeId);
+        }
+
     }
 }

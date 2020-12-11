@@ -115,6 +115,16 @@ public class ServerQueue implements Model {
     }
 
     @Override
+    public void addSavedPlace(long userId, long placeId) {
+        ServerModel.getInstance().addSavedPlace(userId,placeId);
+    }
+
+    @Override
+    public void removeSavedPlace(long userId, long placeId) {
+        ServerModel.getInstance().removeSavedPlace(userId,placeId);
+    }
+
+    @Override
     public void addReportPlace(Report<Place> report) {
         try {
             channel.basicPublish("", REPORT_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN, gson.toJson(report).getBytes());

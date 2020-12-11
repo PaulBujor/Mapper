@@ -64,6 +64,18 @@ namespace Client.Networking
 			Console.WriteLine(response.ToString());
 		}
 
+		public async Task AddSavedPlaceAsync(long userid, long placeid)
+		{
+			HttpClient client = new HttpClient();
+			HttpResponseMessage response = await client.PostAsync(URI + $"/users/{userid}/savedplaces/{placeid}", null);
+			Console.WriteLine(response.ToString());
+		}
 
+		public async Task RemoveSavedPlaceAsync(long userid, long placeid)
+		{
+			HttpClient client = new HttpClient();
+			HttpResponseMessage response = await client.DeleteAsync(URI + $"/users/{userid}/savedplaces/{placeid}");
+			Console.WriteLine(response.ToString());
+		}
 	}
 }

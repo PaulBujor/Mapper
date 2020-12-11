@@ -45,6 +45,9 @@ namespace Client.Data
 
 		public abstract Task ReportUserAsync(User user);
 		public abstract Task AddPlaceReviewAsync(long placeId, Review r);
+		public abstract Task AddSavedPlaceAsync(long userId, long placeId);
+
+		public abstract Task RemoveSavedPlaceAsync(long userId, long placeId);
 
 	}
 }

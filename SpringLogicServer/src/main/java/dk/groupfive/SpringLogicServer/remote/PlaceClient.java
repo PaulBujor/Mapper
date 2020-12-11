@@ -78,7 +78,22 @@ public class PlaceClient {
         return receivedReviewItem;
     }
 
+    public void addSavedPlace(long userId, long placeId)
+    {
+        out.println("addSavedPlace");
+        String sendUserId = gson.toJson(userId);
+        out.println(sendUserId);
+        String sendPlaceId = gson.toJson(placeId);
+        out.println(sendPlaceId);
+        System.out.println("Sending userid and placeid to t3...");
+    }
 
-
+    public void removeSavedPlace(long userId, long placeId)
+    {
+        out.println("removeSavedPlace");
+        out.println(userId);
+        out.println(placeId);
+        System.out.println("Sending userid and placeid to t3...");
+    }
 
 }

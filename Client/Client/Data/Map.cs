@@ -69,10 +69,10 @@ namespace Client.Data
             model.OnNewPlace -= AddMarker;
             await jsRuntime.InvokeVoidAsync("mapBoxFunctions.initMapBox", objRef);
 
-            /*
+            
             foreach (Place place in places)
                 await AddMarkerAsync(place);
-            */
+            
         }
 
         public void DataReady()

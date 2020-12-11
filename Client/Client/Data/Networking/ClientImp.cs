@@ -111,5 +111,15 @@ namespace Client.Data.Networking
 		{
 			await _place.AddPlaceReviewAsync(placeId, review);
 		}
+
+		public async Task AddSavedPlaceAsync(long userId, long placeId)
+		{
+			await _place.AddSavedPlaceAsync(userId, placeId);
+		}
+
+		public async Task RemoveSavedPlaceAsync(long userId, long placeId)
+		{
+			await _place.RemoveSavedPlaceAsync(userId, placeId);
+		}
 	}
 }

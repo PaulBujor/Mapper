@@ -45,6 +45,11 @@ namespace Client.Models
         [Compare("password", ErrorMessage = "Passwords must match.")]
         public string confirmpassword { get; set; }
 
+        public User()
+        {
+            savedPlaces = new List<Place>();
+        }
+
         
         public class ValidPassword : ValidationAttribute
         {
