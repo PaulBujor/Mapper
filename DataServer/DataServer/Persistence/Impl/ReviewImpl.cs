@@ -1,6 +1,6 @@
 namespace DataServer.Persistence
 {
-    public class ReviewController
+    public class ReviewController 
     {
         
     }
