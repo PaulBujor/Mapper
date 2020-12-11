@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Cache {
     private Map<Long, Report<Place>> placeReports;
-    private Map<Long, Report<ReviewItem>> reviewReports;
+    private Map<Long, Report<Review>> reviewReports;
     private Map<Long, Report<User>> userReports;
     private Map<Long, User> bannedUsers;
 
@@ -26,8 +26,8 @@ public class Cache {
         }
     }
 
-    public void loadReviewReports(List<Report<ReviewItem>> reports) {
-        for (Report<ReviewItem> report : reports) {
+    public void loadReviewReports(List<Report<Review>> reports) {
+        for (Report<Review> report : reports) {
             reviewReports.put(report.getReportId(), report);
         }
     }
@@ -48,8 +48,8 @@ public class Cache {
 //        return reports.get(id);
 //    }
 
-    public List<Report<ReviewItem>> getReviewReports() {
-        return (ArrayList<Report<ReviewItem>>) reviewReports.values();
+    public List<Report<Review>> getReviewReports() {
+        return (ArrayList<Report<Review>>) reviewReports.values();
     }
 
     public List<Report<Place>> getPlaceReports() {

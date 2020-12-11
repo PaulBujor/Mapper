@@ -52,7 +52,7 @@ namespace Client.Data
 			return await server.GetPlaceReportsAsync();
 		}
 
-		public override async Task<List<Report<ReviewItem>>> GetReviewReportsAsync()
+		public override async Task<List<Report<Review>>> GetReviewReportsAsync()
 		{
 			return await server.GetReviewReportsAsync();
 		}

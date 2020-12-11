@@ -8,7 +8,7 @@ import java.util.List;
 public interface ModeratorNetwork {
     List<Report<Place>> getPlaceReports();
 
-    List<Report<ReviewItem>> getReviewReports();
+    List<Report<Review>> getReviewReports();
 
     List<Report<User>> getUserReports();
 

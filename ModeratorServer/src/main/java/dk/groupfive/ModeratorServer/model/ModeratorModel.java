@@ -55,7 +55,7 @@ public class ModeratorModel implements Model {
     }
 
     @Override
-    public List<Report<ReviewItem>> getReviewReports() {
+    public List<Report<Review>> getReviewReports() {
         return cache.getReviewReports();
     }
 
