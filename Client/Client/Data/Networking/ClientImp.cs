@@ -53,6 +53,11 @@ namespace Client.Data.Networking
 			await _report.ReportUserAsync(report);
 		}
 
+		public async Task ReportReviewAsync(Report<Review> report)
+		{
+			await _report.ReportReviewAsync(report);
+		}
+
 		public async Task<List<Report<Place>>> GetPlaceReportsAsync()
 		{
 			return await _moderator.GetPlaceReportsAsync();

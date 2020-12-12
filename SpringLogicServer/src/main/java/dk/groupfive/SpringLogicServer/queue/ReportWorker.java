@@ -65,7 +65,7 @@ public class ReportWorker {
             case "User" :
                 addReportUser((Report<User>) task);
                 break;
-            case "ReviewItem" :
+            case "Review" :
                 addReportReview((Report<Review>) task);
                 break;
             default:
@@ -87,6 +87,5 @@ public class ReportWorker {
     {
         model.addReportReview(report);
     }
-
 
 }

@@ -93,6 +93,13 @@ namespace DataServer.Persistence
 		{
 			reviewReport.reportId = ++reportKey;
 			reviewReports.Add(reportKey, reviewReport);
+            Console.WriteLine($"Number of reviewReports {reviewReports.Count}");
+		}
+
+		public async Task CreateUserReport(Report<User> userReport)
+		{
+			userReport.reportId = ++reportKey;
+			userReports.Add(reportKey, userReport);
 		}
 
 		public async Task CreateUser(User user)
@@ -101,11 +108,7 @@ namespace DataServer.Persistence
 			users.Add(userKey, user);
 		}
 
-		public async Task CreateUserReport(Report<User> userReport)
-		{
-			userReport.reportId = ++reportKey;
-			userReports.Add(reportKey, userReport);
-		}
+		
 
 		public async Task<Place> GetPlace(long id)
 		{

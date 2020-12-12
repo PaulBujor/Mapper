@@ -78,6 +78,16 @@ namespace DataServer
 			cache.CreatePlaceReport(report);
 		}
 
+		public void AddUserReport(Report<User> report)
+		{
+			cache.CreateUserReport(report);
+		}
+
+		public void AddReviewReport(Report<Review> report)
+		{
+			cache.CreateReviewReport(report);
+		}
+
 		public List<Place> GetAllPlaces()
 		{
 			return cache.GetPlaces().Result;

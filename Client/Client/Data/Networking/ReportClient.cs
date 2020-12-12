@@ -45,5 +45,20 @@ namespace Client.Data.Networking
 			Console.WriteLine(response.ToString());
 		}
 
+		public async Task ReportReviewAsync(Report<Review> report)
+		{
+			HttpClient client = new HttpClient();
+			string reportSerialized = JsonSerializer.Serialize(report);
+
+			StringContent content = new StringContent(
+				reportSerialized,
+				Encoding.UTF8,
+				"application/json"
+			);
+
+			HttpResponseMessage response = await client.PostAsync(URI + "/reports/reviews", content);
+			Console.WriteLine(response.ToString());
+		}
+
 	}
 }

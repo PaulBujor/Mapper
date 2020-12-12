@@ -1,10 +1,12 @@
 ﻿using DataServer.Models;
+using Nancy.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
+
 
 namespace DataServer.Handlers
 {
@@ -81,12 +83,18 @@ namespace DataServer.Handlers
 		private void ReportUser()
 		{
 			Report<User> reportedUser = JsonSerializer.Deserialize<Report<User>>(reader.ReadLine());
-			//todo add report
+			model.AddUserReport(reportedUser);
 		}
 
 		private void ReportReview()
 		{
-			Report<ReviewItem> reportedReview = JsonSerializer.Deserialize<Report<ReviewItem>>(reader.ReadLine());
+			JavaScriptSerializer js = new JavaScriptSerializer();
+			string aux = reader.ReadLine();
+			Console.WriteLine(aux);
+			Report<Review> reportedReview = js.Deserialize<Report<Review>>(aux);
+            Console.WriteLine("Report id " + reportedReview.reportId);
+			Console.WriteLine("Report id " + reportedReview.reportedItem.id);
+			model.AddReviewReport(reportedReview);
 		}
 
 		private void ReportsPlace()
