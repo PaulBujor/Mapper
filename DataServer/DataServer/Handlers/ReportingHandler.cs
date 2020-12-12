@@ -99,13 +99,15 @@ namespace DataServer.Handlers
 
 		private void ReportsPlace()
 		{
-          
+			JavaScriptSerializer js = new JavaScriptSerializer();
 			string aux = reader.ReadLine();
             Console.WriteLine(aux);
-			Report<PlaceForDeserialization> reportedPlaceForDeserialization = JsonSerializer.Deserialize<Report<PlaceForDeserialization>>(aux);
+			Report<Place> reportedPlace = js.Deserialize<Report<Place>>(aux);
+
+			/*Report<PlaceForDeserialization> reportedPlaceForDeserialization = JsonSerializer.Deserialize<Report<PlaceForDeserialization>>(aux);
 			Report<Place> reportedPlace = new Report<Place>();
 			reportedPlace.reportedItem = new Place(reportedPlaceForDeserialization.reportedItem);
-			reportedPlace.reportedClass = reportedPlaceForDeserialization.reportedClass;
+			reportedPlace.reportedClass = reportedPlaceForDeserialization.reportedClass;*/
 			model.AddPlaceReport(reportedPlace);
 		}
 	}
