@@ -121,14 +121,14 @@ namespace DataServer
 			return cache.GetPlaceReports().Result.Values.ToList();
 		}
 
-		public Task<Dictionary<long, Report<Review>>> GetReviewReports()
+		public List<Report<Review>> GetReviewReports()
 		{
-			return cache.GetReviewReports();
+			return cache.GetReviewReports().Result.Values.ToList();
 		}
 
-		public Task<Dictionary<long, Report<User>>> GetUserReports()
+		public List<Report<User>> GetUserReports()
 		{
-			return cache.GetUserReports();
+			return cache.GetUserReports().Result.Values.ToList();
 		}
 
 		public void RemoveReview(long id)
