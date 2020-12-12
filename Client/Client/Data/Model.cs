@@ -122,6 +122,19 @@ namespace Client.Data
 			await server.ReportUserAsync(report);
 		}
 
+		public override async Task ReportReviewAsync(long placeId, long reviewId)
+		{
+			Place place = GetPlaces().FirstOrDefault(p => p.id.Equals(placeId));
+			
+			Report<Review> report = new Report<Review>
+			{
+				reportedItem = place.GetReviews().FirstOrDefault(r => r.id.Equals(reviewId)),
+				reportedClass = "Review"
+			};
+			await server.ReportReviewAsync(report);
+		}
+
+
 		public override Place GetPlaceById(long id)
         {
 			return GetPlaces().FirstOrDefault(p => p.id.Equals(id));

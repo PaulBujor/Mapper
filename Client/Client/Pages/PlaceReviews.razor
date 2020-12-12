@@ -79,12 +79,10 @@
                                             <button class="btn btn-primary" type="button" id="button-addon2" disabled @onclick="SendReview">Submit</button>
                                         </div>
                                     }
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="map-place-reviews" id='map'></div>
             </div>
@@ -143,6 +141,8 @@
         public async Task ReportReview(long id)
         {
             Console.WriteLine($"Flag works {id}");
+            await Model.ReportReviewAsync(long.Parse(placeId), id);
+
         }
 
         public async Task SendReview()

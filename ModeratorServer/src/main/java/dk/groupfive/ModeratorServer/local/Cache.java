@@ -49,7 +49,12 @@ public class Cache {
 //    }
 
     public List<Report<Review>> getReviewReports() {
-        return (ArrayList<Report<Review>>) reviewReports.values();
+        ArrayList<Report<Review>> reports = new ArrayList<Report<Review>>();
+        for (Report<Review> report : reviewReports.values()) {
+            if(!report.isResolved())
+                reports.add(report);
+        }
+        return reports;
     }
 
     public List<Report<Place>> getPlaceReports() {
@@ -62,7 +67,12 @@ public class Cache {
     }
 
     public List<Report<User>> getUserReports() {
-        return (ArrayList<Report<User>>) userReports.values();
+        ArrayList<Report<User>> reports = new ArrayList<Report<User>>();
+        for (Report<User> report : userReports.values()) {
+            if(!report.isResolved())
+                reports.add(report);
+        }
+        return reports;
     }
 
     public List<User> getBannedUsers() {

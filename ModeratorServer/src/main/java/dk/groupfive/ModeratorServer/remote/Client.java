@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dk.groupfive.ModeratorServer.model.objects.Place;
 import dk.groupfive.ModeratorServer.model.objects.Report;
+import dk.groupfive.ModeratorServer.model.objects.Review;
 import dk.groupfive.ModeratorServer.model.objects.User;
 
 import java.io.BufferedReader;
@@ -49,6 +50,22 @@ public class Client implements Server {
         Type placeReportsType = new TypeToken<List<Report<Place>>>() {
         }.getType();
         return gson.fromJson(in.readLine(), placeReportsType);
+    }
+
+    @Override
+    public List<Report<User>> getUserReports() throws IOException {
+        out.println("getUserReports");
+        Type userReportsType = new TypeToken<List<Report<User>>>() {
+        }.getType();
+        return gson.fromJson(in.readLine(), userReportsType);
+    }
+
+    @Override
+    public List<Report<Review>> getReviewReports() throws IOException {
+        out.println("getReviewReports");
+        Type reviewReportsType = new TypeToken<List<Report<Review>>>() {
+        }.getType();
+        return gson.fromJson(in.readLine(), reviewReportsType);
     }
 
     @Override

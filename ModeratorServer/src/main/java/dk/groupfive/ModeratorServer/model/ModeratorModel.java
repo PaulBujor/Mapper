@@ -27,6 +27,8 @@ public class ModeratorModel implements Model {
         new Thread(() -> {
             try {
                 cache.loadPlaceReports(server.getPlaceReports());
+                cache.loadReviewReports(server.getReviewReports());
+                cache.loadUserReports(server.getUserReports());
             } catch (IOException e) {
                 e.printStackTrace();
             }

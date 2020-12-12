@@ -82,9 +82,6 @@ namespace Client.Models
                 return ValidationResult.Success;
             }
 
-            
-            
-            
         }
      
               
