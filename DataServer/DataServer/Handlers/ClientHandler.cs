@@ -90,9 +90,9 @@ namespace DataServer.Handlers
         private void SendAllPlaces()
         {
             string placeJson;
-            placeJson = JsonSerializer.Serialize(model.GetAllPlaces());
+            placeJson = JsonSerializer.Serialize(model.GetAllPlacesAsync());
 			Console.WriteLine(placeJson);
-			Console.WriteLine(model.GetAllPlaces()[0].GetRating());
+			Console.WriteLine(model.GetAllPlacesAsync()[0].GetRating());
             writer.WriteLine(placeJson);
         }
 

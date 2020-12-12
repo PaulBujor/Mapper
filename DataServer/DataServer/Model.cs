@@ -8,182 +8,208 @@ using System.Threading.Tasks;
 
 namespace DataServer
 {
-	//todo store places here, evt. will connect to database
-	class Model
-	{
-		private IPersistence cache;
-		Router router;
+    //todo store places here, evt. will connect to database
+    class Model
+    {
+        private IPersistence cache;
+        Router router;
 
-		public Model()
-		{
-			cache = new Cache();
-			router = new Router();
+        public Model()
+        {
+            cache = new Cache();
+            router = new Router();
 
 
-			//for demo
-			InitPlace();
-		}
+            //for demo
+            InitPlace();
+        }
 
-		private void InitPlace()
-		{
-			Place reitan = new Place()
-			{
-				title = "Reitan",
-				description = "Heaven",
-				longitude = 9.795995847440167,
-				latitude = 55.83663617092108,
-				reviews = new List<Review>()
-			};
-			AddPlace(reitan);
-			Report<Place> report = new Report<Place>()
-			{
-				category = "Blyatity",
-				reportedItem = reitan
-			};
-			AddPlaceReport(report);
+        private void InitPlace()
+        {
+            Place reitan = new Place()
+            {
+                title = "Reitan",
+                description = "Heaven",
+                longitude = 9.795995847440167,
+                latitude = 55.83663617092108,
+                reviews = new List<Review>()
+            };
+            AddPlace(reitan);
+            Report<Place> report = new Report<Place>()
+            {
+                category = "Blyatity",
+                reportedItem = reitan
+            };
+            AddPlaceReport(report);
             Review review = new Review()
             {
                 rating = 1
             };
 
             AddPlaceReview(reitan.id, review);
-			Console.WriteLine(reitan.reviews.Count);
+            Console.WriteLine(reitan.reviews.Count);
         }
 
-		public void AddPlaceReport(Report<Place> report)
-		{
-			cache.CreatePlaceReport(report);
-		}
+        public void AddPlaceReport(Report<Place> report)
+        {
+            //cache.CreatePlaceReport(report);
+            router.CreatePlaceReport(report);
+        }
 
-		public List<Place> GetAllPlaces()
-		{
-			return cache.GetPlaces().Result;
-		}
+        public async Task<List<Place>> GetAllPlacesAsync()
+        {
+            //return cache.GetPlaces().Result;
+            return await router.GetPlaces();
+        }
 
-		public Place AddPlace(Place place)
-		{
-			cache.AddPlace(place);
-			Console.WriteLine("returned place id: " + place.id);
-			return place;
-		}
+        public Place AddPlace(Place place)
+        {
+            //cache.AddPlace(place);
+            router.AddPlace(place);
+            Console.WriteLine("returned place id: " + place.id);
+            return place;
+        }
 
-		public void UpdatePlace(Place place)
-		{
-			cache.UpdatePlace(place);
-		}
+        public void UpdatePlace(Place place)
+        {
+            //cache.UpdatePlace(place);
+            router.UpdatePlace(place);
+        }
 
-		public void RemovePlace(long id)
-		{
-			cache.RemovePlace(id);
-		}
+        public void RemovePlace(long id)
+        {
+            //cache.RemovePlace(id);
+            router.RemovePlace(id);
+        }
 
-		public bool AuthroizeUser(User user)
-		{
-			User check = cache.GetUser(user.username, user.password).Result;
-			return check.auth >= 2;
-		}
+        public bool AuthroizeUser(User user)
+        {
+            //User check = cache.GetUser(user.username, user.password).Result;
+            User check = router.GetUser(user.username, user.password).Result;
+            return check.auth >= 2;
+        }
 
-		public List<Report<Place>> GetPlaceReports()
-		{
-			return cache.GetPlaceReports().Result.Values.ToList();
-		}
+        public List<Report<Place>> GetPlaceReports()
+        {
+            //return cache.GetPlaceReports().Result.Values.ToList();
+            return router.GetPlaceReports().Result.Values.ToList();
+        }
 
-		public Task<Dictionary<long, Report<Review>>> GetReviewReports()
-		{
-			return cache.GetReviewReports();
-		}
+        public Task<Dictionary<long, Report<Review>>> GetReviewReports()
+        {
+            //return cache.GetReviewReports();
+            return router.GetReviewReports();
+        }
 
-		public Task<Dictionary<long, Report<User>>> GetUserReports()
-		{
-			return cache.GetUserReports();
-		}
+        public Task<Dictionary<long, Report<User>>> GetUserReports()
+        {
+            //return cache.GetUserReports();
+            return router.GetUserReports();
+        }
 
-		public void RemoveReview(long id)
-		{
-			cache.RemoveReview(id);
-		}
+        public void RemoveReview(long id)
+        {
+            //cache.RemoveReview(id);
+            router.RemoveReview(id);
+        }
 
-		public void BanUser(long id)
-		{
-			cache.BanUser(id);
-		}
+        public void BanUser(long id)
+        {
+            //cache.BanUser(id);
+            router.BanUser(id);
+        }
 
-		public void UnbanUser(long id)
-		{
-			cache.UnbanUser(id);
-		}
+        public void UnbanUser(long id)
+        {
+            //cache.UnbanUser(id);
+            router.UnbanUser(id);
+        }
 
 
-		public Task<Review> AddPlaceReview(long id, Review review)
-		{
-			return cache.AddPlaceReview(id, review);
-		}
+        public Task<Review> AddPlaceReview(long id, Review review)
+        {
+            //return cache.AddPlaceReview(id, review);
+            return (Task<Review>)router.AddReview(review, id); //not sure if it's this method
+        }
 
-		public void DismissPlaceReport(long reportId)
-		{
-			cache.DismissPlaceReport(reportId);
-		}
+        public void DismissPlaceReport(long reportId)
+        {
+            //cache.DismissPlaceReport(reportId);
+            router.DismissPlaceReport(reportId);
+        }
 
-		public void DismissReviewReport(long reportId)
-		{
-			cache.DismissReviewReport(reportId);
-		}
+        public void DismissReviewReport(long reportId)
+        {
+            //cache.DismissReviewReport(reportId);
+            router.DismissReviewReport(reportId);
+        }
 
-		public void DismissUserReport(long reportId)
-		{
-			cache.DismissUserReport(reportId);
-		}
+        public void DismissUserReport(long reportId)
+        {
+            //cache.DismissUserReport(reportId);
+            router.DismissUserReport(reportId);
+        }
 
-		public User GetUserById(long userId)
-		{
-			return cache.GetUserById(userId);
-		}
-		
-		
-		//User CRUD
+        public User GetUserById(long userId)
+        {
+            //return cache.GetUserById(userId);
+            return router.GetUserById(userId);
+        }
 
-		public Task<User> Login(string username, string password)
-		{
-			return cache.GetUser(username, password);
-		}
 
-		public void Register(User user)
-		{
-			cache.Register(user);
-		}
-		public void CheckUsername(string username)
-		{
-			cache.CheckUsername(username);
-		}
+        //User CRUD
 
-		public void CheckEmail(string email)
-		{
-			cache.CheckEmail(email);
-		}
+        public Task<User> Login(string username, string password)
+        {
+            //return cache.GetUser(username, password);
+            return router.GetUser(username, password);
+        }
 
-		public void UpdateFirstName(long id, string firstName)
-		{
-			cache.UpdateFirstName(id,firstName);
-		}
+        public void Register(User user)
+        {
+            //cache.Register(user);
+            router.CreateUser(user);
+        }
+        public void CheckUsername(string username)
+        {
+            //cache.CheckUsername(username);
+            router.CheckUsername(username);
+        }
 
-		public void UpdateLastName(long id, string lastName)
-		{
-			cache.UpdateLastName(id,lastName);
-		}
+        public void CheckEmail(string email)
+        {
+            //cache.CheckEmail(email);
+            router.CheckEmail(email);
+        }
 
-		public void UpdateUsername(long id, string userName)
-		{
-			cache.UpdateUsername(id,userName);
-		}
+        public void UpdateFirstName(long id, string firstName)
+        {
+            //cache.UpdateFirstName(id, firstName);
+            router.UpdateFirstName(id, firstName);
+        }
 
-		public void UpdateEmail(long id, string email)
-		{
-			cache.UpdateEmail(id,email);
-		}
+        public void UpdateLastName(long id, string lastName)
+        {
+            //cache.UpdateLastName(id, lastName);
+            router.UpdateLastName(id, lastName);
+        }
 
-		public void UpdatePassword(long id, string password)
-		{
-			cache.UpdatePassword(id,password);
-		}
-	}
+        public void UpdateUsername(long id, string userName)
+        {
+            //cache.UpdateUsername(id, userName);
+            router.UpdateUsername(id, userName);
+        }
+
+        public void UpdateEmail(long id, string email)
+        {
+            //cache.UpdateEmail(id, email);
+            router.UpdateEmail(id, email);
+        }
+
+        public void UpdatePassword(long id, string password)
+        {
+            //cache.UpdatePassword(id, password);
+            router.UpdatePassword(id, password);
+        }
+    }
 }
