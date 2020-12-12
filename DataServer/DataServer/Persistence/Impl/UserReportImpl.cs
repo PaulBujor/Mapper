@@ -8,7 +8,7 @@ namespace DataServer.Persistence.Impl
 {
     public class UserReportImpl : IUserReport_Persistence
     {
-        MapDbContext dbContext;
+        private MapDbContext dbContext;
 
         public UserReportImpl()
         {

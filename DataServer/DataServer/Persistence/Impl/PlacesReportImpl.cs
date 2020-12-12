@@ -8,7 +8,7 @@ namespace DataServer.Persistence.Impl
 {
     public class PlacesReportImpl : IPlacesReport_Persistence
     {
-        MapDbContext dbContext;
+        private MapDbContext dbContext;
 
         public PlacesReportImpl()
         {
@@ -16,7 +16,8 @@ namespace DataServer.Persistence.Impl
         }
         public async Task CreatePlaceReport(Report<Place> placeReport)
         {
-            /*EntityEntry<Report<Place>> newlyAdded = */await dbContext.PlaceReports.AddAsync(placeReport);
+            /*EntityEntry<Report<Place>> newlyAdded = */
+            await dbContext.PlaceReports.AddAsync(placeReport);
             await dbContext.SaveChangesAsync();
         }
 

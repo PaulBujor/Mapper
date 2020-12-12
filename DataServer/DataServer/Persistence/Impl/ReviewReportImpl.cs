@@ -8,7 +8,7 @@ namespace DataServer.Persistence.Impl
 {
     public class ReviewReportImpl : IReviewReport_Persistence
     {
-        MapDbContext dbContext;
+        private MapDbContext dbContext;
 
         public ReviewReportImpl()
         {

@@ -12,10 +12,13 @@ namespace DataServer
 	class Model
 	{
 		private IPersistence cache;
+		Router router;
 
 		public Model()
 		{
 			cache = new Cache();
+			router = new Router();
+
 
 			//for demo
 			InitPlace();

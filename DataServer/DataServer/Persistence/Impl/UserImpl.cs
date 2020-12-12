@@ -8,7 +8,7 @@ namespace DataServer.Persistence
 {
     public class UserImpl : IUser_Persistence
     {
-        MapDbContext dbContext;
+        private MapDbContext dbContext;
 
         public UserImpl()
         {
@@ -29,12 +29,14 @@ namespace DataServer.Persistence
         public void CheckEmail(string email)
         {
             User toGet = dbContext.Users.FirstOrDefault(u => u.email == email);
+            /*TODO: throw exception*/
 
         }
 
         public void CheckUsername(string username)
         {
             User toGet = dbContext.Users.FirstOrDefault(u => u.username == username);
+            /*TODO: throw exception*/
         }
 
         public async Task CreateUser(User user)
