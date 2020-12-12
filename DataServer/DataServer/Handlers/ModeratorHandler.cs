@@ -155,12 +155,12 @@ namespace DataServer.Handlers
 
 		private void GetUserReports()
 		{
-			writer.WriteLine(JsonSerializer.Serialize(model.GetUserReports().Result));
+			writer.WriteLine(JsonSerializer.Serialize(model.GetUserReports()));
 		}
 
 		private void GetReviewReports()
 		{
-			writer.WriteLine(JsonSerializer.Serialize(model.GetReviewReports().Result));
+			writer.WriteLine(JsonSerializer.Serialize(model.GetReviewReports()));
 		}
 
 		private void GetPlaceReports()

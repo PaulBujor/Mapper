@@ -127,9 +127,8 @@
             {
                 await Map.InitMapMarkerAsync(long.Parse(placeId));
             }
-
+            place = Model.GetPlaces().FirstOrDefault(p => (p.id == long.Parse(placeId)));
             currentUser = JsonSerializer.Deserialize<User>(await JsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser"));
-
         }
 
         public void OnChange(int rating)
@@ -166,6 +165,7 @@
             }
 
             await Model.AddPlaceReviewAsync(long.Parse(placeId), review);
+            NavigationManager.NavigateTo($"/place/{placeId}", true);
         }
 
         public async Task SavePlace()
