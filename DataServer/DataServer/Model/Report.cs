@@ -10,9 +10,9 @@ namespace DataServer.Models
     {
         [Key]
         public long reportId { get; set; }
-        [Required] //??
+        [Required] 
         public T reportedItem { get; set; }
-        [MaxLength(200)] //??
+        [MaxLength(200)] 
         public string reportedClass { get; set; }
         //Should resolved have an attribute??
         public bool resolved { get; set; }
@@ -23,6 +23,11 @@ namespace DataServer.Models
 
         public Report()
         {
+        }
+
+        public static implicit operator Report<T>(Report<Place> v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
