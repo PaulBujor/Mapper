@@ -22,7 +22,7 @@ namespace Client.Data
 
         public abstract Task<List<Report<Place>>> GetPlaceReportsAsync();
 
-        public abstract Task<List<Report<ReviewItem>>> GetReviewReportsAsync();
+		public abstract Task<List<Report<Review>>> GetReviewReportsAsync();
 
         public abstract Task<List<Report<User>>> GetUserReportsAsync();
 

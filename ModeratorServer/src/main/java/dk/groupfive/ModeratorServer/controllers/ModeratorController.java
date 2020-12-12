@@ -35,7 +35,7 @@ public class ModeratorController implements ModeratorNetwork {
     }
 
     @GetMapping("/reports/reviews")
-    public List<Report<ReviewItem>> getReviewReports() {
+    public List<Report<Review>> getReviewReports() {
         return model.getReviewReports();
     }
 
@@ -68,6 +68,7 @@ public class ModeratorController implements ModeratorNetwork {
         model.resolveUser(userId, action);
     }
 
+    //maybe should use patch instead, but the url is already used,
     @PutMapping("/reports/places/dismissed")
     public void dismissPlaceReport(@RequestParam long reportId) {
         model.dismissPlaceReport(reportId);

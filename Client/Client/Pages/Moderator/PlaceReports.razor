@@ -46,6 +46,11 @@
 		await Model.DismissPlaceReportAsync(reportId);
 	}
 
+	public async Task FlagUserAsync(long userId)
+	{
+		await Model.ReportUserAsync(new User() { id = userId });
+	}
+
 	void OnChange(object value, Report<Place> report)
 	{
 		var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
@@ -56,8 +61,7 @@
 				RemovePlaceAsync(report.reportedItem.id);
 				break;
 			case "Flag user":
-				//FlagUserAsync(report.reportedItem.addedBy);
-				Console.WriteLine("flag-- not done");
+				FlagUserAsync(report.reportedItem.addedBy.userId);
 				break;
 			case "Dismiss":
 				DismissPlaceReportAsync(report.reportId);

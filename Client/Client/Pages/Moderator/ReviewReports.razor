@@ -1,5 +1,74 @@
-﻿<h3>Review Reports</h3>
+﻿@using Client.Models
+@using Client.Data
+@inject IModel Model
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div style="padding: 10px;">
+	<h3>Review Reports</h3>
+
+	@foreach (Report<Review> item in reports)
+	{
+		<div class="card">
+			<h5 class="card-header">Review ID: @item.reportedItem.id</h5>
+			<div class="card-body">
+				<h6 class="card-subtitle mb-2 text-muted">Added by: @item.reportedItem.addedBy.username</h6>
+				<p class="card-text">@item.reportedItem.comment</p>
+				<a class="card-link">
+					<RadzenDropDown class="align-middle" AllowClear="true" TValue="string"
+									Placeholder="Action"
+									Data=@options
+									TextProperty="ModAction" ValueProperty="Action" Change=@(args => OnChange(args, item)) />
+				</a>
+			</div>
+		</div>
+	}
+</div>
 
 @code {
+	List<Report<Review>> reports = new List<Report<Review>>();
+	List<string> options = new List<string> { "Remove review", "Flag user", "Dismiss" };
+
+	protected override async Task OnInitializedAsync()
+	{
+		reports = await Model.GetReviewReportsAsync();
+	}
+
+	public async Task RemoveReviewAsync(long reviewId)
+	{
+		reports.RemoveAll(item => item.reportedItem.id == reviewId);
+		await Model.RemoveReviewAsync(reviewId);
+	}
+
+	public async Task DismissReviewReportAsync(long reportId)
+	{
+		reports.RemoveAll(item => item.reportId == reportId);
+		await Model.DismissReviewReportAsync(reportId);
+	}
+
+	public async Task FlagUserAsync(long userId)
+	{
+		await Model.ReportUserAsync(new User() { id = userId });
+	}
+
+	void OnChange(object value, Report<Review> report)
+	{
+		var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+		switch (str)
+		{
+			case "Remove review":
+				RemoveReviewAsync(report.reportedItem.id);
+				break;
+			case "Flag user":
+				FlagUserAsync(report.reportedItem.addedBy.userId);
+				break;
+			case "Dismiss":
+				DismissReviewReportAsync(report.reportId);
+				break;
+			default:
+				Console.WriteLine("not done");
+				break;
+		}
+	}
 
 }

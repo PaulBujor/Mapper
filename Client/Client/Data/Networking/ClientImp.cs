@@ -62,7 +62,7 @@ namespace Client.Data.Networking
 		{
 			return await _moderator.GetPlaceReportsAsync();
 		}
-		public async Task<List<Report<ReviewItem>>> GetReviewReportsAsync()
+		public async Task<List<Report<Review>>> GetReviewReportsAsync()
 		{
 			return await _moderator.GetReviewReportsAsync();
 		}

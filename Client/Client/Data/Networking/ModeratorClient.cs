@@ -19,11 +19,11 @@ namespace Client.Data.Networking
 			return JsonSerializer.Deserialize<List<Report<Place>>>(response);
 		}
 
-		public async Task<List<Report<ReviewItem>>> GetReviewReportsAsync()
+		public async Task<List<Report<Review>>> GetReviewReportsAsync()
 		{
 			HttpClient client = new HttpClient();
 			string response = await client.GetStringAsync(URI + "/reports/reviews");
-			return JsonSerializer.Deserialize<List<Report<ReviewItem>>>(response);
+			return JsonSerializer.Deserialize<List<Report<Review>>>(response);
 		}
 
 		public async Task<List<Report<User>>> GetUserReportsAsync()
