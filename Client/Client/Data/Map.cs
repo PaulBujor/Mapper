@@ -17,6 +17,7 @@ namespace Client.Data
         private DotNetObjectReference<Map> objRef;
 
         private bool addingMarkerMode;
+        private bool markerAdded;
 
         private double currentLongitude = 0;
         private double currentLatitude = 0;
@@ -28,6 +29,7 @@ namespace Client.Data
             this.jsRuntime = jsRuntime;
             this.model = model;
             addingMarkerMode = false;
+            markerAdded = false;
 
             model.OnNewPlace -= AddMarker;
             model.OnMapLoaded -= DataReady;
@@ -91,14 +93,22 @@ namespace Client.Data
 
         }
 
+        public bool GetAddingMarkerMode()
+        {
+            return addingMarkerMode;
+        }
+
         public void ChangeAddingMarkerMode()
         {
             addingMarkerMode = !addingMarkerMode;
+            markerAdded = false;
         }
 
         public async Task SetTemporaryMarkerAsync()
         {
             await jsRuntime.InvokeVoidAsync("mapBoxFunctions.setTemporaryMarker", currentLongitude, currentLatitude);
+            markerAdded = true;
+            
         }
 
         public async Task removeTemporaryMarkerAsync()
@@ -119,8 +129,17 @@ namespace Client.Data
                 reviews = new List<Review>()
             };
             //await AddMarkerAsync(newPlace); //line will be removed and place will be added when model gets it from broadcaster
-            await removeTemporaryMarkerAsync();
-            await model.AddPlaceAsync(newPlace);
+
+
+            if (markerAdded)
+            {
+                await removeTemporaryMarkerAsync();
+                await model.AddPlaceAsync(newPlace);
+            }
+            else
+            {
+                throw new Exception("You forgot to choose a location!");
+            }
         }
 
         [JSInvokable("MapClickAsync")]

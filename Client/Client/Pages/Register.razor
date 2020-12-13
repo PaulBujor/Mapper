@@ -11,57 +11,52 @@
 
 <AuthorizeView>
     <NotAuthorized>
-        <h3>Register v1</h3>
+        <EditForm Context="formContext" Model="@newUser" OnValidSubmit="@Submit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="page-login-container">
+                <div class="page-column-login">
+                    <div class="register-container">
+                        <p class="login-title">Register</p>
+                        <div class="input-group mb-4 flex-wrap">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text input-square" id="basic-addon1">First and last Name</span>
+                            </div>
+                            <input type="text" class="form-control" style="min-width: 80px;" placeholder="" aria-label="First Name" aria-describedby="basic-addon1" @bind-value="newUser.firstname">
+                            <input type="text" class="form-control" style="min-width: 80px;" placeholder="" aria-label="Last Name" aria-describedby="basic-addon1" @bind-value="newUser.lastname">
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text input-square-register" id="basic-addon1">&commat;</span>
+                            </div>
+                            <input type="text" class="form-control" style="min-width: 80px;" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" @bind-value="newUser.username">
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text input-square-register" id="basic-addon1">E-mail</span>
+                            </div>
+                            <input type="text" class="form-control" style="min-width: 80px;" placeholder="example@mail.com" aria-label="E-mail" aria-describedby="basic-addon1" @bind-value="newUser.email">
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text input-square-register" id="basic-addon1">#</span>
+                            </div>
+                            <input type="password" class="form-control" style="min-width: 80px;" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" @bind-value="newUser.password">
+                        </div>
 
-        <div id="error">
-            <p><span style="color: #ff2222">@ErrorMessage</span></p>   
-        </div>
-      
-        <div id="form">
-            <EditForm Context="formContext" Model="@newUser" OnValidSubmit="@Submit">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-
-
-                <p>
-                    <InputText id="firstname" @bind-Value="newUser.firstname" />
-                    <label for="firstname">-First name</label>
-                </p>
-
-                <p>
-                    <InputText id="lastname" @bind-Value="newUser.lastname" />
-                    <label for="lastname">-Last name</label>
-                </p>
-
-                <p>
-                    <InputText id="username" @bind-Value="newUser.username" />
-                    <label for="username">-User name</label>
-                </p>
-
-                <p>
-                    <InputText id="email" @bind-Value="newUser.email" />
-                    <label for="email">-Email</label>
-                </p>
-
-                <p>
-                    <InputText type="password" @bind-Value="@newUser.password" />
-                    <label for="password">-Password</label>
-                </p>
-
-                <p>
-                    <InputText type="password" @bind-Value="@newUser.confirmpassword" />
-                    <label for="confirmpassword">-Confirm Password</label>
-                </p>
-                
-                
-
-
-
-                <button type="submit">Submit</button>
-
-            </EditForm>
-        </div>
-        
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text input-square-register" id="basic-addon1">#</span>
+                            </div>
+                            <input type="password" class="form-control" style="min-width: 80px;" placeholder="Confirm password" aria-label="Password" aria-describedby="basic-addon1" @bind-value="newUser.confirmpassword">
+                        </div>
+                        <div style="color:red"><i>@ErrorMessage</i></div>
+                        <a href="#" type="submit" class="button-signin">Sign up</a>
+                        <div class="d-flex justify-content-center"> Already have an account?  <a href="/login" class="button-signup" >Log in</a></div>
+                    </div>
+                </div>
+            </div>
+        </EditForm>
     </NotAuthorized>
 </AuthorizeView>
 
@@ -80,22 +75,22 @@
             var checkEmail = await Auth.CheckEmail(newUser.email);
             var checkUserName = await Auth.CheckUserName(newUser.username);
 
-        
-    if (checkEmail==false)
+
+            if (checkEmail==false)
             {
                 ErrorMessage = "Email already exists";
-           
+
                 throw new Exception("Email already exists");
-                
+
             }
             if (checkUserName==false)
             {
                 ErrorMessage = "Username already exists";
-               
+
                 throw new Exception("Username already exists");
-                
+
             }
-            
+
             await Auth.Register(newUser);
             NavigationManager.NavigateTo("/login");
         }
@@ -103,7 +98,20 @@
         {
             Console.WriteLine(e);
         }
-        
+
+    }
+
+    public async Task PerformLogin()
+    {
+        ErrorMessage = "";
+        try
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = e.Message;
+        }
     }
 
 

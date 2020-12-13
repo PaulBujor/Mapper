@@ -13,31 +13,26 @@
 
 <AuthorizeView>
     <NotAuthorized>
-        <div class="page-container-login">
-            <div class="main-container">
-                <p class="login-title">Log in</p>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">#</span>
+        <div class="page-login-container">
+            <div class="page-column-login">
+                <div class="login-container">
+                    <p class="login-title">Log in</p>
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text input-square" id="basic-addon1">&commat;</span>
+                        </div>
+                        <input type="text" class="form-control" style="min-width: 80px;" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" @bind-value="username">
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend" >
+                            <span class="input-group-text input-square" id="basic-addon1">#</span>
+                        </div>
+                        <input type="password" class="form-control" style="min-width: 80px;" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" @bind-value="password">
+                    </div>
+                    <div style="color:red"><i>@errorMessage</i></div>
+                    <a href="#" class="button-signin" @onclick="PerfomLogin">Sign in</a>
+                    <div class="d-flex justify-content-center mb-3"> Don&apos;t have an account?  <a href="#" class="button-signup" @onclick="PerformRegister">Sign up</a></div>
                 </div>
-                <h3>Login v1</h3>
-                <div class="">
-                    <label>User name:</label>
-                    <input type="text" placeholder="user name" @bind-value="username" />
-                </div>
-                <div class="">
-                    <label>Password</label>
-                    <input type="text" placeholder="password" @bind-value="password">
-                </div>
-
-                <div style="color:red">@errorMessage</div>
-
-                <a href="" @onclick="PerfomLogin">Login</a>
-                <a href="" @onclick="PerformRegister">
-                    Register
-                </a>
             </div>
         </div>
 

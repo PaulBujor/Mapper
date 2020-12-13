@@ -2,83 +2,94 @@
 @inject IJSRuntime JSRuntime
 @inject Client.Data.IMap Map
 @using Client.Models
-@using System.Text.Json 
+@using System.Text.Json
 
 <div id='map'></div>
-<div class="map-overlay">
-	<div class="map-overlay-inner">
-		<AuthorizeView Context="authorize">
-            <Authorized>
-                <button @onclick="AddMarker">@buttonText</button>
-                
-                @if (buttonText.Equals("Save & Add Place"))
-                {
-                    <div>
-                        <EditForm Model="@placeData" OnValidSubmit="@AddMarker">
-                            <DataAnnotationsValidator />
-                            <ValidationSummary />
-                            Title: <br />
-                            <InputText id="title" @bind-Value="placeData.Title" /> <br />
-                            Description: <br />
-                            <InputText id="description" @bind-Value="placeData.Description" />
-                        </EditForm>
-                    </div>
 
 
-                    @*<fieldset @bind-Value="PlaceTitle">
-                <label for="title">Title:</label>
-                <input type="text"
-                       id="title"
-                       name="title" />
-            </fieldset>
-            <fieldset>
-                <label for="description">Description:</label>
-                <input type="text"
-                       id="description"
-                       name="description" />
-            </fieldset>*@
-                }
-            </Authorized>
-			<NotAuthorized>
-				<h6>You need to be logged in to add a place!</h6>
-				<a href="login">Login</a>
-			</NotAuthorized>
-		</AuthorizeView>
+<AuthorizeView Context="authorize">
+    <Authorized>
 
-	</div>
-</div>
+        @if (!Map.GetAddingMarkerMode())
+        {
+            <div class="map-overlay-button-adding" @onclick="Map.ChangeAddingMarkerMode"><RadzenIcon Icon="add_location_alt" /></div>
+        }
+        else
+        {
+            <div class="map-overlay-wrapper">
+                <div class="map-overlay-button" @onclick="Map.ChangeAddingMarkerMode">
+                    <RadzenIcon Icon="wrong_location" />
+                </div>
+                <div class="map-overlay-details">
+                    <EditForm Model="@placeData">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <i style="color: red;">@ErrorMessage</i>
+                        <p>Title:</p>
+                        <InputText class="details-title" @bind-Value="placeData.Title" />
+                        <p>Description:</p>
+                        <InputText class="details-description" @bind-Value="placeData.Description"></InputText>
+                    </EditForm>
+                </div>
+                <div class="map-overlay-button-add" @onclick="@AddMarker">ADD</div>
+            </div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <div class="map-overlay-inner">
+            <h6>You need to be logged in to add a place!</h6>
+            <a href="login">Login</a>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
 
 @code{
-	private PlaceData placeData = new PlaceData();
-	private string buttonText = "Add Place";
+    private PlaceData placeData = new PlaceData();
+    private string ErrorMessage { get; set; }
 
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-			await Map.InitMapAsync();
-	}
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await Map.InitMapAsync();
 
-	private async Task AddMarker()
-	{
-		if (buttonText.Equals("Add Place"))
-		{
-			buttonText = "Save & Add Place";
-		}
-		else
-		{
-			User user;
-			string userAsJson = await JSRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
 
-			if (!string.IsNullOrEmpty(userAsJson))
-			{
-				user = JsonSerializer.Deserialize<User>(userAsJson);
-				placeData.addedBy = new UserData() { userId = user.id, username = user.username };
-			}
+    }
 
-			await Map.CreatePlace(placeData);
-			placeData.Reset();
-			buttonText = "Add Place";
-		}
-		Map.ChangeAddingMarkerMode();
-	}
+    private async Task AddMarker()
+    {
+        if (!(placeData.Title == null))
+        {
+            User user;
+            string userAsJson = await JSRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
+
+            if (!string.IsNullOrEmpty(userAsJson))
+            {
+                user = JsonSerializer.Deserialize<User>(userAsJson);
+                placeData.addedBy = new UserData() { userId = user.id, username = user.username };
+            }
+
+            try
+            {
+                await Map.CreatePlace(placeData);
+                placeData.Reset();
+                ErrorMessage = "";
+                Map.ChangeAddingMarkerMode();
+            }
+            catch (Exception e)
+            {
+                ErrorMessage = e.Message;
+                Console.WriteLine(ErrorMessage);
+            }
+
+
+
+        }
+        else
+        {
+            ErrorMessage = "Title field is required";
+        }
+
+
+    }
 }
