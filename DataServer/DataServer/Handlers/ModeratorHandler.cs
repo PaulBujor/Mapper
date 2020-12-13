@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace DataServer.Handlers
 {
@@ -29,7 +30,7 @@ namespace DataServer.Handlers
 
 		}
 
-		public void Start()
+		public async Task Start()
 		{
 			clientConnected = true;
 			string request = null;
@@ -44,9 +45,9 @@ namespace DataServer.Handlers
 					request = reader.ReadLine();
 					Console.WriteLine("Received: {0}", request);
 
-					ProcessClientRequest(request);
+					await ProcessClientRequest(request);
 				}
-				catch (System.IO.IOException e)
+				catch (System.IO.IOException)
 				{
 					clientConnected = false;
 				}
@@ -57,49 +58,49 @@ namespace DataServer.Handlers
 			client.Close();
 		}
 
-		private void ProcessClientRequest(string request)
+		private async Task ProcessClientRequest(string request)
 		{
 			switch (request)
 			{
 				case "getPlaceReports":
-					GetPlaceReports();
+					await GetPlaceReports();
 					break;
 				case "getReviewReports":
-					GetReviewReports();
+					await GetReviewReports();
 					break;
 				case "getUserReports":
-					GetUserReports();
+					await GetUserReports();
 					break;
 				case "getBannedUsers":
-					GetBannedUsers();
+					await GetBannedUsers();
 					break;
 
 				case "removePlace":
-					RemovePlace();
+					await RemovePlace();
 					break;
 				case "removeReview":
-					RemoveReview();
+					await RemoveReview();
 					break;
 				case "banUser":
-					BanUser();
+					await BanUser();
 					break;
 				case "unbanUser":
-					UnbanUser();
+					await UnbanUser();
 					break;
 				case "getUserById":
-					GetUserById();
+					await GetUserById();
 					break;
 				case "dismissPlaceReport":
-					DismissPlaceReport();
+					await DismissPlaceReport();
 					break;
 				case "dismissReviewReport":
-					DismissReviewReport();
+					await DismissReviewReport();
 					break;
 				case "dismissUserReport":
-					DismissUserReport();
+					await DismissUserReport();
 					break;
 				case "authorizeUser":
-					AuthorizeUser();
+					await AuthorizeUser();
 					break;
 				default:
 					Console.WriteLine("Default was called");
@@ -107,80 +108,79 @@ namespace DataServer.Handlers
 			}
 		}
 
-		private void GetBannedUsers()
+		private async Task GetBannedUsers()
 		{
-			writer.WriteLine(JsonSerializer.Serialize(model.GetBannedUsers()));
+			writer.WriteLine(JsonSerializer.Serialize(await model.GetBannedUsers()));
 		}
 
-		private void GetUserById()
-		{
-			long userId = long.Parse(reader.ReadLine());
-			writer.WriteLine(JsonSerializer.Serialize(model.GetUserById(userId)));
-		}
-
-		private void DismissPlaceReport()
-		{
-			long reportId = long.Parse(reader.ReadLine());
-			model.DismissPlaceReport(reportId);
-		}
-
-		private void DismissReviewReport()
-		{
-			long reportId = long.Parse(reader.ReadLine());
-			model.DismissPlaceReport(reportId);
-		}
-
-		private void DismissUserReport()
-		{
-			long reportId = long.Parse(reader.ReadLine());
-			model.DismissPlaceReport(reportId);
-		}
-
-		private void UnbanUser()
+		private async Task GetUserById()
 		{
 			long userId = long.Parse(reader.ReadLine());
-			model.UnbanUser(userId);
+			writer.WriteLine(JsonSerializer.Serialize(await model.GetUserById(userId)));
 		}
 
-		private void BanUser()
+		private async Task DismissPlaceReport()
 		{
-
-			long userId = long.Parse(reader.ReadLine());
-			model.BanUser(userId);
+			long reportId = long.Parse(reader.ReadLine());
+			await model.DismissPlaceReport(reportId);
 		}
 
-		private void RemoveReview()
+		private async Task DismissReviewReport()
+		{
+			long reportId = long.Parse(reader.ReadLine());
+			await model.DismissPlaceReport(reportId);
+		}
+
+		private async Task DismissUserReport()
+		{
+			long reportId = long.Parse(reader.ReadLine());
+			await model.DismissPlaceReport(reportId);
+		}
+
+		private async Task UnbanUser()
+		{
+			long userId = long.Parse(reader.ReadLine());
+			await model.UnbanUser(userId);
+		}
+
+		private async Task BanUser()
+		{
+			long userId = long.Parse(reader.ReadLine());
+			await model.BanUser(userId);
+		}
+
+		private async Task RemoveReview()
 		{
 			long reviewId = long.Parse(reader.ReadLine());
-			model.RemoveReview(reviewId);
+			await model.RemoveReview(reviewId);
 		}
 
-		public void RemovePlace()
+		public async Task RemovePlace()
 		{
 			long placeId = long.Parse(reader.ReadLine());
-			model.RemovePlace(placeId);
+			await model.RemovePlace(placeId);
 		}
 
-		private void GetUserReports()
+		private async Task GetUserReports()
 		{
-			writer.WriteLine(JsonSerializer.Serialize(model.GetUserReports()));
+			writer.WriteLine(JsonSerializer.Serialize(await model.GetUserReports()));
 		}
 
-		private void GetReviewReports()
+		private async Task GetReviewReports()
 		{
-			writer.WriteLine(JsonSerializer.Serialize(model.GetReviewReports()));
+			writer.WriteLine(JsonSerializer.Serialize(await model.GetReviewReports()));
 		}
 
-		private void GetPlaceReports()
+		private async Task GetPlaceReports()
 		{
-			writer.WriteLine(JsonSerializer.Serialize(model.GetPlaceReports()));
+			writer.WriteLine(JsonSerializer.Serialize(await model.GetPlaceReports()));
 		}
 
-		private void AuthorizeUser()
+		private async Task AuthorizeUser()
 		{
 			string receive = reader.ReadLine();
 			User user = JsonSerializer.Deserialize<User>(receive);
-			writer.WriteLine(model.AuthroizeUser(user));
+			writer.WriteLine(await model.AuthroizeUser(user));
 		}
 	}
 }

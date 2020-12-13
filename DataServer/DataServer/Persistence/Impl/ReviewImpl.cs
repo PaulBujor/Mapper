@@ -15,12 +15,13 @@ namespace DataServer.Persistence
         {
             dbContext = new MapDbContext();
         }
-        public async Task AddReview(Review review, long placeId)
+        public async Task<Review> AddReview(Review review, long placeId)
         {
             Place myPlace = await dbContext.Places.FirstOrDefaultAsync(p => p.id == placeId);
             myPlace.reviews.Add(review); // Add review to the place's list of reviews
             EntityEntry<Review> newlyAdded = await dbContext.Reviews.AddAsync(review); // Add review to the table Review
             await dbContext.SaveChangesAsync();
+            return newlyAdded.Entity;
         }
 
         public async Task<List<Review>> GetReviews(long placeId)
@@ -44,9 +45,9 @@ namespace DataServer.Persistence
             try
             {
                 dbContext.Update(reviewItem);
-                dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new System.Exception($"Did not find review with id{reviewItem.id}");
             }

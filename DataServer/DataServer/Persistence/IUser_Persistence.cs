@@ -18,16 +18,16 @@ namespace DataServer.Persistence
         Task UnbanUser(long userId);
 
         //Maybe some can be async
-        public void CheckUsername(string username);
-        public void CheckEmail(string email);
-        public void UpdateFirstName(long id, string firstName);
-        public void UpdateLastName(long id, string lastName);
-        public void UpdateUsername(long id, string userName);
-        public void UpdateEmail(long id, string email);
-        public void UpdatePassword(long id, string password);
-        User GetUserById(long userId);
-        public Task AddSavedPlace(long userId, Place place);
-        public Task RemoveSavedPlace(long userId, Place place);
+        Task CheckUsername(string username);
+        Task CheckEmail(string email);
+        Task UpdateFirstName(long id, string firstName);
+        Task UpdateLastName(long id, string lastName);
+        Task UpdateUsername(long id, string userName);
+        Task UpdateEmail(long id, string email);
+        Task UpdatePassword(long id, string password);
+        Task<User> GetUserById(long userId);
+        Task AddSavedPlace(long userId, Place place);
+        Task RemoveSavedPlace(long userId, Place place);
 
         //Task<Review> AddPlaceReview(long placeId, Review review);
     }

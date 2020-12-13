@@ -6,7 +6,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
-
+using System.Threading.Tasks;
 
 namespace DataServer.Handlers
 {
@@ -19,9 +19,6 @@ namespace DataServer.Handlers
 		private StreamReader reader;
 
 		private bool clientConnected;
-
-		
-
 		public ReportingHandler(TcpClient client, Model model)
 		{
 			this.client = client;
@@ -33,7 +30,7 @@ namespace DataServer.Handlers
 
 		}
 
-		public void Start()
+		public async Task Start()
 		{
 			clientConnected = true;
 			string request = null;
@@ -48,9 +45,9 @@ namespace DataServer.Handlers
 					request = reader.ReadLine();
 					Console.WriteLine("Received: {0}", request);
 
-					ProcessClientRequest(request);
+					await ProcessClientRequest(request);
 				}
-				catch (System.IO.IOException e)
+				catch (System.IO.IOException)
 				{
 					clientConnected = false;
 				}
@@ -61,18 +58,18 @@ namespace DataServer.Handlers
 			client.Close();
 		}
 
-		private void ProcessClientRequest(string request)
+		private async Task ProcessClientRequest(string request)
 		{
 			switch (request)
 			{
 				case "reportPlace":
-					ReportsPlace();
+					await ReportPlace();
 					break;
 				case "reportReview":
-					ReportReview();
+					await ReportReview();
 					break;
 				case "reportUser":
-					ReportUser();
+					await ReportUser();
 					break;
 				default:
 					Console.WriteLine("Default was called");
@@ -80,14 +77,14 @@ namespace DataServer.Handlers
 			}
 		}
 
-		private void ReportUser()
+		private async Task ReportUser()
 		{
 			JavaScriptSerializer js = new JavaScriptSerializer();
 			Report<UserData> reportedUser = js.Deserialize<Report<UserData>>(reader.ReadLine());
-			model.AddUserReport(reportedUser);
+			await model.AddUserReport(reportedUser);
 		}
 
-		private void ReportReview()
+		private async Task ReportReview()
 		{
 			JavaScriptSerializer js = new JavaScriptSerializer();
 			string aux = reader.ReadLine();
@@ -95,10 +92,10 @@ namespace DataServer.Handlers
 			Report<Review> reportedReview = js.Deserialize<Report<Review>>(aux);
             Console.WriteLine("Report id " + reportedReview.reportId);
 			Console.WriteLine("Report id " + reportedReview.reportedItem.id);
-			model.AddReviewReport(reportedReview);
+			await model.AddReviewReport(reportedReview);
 		}
 
-		private void ReportsPlace()
+		private async Task ReportPlace()
 		{
 			JavaScriptSerializer js = new JavaScriptSerializer();
 			string aux = reader.ReadLine();
@@ -109,7 +106,7 @@ namespace DataServer.Handlers
 			Report<Place> reportedPlace = new Report<Place>();
 			reportedPlace.reportedItem = new Place(reportedPlaceForDeserialization.reportedItem);
 			reportedPlace.reportedClass = reportedPlaceForDeserialization.reportedClass;*/
-			model.AddPlaceReport(reportedPlace);
+			await model.AddPlaceReport(reportedPlace);
 		}
 	}
 }

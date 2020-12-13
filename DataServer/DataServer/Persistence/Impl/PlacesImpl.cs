@@ -48,7 +48,7 @@ namespace DataServer.Persistence
             {
                 //Place toUpdate = await dbContext.Places.FirstAsync(p => p.id == place.id);
                 dbContext.Update(place); //Love EF
-                dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
             }
             catch (Exception e)
             {

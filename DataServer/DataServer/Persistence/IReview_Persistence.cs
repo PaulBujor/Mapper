@@ -6,7 +6,7 @@ namespace DataServer.Persistence
 {
     public interface IReview_Persistance
     {
-        Task AddReview(Review review, long placeId);
+        Task<Review> AddReview(Review review, long placeId);
 
         Task<List<Review>> GetReviews(long placeId);
 
