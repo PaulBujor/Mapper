@@ -58,9 +58,10 @@ namespace DataServer.Persistence
             return placesReport.DismissPlaceReport(reportId);
         }
 
-        public Task<Dictionary<long, Report<Place>>> GetPlaceReports()
+        //public Task<Dictionary<long, Report<Place>>> GetPlaceReports()
+        public async Task<List<Report<Place>>> GetPlaceReports()
         {
-            return placesReport.GetPlaceReports();
+            return await placesReport.GetPlaceReports();
         }
 
         public Task UpdatePlaceReport(Report<Place> placeReport)
@@ -100,9 +101,10 @@ namespace DataServer.Persistence
             return reviewsReport.DismissReviewReport(reportId);
         }
 
-        public Task<Dictionary<long, Report<Review>>> GetReviewReports()
+        //public Task<Dictionary<long, Report<Review>>> GetReviewReports()
+        public async Task<List<Report<Review>>> GetReviewReports()
         {
-            return reviewsReport.GetReviewReports();
+            return await reviewsReport.GetReviewReports();
         }
 
         public Task UpdateReviewReport(Report<Review> reviewReport)
@@ -193,14 +195,25 @@ namespace DataServer.Persistence
             return usersReport.DismissUserReport(reportId);
         }
 
-        public Task<Dictionary<long, Report<User>>> GetUserReports()
+        //public Task<Dictionary<long, Report<User>>> GetUserReports()
+        public async Task<List<Report<User>>> GetUserReports()
         {
-            return usersReport.GetUserReports();
+            return await usersReport.GetUserReports();
         }
 
         public Task UpdateUserReport(Report<User> userReport)
         {
             return usersReport.UpdateUserReport(userReport);
+        }
+
+        public async Task AddSavedPlace(long userId, Place place)
+        {
+            await users.AddSavedPlace(userId, place);
+        }
+
+        public async Task RemoveSavedPlace(long userId, Place place)
+        {
+            await users.RemoveSavedPlace(userId, place);
         }
     }
 }

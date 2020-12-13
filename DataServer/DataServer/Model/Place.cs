@@ -19,6 +19,7 @@ namespace DataServer.Models
         [MaxLength(500)]
         public string description { get; set; }
         public List<Review> reviews { get; set; }
+        public IList<User> users { get; set; }
         [Required]
         public UserData addedBy { get; set; }
 

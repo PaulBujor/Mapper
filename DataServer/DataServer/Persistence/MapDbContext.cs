@@ -18,5 +18,11 @@ namespace DataServer.Persistence
             //name of database
             optionsBuilder.UseSqlite("Data Source = Map.db");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Place>().HasMany(p => p.users).WithMany(u => u.savedPlaces);
+            
+        }
     }
 }

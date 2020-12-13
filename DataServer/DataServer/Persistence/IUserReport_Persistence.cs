@@ -8,7 +8,8 @@ namespace DataServer.Persistence
     {
         Task CreateUserReport(Report<User> userReport);
         Task UpdateUserReport(Report<User> userReport);
-        Task<Dictionary<long, Report<User>>> GetUserReports();
+        //Task<Dictionary<long, Report<User>>> GetUserReports();
+        public Task<List<Report<User>>> GetUserReports();
         public Task DismissUserReport(long reportId);
     }
 }

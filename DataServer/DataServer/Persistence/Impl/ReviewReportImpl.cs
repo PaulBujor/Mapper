@@ -26,15 +26,9 @@ namespace DataServer.Persistence.Impl
             toDismiss.resolved = true;
         }
 
-        public async Task<Dictionary<long, Report<Review>>> GetReviewReports()
+        public async Task<List<Report<Review>>> GetReviewReports()
         {
-            List<Report<Review>> myList = await dbContext.ReviewReports.ToListAsync();
-            Dictionary<long, Report<Review>> myDic = new Dictionary<long, Report<Review>>();
-            foreach (Report<Review> item in myList)
-            {
-                myDic.Add(item.reportId, item);
-            }
-            return myDic;
+            return await dbContext.ReviewReports.ToListAsync();
         }
 
         public async Task UpdateReviewReport(Report<Review> reviewReport)

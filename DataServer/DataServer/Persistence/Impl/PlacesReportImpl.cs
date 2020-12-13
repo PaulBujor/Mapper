@@ -27,15 +27,16 @@ namespace DataServer.Persistence.Impl
             toDismiss.resolved = true;
         }
 
-        public async Task<Dictionary<long, Report<Place>>> GetPlaceReports()
+        public async Task<List<Report<Place>>> GetPlaceReports()
         {
-            List<Report<Place>> myList = await dbContext.PlaceReports.ToListAsync();
+            /*List<Report<Place>> myList = await dbContext.PlaceReports.ToListAsync();
             Dictionary<long, Report<Place>> myDic = new Dictionary<long, Report<Place>>();
             foreach (Report<Place> item in myList)
             {
                 myDic.Add(item.reportId, item);
             }
-            return myDic;
+            return myDic;*/
+            return await dbContext.PlaceReports.ToListAsync();
         }
 
         public async Task UpdatePlaceReport(Report<Place> placeReport)

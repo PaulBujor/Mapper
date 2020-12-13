@@ -107,7 +107,7 @@ namespace DataServer.Persistence
             toGet.username = userName;
         }
 
-        async Task<List<User>> IUser_Persistence.GetBannedUsers()
+        public async Task<List<User>> GetBannedUsers()
         {
             List<User> listOfUsers = await dbContext.Users.ToListAsync();
             List<User> banUsers = new List<User>();
@@ -119,6 +119,20 @@ namespace DataServer.Persistence
                 }
             }
             return banUsers;
+        }
+
+        public async Task AddSavedPlace(long userId, Place place)
+        {
+            User u = GetUserById(userId);
+            u.savedPlaces.Add(place);
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task RemoveSavedPlace(long userId, Place place)
+        {
+            User user = await dbContext.Users.FirstOrDefaultAsync(u => u.id == userId);
+            user.savedPlaces.RemoveAll(p => p.id == place.id);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

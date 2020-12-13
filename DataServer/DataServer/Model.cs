@@ -25,56 +25,56 @@ namespace DataServer
         }
 
         private void InitPlace()
-		{
+        {
 
-			User user = new User()
-			{
-				id = 200,
-				savedPlaces = new List<Place>()
-			};
-			router.CreateUser(user);
-			Place reitan = new Place()
-			{
-				title = "Reitan",
-				description = "Heaven",
-				longitude = 9.795995847440167,
-				latitude = 55.83663617092108,
-				reviews = new List<Review>()
-			};
-			AddPlace(reitan);
-			Report<Place> report = new Report<Place>()
-			{
-				category = "Blyatity",
-				reportedItem = reitan
-			};
-			AddPlaceReport(report);
-			Review review = new Review()
-			{
-				id = 1,
-				rating = 1,
-				comment = "very beautiful, but my back hurts",
-				addedBy = new UserData()
-				{
-					userId = 1,
-					username = "admin"
-				}
-			};
-			Review newReview = new Review()
-			{
-				id = 2,
-				rating = 1,
-				comment = "rema 1000 tak",
-				addedBy = new UserData()
-				{
-					userId = 2,
-					username = "adminomnom"
-				}
-			};
+            User user = new User()
+            {
+                id = 200,
+                savedPlaces = new List<Place>()
+            };
+            router.CreateUser(user);
+            Place reitan = new Place()
+            {
+                title = "Reitan",
+                description = "Heaven",
+                longitude = 9.795995847440167,
+                latitude = 55.83663617092108,
+                reviews = new List<Review>()
+            };
+            AddPlace(reitan);
+            Report<Place> report = new Report<Place>()
+            {
+                category = "Blyatity",
+                reportedItem = reitan
+            };
+            AddPlaceReport(report);
+            Review review = new Review()
+            {
+                id = 1,
+                rating = 1,
+                comment = "very beautiful, but my back hurts",
+                addedBy = new UserData()
+                {
+                    userId = 1,
+                    username = "admin"
+                }
+            };
+            Review newReview = new Review()
+            {
+                id = 2,
+                rating = 1,
+                comment = "rema 1000 tak",
+                addedBy = new UserData()
+                {
+                    userId = 2,
+                    username = "adminomnom"
+                }
+            };
 
-			AddPlaceReview(reitan.id, review);
-			AddPlaceReview(reitan.id, newReview);
-			Console.WriteLine(reitan.reviews.Count);
-		}
+            AddPlaceReview(reitan.id, review);
+            AddPlaceReview(reitan.id, newReview);
+            Console.WriteLine(reitan.reviews.Count);
+        }
 
         public void AddPlaceReport(Report<Place> report)
         {
@@ -82,38 +82,38 @@ namespace DataServer
             router.CreatePlaceReport(report);
         }
 
-		//todo
-		public void AddUserReport(Report<UserData> report)
-		{
-			Report<User> fullReport = new Report<User>()
-			{
-				reportId = report.reportId,
-				reportedClass = report.reportedClass,
-				reportedItem = router.GetUserById(report.reportedItem.userId),
-				description = report.description,
-				category = report.category,
-				resolved = report.resolved
-			};
-			router.CreateUserReport(fullReport);
-		}
+        //todo
+        public void AddUserReport(Report<UserData> report)
+        {
+            Report<User> fullReport = new Report<User>()
+            {
+                reportId = report.reportId,
+                reportedClass = report.reportedClass,
+                reportedItem = router.GetUserById(report.reportedItem.userId),
+                description = report.description,
+                category = report.category,
+                resolved = report.resolved
+            };
+            router.CreateUserReport(fullReport);
+        }
 
-		//todo
-		public void AddReviewReport(Report<Review> report)
-		{
-			router.CreateReviewReport(report);
-		}
+        //todo
+        public void AddReviewReport(Report<Review> report)
+        {
+            router.CreateReviewReport(report);
+        }
 
-//todo
-		public void AddSavedPlace(long userId, long placeId)
-		{
-			router.AddSavedPlace(userId, placeId);
-		}
+        //todo
+        public async Task AddSavedPlace(long userId, long placeId)
+        {
+            router.AddSavedPlace(userId, await router.GetPlace(placeId));
+        }
 
-//todo
-		public void RemoveSavedPlace(long userId, long placeId)
-		{
-			router.RemoveSavedPlace(userId, placeId);
-		}
+        //todo
+        public async Task RemoveSavedPlace(long userId, long placeId)
+        {
+            router.RemoveSavedPlace(userId, await router.GetPlace(placeId));
+        }
 
         public async Task<List<Place>> GetAllPlacesAsync()
         {
@@ -148,35 +148,37 @@ namespace DataServer
             return check.auth >= 2;
         }
 
-        public List<Report<Place>> GetPlaceReports()
+        public Task<List<Report<Place>>> GetPlaceReports()
         {
             //return cache.GetPlaceReports().Result.Values.ToList();
-            return router.GetPlaceReports().Result.Values.ToList();
+            return router.GetPlaceReports();
         }
+        /*
+		public List<Report<Place>> GetPlaceReports()
+		{
+			return cache.GetPlaceReports().Result.Values.ToList();
+		}*/
 
-        public Task<Dictionary<long, Report<Review>>> GetReviewReports()
+        //public Task<Dictionary<long, Report<Review>>> GetReviewReports()
+        public Task<List<Report<Review>>> GetReviewReports()
         {
             //return cache.GetReviewReports();
             return router.GetReviewReports();
         }
-
-        public Task<Dictionary<long, Report<User>>> GetUserReports()
-        {
-            //return cache.GetUserReports();
-            return router.GetUserReports();
-        }
-
         /*
-         public List<Report<Place>> GetPlaceReports()
-		{
-			return cache.GetPlaceReports().Result.Values.ToList();
-		}
-
 		public List<Report<Review>> GetReviewReports()
 		{
 			return cache.GetReviewReports().Result.Values.ToList();
-		}
+		}*/
 
+        //public Task<Dictionary<long, Report<User>>> GetUserReports()
+        public async Task<List<Report<User>>> GetUserReports()
+        {
+            //return cache.GetUserReports();
+            return await router.GetUserReports();
+        }
+
+        /*
 		public List<Report<UserData>> GetUserReports()
 		{
 			List<Report<User>> fullReports = cache.GetUserReports().Result.Values.ToList();

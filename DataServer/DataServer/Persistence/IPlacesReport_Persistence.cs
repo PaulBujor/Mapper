@@ -8,7 +8,7 @@ namespace DataServer.Persistence
     {
          Task CreatePlaceReport(Report<Place> placeReport);
          Task UpdatePlaceReport(Report<Place> placeReport);
-         Task<Dictionary<long, Report<Place>>> GetPlaceReports();
+         Task<List<Report<Place>>> GetPlaceReports();
          Task DismissPlaceReport(long reportId);
     }
 }

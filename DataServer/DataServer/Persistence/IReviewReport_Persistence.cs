@@ -8,7 +8,7 @@ namespace DataServer.Persistence
     {
          Task CreateReviewReport(Report<Review> reviewReport);
          Task UpdateReviewReport(Report<Review> reviewReport);
-         Task<Dictionary<long, Report<Review>>> GetReviewReports();
+         Task<List<Report<Review>>> GetReviewReports();
          public Task DismissReviewReport(long reportId);
     }
 }

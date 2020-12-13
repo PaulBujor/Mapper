@@ -93,7 +93,7 @@ namespace DataServer.Handlers
             }
         }
 
-//todo
+        //todo
         private void SendAllPlaces()
         {
             string placeJson;

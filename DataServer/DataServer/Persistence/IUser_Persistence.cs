@@ -26,6 +26,8 @@ namespace DataServer.Persistence
         public void UpdateEmail(long id, string email);
         public void UpdatePassword(long id, string password);
         User GetUserById(long userId);
+        public Task AddSavedPlace(long userId, Place place);
+        public Task RemoveSavedPlace(long userId, Place place);
 
         //Task<Review> AddPlaceReview(long placeId, Review review);
     }
