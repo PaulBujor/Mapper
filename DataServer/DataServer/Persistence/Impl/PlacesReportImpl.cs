@@ -25,6 +25,7 @@ namespace DataServer.Persistence.Impl
         {
             Report<Place> toDismiss = await dbContext.PlaceReports.FirstOrDefaultAsync(pr => pr.reportId == reportId);
             toDismiss.resolved = true;
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task<List<Report<Place>>> GetPlaceReports()
@@ -42,6 +43,7 @@ namespace DataServer.Persistence.Impl
         public async Task UpdatePlaceReport(Report<Place> placeReport)
         {
             dbContext.PlaceReports.Update(placeReport);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

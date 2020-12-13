@@ -21,7 +21,7 @@ namespace DataServer
             InitPlace();
         }
 
-        private void InitPlace()
+        private async void InitPlace()
         {
 
             User user = new User()
@@ -29,7 +29,7 @@ namespace DataServer
                 id = 200,
                 savedPlaces = new List<Place>()
             };
-            router.CreateUser(user);
+            await router.CreateUser(user);
             Place reitan = new Place()
             {
                 title = "Reitan",
@@ -38,13 +38,13 @@ namespace DataServer
                 latitude = 55.83663617092108,
                 reviews = new List<Review>()
             };
-            AddPlace(reitan);
+            await AddPlace(reitan);
             Report<Place> report = new Report<Place>()
             {
                 category = "Blyatity",
                 reportedItem = reitan
             };
-            AddPlaceReport(report);
+            await AddPlaceReport(report);
             Review review = new Review()
             {
                 id = 1,
@@ -68,8 +68,8 @@ namespace DataServer
                 }
             };
 
-            AddPlaceReview(reitan.id, review);
-            AddPlaceReview(reitan.id, newReview);
+            await AddPlaceReview(reitan.id, review);
+            await AddPlaceReview(reitan.id, newReview);
             Console.WriteLine(reitan.reviews.Count);
         }
 
@@ -121,7 +121,7 @@ namespace DataServer
         public async Task<Place> AddPlace(Place place)
         {
             //cache.AddPlace(place);
-            
+
             Console.WriteLine("returned place id: " + place.id);
             return await router.AddPlace(place); ;
         }

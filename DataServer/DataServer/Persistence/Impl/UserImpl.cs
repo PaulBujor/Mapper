@@ -25,27 +25,37 @@ namespace DataServer.Persistence
         {
             User myUser = dbContext.Users.FirstOrDefault(u => u.id == userId);
             myUser.auth = 0;
+            await dbContext.SaveChangesAsync();
         }
 
-        public async Task CheckEmail(string email)
+        public Task CheckEmail(string email)
         {
             //User toGet = dbContext.Users.FirstOrDefault(u => u.email == email);
-            if (dbContext.Users.FirstOrDefault(u => u.email == email) == null)
+            User toGet = dbContext.Users.FirstOrDefault(u => u.email == email);
+            if (!(toGet == null))
+            {
+                throw new System.Exception("E-mail already in used");
+            }
+            else
             {
                 System.Console.WriteLine("e-mail available");
+                return null;
             }
-            throw new System.Exception("E-mail already in used");
 
         }
 
-        public async Task CheckUsername(string username)
+        public Task CheckUsername(string username)
         {
-            //User toGet = dbContext.Users.FirstOrDefault(u => u.username == username);
-            if (dbContext.Users.FirstOrDefault(u => u.username == username) == null)
+            User toGet = dbContext.Users.FirstOrDefault(u => u.username == username);
+            if (!(toGet == null))
+            {
+                throw new System.Exception("Username already in used");
+            }
+            else
             {
                 System.Console.WriteLine("username available");
+                return null;
             }
-            throw new System.Exception("Username already in used");
         }
 
         public async Task CreateUser(User user)
@@ -54,57 +64,68 @@ namespace DataServer.Persistence
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<User> GetUser(string username, string password)
+        public Task<User> GetUser(string username, string password)
         {
-            User toGet = dbContext.Users.FirstOrDefault(u => u.username == username && u.password.Equals(password));
-            return toGet;
+            //User toGet = dbContext.Users.Select(u => u.username == username && u.password.Equals(password));
+            return (Task<User>)dbContext.Users.Where(u => u.username.Equals(username) && u.password.Equals(password));
         }
 
-        public async Task<User> GetUserById(long userId)
+        public Task<User> GetUserById(long userId)
         {
-            User toGet = dbContext.Users.FirstOrDefault(u => u.id == userId);
-            return toGet;
+            return (Task<User>)dbContext.Users.Where(u => u.id == userId);
         }
 
         public async Task UnbanUser(long userId)
         {
-            User myUser = dbContext.Users.FirstOrDefault(u => u.id == userId);
+            User myUser = (User)dbContext.Users.Where(u => u.id == userId);
             myUser.auth = 1;
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateEmail(long id, string email)
         {
-            User toGet = dbContext.Users.FirstOrDefault(u => u.id == id);
+            User toGet = (User)dbContext.Users.Where(u => u.id == id);
             toGet.email = email;
+            System.Console.WriteLine($"updating email to {toGet.email}");
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateFirstName(long id, string firstName)
         {
-            User toGet = dbContext.Users.FirstOrDefault(u => u.id == id);
+            User toGet = (User)dbContext.Users.Where(u => u.id == id);
             toGet.firstName = firstName;
+            System.Console.WriteLine($"updating first name to {toGet.firstName}");
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateLastName(long id, string lastName)
         {
-            User toGet = dbContext.Users.FirstOrDefault(u => u.id == id);
+            User toGet = (User)dbContext.Users.Where(u => u.id == id);
             toGet.lastName = lastName;
+            System.Console.WriteLine($"updating last name to {toGet.lastName}");
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task UpdatePassword(long id, string password)
         {
-            User toGet = dbContext.Users.FirstOrDefault(u => u.id == id);
+            User toGet = (User)dbContext.Users.Where(u => u.id == id);
             toGet.password = password;
+            System.Console.WriteLine($"updating pasword to ******");
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateUser(User user)
         {
             dbContext.Users.Update(user);
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateUsername(long id, string userName)
         {
-            User toGet = dbContext.Users.FirstOrDefault(u => u.id == id);
+            User toGet = (User)dbContext.Users.Where(u => u.id == id);
             toGet.username = userName;
+            System.Console.WriteLine($"updating username to {toGet.username}");
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task<List<User>> GetBannedUsers()

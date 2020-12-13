@@ -52,7 +52,8 @@ namespace DataServer.Persistence
             }
             catch (Exception e)
             {
-                throw new System.Exception($"Did not find place with id{place.id}");
+                System.Console.WriteLine($"Did not find place with id{place.id}");
+                throw new System.Exception(e.Message);
             }
         }
     }
