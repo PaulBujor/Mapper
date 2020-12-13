@@ -1,7 +1,6 @@
 package dk.groupfive.ModeratorServer.network;
 
 import dk.groupfive.ModeratorServer.model.objects.*;
-import dk.groupfive.ModeratorServer.model.objects.obsolete.ReviewItem;
 
 import java.util.List;
 
@@ -10,7 +9,7 @@ public interface ModeratorNetwork {
 
     List<Report<Review>> getReviewReports();
 
-    List<Report<User>> getUserReports();
+    List<Report<UserData>> getUserReports();
 
     void resolvePlace(long placeId, String action);
 
@@ -24,5 +23,5 @@ public interface ModeratorNetwork {
 
     void dismissUserReport(long reportId);
 
-    List<User> getBannedUsers();
+    List<UserData> getBannedUsers();
 }

@@ -48,7 +48,7 @@
 
 	public async Task FlagUserAsync(long userId)
 	{
-		await Model.ReportUserAsync(new User() { id = userId });
+		await Model.ReportUserAsync(new UserData() { userId = userId });
 	}
 
 	void OnChange(object value, Report<Place> report)

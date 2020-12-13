@@ -6,11 +6,8 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import dk.groupfive.SpringLogicServer.model.Model;
-import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.Review;
+import dk.groupfive.SpringLogicServer.model.objects.*;
 import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
-import dk.groupfive.SpringLogicServer.model.objects.User;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -63,7 +60,7 @@ public class ReportWorker {
                 addReportPlace((Report<Place>) task);
                 break;
             case "User" :
-                addReportUser((Report<User>) task);
+                addReportUser((Report<UserData>) task);
                 break;
             case "Review" :
                 addReportReview((Report<Review>) task);
@@ -78,7 +75,7 @@ public class ReportWorker {
         model.addReportPlace(report);
     }
 
-    public void addReportUser(Report<User> report)
+    public void addReportUser(Report<UserData> report)
     {
         model.addReportUser(report);
     }

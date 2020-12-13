@@ -83,7 +83,7 @@ namespace DataServer.Handlers
 		private void ReportUser()
 		{
 			JavaScriptSerializer js = new JavaScriptSerializer();
-			Report<User> reportedUser = js.Deserialize<Report<User>>(reader.ReadLine());
+			Report<UserData> reportedUser = js.Deserialize<Report<UserData>>(reader.ReadLine());
 			model.AddUserReport(reportedUser);
 		}
 

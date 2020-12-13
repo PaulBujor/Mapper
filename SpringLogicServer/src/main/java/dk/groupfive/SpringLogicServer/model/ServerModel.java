@@ -2,11 +2,7 @@ package dk.groupfive.SpringLogicServer.model;
 
 import dk.groupfive.SpringLogicServer.broadcast.Broadcaster;
 import dk.groupfive.SpringLogicServer.local.Cache;
-import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.Review;
-import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
-import dk.groupfive.SpringLogicServer.model.objects.User;
+import dk.groupfive.SpringLogicServer.model.objects.*;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 import dk.groupfive.SpringLogicServer.queue.PlaceWorker;
 import dk.groupfive.SpringLogicServer.queue.ReportWorker;
@@ -36,13 +32,24 @@ public class ServerModel implements Model {
         placeWorker = new PlaceWorker(this);
         reportWorker = new ReportWorker(this);
         reviewWorker = new ReviewWorker(this);
+        loader();
+    }
 
-        //we want this to be sync so data is loaded before anything else is added.
-        try {
-            cache.load(server.getAllPlaces());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void loader() {
+        //loads data from t3 every 15 minutes
+        new Thread(() -> {
+            try {
+                cache.load(server.getAllPlaces());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                Thread.sleep(15 * 60 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public static ServerModel getInstance() {
@@ -129,7 +136,7 @@ public class ServerModel implements Model {
     }
 
     @Override
-    public void addReportUser(Report<User> report) {
+    public void addReportUser(Report<UserData> report) {
         try {
             server.addReportUser(report);
         } catch (IOException e) {

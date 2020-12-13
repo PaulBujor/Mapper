@@ -48,7 +48,7 @@ namespace Client.Data.Networking
 			await _report.ReportPlaceAsync(report);
 		}
 
-		public async Task ReportUserAsync(Report<User> report)
+		public async Task ReportUserAsync(Report<UserData> report)
 		{
 			await _report.ReportUserAsync(report);
 		}
@@ -67,12 +67,12 @@ namespace Client.Data.Networking
 			return await _moderator.GetReviewReportsAsync();
 		}
 
-		public async Task<List<Report<User>>> GetUserReportsAsync()
+		public async Task<List<Report<UserData>>> GetUserReportsAsync()
 		{
 			return await _moderator.GetUserReportsAsync();
 		}
 
-		public async Task<List<User>> GetBannedUsersAsync()
+		public async Task<List<UserData>> GetBannedUsersAsync()
 		{
 			return await _moderator.GetBannedUsersAsync();
 		}

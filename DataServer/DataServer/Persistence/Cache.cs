@@ -286,6 +286,9 @@ namespace DataServer.Persistence
 			throw new NotImplementedException();
 		}
 
-        
-    }
+		public async Task<Dictionary<long, User>> GetBannedUsers()
+		{
+			return (Dictionary<long, User>) users.Where(u => u.Value.auth == 0);
+		}
+	}
 }

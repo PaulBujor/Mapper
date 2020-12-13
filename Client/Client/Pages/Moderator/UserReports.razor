@@ -6,12 +6,12 @@
 <div style="padding: 10px;">
 	<h3>User Reports</h3>
 
-	@foreach (Report<User> item in reports)
+	@foreach (Report<UserData> item in reports)
 	{
 		<div class="card">
 			<h5 class="card-header">Username: @item.reportedItem.username</h5>
 			<div class="card-body">
-				<h6 class="card-subtitle mb-2 text-muted">User ID: @item.reportedItem.id</h6>
+				<h6 class="card-subtitle mb-2 text-muted">User ID: @item.reportedItem.userId</h6>
 				<a class="card-link">
 					<RadzenDropDown class="align-middle" AllowClear="true" TValue="string"
 									Placeholder="Action"
@@ -24,7 +24,7 @@
 </div>
 
 @code {
-	List<Report<User>> reports = new List<Report<User>>();
+	List<Report<UserData>> reports = new List<Report<UserData>>();
 	List<string> options = new List<string> { "Ban user", "Dismiss" };
 
 	protected override async Task OnInitializedAsync()
@@ -34,7 +34,7 @@
 
 	public async Task BanUserAsync(long userId)
 	{
-		reports.RemoveAll(item => item.reportedItem.id == userId);
+		reports.RemoveAll(item => item.reportedItem.userId == userId);
 		await Model.BanUserAsync(userId);
 	}
 
@@ -44,14 +44,14 @@
 		await Model.DismissUserReportAsync(reportId);
 	}
 
-	void OnChange(object value, Report<User> report)
+	void OnChange(object value, Report<UserData> report)
 	{
 		var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
 		switch (str)
 		{
 			case "Ban user":
-				BanUserAsync(report.reportedItem.id);
+				BanUserAsync(report.reportedItem.userId);
 				break;
 			case "Dismiss":
 				DismissUserReportAsync(report.reportId);

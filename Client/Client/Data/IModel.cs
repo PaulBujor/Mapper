@@ -24,9 +24,9 @@ namespace Client.Data
 
 		public abstract Task<List<Report<Review>>> GetReviewReportsAsync();
 
-        public abstract Task<List<Report<User>>> GetUserReportsAsync();
+        public abstract Task<List<Report<UserData>>> GetUserReportsAsync();
 
-        public abstract Task<List<User>> GetBannedUsersAsync();
+        public abstract Task<List<UserData>> GetBannedUsersAsync();
 
         public abstract Task RemovePlaceAsync(long placeId);
 
@@ -42,7 +42,7 @@ namespace Client.Data
         public abstract Task UnbanUserAsync(long userId);
 
         public abstract Task DismissUserReportAsync(long reportId);
-        public abstract Task ReportUserAsync(User user);
+        public abstract Task ReportUserAsync(UserData user);
         public abstract Task AddPlaceReviewAsync(long placeId, Review r);
         public abstract Task AddSavedPlaceAsync(long userId, long placeId);
         public abstract Task RemoveSavedPlaceAsync(long userId, long placeId);

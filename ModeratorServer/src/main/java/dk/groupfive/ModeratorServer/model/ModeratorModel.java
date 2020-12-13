@@ -2,7 +2,6 @@ package dk.groupfive.ModeratorServer.model;
 
 import dk.groupfive.ModeratorServer.local.Cache;
 import dk.groupfive.ModeratorServer.model.objects.*;
-import dk.groupfive.ModeratorServer.model.objects.obsolete.ReviewItem;
 import dk.groupfive.ModeratorServer.remote.Client;
 import dk.groupfive.ModeratorServer.remote.Server;
 
@@ -29,6 +28,7 @@ public class ModeratorModel implements Model {
                 cache.loadPlaceReports(server.getPlaceReports());
                 cache.loadReviewReports(server.getReviewReports());
                 cache.loadUserReports(server.getUserReports());
+                cache.loadBanneeUsers(server.getBannedUsers());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -67,7 +67,7 @@ public class ModeratorModel implements Model {
     }
 
     @Override
-    public List<Report<User>> getUserReports() {
+    public List<Report<UserData>> getUserReports() {
         return cache.getUserReports();
     }
 
@@ -111,7 +111,7 @@ public class ModeratorModel implements Model {
     }
 
     @Override
-    public List<User> getBannedUsers() {
+    public List<UserData> getBannedUsers() {
         return cache.getBannedUsers();
     }
 
@@ -160,7 +160,7 @@ public class ModeratorModel implements Model {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        cache.getUserReports().stream().filter(report -> report.getReportedItem().getId() == userId).forEach(report -> report.setResolved(true));
+        cache.getUserReports().stream().filter(report -> report.getReportedItem().getUserId() == userId).forEach(report -> report.setResolved(true));
     }
 
     //maybe this should be changed to just userID, since a report to unban a user cannot be made

@@ -30,7 +30,7 @@ namespace Client.Data.Networking
 			Console.WriteLine(response.ToString());
 		}
 
-		public async Task ReportUserAsync(Report<User> report)
+		public async Task ReportUserAsync(Report<UserData> report)
 		{
 			HttpClient client = new HttpClient();
 			string reportSerialized = JsonSerializer.Serialize(report);

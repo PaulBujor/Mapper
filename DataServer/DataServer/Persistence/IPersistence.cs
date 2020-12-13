@@ -74,6 +74,8 @@ namespace DataServer.Persistence
 
 		Task<Dictionary<long, Report<User>>> GetUserReports();
 
+		Task<Dictionary<long, User>> GetBannedUsers();
+
 		Task<Review> AddPlaceReview(long placeId, Review review);
 
 		Task DismissPlaceReport(long reportId);
