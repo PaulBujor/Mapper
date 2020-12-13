@@ -166,6 +166,41 @@ namespace DataServer
             return router.GetUserReports();
         }
 
+        /*
+         public List<Report<Place>> GetPlaceReports()
+		{
+			return cache.GetPlaceReports().Result.Values.ToList();
+		}
+
+		public List<Report<Review>> GetReviewReports()
+		{
+			return cache.GetReviewReports().Result.Values.ToList();
+		}
+
+		public List<Report<UserData>> GetUserReports()
+		{
+			List<Report<User>> fullReports = cache.GetUserReports().Result.Values.ToList();
+			List<Report<UserData>> reports = new List<Report<UserData>>();
+			foreach (Report<User> report in fullReports)
+			{
+				reports.Add(new Report<UserData>()
+				{
+					reportId = report.reportId,
+					category = report.category,
+					description = report.description,
+					reportedClass = "UserData",
+					reportedItem = new UserData()
+					{
+						userId = report.reportedItem.id,
+						username = report.reportedItem.username
+					},
+					resolved = report.resolved
+				});
+			}
+			return reports;
+		}
+         */
+
         public void RemoveReview(long id)
         {
             //cache.RemoveReview(id);
