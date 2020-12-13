@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataServer.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace DataServer.Persistence
@@ -104,6 +105,20 @@ namespace DataServer.Persistence
         {
             User toGet = dbContext.Users.FirstOrDefault(u => u.id == id);
             toGet.username = userName;
+        }
+
+        async Task<List<User>> IUser_Persistence.GetBanUsers()
+        {
+            List<User> listOfUsers = await dbContext.Users.ToListAsync();
+            List<User> banUsers = new List<User>();
+            foreach (User user in listOfUsers)
+            {
+                if (user.auth == 0)
+                {
+                    banUsers.Add(user);
+                }
+            }
+            return banUsers;
         }
     }
 }

@@ -211,5 +211,10 @@ namespace DataServer
             //cache.UpdatePassword(id, password);
             router.UpdatePassword(id, password);
         }
+
+        async Task<List<User>> GetBanUsers()
+        {
+            return await router.GetBanUsers();
+        }
     }
 }

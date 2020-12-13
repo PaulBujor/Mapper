@@ -176,6 +176,11 @@ namespace DataServer.Persistence
             users.UpdateUsername(id, userName);
         }
 
+        public async Task<List<User>> GetBanUsers()
+        {
+            return await users.GetBanUsers();
+        }
+
         //IUserReport_Persistence
 
         public Task CreateUserReport(Report<User> userReport)
