@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class Cache {
     private Map<Long, Report<Place>> placeReports;
-    private Map<Long, Report<ReviewItem>> reviewReports;
-    private Map<Long, Report<User>> userReports;
-    private Map<Long, User> bannedUsers;
+    private Map<Long, Report<Review>> reviewReports;
+    private Map<Long, Report<UserData>> userReports;
+    private Map<Long, UserData> bannedUsers;
 
     public Cache() {
         placeReports = new HashMap<>();
@@ -26,21 +26,21 @@ public class Cache {
         }
     }
 
-    public void loadReviewReports(List<Report<ReviewItem>> reports) {
-        for (Report<ReviewItem> report : reports) {
+    public void loadReviewReports(List<Report<Review>> reports) {
+        for (Report<Review> report : reports) {
             reviewReports.put(report.getReportId(), report);
         }
     }
 
-    public void loadUserReports(List<Report<User>> reports) {
-        for (Report<User> report : reports) {
+    public void loadUserReports(List<Report<UserData>> reports) {
+        for (Report<UserData> report : reports) {
             userReports.put(report.getReportId(), report);
         }
     }
 
-    public void laodBanneeUsers(List<User> users) {
-        for (User user : users) {
-            bannedUsers.put(user.getId(), user);
+    public void loadBanneeUsers(List<UserData> users) {
+        for (UserData user : users) {
+            bannedUsers.put(user.getUserId(), user);
         }
     }
 
@@ -48,8 +48,13 @@ public class Cache {
 //        return reports.get(id);
 //    }
 
-    public List<Report<ReviewItem>> getReviewReports() {
-        return (ArrayList<Report<ReviewItem>>) reviewReports.values();
+    public List<Report<Review>> getReviewReports() {
+        ArrayList<Report<Review>> reports = new ArrayList<Report<Review>>();
+        for (Report<Review> report : reviewReports.values()) {
+            if(!report.isResolved())
+                reports.add(report);
+        }
+        return reports;
     }
 
     public List<Report<Place>> getPlaceReports() {
@@ -61,16 +66,21 @@ public class Cache {
         return reports;
     }
 
-    public List<Report<User>> getUserReports() {
-        return (ArrayList<Report<User>>) userReports.values();
+    public List<Report<UserData>> getUserReports() {
+        ArrayList<Report<UserData>> reports = new ArrayList<Report<UserData>>();
+        for (Report<UserData> report : userReports.values()) {
+            if(!report.isResolved())
+                reports.add(report);
+        }
+        return reports;
     }
 
-    public List<User> getBannedUsers() {
-        return (List<User>) bannedUsers.values();
+    public List<UserData> getBannedUsers() {
+        return (List<UserData>) bannedUsers.values();
     }
 
-    public void addBannedUser(User user) {
-        bannedUsers.put(user.getId(), user);
+    public void addBannedUser(UserData user) {
+        bannedUsers.put(user.getUserId(), user);
     }
 
     //public void removeReport(long reportId) {

@@ -1,9 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Client.Data;
-using Client.Data.Networking;
 using Microsoft.JSInterop;
 
 
@@ -37,11 +37,18 @@ namespace Client.Models
         public string lastname { get; set; }
         public long id { get; set; }
 
+        public List<Place> savedPlaces { get; set; }
+
         
         
        
         [Compare("password", ErrorMessage = "Passwords must match.")]
         public string confirmpassword { get; set; }
+
+        public User()
+        {
+            savedPlaces = new List<Place>();
+        }
 
         
         public class ValidPassword : ValidationAttribute
@@ -75,9 +82,6 @@ namespace Client.Models
                 return ValidationResult.Success;
             }
 
-            
-            
-            
         }
      
               

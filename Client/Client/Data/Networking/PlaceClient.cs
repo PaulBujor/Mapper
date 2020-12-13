@@ -49,7 +49,7 @@ namespace Client.Networking
 			Console.WriteLine(response.ToString());
 		}
 
-		public async Task AddPlaceReviewAsync(long id, ReviewItem review)
+		public async Task AddPlaceReviewAsync(long id, Review review)
 		{
 			HttpClient client = new HttpClient();
 			string reviewSerialized = JsonSerializer.Serialize(review);
@@ -64,6 +64,18 @@ namespace Client.Networking
 			Console.WriteLine(response.ToString());
 		}
 
+		public async Task AddSavedPlaceAsync(long userid, long placeid)
+		{
+			HttpClient client = new HttpClient();
+			HttpResponseMessage response = await client.PostAsync(URI + $"/users/{userid}/savedplaces/{placeid}", null);
+			Console.WriteLine(response.ToString());
+		}
 
+		public async Task RemoveSavedPlaceAsync(long userid, long placeid)
+		{
+			HttpClient client = new HttpClient();
+			HttpResponseMessage response = await client.DeleteAsync(URI + $"/users/{userid}/savedplaces/{placeid}");
+			Console.WriteLine(response.ToString());
+		}
 	}
 }

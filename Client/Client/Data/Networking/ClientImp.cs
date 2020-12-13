@@ -48,26 +48,31 @@ namespace Client.Data.Networking
 			await _report.ReportPlaceAsync(report);
 		}
 
-		public async Task ReportUserAsync(Report<User> report)
+		public async Task ReportUserAsync(Report<UserData> report)
 		{
 			await _report.ReportUserAsync(report);
+		}
+
+		public async Task ReportReviewAsync(Report<Review> report)
+		{
+			await _report.ReportReviewAsync(report);
 		}
 
 		public async Task<List<Report<Place>>> GetPlaceReportsAsync()
 		{
 			return await _moderator.GetPlaceReportsAsync();
 		}
-		public async Task<List<Report<ReviewItem>>> GetReviewReportsAsync()
+		public async Task<List<Report<Review>>> GetReviewReportsAsync()
 		{
 			return await _moderator.GetReviewReportsAsync();
 		}
 
-		public async Task<List<Report<User>>> GetUserReportsAsync()
+		public async Task<List<Report<UserData>>> GetUserReportsAsync()
 		{
 			return await _moderator.GetUserReportsAsync();
 		}
 
-		public async Task<List<User>> GetBannedUsersAsync()
+		public async Task<List<UserData>> GetBannedUsersAsync()
 		{
 			return await _moderator.GetBannedUsersAsync();
 		}
@@ -107,9 +112,19 @@ namespace Client.Data.Networking
 		}
 
 
-		public async Task AddPlaceReviewAsync(long placeId, ReviewItem review)
+		public async Task AddPlaceReviewAsync(long placeId, Review review)
 		{
 			await _place.AddPlaceReviewAsync(placeId, review);
+		}
+
+		public async Task AddSavedPlaceAsync(long userId, long placeId)
+		{
+			await _place.AddSavedPlaceAsync(userId, placeId);
+		}
+
+		public async Task RemoveSavedPlaceAsync(long userId, long placeId)
+		{
+			await _place.RemoveSavedPlaceAsync(userId, placeId);
 		}
 	}
 }

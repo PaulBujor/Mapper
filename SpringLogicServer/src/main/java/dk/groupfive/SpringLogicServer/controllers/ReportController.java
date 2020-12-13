@@ -1,9 +1,7 @@
 package dk.groupfive.SpringLogicServer.controllers;
 
 import dk.groupfive.SpringLogicServer.model.Model;
-import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.User;
+import dk.groupfive.SpringLogicServer.model.objects.*;
 import dk.groupfive.SpringLogicServer.queue.ServerQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,14 +30,14 @@ public class ReportController {
 
     @PostMapping(value = "/reports/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public void reportUser(@RequestBody Report<User> report) {
+    public void reportUser(@RequestBody Report<UserData> report) {
         model.addReportUser(report);
     }
 
-    /*@PostMapping(value = "/report/review")
+    @PostMapping(value = "/reports/reviews")
     @ResponseStatus(HttpStatus.CREATED)
-    public void reportPlace(@RequestBody Report<Place> report) {
-
-    }*/
+    public void reportReview(@RequestBody Report<Review> report) {
+        model.addReportReview(report);
+    }
 
 }

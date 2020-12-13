@@ -1,6 +1,53 @@
+@using Client.Data
+@using Client.Models
+@using System.Text.Json
+@using System.Text.RegularExpressions
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject IAuth Auth
+@inject IMap Map
 
-<h3>MyPlaces</h3>
+<h3>My Places</h3>
+<div id="map" style="height: 50vh;"></div>
+
+@if(user != null)
+	@foreach (Place place in user.savedPlaces)
+	{
+		<div class="card">
+			<h5 class="card-header">Place: @place.title</h5>
+			<div class="card-body">
+				<p class="card-text">@place.description</p>
+				<a href="/place/@place.id" class="card-link">Open place</a>
+			</div>
+		</div>
+	}
 
 @code {
-    
+	[CascadingParameter]
+	protected Task<AuthenticationState> AuthStat { get; set; }
+
+	private User user;
+
+	protected async override Task OnInitializedAsync()
+	{
+		base.OnInitializedAsync();
+		var user = (await AuthStat).User;
+
+		if (!user.Identity.IsAuthenticated)
+		{
+			NavigationManager.NavigateTo($"/login");
+		}
+		string userAsJson = await JsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
+
+		if (!string.IsNullOrEmpty(userAsJson))
+		{
+			this.user = JsonSerializer.Deserialize<User>(userAsJson);
+		}
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+			await Map.InitSavedPlacesAsync(user.savedPlaces);
+	}
 }

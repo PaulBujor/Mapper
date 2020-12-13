@@ -33,7 +33,7 @@ namespace Client.Data
 		public override async Task AddPlaceAsync(Place place)
 		{
 			await server.AddPlaceAsync(place);
-			places.Add(place);
+			//places.Add(place);
 		}
 
 		public override IList<Place> GetPlaces()
@@ -52,17 +52,17 @@ namespace Client.Data
 			return await server.GetPlaceReportsAsync();
 		}
 
-		public override async Task<List<Report<ReviewItem>>> GetReviewReportsAsync()
+		public override async Task<List<Report<Review>>> GetReviewReportsAsync()
 		{
 			return await server.GetReviewReportsAsync();
 		}
 
-		public override async Task<List<Report<User>>> GetUserReportsAsync()
+		public override async Task<List<Report<UserData>>> GetUserReportsAsync()
 		{
 			return await server.GetUserReportsAsync();
 		}
 
-		public override async Task<List<User>> GetBannedUsersAsync()
+		public override async Task<List<UserData>> GetBannedUsersAsync()
 		{
 			return await server.GetBannedUsersAsync();
 		}
@@ -112,9 +112,9 @@ namespace Client.Data
 			await server.ReportPlaceAsync(report);
 		}
 
-		public override async Task ReportUserAsync(User user)
+		public override async Task ReportUserAsync(UserData user)
 		{
-			Report<User> report = new Report<User>
+			Report<UserData> report = new Report<UserData>
 			{
 				reportedItem = user,
 				reportedClass = "User"
@@ -122,23 +122,46 @@ namespace Client.Data
 			await server.ReportUserAsync(report);
 		}
 
+		public override async Task ReportReviewAsync(long placeId, long reviewId)
+		{
+			Place place = GetPlaces().FirstOrDefault(p => p.id.Equals(placeId));
+			
+			Report<Review> report = new Report<Review>
+			{
+				reportedItem = place.GetReviews().FirstOrDefault(r => r.id.Equals(reviewId)),
+				reportedClass = "Review"
+			};
+			await server.ReportReviewAsync(report);
+		}
+
+
 		public override Place GetPlaceById(long id)
         {
 			return GetPlaces().FirstOrDefault(p => p.id.Equals(id));
 		}
 
-		public override async Task AddPlaceRatingAsync(long placeId, int r)
+		public override async Task AddPlaceReviewAsync(long placeId, Review r)
 		{
-			ReviewItem review = new ReviewItem() {
-				rating = r
-			};
-			await server.AddPlaceReviewAsync(placeId, review);
+			await server.AddPlaceReviewAsync(placeId, r);
+		}
+
+		public override async Task AddSavedPlaceAsync(long userId, long placeId)
+		{
+			await server.AddSavedPlaceAsync(userId, placeId);
+		}
+
+		public override async Task RemoveSavedPlaceAsync(long userId, long placeId)
+		{
+			await server.RemoveSavedPlaceAsync(userId, placeId);
 		}
 
 		private void UpdatePlace(Place place)
 		{
+			//possible bug here
 			places.Remove(GetPlaceById(place.id));
 			places.Add(place);
 		}
-	}
+
+        
+    }
 }

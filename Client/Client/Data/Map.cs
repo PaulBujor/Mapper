@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Client.Models;
 using System.Threading;
+using System.Text.Json;
 
 namespace Client.Data
 {
@@ -61,6 +62,19 @@ namespace Client.Data
 
         }
 
+        public async Task InitSavedPlacesAsync(List<Place> places)
+        {
+            if (objRef == null)
+                objRef = DotNetObjectReference.Create(this);
+            model.OnNewPlace -= AddMarker;
+            await jsRuntime.InvokeVoidAsync("mapBoxFunctions.initMapBox", objRef);
+
+            
+            foreach (Place place in places)
+                await AddMarkerAsync(place);
+            
+        }
+
         public void DataReady()
         {
             dataReady = true;
@@ -95,11 +109,13 @@ namespace Client.Data
 
         public async Task CreatePlace(PlaceData placeData)
         {
+            
             Place newPlace = new Place() {
                 longitude = currentLongitude,
                 latitude = currentLatitude,
                 title = placeData.Title,
                 description = placeData.Description,
+                addedBy = placeData.addedBy,
                 reviews = new List<Review>()
             };
             //await AddMarkerAsync(newPlace); //line will be removed and place will be added when model gets it from broadcaster

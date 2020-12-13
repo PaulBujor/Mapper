@@ -25,36 +25,95 @@ namespace DataServer
         }
 
         private void InitPlace()
-        {
-            Place reitan = new Place()
-            {
-                title = "Reitan",
-                description = "Heaven",
-                longitude = 9.795995847440167,
-                latitude = 55.83663617092108,
-                reviews = new List<Review>()
-            };
-            AddPlace(reitan);
-            Report<Place> report = new Report<Place>()
-            {
-                category = "Blyatity",
-                reportedItem = reitan
-            };
-            AddPlaceReport(report);
-            Review review = new Review()
-            {
-                rating = 1
-            };
+		{
 
-            AddPlaceReview(reitan.id, review);
-            Console.WriteLine(reitan.reviews.Count);
-        }
+			User user = new User()
+			{
+				id = 200,
+				savedPlaces = new List<Place>()
+			};
+			cache.Register(user);
+			Place reitan = new Place()
+			{
+				title = "Reitan",
+				description = "Heaven",
+				longitude = 9.795995847440167,
+				latitude = 55.83663617092108,
+				reviews = new List<Review>()
+			};
+			AddPlace(reitan);
+			Report<Place> report = new Report<Place>()
+			{
+				category = "Blyatity",
+				reportedItem = reitan
+			};
+			AddPlaceReport(report);
+			Review review = new Review()
+			{
+				id = 1,
+				rating = 1,
+				comment = "very beautiful, but my back hurts",
+				addedBy = new UserData()
+				{
+					userId = 1,
+					username = "admin"
+				}
+			};
+			Review newReview = new Review()
+			{
+				id = 2,
+				rating = 1,
+				comment = "rema 1000 tak",
+				addedBy = new UserData()
+				{
+					userId = 2,
+					username = "adminomnom"
+				}
+			};
+
+			AddPlaceReview(reitan.id, review);
+			AddPlaceReview(reitan.id, newReview);
+			Console.WriteLine(reitan.reviews.Count);
+		}
 
         public void AddPlaceReport(Report<Place> report)
         {
             //cache.CreatePlaceReport(report);
             router.CreatePlaceReport(report);
         }
+
+		//todo
+		public void AddUserReport(Report<UserData> report)
+		{
+			Report<User> fullReport = new Report<User>()
+			{
+				reportId = report.reportId,
+				reportedClass = report.reportedClass,
+				reportedItem = cache.GetUserById(report.reportedItem.userId),
+				description = report.description,
+				category = report.category,
+				resolved = report.resolved
+			};
+			cache.CreateUserReport(fullReport);
+		}
+
+		//todo
+		public void AddReviewReport(Report<Review> report)
+		{
+			cache.CreateReviewReport(report);
+		}
+
+//todo
+		public void AddSavedPlace(long userId, long placeId)
+		{
+			cache.AddSavedPlace(userId, placeId);
+		}
+
+//todo
+		public void RemoveSavedPlace(long userId, long placeId)
+		{
+			cache.RemoveSavedPlace(userId, placeId);
+		}
 
         public async Task<List<Place>> GetAllPlacesAsync()
         {

@@ -1,5 +1,7 @@
 package dk.groupfive.ModeratorServer.model.objects;
 
+import java.util.ArrayList;
+
 public class User {
     private long id;
     private String email;
@@ -12,6 +14,7 @@ public class User {
     //1 regular user
     //2 moderator
     //3 admin
+    private ArrayList<Place> savedPlaces;
 
 
     public User() {
@@ -25,6 +28,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.auth = auth;
+        savedPlaces = new ArrayList<Place>();
     }
 
     public long getId() {
@@ -81,5 +85,13 @@ public class User {
 
     public void setAuth(int auth) {
         this.auth = auth;
+    }
+
+    public ArrayList<Place> getSavedPlaces() {
+        return savedPlaces;
+    }
+
+    public void setSavedPlaces(ArrayList<Place> savedPlaces) {
+        this.savedPlaces = savedPlaces;
     }
 }

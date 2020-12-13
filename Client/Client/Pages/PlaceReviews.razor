@@ -1,57 +1,188 @@
 ﻿@page "/place/{placeid}"
 @using Radzen.Blazor
 @using Client.Models
+@using System.Text.Json
+@using Client.Data
 @inject Client.Data.IModel Model
 @inject Client.Data.IMap Map
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
+@inject IAuth Auth
 
-<div class="page-container">
-    <div class="place-first-row">
-        <p class="place-title">
-            @place.title
-        </p>
-        <RadzenRating id="radzen-rating" Change=@(v => OnChange(v, "Rating with 5 stars")) />
-    </div>
+    <AuthorizeView>
+        <Authorized>
+            <div class="page-container">
+                <div class="place-first-row">
+                    <div class="place-title">
+                        <p>@place.title</p>
+                    </div>
+                    <RadzenIcon id=@(IsPlaceSaved ? "save-place-added" : "save-place") @onclick="SavePlace" Icon="favorite" />
+                </div>
 
-    <div id="title-separator"></div>
+                <div class="place-section">
 
-    <div class="place-section">
-        <div id="place-description">
-            <h3>/ Description /</h3>
-            <p>@place.description</p>
-        </div>
-        <div id="place-reviews">
-            <h3>/ Comments /</h3>
-        </div>
-    </div>
-    <div id='map'></div>
-
-</div>
-@code {
-    [Parameter]
-    public string placeId { get; set; }
-    public Place place { get; set; }
-
-    private bool isRated { get; set; }
-
-    protected override void OnInitialized()
-    {
-
-        place = Model.GetPlaces().FirstOrDefault(p => (p.id == long.Parse(placeId)));
+                    <div class="place-section-item" id="place-description">
+                        <div class="place-section-item-header">
+                            Description
+                        </div>
+                        <p>@place.description</p>
+                    </div>
 
 
+                    <div class="place-section-item" id="place-reviews">
+                        <div class="place-section-item-header">
+                            Reviews
+                        </div>
+                        @if (place.GetReviews().Count() > 0)
+                        {
+                            <div class="place-section-item-container">
+                                <ul>
+                                    @foreach (var review in place.GetReviews())
+                                    {
+                                        <li>
+                                            <div class="review-container">
+                                                <div class="first-line">
+                                                    <span class="first-line-title">&commat;@review.addedBy.username</span>
+                                                    <span class="first-line-rating">@review.rating</span>
+                                                    <span id=@review.id.ToString() class="first-line-report" @onclick="() => ReportReview(review.id)"><RadzenIcon Icon="flag" /></span>
+                                                </div>
+                                                <p>@review.comment</p>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        <div class="review-input-container">
+                            <div class="review-input-rating">
+                                @if (place.GetReviews().FirstOrDefault(item => item.addedBy.userId == currentUser.id) == null)
+                                {
+                                    <RadzenRating Change=@(v => OnChange(v)) />
+                                }
+                                else
+                                {
+                                    <RadzenRating Disabled="true" Value=@int.Parse(place.GetReviews().FirstOrDefault(item => item.addedBy.userId == currentUser.id).rating.ToString()[0].ToString()) />
+                                    <i class="alert-message">You've already rated this place!</i>
+                                }
+                            </div>
+                            <div class="review-input">
+                                <div id="review-input-group" class="input-group">
+                                    @if (place.GetReviews().FirstOrDefault(item => item.addedBy.userId == currentUser.id) == null)
+                                    {<input type="text" id="review-input-comment" class="form-control" placeholder="Leave a comment (optional)" aria-label="Leave a comment!" aria-describedby="button-addon2" @bind-value="comment">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button" id="button-addon2" @onclick="SendReview">Submit</button>
+                                        </div>}
+                                    else
+                                    {
+                                        <input type="text" id="review-input-comment" class="form-control" placeholder="Leave a comment (optional)" aria-label="Leave a comment!" aria-describedby="button-addon2" disabled @bind-value="comment">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button" id="button-addon2" disabled @onclick="SendReview">Submit</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-place-reviews" id='map'></div>
+            </div>
+        </Authorized>
+        <NotAuthorized>
+            @{ 
+                NavigationManager.NavigateTo("login", true);
+            }
+        </NotAuthorized>
+    </AuthorizeView>
+
+
+    @code {
+        [Parameter]
+        public string placeId { get; set; }
+        public Place place { get; set; }
+        public Place mockPlace { get; set; }
+        public string comment { get; set; }
+        public int rating { get; set; }
+
+        public bool IsPlaceSaved { get; set; }
+
+        public User currentUser = new User();
+
+
+
+        private bool isRated { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            comment = "";
+            place = Model.GetPlaces().FirstOrDefault(p => (p.id == long.Parse(placeId)));
+            currentUser = JsonSerializer.Deserialize<User>(await JsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser"));
+            Console.WriteLine("Current user id: " + currentUser.id);
+            IsPlaceSaved = currentUser.savedPlaces.FirstOrDefault(p => p.id == place.id) != null;
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+
+            if (firstRender)
+            {
+                await Map.InitMapMarkerAsync(long.Parse(placeId));
+            }
+            place = Model.GetPlaces().FirstOrDefault(p => (p.id == long.Parse(placeId)));
+            currentUser = JsonSerializer.Deserialize<User>(await JsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser"));
+        }
+
+        public void OnChange(int rating)
+        {
+            this.rating = rating;
+
+        }
+
+        public async Task ReportReview(long id)
+        {
+            Console.WriteLine($"Flag works {id}");
+            await Model.ReportReviewAsync(long.Parse(placeId), id);
+
+        }
+
+        public async Task SendReview()
+        {
+
+            Review review = new Review()
+            {
+                rating = this.rating,
+                addedBy = new UserData()
+                {
+                    userId = currentUser.id,
+                    username = currentUser.username
+                }
+            };
+
+            if (!comment.Equals(""))
+                review.comment = this.comment;
+            else
+            {
+                review.comment = "-";
+            }
+
+            await Model.AddPlaceReviewAsync(long.Parse(placeId), review);
+            NavigationManager.NavigateTo($"/place/{placeId}", true);
+        }
+
+        public async Task SavePlace()
+        {
+            IsPlaceSaved = !IsPlaceSaved;
+            if (IsPlaceSaved)
+            {
+                await Model.AddSavedPlaceAsync(currentUser.id, long.Parse(placeId));
+                currentUser.savedPlaces.Add(place);
+            }
+            else
+            {
+                await Model.RemoveSavedPlaceAsync(currentUser.id, long.Parse(placeId));
+                currentUser.savedPlaces.RemoveAll(p => p.id == place.id);
+            }
+
+            string serialisedData = JsonSerializer.Serialize(currentUser);
+            JsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
+        }
     }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-            await Map.InitMapMarkerAsync(long.Parse(placeId));
-    }
-
-
-    public async Task OnChange(int rating, string name)
-    {
-        await Model.AddPlaceRatingAsync(long.Parse(placeId), rating);
-    }
-
-
-}

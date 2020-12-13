@@ -22,7 +22,8 @@ namespace DataServer.Models
         //2 moderator
         //3 admin
 
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-    }
+		public string firstName { get; set; }
+		public string lastName { get; set; }
+		public List<Place> savedPlaces { get; set; }
+	}
 }

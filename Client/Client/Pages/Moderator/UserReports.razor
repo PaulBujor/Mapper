@@ -1,5 +1,65 @@
-﻿<h3>User Reports</h3>
+﻿@using Client.Models
+@using Client.Data
+@inject IModel Model
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div style="padding: 10px;">
+	<h3>User Reports</h3>
+
+	@foreach (Report<UserData> item in reports)
+	{
+		<div class="card">
+			<h5 class="card-header">Username: @item.reportedItem.username</h5>
+			<div class="card-body">
+				<h6 class="card-subtitle mb-2 text-muted">User ID: @item.reportedItem.userId</h6>
+				<a class="card-link">
+					<RadzenDropDown class="align-middle" AllowClear="true" TValue="string"
+									Placeholder="Action"
+									Data=@options
+									TextProperty="ModAction" ValueProperty="Action" Change=@(args => OnChange(args, item)) />
+				</a>
+			</div>
+		</div>
+	}
+</div>
 
 @code {
+	List<Report<UserData>> reports = new List<Report<UserData>>();
+	List<string> options = new List<string> { "Ban user", "Dismiss" };
+
+	protected override async Task OnInitializedAsync()
+	{
+		reports = await Model.GetUserReportsAsync();
+	}
+
+	public async Task BanUserAsync(long userId)
+	{
+		reports.RemoveAll(item => item.reportedItem.userId == userId);
+		await Model.BanUserAsync(userId);
+	}
+
+	public async Task DismissUserReportAsync(long reportId)
+	{
+		reports.RemoveAll(item => item.reportId == reportId);
+		await Model.DismissUserReportAsync(reportId);
+	}
+
+	void OnChange(object value, Report<UserData> report)
+	{
+		var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+		switch (str)
+		{
+			case "Ban user":
+				BanUserAsync(report.reportedItem.userId);
+				break;
+			case "Dismiss":
+				DismissUserReportAsync(report.reportId);
+				break;
+			default:
+				Console.WriteLine("not done");
+				break;
+		}
+	}
 
 }

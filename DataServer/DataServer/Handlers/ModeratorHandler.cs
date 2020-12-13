@@ -70,6 +70,9 @@ namespace DataServer.Handlers
 				case "getUserReports":
 					GetUserReports();
 					break;
+				case "getBannedUsers":
+					GetBannedUsers();
+					break;
 
 				case "removePlace":
 					RemovePlace();
@@ -102,6 +105,11 @@ namespace DataServer.Handlers
 					Console.WriteLine("Default was called");
 					break;
 			}
+		}
+
+		private void GetBannedUsers()
+		{
+			writer.WriteLine(JsonSerializer.Serialize(model.GetBannedUsers()));
 		}
 
 		private void GetUserById()
@@ -155,12 +163,12 @@ namespace DataServer.Handlers
 
 		private void GetUserReports()
 		{
-			writer.WriteLine(JsonSerializer.Serialize(model.GetUserReports().Result));
+			writer.WriteLine(JsonSerializer.Serialize(model.GetUserReports()));
 		}
 
 		private void GetReviewReports()
 		{
-			writer.WriteLine(JsonSerializer.Serialize(model.GetReviewReports().Result));
+			writer.WriteLine(JsonSerializer.Serialize(model.GetReviewReports()));
 		}
 
 		private void GetPlaceReports()

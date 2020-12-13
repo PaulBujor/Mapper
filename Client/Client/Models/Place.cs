@@ -17,6 +17,7 @@ namespace Client.Models
 
 		public Place()
 		{
+			reviews = new List<Review>();
 		}
 
 		public Place(double longitude, double latitude, string title, string description)

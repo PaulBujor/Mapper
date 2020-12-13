@@ -1,8 +1,6 @@
 package dk.groupfive.ModeratorServer.remote;
 
-import dk.groupfive.ModeratorServer.model.objects.Place;
-import dk.groupfive.ModeratorServer.model.objects.Report;
-import dk.groupfive.ModeratorServer.model.objects.User;
+import dk.groupfive.ModeratorServer.model.objects.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +11,10 @@ public interface Server {
     boolean authorizeUser(User user) throws Exception;
 
     List<Report<Place>> getPlaceReports() throws IOException;
+
+    List<Report<UserData>> getUserReports() throws IOException;
+
+    List<Report<Review>> getReviewReports() throws IOException;
 
     //using just id to save some bandwidth
     void removePlace(long placeId);
@@ -29,5 +31,7 @@ public interface Server {
 
     void dismissUserReport(long reportId);
 
-    User getUserById(long userId) throws IOException;
+    UserData getUserById(long userId) throws IOException;
+
+    List<UserData> getBannedUsers() throws IOException;
 }

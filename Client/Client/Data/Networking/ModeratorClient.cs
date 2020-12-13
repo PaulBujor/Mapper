@@ -19,25 +19,25 @@ namespace Client.Data.Networking
 			return JsonSerializer.Deserialize<List<Report<Place>>>(response);
 		}
 
-		public async Task<List<Report<ReviewItem>>> GetReviewReportsAsync()
+		public async Task<List<Report<Review>>> GetReviewReportsAsync()
 		{
 			HttpClient client = new HttpClient();
 			string response = await client.GetStringAsync(URI + "/reports/reviews");
-			return JsonSerializer.Deserialize<List<Report<ReviewItem>>>(response);
+			return JsonSerializer.Deserialize<List<Report<Review>>>(response);
 		}
 
-		public async Task<List<Report<User>>> GetUserReportsAsync()
+		public async Task<List<Report<UserData>>> GetUserReportsAsync()
 		{
 			HttpClient client = new HttpClient();
 			string response = await client.GetStringAsync(URI + "/reports/users");
-			return JsonSerializer.Deserialize<List<Report<User>>>(response);
+			return JsonSerializer.Deserialize<List<Report<UserData>>>(response);
 		}
 
-		public async Task<List<User>> GetBannedUsersAsync()
+		public async Task<List<UserData>> GetBannedUsersAsync()
 		{
 			HttpClient client = new HttpClient();
 			string response = await client.GetStringAsync(URI + "/bannedUsers");
-			return JsonSerializer.Deserialize<List<User>>(response);
+			return JsonSerializer.Deserialize<List<UserData>>(response);
 		}
 
 		public async Task RemovePlaceAsync(long placeId)

@@ -1,5 +1,37 @@
-﻿<h3>Banned Users</h3>
+﻿@using Client.Models
+@using Client.Data
+@inject IModel Model
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div style="padding: 10px;">
+	<h3>Banned users</h3>
+
+	@foreach (UserData item in users)
+	{
+		<div class="card">
+			<h5 class="card-header">Username: @item.username</h5>
+			<div class="card-body">
+				<h6 class="card-subtitle mb-2 text-muted">User ID: @item.userId</h6>
+				<a class="card-link">
+					<RadzenButton Click=@(args => UnbanUser(item.userId)) Text="Unban" Style="margin-bottom: 20px; width: 150px" />
+				</a>
+			</div>
+		</div>
+	}
+</div>
 
 @code {
+	List<UserData> users = new List<UserData>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		users = await Model.GetBannedUsersAsync();
+	}
+
+	private async Task UnbanUser(long id)
+	{
+		users.RemoveAll(item => item.userId == id);
+		await Model.UnbanUserAsync(id);
+	}
 
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
@@ -29,6 +30,8 @@ namespace Client.Models
         
         public string password { get; set; }
         public long id { get; set; }
+
+		public List<Place> savedPlaces;
         
 
     }

@@ -2,6 +2,7 @@
 @inject IJSRuntime JSRuntime
 @inject Client.Data.IMap Map
 @using Client.Models
+@using System.Text.Json 
 
 <div id='map'></div>
 <div class="map-overlay">
@@ -48,27 +49,36 @@
 </div>
 
 @code{
-    private PlaceData placeData = new PlaceData(); 
-    private string buttonText = "Add Place";
+	private PlaceData placeData = new PlaceData();
+	private string buttonText = "Add Place";
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-            await Map.InitMapAsync();
-    }
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+			await Map.InitMapAsync();
+	}
 
-    private async Task AddMarker()
-    {
-        if (buttonText.Equals("Add Place"))
-        {
-            buttonText = "Save & Add Place";
-        }
-        else
-        {
-            await Map.CreatePlace(placeData);
-            placeData.Reset();
-            buttonText = "Add Place";
-        }
-        Map.ChangeAddingMarkerMode();
-    }
+	private async Task AddMarker()
+	{
+		if (buttonText.Equals("Add Place"))
+		{
+			buttonText = "Save & Add Place";
+		}
+		else
+		{
+			User user;
+			string userAsJson = await JSRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
+
+			if (!string.IsNullOrEmpty(userAsJson))
+			{
+				user = JsonSerializer.Deserialize<User>(userAsJson);
+				placeData.addedBy = new UserData() { userId = user.id, username = user.username };
+			}
+
+			await Map.CreatePlace(placeData);
+			placeData.Reset();
+			buttonText = "Add Place";
+		}
+		Map.ChangeAddingMarkerMode();
+	}
 }

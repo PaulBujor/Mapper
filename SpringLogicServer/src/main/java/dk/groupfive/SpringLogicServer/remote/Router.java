@@ -1,10 +1,6 @@
 package dk.groupfive.SpringLogicServer.remote;
 
-import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.Review;
-import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
-import dk.groupfive.SpringLogicServer.model.objects.User;
+import dk.groupfive.SpringLogicServer.model.objects.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,12 +52,22 @@ public class Router implements Server{
     }
 
     @Override
-    public void addReportUser(Report<User> report){
+    public void addReportUser(Report<UserData> report){
         reportClient.addReportUser(report);
     }
 
     @Override
     public void addReportReview(Report<Review> report){
         reportClient.addReportReview(report);
+    }
+
+    @Override
+    public void addSavedPlace(long userId, long placeId) {
+        placeClient.addSavedPlace(userId,placeId);
+    }
+
+    @Override
+    public void removeSavedPlace(long userId, long placeId) {
+        placeClient.removeSavedPlace(userId,placeId);
     }
 }

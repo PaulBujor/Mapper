@@ -2,9 +2,7 @@ package dk.groupfive.ModeratorServer.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import dk.groupfive.ModeratorServer.model.objects.Place;
-import dk.groupfive.ModeratorServer.model.objects.Report;
-import dk.groupfive.ModeratorServer.model.objects.User;
+import dk.groupfive.ModeratorServer.model.objects.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,11 +42,27 @@ public class Client implements Server {
     }
 
     @Override
-    public List<Report<Place>> getPlaceReports() throws IOException {
+    public synchronized List<Report<Place>> getPlaceReports() throws IOException {
         out.println("getPlaceReports");
         Type placeReportsType = new TypeToken<List<Report<Place>>>() {
         }.getType();
         return gson.fromJson(in.readLine(), placeReportsType);
+    }
+
+    @Override
+    public synchronized List<Report<UserData>> getUserReports() throws IOException {
+        out.println("getUserReports");
+        Type userReportsType = new TypeToken<List<Report<UserData>>>() {
+        }.getType();
+        return gson.fromJson(in.readLine(), userReportsType);
+    }
+
+    @Override
+    public synchronized List<Report<Review>> getReviewReports() throws IOException {
+        out.println("getReviewReports");
+        Type reviewReportsType = new TypeToken<List<Report<Review>>>() {
+        }.getType();
+        return gson.fromJson(in.readLine(), reviewReportsType);
     }
 
     @Override
@@ -76,27 +90,35 @@ public class Client implements Server {
     }
 
     @Override
-    public void dismissPlaceReport(long reportId) {
+    public synchronized void dismissPlaceReport(long reportId) {
         out.println("dismissPlaceReport");
         out.println(reportId);
     }
 
     @Override
-    public void dismissReviewReport(long reportId) {
+    public synchronized void dismissReviewReport(long reportId) {
         out.println("dismissReviewReport");
         out.println(reportId);
     }
 
     @Override
-    public void dismissUserReport(long reportId) {
+    public synchronized void dismissUserReport(long reportId) {
         out.println("dismissUserReport");
         out.println(reportId);
     }
 
     @Override
-    public User getUserById(long userId) throws IOException {
+    public synchronized UserData getUserById(long userId) throws IOException {
         out.println("getUserById");
         out.println(userId);
-        return gson.fromJson(in.readLine(), User.class);
+        return gson.fromJson(in.readLine(), UserData.class);
+    }
+
+    @Override
+    public List<UserData> getBannedUsers() throws IOException {
+        out.println("getBannedUsers");
+        Type bannedUsersType = new TypeToken<List<UserData>>() {
+        }.getType();
+        return gson.fromJson(in.readLine(), bannedUsersType);
     }
 }

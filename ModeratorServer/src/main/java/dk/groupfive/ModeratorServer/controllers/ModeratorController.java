@@ -3,7 +3,6 @@ package dk.groupfive.ModeratorServer.controllers;
 import dk.groupfive.ModeratorServer.model.Model;
 import dk.groupfive.ModeratorServer.model.ModeratorModel;
 import dk.groupfive.ModeratorServer.model.objects.*;
-import dk.groupfive.ModeratorServer.model.objects.obsolete.ReviewItem;
 import dk.groupfive.ModeratorServer.network.ModeratorNetwork;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,17 +34,17 @@ public class ModeratorController implements ModeratorNetwork {
     }
 
     @GetMapping("/reports/reviews")
-    public List<Report<ReviewItem>> getReviewReports() {
+    public List<Report<Review>> getReviewReports() {
         return model.getReviewReports();
     }
 
     @GetMapping("/reports/users")
-    public List<Report<User>> getUserReports() {
+    public List<Report<UserData>> getUserReports() {
         return model.getUserReports();
     }
 
     @GetMapping("/bannedUsers")
-    public List<User> getBannedUsers() {
+    public List<UserData> getBannedUsers() {
         return model.getBannedUsers();
     }
 
@@ -68,6 +67,7 @@ public class ModeratorController implements ModeratorNetwork {
         model.resolveUser(userId, action);
     }
 
+    //maybe should use patch instead, but the url is already used,
     @PutMapping("/reports/places/dismissed")
     public void dismissPlaceReport(@RequestParam long reportId) {
         model.dismissPlaceReport(reportId);
