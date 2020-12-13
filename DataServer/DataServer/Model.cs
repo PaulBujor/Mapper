@@ -24,7 +24,7 @@ namespace DataServer
         private async void InitPlace()
         {
 
-            /*User user = new User()
+            User user = new User()
             {
                 id = 200,
                 savedPlaces = new List<Place>(),
@@ -34,7 +34,7 @@ namespace DataServer
                 email = "bonjour@blyat.dk"
             };
             await router.CreateUser(user);
-            */
+            
             Place reitan = new Place()
             {
                 id = 1,
@@ -42,9 +42,14 @@ namespace DataServer
                 description = "Heaven",
                 longitude = 9.795995847440167,
                 latitude = 55.83663617092108,
-                reviews = new List<Review>()
+                reviews = new List<Review>(),
+                addedBy = new UserData()
+				{
+                    userId = user.id,
+                    username = user.username
+				}
             };
-            //await AddPlace(reitan);
+            await AddPlace(reitan);
             Report<Place> report = new Report<Place>()
             {
                 category = "Blyatity",
@@ -58,8 +63,8 @@ namespace DataServer
                 comment = "very beautiful, but my back hurts",
                 addedBy = new UserData()
                 {
-                    userId = 1,
-                    username = "admin"
+                    userId = user.id,
+                    username = user.username
                 }
             };
             Review newReview = new Review()

@@ -22,7 +22,7 @@ namespace DataServer.Persistence.Impl
 
         public async Task DismissUserReport(long reportId)
         {
-            Report<User> toDismiss = await dbContext.PlaceReports.FirstOrDefaultAsync(ur => ur.reportId == reportId);
+            Report<User> toDismiss = await dbContext.UserReports.FirstOrDefaultAsync(ur => ur.reportId == reportId);
             toDismiss.resolved = true;
             await dbContext.SaveChangesAsync();
         }

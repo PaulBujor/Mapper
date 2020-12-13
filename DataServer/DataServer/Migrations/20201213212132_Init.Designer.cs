@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataServer.Migrations
 {
     [DbContext(typeof(MapDbContext))]
-    [Migration("20201213152059_SavedPlacesMigration")]
-    partial class SavedPlacesMigration
+    [Migration("20201213212132_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,9 +22,6 @@ namespace DataServer.Migrations
                 {
                     b.Property<long>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("Userid")
                         .HasColumnType("INTEGER");
 
                     b.Property<long?>("addedByuserId")
@@ -46,8 +43,6 @@ namespace DataServer.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("id");
-
-                    b.HasIndex("Userid");
 
                     b.HasIndex("addedByuserId");
 
@@ -223,12 +218,23 @@ namespace DataServer.Migrations
                     b.ToTable("UserData");
                 });
 
+            modelBuilder.Entity("PlaceUser", b =>
+                {
+                    b.Property<long>("savedPlacesid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("usersid")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("savedPlacesid", "usersid");
+
+                    b.HasIndex("usersid");
+
+                    b.ToTable("PlaceUser");
+                });
+
             modelBuilder.Entity("DataServer.Models.Place", b =>
                 {
-                    b.HasOne("DataServer.Models.User", null)
-                        .WithMany("savedPlaces")
-                        .HasForeignKey("Userid");
-
                     b.HasOne("DataServer.Models.UserData", "addedBy")
                         .WithMany()
                         .HasForeignKey("addedByuserId");
@@ -276,14 +282,24 @@ namespace DataServer.Migrations
                     b.Navigation("addedBy");
                 });
 
+            modelBuilder.Entity("PlaceUser", b =>
+                {
+                    b.HasOne("DataServer.Models.Place", null)
+                        .WithMany()
+                        .HasForeignKey("savedPlacesid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataServer.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("usersid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DataServer.Models.Place", b =>
                 {
                     b.Navigation("reviews");
-                });
-
-            modelBuilder.Entity("DataServer.Models.User", b =>
-                {
-                    b.Navigation("savedPlaces");
                 });
 #pragma warning restore 612, 618
         }

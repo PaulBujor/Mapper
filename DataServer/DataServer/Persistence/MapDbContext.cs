@@ -26,8 +26,7 @@ namespace DataServer.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Place>().HasMany(p => p.users).WithMany(u => u.savedPlaces);
-            modelBuilder.Entity<Place>
+            //modelBuilder.Entity<Place>().HasMany(p => p.users).WithMany(u => u.savedPlaces);
         }
     }
 }
