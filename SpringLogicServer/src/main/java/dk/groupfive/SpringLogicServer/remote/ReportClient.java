@@ -32,7 +32,7 @@ public class ReportClient {
     }
 
 
-    public void addReportPlace(Report<Place> report) {
+    public synchronized void addReportPlace(Report<Place> report) {
 
         out.println("reportPlace");
         String send = gson.toJson(report);
@@ -46,13 +46,13 @@ public class ReportClient {
         out.println(send);
     }
 
-    public void addReportUser(Report<User> report){
+    public synchronized void addReportUser(Report<User> report) {
         out.println("reportUser");
         String send = gson.toJson(report);
         out.println(send);
     }
 
-    public void addReportReview(Report<Review> report){
+    public synchronized void addReportReview(Report<Review> report) {
         out.println("reportReview");
         String send = gson.toJson(report);
         out.println(send);

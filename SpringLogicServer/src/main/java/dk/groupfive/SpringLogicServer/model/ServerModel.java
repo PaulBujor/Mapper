@@ -36,13 +36,24 @@ public class ServerModel implements Model {
         placeWorker = new PlaceWorker(this);
         reportWorker = new ReportWorker(this);
         reviewWorker = new ReviewWorker(this);
+        loader();
+    }
 
-        //we want this to be sync so data is loaded before anything else is added.
-        try {
-            cache.load(server.getAllPlaces());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void loader() {
+        //loads data from t3 every 15 minutes
+        new Thread(() -> {
+            try {
+                cache.load(server.getAllPlaces());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                Thread.sleep(15 * 60 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public static ServerModel getInstance() {

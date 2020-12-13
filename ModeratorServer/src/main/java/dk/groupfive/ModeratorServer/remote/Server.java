@@ -35,4 +35,6 @@ public interface Server {
     void dismissUserReport(long reportId);
 
     User getUserById(long userId) throws IOException;
+
+    List<User> getBannedUsers() throws IOException;
 }

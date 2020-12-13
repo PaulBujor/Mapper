@@ -45,7 +45,7 @@ public class Client implements Server {
     }
 
     @Override
-    public List<Report<Place>> getPlaceReports() throws IOException {
+    public synchronized List<Report<Place>> getPlaceReports() throws IOException {
         out.println("getPlaceReports");
         Type placeReportsType = new TypeToken<List<Report<Place>>>() {
         }.getType();
@@ -53,7 +53,7 @@ public class Client implements Server {
     }
 
     @Override
-    public List<Report<User>> getUserReports() throws IOException {
+    public synchronized List<Report<User>> getUserReports() throws IOException {
         out.println("getUserReports");
         Type userReportsType = new TypeToken<List<Report<User>>>() {
         }.getType();
@@ -61,7 +61,7 @@ public class Client implements Server {
     }
 
     @Override
-    public List<Report<Review>> getReviewReports() throws IOException {
+    public synchronized List<Report<Review>> getReviewReports() throws IOException {
         out.println("getReviewReports");
         Type reviewReportsType = new TypeToken<List<Report<Review>>>() {
         }.getType();
@@ -93,27 +93,35 @@ public class Client implements Server {
     }
 
     @Override
-    public void dismissPlaceReport(long reportId) {
+    public synchronized void dismissPlaceReport(long reportId) {
         out.println("dismissPlaceReport");
         out.println(reportId);
     }
 
     @Override
-    public void dismissReviewReport(long reportId) {
+    public synchronized void dismissReviewReport(long reportId) {
         out.println("dismissReviewReport");
         out.println(reportId);
     }
 
     @Override
-    public void dismissUserReport(long reportId) {
+    public synchronized void dismissUserReport(long reportId) {
         out.println("dismissUserReport");
         out.println(reportId);
     }
 
     @Override
-    public User getUserById(long userId) throws IOException {
+    public synchronized User getUserById(long userId) throws IOException {
         out.println("getUserById");
         out.println(userId);
         return gson.fromJson(in.readLine(), User.class);
+    }
+
+    @Override
+    public List<User> getBannedUsers() throws IOException {
+        out.println("getBannedUsers");
+        Type bannedUsersType = new TypeToken<List<User>>() {
+        }.getType();
+        return gson.fromJson(in.readLine(), bannedUsersType);
     }
 }

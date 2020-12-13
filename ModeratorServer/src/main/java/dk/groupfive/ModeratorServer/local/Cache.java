@@ -38,7 +38,7 @@ public class Cache {
         }
     }
 
-    public void laodBanneeUsers(List<User> users) {
+    public void loadBanneeUsers(List<User> users) {
         for (User user : users) {
             bannedUsers.put(user.getId(), user);
         }

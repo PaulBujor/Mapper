@@ -70,6 +70,9 @@ namespace DataServer.Handlers
 				case "getUserReports":
 					GetUserReports();
 					break;
+				case "getBannedUsers":
+					GetBannedUsers();
+					break;
 
 				case "removePlace":
 					RemovePlace();
@@ -102,6 +105,11 @@ namespace DataServer.Handlers
 					Console.WriteLine("Default was called");
 					break;
 			}
+		}
+
+		private void GetBannedUsers()
+		{
+			throw new NotImplementedException();
 		}
 
 		private void GetUserById()

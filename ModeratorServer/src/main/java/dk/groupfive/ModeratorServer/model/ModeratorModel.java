@@ -2,7 +2,6 @@ package dk.groupfive.ModeratorServer.model;
 
 import dk.groupfive.ModeratorServer.local.Cache;
 import dk.groupfive.ModeratorServer.model.objects.*;
-import dk.groupfive.ModeratorServer.model.objects.obsolete.ReviewItem;
 import dk.groupfive.ModeratorServer.remote.Client;
 import dk.groupfive.ModeratorServer.remote.Server;
 
@@ -29,6 +28,7 @@ public class ModeratorModel implements Model {
                 cache.loadPlaceReports(server.getPlaceReports());
                 cache.loadReviewReports(server.getReviewReports());
                 cache.loadUserReports(server.getUserReports());
+                cache.loadBanneeUsers(server.getBannedUsers());
             } catch (IOException e) {
                 e.printStackTrace();
             }
