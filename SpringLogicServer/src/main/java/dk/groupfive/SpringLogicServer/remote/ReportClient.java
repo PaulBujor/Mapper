@@ -2,11 +2,8 @@ package dk.groupfive.SpringLogicServer.remote;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.Review;
+import dk.groupfive.SpringLogicServer.model.objects.*;
 import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
-import dk.groupfive.SpringLogicServer.model.objects.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,7 +43,7 @@ public class ReportClient {
         out.println(send);
     }
 
-    public synchronized void addReportUser(Report<User> report) {
+    public synchronized void addReportUser(Report<UserData> report) {
         out.println("reportUser");
         String send = gson.toJson(report);
         out.println(send);

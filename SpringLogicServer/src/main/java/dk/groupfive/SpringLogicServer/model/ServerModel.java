@@ -2,11 +2,7 @@ package dk.groupfive.SpringLogicServer.model;
 
 import dk.groupfive.SpringLogicServer.broadcast.Broadcaster;
 import dk.groupfive.SpringLogicServer.local.Cache;
-import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.Review;
-import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
-import dk.groupfive.SpringLogicServer.model.objects.User;
+import dk.groupfive.SpringLogicServer.model.objects.*;
 import dk.groupfive.SpringLogicServer.model.tasks.PlaceTask;
 import dk.groupfive.SpringLogicServer.queue.PlaceWorker;
 import dk.groupfive.SpringLogicServer.queue.ReportWorker;
@@ -140,7 +136,7 @@ public class ServerModel implements Model {
     }
 
     @Override
-    public void addReportUser(Report<User> report) {
+    public void addReportUser(Report<UserData> report) {
         try {
             server.addReportUser(report);
         } catch (IOException e) {

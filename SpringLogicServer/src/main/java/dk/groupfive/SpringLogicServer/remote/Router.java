@@ -1,10 +1,6 @@
 package dk.groupfive.SpringLogicServer.remote;
 
-import dk.groupfive.SpringLogicServer.model.objects.Place;
-import dk.groupfive.SpringLogicServer.model.objects.Report;
-import dk.groupfive.SpringLogicServer.model.objects.Review;
-import dk.groupfive.SpringLogicServer.model.objects.obsolete.ReviewItem;
-import dk.groupfive.SpringLogicServer.model.objects.User;
+import dk.groupfive.SpringLogicServer.model.objects.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,7 +52,7 @@ public class Router implements Server{
     }
 
     @Override
-    public void addReportUser(Report<User> report){
+    public void addReportUser(Report<UserData> report){
         reportClient.addReportUser(report);
     }
 

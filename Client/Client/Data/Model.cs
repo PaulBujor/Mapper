@@ -57,12 +57,12 @@ namespace Client.Data
 			return await server.GetReviewReportsAsync();
 		}
 
-		public override async Task<List<Report<User>>> GetUserReportsAsync()
+		public override async Task<List<Report<UserData>>> GetUserReportsAsync()
 		{
 			return await server.GetUserReportsAsync();
 		}
 
-		public override async Task<List<User>> GetBannedUsersAsync()
+		public override async Task<List<UserData>> GetBannedUsersAsync()
 		{
 			return await server.GetBannedUsersAsync();
 		}
@@ -112,9 +112,9 @@ namespace Client.Data
 			await server.ReportPlaceAsync(report);
 		}
 
-		public override async Task ReportUserAsync(User user)
+		public override async Task ReportUserAsync(UserData user)
 		{
-			Report<User> report = new Report<User>
+			Report<UserData> report = new Report<UserData>
 			{
 				reportedItem = user,
 				reportedClass = "User"

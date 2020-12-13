@@ -2,10 +2,7 @@ package dk.groupfive.ModeratorServer.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import dk.groupfive.ModeratorServer.model.objects.Place;
-import dk.groupfive.ModeratorServer.model.objects.Report;
-import dk.groupfive.ModeratorServer.model.objects.Review;
-import dk.groupfive.ModeratorServer.model.objects.User;
+import dk.groupfive.ModeratorServer.model.objects.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,9 +50,9 @@ public class Client implements Server {
     }
 
     @Override
-    public synchronized List<Report<User>> getUserReports() throws IOException {
+    public synchronized List<Report<UserData>> getUserReports() throws IOException {
         out.println("getUserReports");
-        Type userReportsType = new TypeToken<List<Report<User>>>() {
+        Type userReportsType = new TypeToken<List<Report<UserData>>>() {
         }.getType();
         return gson.fromJson(in.readLine(), userReportsType);
     }
@@ -111,16 +108,16 @@ public class Client implements Server {
     }
 
     @Override
-    public synchronized User getUserById(long userId) throws IOException {
+    public synchronized UserData getUserById(long userId) throws IOException {
         out.println("getUserById");
         out.println(userId);
-        return gson.fromJson(in.readLine(), User.class);
+        return gson.fromJson(in.readLine(), UserData.class);
     }
 
     @Override
-    public List<User> getBannedUsers() throws IOException {
+    public List<UserData> getBannedUsers() throws IOException {
         out.println("getBannedUsers");
-        Type bannedUsersType = new TypeToken<List<User>>() {
+        Type bannedUsersType = new TypeToken<List<UserData>>() {
         }.getType();
         return gson.fromJson(in.readLine(), bannedUsersType);
     }

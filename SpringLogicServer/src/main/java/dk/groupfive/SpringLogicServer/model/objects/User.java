@@ -3,106 +3,94 @@ package dk.groupfive.SpringLogicServer.model.objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User implements Serializable
-{
+public class User implements Serializable {
 
-  private String username;
-  private String password;
-  private String email;
-  private int auth;
-  private String firstname;
-  private String lastname;
-  private long id;
-  private ArrayList<Place> savedPlaces;
+    private String username;
+    private String password;
+    private String email;
+    private int auth;
+    private String firstname;
+    private String lastname;
+    private long id;
+    private ArrayList<Place> savedPlaces;
 
 
-  public User(){super();}
-  public User (String username,String password,String email, int auth,String firstname,String lastname,long id){
-    this.username = username;
-    this.password = password;
-    this.email = email;
-    this.auth= auth;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.id=id;
-    savedPlaces = new ArrayList<Place>();
-  }
+    public User() {
+        super();
+    }
 
-  public String getUsername()
-  {
-    return username;
-  }
+    public User(String username, String password, String email, int auth, String firstname, String lastname, long id) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.auth = auth;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.id = id;
+        savedPlaces = new ArrayList<Place>();
+    }
 
-  public void setUsername(String username)
-  {
-    this.username = username;
-  }
+    public String getUsername() {
+        return username;
+    }
 
-  public String getPassword()
-  {
-    return password;
-  }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-  public void setPassword(String password)
-  {
-    this.password = password;
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  public int getAuth()
-  {
-    return auth;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-  public void setAuth(int auth)
-  {
-    this.auth = auth;
-  }
+    public int getAuth() {
+        return auth;
+    }
 
-  public String getEmail()
-  {
-    return email;
-  }
+    public void setAuth(int auth) {
+        this.auth = auth;
+    }
 
-  public void setEmail(String email)
-  {
-    this.email = email;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public String getFirstname()
-  {
-    return firstname;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public void setFirstname(String firstname)
-  {
-    this.firstname = firstname;
-  }
+    public String getFirstname() {
+        return firstname;
+    }
 
-  public String getLastname()
-  {
-    return lastname;
-  }
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
 
-  public void setLastname(String lastname)
-  {
-    this.lastname = lastname;
-  }
+    public String getLastname() {
+        return lastname;
+    }
 
-  public long getId()
-  {
-    return id;
-  }
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 
-  public void setId(long id)
-  {
-    this.id = id;
-  }
+    public long getId() {
+        return id;
+    }
 
-  public ArrayList<Place> getSavedPlaces() {
-    return savedPlaces;
-  }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-  public void setSavedPlaces(ArrayList<Place> savedPlaces) {
-    this.savedPlaces = savedPlaces;
-  }
+    public ArrayList<Place> getSavedPlaces() {
+        return savedPlaces;
+    }
+
+    public void setSavedPlaces(ArrayList<Place> savedPlaces) {
+        this.savedPlaces = savedPlaces;
+    }
 }

@@ -55,7 +55,7 @@ namespace DataServer
 					userId = 1,
 					username = "admin"
 				}
-            };
+			};
 			Review newReview = new Review()
 			{
 				id = 2,
@@ -71,16 +71,25 @@ namespace DataServer
 			AddPlaceReview(reitan.id, review);
 			AddPlaceReview(reitan.id, newReview);
 			Console.WriteLine(reitan.reviews.Count);
-        }
+		}
 
 		public void AddPlaceReport(Report<Place> report)
 		{
 			cache.CreatePlaceReport(report);
 		}
 
-		public void AddUserReport(Report<User> report)
+		public void AddUserReport(Report<UserData> report)
 		{
-			cache.CreateUserReport(report);
+			Report<User> fullReport = new Report<User>()
+			{
+				reportId = report.reportId,
+				reportedClass = report.reportedClass,
+				reportedItem = cache.GetUserById(report.reportedItem.userId),
+				description = report.description,
+				category = report.category,
+				resolved = report.resolved
+			};
+			cache.CreateUserReport(fullReport);
 		}
 
 		public void AddReviewReport(Report<Review> report)
@@ -120,9 +129,15 @@ namespace DataServer
 			cache.RemoveSavedPlace(userId, placeId);
 		}
 
-		internal List<User> GetBannedUsers()
+		internal List<UserData> GetBannedUsers()
 		{
-			return cache.GetBannedUsers().Result.Values.ToList();
+			List<User> users = cache.GetBannedUsers().Result.Values.ToList();
+			List<UserData> userData = new List<UserData>();
+			foreach (User user in users)
+			{
+				userData.Add(new UserData() { userId = user.id, username = user.username });
+			}
+			return userData;
 		}
 
 		public bool AuthroizeUser(User user)
@@ -141,9 +156,27 @@ namespace DataServer
 			return cache.GetReviewReports().Result.Values.ToList();
 		}
 
-		public List<Report<User>> GetUserReports()
+		public List<Report<UserData>> GetUserReports()
 		{
-			return cache.GetUserReports().Result.Values.ToList();
+			List<Report<User>> fullReports = cache.GetUserReports().Result.Values.ToList();
+			List<Report<UserData>> reports = new List<Report<UserData>>();
+			foreach (Report<User> report in fullReports)
+			{
+				reports.Add(new Report<UserData>()
+				{
+					reportId = report.reportId,
+					category = report.category,
+					description = report.description,
+					reportedClass = "UserData",
+					reportedItem = new UserData()
+					{
+						userId = report.reportedItem.id,
+						username = report.reportedItem.username
+					},
+					resolved = report.resolved
+				});
+			}
+			return reports;
 		}
 
 		public void RemoveReview(long id)
@@ -186,8 +219,8 @@ namespace DataServer
 		{
 			return cache.GetUserById(userId);
 		}
-		
-		
+
+
 		//User CRUD
 
 		public Task<User> Login(string username, string password)
@@ -211,27 +244,27 @@ namespace DataServer
 
 		public void UpdateFirstName(long id, string firstName)
 		{
-			cache.UpdateFirstName(id,firstName);
+			cache.UpdateFirstName(id, firstName);
 		}
 
 		public void UpdateLastName(long id, string lastName)
 		{
-			cache.UpdateLastName(id,lastName);
+			cache.UpdateLastName(id, lastName);
 		}
 
 		public void UpdateUsername(long id, string userName)
 		{
-			cache.UpdateUsername(id,userName);
+			cache.UpdateUsername(id, userName);
 		}
 
 		public void UpdateEmail(long id, string email)
 		{
-			cache.UpdateEmail(id,email);
+			cache.UpdateEmail(id, email);
 		}
 
 		public void UpdatePassword(long id, string password)
 		{
-			cache.UpdatePassword(id,password);
+			cache.UpdatePassword(id, password);
 		}
 	}
 }
