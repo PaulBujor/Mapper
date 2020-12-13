@@ -176,9 +176,9 @@ namespace DataServer.Persistence
             users.UpdateUsername(id, userName);
         }
 
-        public async Task<List<User>> GetBanUsers()
+        public async Task<List<User>> GetBannedUsers()
         {
-            return await users.GetBanUsers();
+            return await users.GetBannedUsers();
         }
 
         //IUserReport_Persistence

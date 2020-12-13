@@ -9,7 +9,7 @@ namespace DataServer.Persistence
         Task CreateUser(User user);
 
         Task<User> GetUser(string username, string password);
-        Task<List<User>> GetBanUsers();
+        Task<List<User>> GetBannedUsers();
 
         Task UpdateUser(User user);
 

@@ -32,7 +32,7 @@ namespace DataServer
 				id = 200,
 				savedPlaces = new List<Place>()
 			};
-			cache.Register(user);
+			router.CreateUser(user);
 			Place reitan = new Place()
 			{
 				title = "Reitan",
@@ -89,30 +89,30 @@ namespace DataServer
 			{
 				reportId = report.reportId,
 				reportedClass = report.reportedClass,
-				reportedItem = cache.GetUserById(report.reportedItem.userId),
+				reportedItem = router.GetUserById(report.reportedItem.userId),
 				description = report.description,
 				category = report.category,
 				resolved = report.resolved
 			};
-			cache.CreateUserReport(fullReport);
+			router.CreateUserReport(fullReport);
 		}
 
 		//todo
 		public void AddReviewReport(Report<Review> report)
 		{
-			cache.CreateReviewReport(report);
+			router.CreateReviewReport(report);
 		}
 
 //todo
 		public void AddSavedPlace(long userId, long placeId)
 		{
-			cache.AddSavedPlace(userId, placeId);
+			router.AddSavedPlace(userId, placeId);
 		}
 
 //todo
 		public void RemoveSavedPlace(long userId, long placeId)
 		{
-			cache.RemoveSavedPlace(userId, placeId);
+			router.RemoveSavedPlace(userId, placeId);
 		}
 
         public async Task<List<Place>> GetAllPlacesAsync()
@@ -271,9 +271,9 @@ namespace DataServer
             router.UpdatePassword(id, password);
         }
 
-        async Task<List<User>> GetBanUsers()
+        public async Task<List<User>> GetBannedUsers()
         {
-            return await router.GetBanUsers();
+            return await router.GetBannedUsers();
         }
     }
 }

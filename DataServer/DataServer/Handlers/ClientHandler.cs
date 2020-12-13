@@ -99,7 +99,7 @@ namespace DataServer.Handlers
             string placeJson;
             placeJson = JsonSerializer.Serialize(model.GetAllPlacesAsync().Result);
             Console.WriteLine(placeJson);
-            Console.WriteLine(model.GetAllPlaces()[0].GetRating());
+            Console.WriteLine(model.GetAllPlacesAsync().Result[0].GetRating());
             writer.WriteLine(placeJson);
         }
 

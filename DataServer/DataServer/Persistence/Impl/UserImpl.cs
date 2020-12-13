@@ -107,7 +107,7 @@ namespace DataServer.Persistence
             toGet.username = userName;
         }
 
-        async Task<List<User>> IUser_Persistence.GetBanUsers()
+        async Task<List<User>> IUser_Persistence.GetBannedUsers()
         {
             List<User> listOfUsers = await dbContext.Users.ToListAsync();
             List<User> banUsers = new List<User>();
