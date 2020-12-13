@@ -120,6 +120,11 @@ namespace DataServer
 			cache.RemoveSavedPlace(userId, placeId);
 		}
 
+		internal List<User> GetBannedUsers()
+		{
+			return cache.GetBannedUsers().Result.Values.ToList();
+		}
+
 		public bool AuthroizeUser(User user)
 		{
 			User check = cache.GetUser(user.username, user.password).Result;

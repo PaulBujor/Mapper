@@ -109,7 +109,7 @@ namespace DataServer.Handlers
 
 		private void GetBannedUsers()
 		{
-			throw new NotImplementedException();
+			writer.WriteLine(JsonSerializer.Serialize(model.GetBannedUsers()));
 		}
 
 		private void GetUserById()
