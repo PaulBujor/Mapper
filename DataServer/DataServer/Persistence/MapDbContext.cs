@@ -13,6 +13,11 @@ namespace DataServer.Persistence
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Report<Review>> ReviewReports { get; set; }
 
+        public MapDbContext()
+		{
+            Database.EnsureCreated();
+		}
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //name of database
@@ -22,7 +27,7 @@ namespace DataServer.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Place>().HasMany(p => p.users).WithMany(u => u.savedPlaces);
-            
+            modelBuilder.Entity<Place>
         }
     }
 }

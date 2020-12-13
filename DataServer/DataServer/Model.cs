@@ -24,21 +24,27 @@ namespace DataServer
         private async void InitPlace()
         {
 
-            User user = new User()
+            /*User user = new User()
             {
                 id = 200,
-                savedPlaces = new List<Place>()
+                savedPlaces = new List<Place>(),
+                auth = 1,
+                password = "123",
+                username = "mamamia",
+                email = "bonjour@blyat.dk"
             };
             await router.CreateUser(user);
+            */
             Place reitan = new Place()
             {
+                id = 1,
                 title = "Reitan",
                 description = "Heaven",
                 longitude = 9.795995847440167,
                 latitude = 55.83663617092108,
                 reviews = new List<Review>()
             };
-            await AddPlace(reitan);
+            //await AddPlace(reitan);
             Report<Place> report = new Report<Place>()
             {
                 category = "Blyatity",

@@ -24,10 +24,5 @@ namespace DataServer.Models
         public Report()
         {
         }
-
-        public static implicit operator Report<T>(Report<Place> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
