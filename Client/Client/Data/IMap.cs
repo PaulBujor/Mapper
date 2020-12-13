@@ -21,6 +21,8 @@ namespace Client.Data
 
 		void ChangeAddingMarkerMode();
 
+		bool GetAddingMarkerMode();
+
 		Task CreatePlace(PlaceData placeData);
 	}
 }

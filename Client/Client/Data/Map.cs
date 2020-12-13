@@ -91,6 +91,11 @@ namespace Client.Data
 
         }
 
+        public bool GetAddingMarkerMode()
+        {
+            return addingMarkerMode;
+        }
+
         public void ChangeAddingMarkerMode()
         {
             addingMarkerMode = !addingMarkerMode;

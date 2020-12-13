@@ -41,18 +41,18 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text input-square-register" id="basic-addon1">#</span>
                             </div>
-                            <input type="text" class="form-control" style="min-width: 80px;" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" @bind-value="newUser.password">
+                            <input type="password" class="form-control" style="min-width: 80px;" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" @bind-value="newUser.password">
                         </div>
 
                         <div class="input-group mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text input-square-register" id="basic-addon1">#</span>
                             </div>
-                            <input type="text" class="form-control" style="min-width: 80px;" placeholder="Confirm password" aria-label="Password" aria-describedby="basic-addon1" @bind-value="newUser.confirmpassword">
+                            <input type="password" class="form-control" style="min-width: 80px;" placeholder="Confirm password" aria-label="Password" aria-describedby="basic-addon1" @bind-value="newUser.confirmpassword">
                         </div>
                         <div style="color:red"><i>@ErrorMessage</i></div>
                         <a href="#" type="submit" class="button-signin">Sign up</a>
-                        <div class="d-flex justify-content-center"> Already have an account?  <a href="#" class="button-signup">Log in</a></div>
+                        <div class="d-flex justify-content-center"> Already have an account?  <a href="/login" class="button-signup" >Log in</a></div>
                     </div>
                 </div>
             </div>

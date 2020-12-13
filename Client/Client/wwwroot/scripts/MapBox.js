@@ -42,7 +42,7 @@ window.mapBoxFunctions = {
         var ratingHTML = "<span id='star1' class='fa fa-star fa-2x'></span><span id='star2' class='fa fa-star fa-2x'></span><span id='star3' class='fa fa-star fa-2x'></span><span id='star4' class='fa fa-star fa-2x'></span><span id='star5' class='fa fa-star fa-2x'></span>";
 
         var popup = new mapboxgl.Popup({ className: "popup-marker" }).setHTML(
-            "<div><div><h5>" + placeTitle + "</h5>" + "<div style = 'float: right;'>" + ratingHTML + "</div>"+ "</div><a id= 'placeId' style = 'display: none;'>" + placeId + "</a>" + "<h6>Category</h6>" + "</div></br><div><a>" + placeDescription + "</a></div>" + buttonReportHTML + buttonDetailsHTML
+            "<div><div><h5>" + placeTitle + "</h5>" + "<div style = 'float: right;'>" + ratingHTML + "</div>"+ "</div><a id= 'placeId' style = 'display: none;'>" + placeId + "</a>"  + "</div></br><div><a>" + placeDescription + "</a></div>" + buttonReportHTML + buttonDetailsHTML
         );
 
         popup.on("open", function () {
