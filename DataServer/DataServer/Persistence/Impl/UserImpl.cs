@@ -28,15 +28,23 @@ namespace DataServer.Persistence
 
         public void CheckEmail(string email)
         {
-            User toGet = dbContext.Users.FirstOrDefault(u => u.email == email);
-            /*TODO: throw exception*/
+            //User toGet = dbContext.Users.FirstOrDefault(u => u.email == email);
+            if (dbContext.Users.FirstOrDefault(u => u.email == email) == null)
+            {
+                System.Console.WriteLine("e-mail available");
+            }
+            throw new System.Exception("E-mail already in used");
 
         }
 
         public void CheckUsername(string username)
         {
-            User toGet = dbContext.Users.FirstOrDefault(u => u.username == username);
-            /*TODO: throw exception*/
+            //User toGet = dbContext.Users.FirstOrDefault(u => u.username == username);
+            if (dbContext.Users.FirstOrDefault(u => u.username == username) == null)
+            {
+                System.Console.WriteLine("username available");
+            }
+            throw new System.Exception("Username already in used");
         }
 
         public async Task CreateUser(User user)
