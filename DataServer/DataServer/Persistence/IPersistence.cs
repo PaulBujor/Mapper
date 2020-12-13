@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataServer.Persistence
 {
-    public interface IPersistence : IPlaces_Persistance, IUser_Persistence, IReview_Persistance
+    public interface IPersistence : IPlaces_Persistance, IReview_Persistance/*, IUser_Persistence*/
     {
         //TODO some of these probably dont need to be async since some wait for data to be finished, and socket shouldnt do something else
 
