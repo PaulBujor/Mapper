@@ -32,7 +32,9 @@ namespace DataServer
                 email = "bonjour@blyat.dk"
             };
             await router.CreateUser(user);
+            user.id = 200;
             
+            //from here it doesn't work
             Place reitan = new Place()
             {
                 title = "Reitan",
