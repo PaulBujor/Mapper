@@ -54,7 +54,8 @@ app {
 .sidebar .top-row {
     background-color: #fafafa;
 }
-.sidebar .navbar-brand {
+.sidebar .navbar-brand,
+.sidebar .navbar-brand:hover {
     color: #432fc4;
     font-size: 1.5em;
     font-weight: bold;
@@ -253,9 +254,13 @@ app {
     justify-content: center;
     align-items: center;
     align-self: flex-start;
-    font-size: 65px;
+    font-size: 75px;
     cursor: pointer;
     user-select: none;
+}
+.map-overlay-button-adding:hover {
+    font-size: 75px;
+    transition: all 100ms ease-in-out;
 }
 .map-overlay-details p {
     display: inline;

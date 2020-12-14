@@ -13,46 +13,48 @@
     <NotAuthorized>
         <EditForm Context="formContext" Model="@newUser" OnValidSubmit="@Submit">
             <DataAnnotationsValidator />
-            <ValidationSummary />
+
             <div class="page-login-container">
                 <div class="page-column-login">
                     <div class="register-container">
+
                         <p class="login-title">Register</p>
                         <div class="input-group mb-4 flex-wrap">
                             <div class="input-group-prepend">
                                 <span class="input-group-text input-square" id="basic-addon1">First and last Name</span>
                             </div>
-                            <input type="text" class="form-control" style="min-width: 80px;" placeholder="" aria-label="First Name" aria-describedby="basic-addon1" @bind-value="newUser.firstname">
-                            <input type="text" class="form-control" style="min-width: 80px;" placeholder="" aria-label="Last Name" aria-describedby="basic-addon1" @bind-value="newUser.lastname">
+                            <InputText type="text" class="form-control" style="min-width: 80px;" placeholder="" aria-label="First Name" aria-describedby="basic-addon1" @bind-Value="newUser.firstname"> </InputText>
+                            <InputText input type="text" class="form-control" style="min-width: 80px;" placeholder="" aria-label="Last Name" aria-describedby="basic-addon1" @bind-Value="newUser.lastname"> </InputText>
                         </div>
                         <div class="input-group mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text input-square-register" id="basic-addon1">&commat;</span>
                             </div>
-                            <input type="text" class="form-control" style="min-width: 80px;" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" @bind-value="newUser.username">
+                            <InputText type="text" class="form-control" style="min-width: 80px;" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" @bind-Value="newUser.username"></InputText>
                         </div>
                         <div class="input-group mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text input-square-register" id="basic-addon1">E-mail</span>
                             </div>
-                            <input type="text" class="form-control" style="min-width: 80px;" placeholder="example@mail.com" aria-label="E-mail" aria-describedby="basic-addon1" @bind-value="newUser.email">
+                            <InputText type="text" class="form-control" style="min-width: 80px;" placeholder="example@mail.com" aria-label="E-mail" aria-describedby="basic-addon1" @bind-Value="newUser.email"></InputText>
                         </div>
                         <div class="input-group mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text input-square-register" id="basic-addon1">#</span>
                             </div>
-                            <input type="password" class="form-control" style="min-width: 80px;" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" @bind-value="newUser.password">
+                            <InputText type="password" class="form-control" style="min-width: 80px;" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" @bind-Value="newUser.password"></InputText>
                         </div>
 
                         <div class="input-group mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text input-square-register" id="basic-addon1">#</span>
                             </div>
-                            <input type="password" class="form-control" style="min-width: 80px;" placeholder="Confirm password" aria-label="Password" aria-describedby="basic-addon1" @bind-value="newUser.confirmpassword">
+                            <InputText type="password" class="form-control" style="min-width: 80px;" placeholder="Confirm password" aria-label="Password" aria-describedby="basic-addon1" @bind-Value="newUser.confirmpassword"></InputText>
                         </div>
                         <div style="color:red"><i>@ErrorMessage</i></div>
                         <a href="#" type="submit" class="button-signin">Sign up</a>
-                        <div class="d-flex justify-content-center"> Already have an account?  <a href="/login" class="button-signup" >Log in</a></div>
+                        <div class="d-flex justify-content-center"> Already have an account?  <a href="/login" class="button-signup">Log in</a></div>
+                        <ValidationSummary />
                     </div>
                 </div>
             </div>

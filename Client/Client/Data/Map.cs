@@ -108,10 +108,9 @@ namespace Client.Data
         {
             await jsRuntime.InvokeVoidAsync("mapBoxFunctions.setTemporaryMarker", currentLongitude, currentLatitude);
             markerAdded = true;
-            
         }
 
-        public async Task removeTemporaryMarkerAsync()
+        public async Task RemoveTemporaryMarkerAsync()
         {
             await jsRuntime.InvokeVoidAsync("mapBoxFunctions.removeTemporaryMarker");
         }
@@ -133,7 +132,7 @@ namespace Client.Data
 
             if (markerAdded)
             {
-                await removeTemporaryMarkerAsync();
+                await RemoveTemporaryMarkerAsync();
                 await model.AddPlaceAsync(newPlace);
             }
             else
@@ -174,11 +173,6 @@ namespace Client.Data
             Console.WriteLine(id);
             Place place = model.GetPlaces().FirstOrDefault(p => p.id.Equals(id));
             await jsRuntime.InvokeVoidAsync("mapBoxFunctions.addReviewLite", place.GetRating());
-        }
-
-        public async Task GetReviewFull()
-        {
-
         }
     }
 }
