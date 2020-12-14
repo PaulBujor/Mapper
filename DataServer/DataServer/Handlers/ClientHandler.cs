@@ -112,13 +112,13 @@ namespace DataServer.Handlers
             writer.WriteLine(placeJson);
         }
 
-        private void UpdatePlace()
+        private async void UpdatePlace()
         {
             string receive;
             receive = reader.ReadLine();
             Place place = JsonSerializer.Deserialize<Place>(receive);
 
-            model.UpdatePlace(place);
+            await model.UpdatePlace(place);
         }
 
         private void AuthenticateUser()
@@ -137,24 +137,24 @@ namespace DataServer.Handlers
             writer.WriteLine(JsonSerializer.Serialize<Review>(model.AddPlaceReview(placeId, review).Result));
         }
 
-        private void AddSavedPlace()
+        private async void AddSavedPlace()
         {
             Console.WriteLine("AddSavedPlace called");
             string receiveUserId = reader.ReadLine();
             string receivePlaceId = reader.ReadLine();
             long userId = long.Parse(receiveUserId);
             long placeId = long.Parse(receivePlaceId);
-            model.AddSavedPlace(userId, placeId);
+            await model.AddSavedPlace(userId, placeId);
         }
 
-        private void RemoveSavedPlace()
+        private async void RemoveSavedPlace()
         {
             Console.WriteLine("RempveSavedPlace called");
             string receiveUserId = reader.ReadLine();
             string receivePlaceId = reader.ReadLine();
             long userId = long.Parse(receiveUserId);
             long placeId = long.Parse(receivePlaceId);
-            model.RemoveSavedPlace(userId, placeId);
+            await model.RemoveSavedPlace(userId, placeId);
         }
 
     }
