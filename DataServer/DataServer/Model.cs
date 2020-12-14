@@ -44,17 +44,16 @@ namespace DataServer
                 longitude = 9.795995847440167,
                 latitude = 55.83663617092108,
                 reviews = new List<Review>(),
+                savedBy = new List<User>(),
                 addedBy = user
             };
-            /*
-            await AddPlace(reitan);
-            */
+            //await AddPlace(reitan);
             Report<Place> report = new Report<Place>()
             {
                 category = "Blyatity",
                 reportedItem = reitan
             };
-            await AddPlaceReport(report);
+            //await AddPlaceReport(report);
             Review review = new Review()
             {
                 id = 1,
@@ -73,9 +72,8 @@ namespace DataServer
                 }
             };
 
-            await AddPlaceReview(reitan.id, review);
-            await AddPlaceReview(reitan.id, newReview);
-            Console.WriteLine(reitan.reviews.Count);
+            //await AddPlaceReview(reitan.id, review);
+            //await AddPlaceReview(reitan.id, newReview);
         }
 
         public async Task AddPlaceReport(Report<Place> report)
