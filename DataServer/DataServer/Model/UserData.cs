@@ -11,7 +11,10 @@ namespace DataServer.Models
         [Required]
         public string username { get; set; }
 
-
         public UserData() { }
+        public UserData(User addedBy) {
+            userId = addedBy.id;
+            username = addedBy.username;
+        }
     }
 }

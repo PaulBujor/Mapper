@@ -15,6 +15,6 @@ namespace DataServer.Models
         [MaxLength(500)]
         public string comment { get; set; }
         [Required]
-        public UserData addedBy { get; set; }
+        public User addedBy { get; set; }
     }
 }

@@ -2,23 +2,10 @@
 
 namespace DataServer.Migrations
 {
-    public partial class Init : Migration
+    public partial class UpdateToUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "UserData",
-                columns: table => new
-                {
-                    userId = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    username = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserData", x => x.userId);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -47,17 +34,17 @@ namespace DataServer.Migrations
                     latitude = table.Column<double>(type: "REAL", nullable: false),
                     title = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     description = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    addedByuserId = table.Column<long>(type: "INTEGER", nullable: true)
+                    addedByid = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Places", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Places_UserData_addedByuserId",
-                        column: x => x.addedByuserId,
-                        principalTable: "UserData",
-                        principalColumn: "userId",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_Places_Users_addedByid",
+                        column: x => x.addedByid,
+                        principalTable: "Users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,30 +94,6 @@ namespace DataServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlaceUser",
-                columns: table => new
-                {
-                    savedPlacesid = table.Column<long>(type: "INTEGER", nullable: false),
-                    usersid = table.Column<long>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlaceUser", x => new { x.savedPlacesid, x.usersid });
-                    table.ForeignKey(
-                        name: "FK_PlaceUser_Places_savedPlacesid",
-                        column: x => x.savedPlacesid,
-                        principalTable: "Places",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PlaceUser_Users_usersid",
-                        column: x => x.usersid,
-                        principalTable: "Users",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Reviews",
                 columns: table => new
                 {
@@ -138,7 +101,7 @@ namespace DataServer.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     rating = table.Column<int>(type: "INTEGER", nullable: false),
                     comment = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    addedByuserId = table.Column<long>(type: "INTEGER", nullable: true),
+                    addedByid = table.Column<long>(type: "INTEGER", nullable: true),
                     Placeid = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -151,10 +114,10 @@ namespace DataServer.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reviews_UserData_addedByuserId",
-                        column: x => x.addedByuserId,
-                        principalTable: "UserData",
-                        principalColumn: "userId",
+                        name: "FK_Reviews_Users_addedByid",
+                        column: x => x.addedByid,
+                        principalTable: "Users",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -187,14 +150,9 @@ namespace DataServer.Migrations
                 column: "reportedItemid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Places_addedByuserId",
+                name: "IX_Places_addedByid",
                 table: "Places",
-                column: "addedByuserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlaceUser_usersid",
-                table: "PlaceUser",
-                column: "usersid");
+                column: "addedByid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ReviewReports_reportedItemid",
@@ -202,9 +160,9 @@ namespace DataServer.Migrations
                 column: "reportedItemid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_addedByuserId",
+                name: "IX_Reviews_addedByid",
                 table: "Reviews",
-                column: "addedByuserId");
+                column: "addedByid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_Placeid",
@@ -223,9 +181,6 @@ namespace DataServer.Migrations
                 name: "PlaceReports");
 
             migrationBuilder.DropTable(
-                name: "PlaceUser");
-
-            migrationBuilder.DropTable(
                 name: "ReviewReports");
 
             migrationBuilder.DropTable(
@@ -235,13 +190,10 @@ namespace DataServer.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "Places");
 
             migrationBuilder.DropTable(
-                name: "UserData");
+                name: "Users");
         }
     }
 }

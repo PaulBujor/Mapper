@@ -15,7 +15,7 @@ namespace DataServer.Persistence
 
         public MapDbContext()
 		{
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
 		}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -26,7 +26,8 @@ namespace DataServer.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Place>().HasMany(p => p.users).WithMany(u => u.savedPlaces);
+            modelBuilder.Entity<User>().HasMany(u => u.savedPlaces).WithMany(p => p.savedBy);
+            modelBuilder.Entity<Place>().HasOne(p => p.addedBy);
         }
     }
 }

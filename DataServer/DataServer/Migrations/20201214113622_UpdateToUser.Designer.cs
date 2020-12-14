@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataServer.Migrations
 {
     [DbContext(typeof(MapDbContext))]
-    [Migration("20201213212132_Init")]
-    partial class Init
+    [Migration("20201214113622_UpdateToUser")]
+    partial class UpdateToUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace DataServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("addedByuserId")
+                    b.Property<long>("addedByid")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("description")
@@ -44,7 +44,7 @@ namespace DataServer.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("addedByuserId");
+                    b.HasIndex("addedByid");
 
                     b.ToTable("Places");
                 });
@@ -151,7 +151,7 @@ namespace DataServer.Migrations
                     b.Property<long?>("Placeid")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("addedByuserId")
+                    b.Property<long?>("addedByid")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("comment")
@@ -165,7 +165,7 @@ namespace DataServer.Migrations
 
                     b.HasIndex("Placeid");
 
-                    b.HasIndex("addedByuserId");
+                    b.HasIndex("addedByid");
 
                     b.ToTable("Reviews");
                 });
@@ -203,41 +203,13 @@ namespace DataServer.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DataServer.Models.UserData", b =>
-                {
-                    b.Property<long>("userId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("username")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("userId");
-
-                    b.ToTable("UserData");
-                });
-
-            modelBuilder.Entity("PlaceUser", b =>
-                {
-                    b.Property<long>("savedPlacesid")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("usersid")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("savedPlacesid", "usersid");
-
-                    b.HasIndex("usersid");
-
-                    b.ToTable("PlaceUser");
-                });
-
             modelBuilder.Entity("DataServer.Models.Place", b =>
                 {
-                    b.HasOne("DataServer.Models.UserData", "addedBy")
-                        .WithMany()
-                        .HasForeignKey("addedByuserId");
+                    b.HasOne("DataServer.Models.User", "addedBy")
+                        .WithMany("savedPlaces")
+                        .HasForeignKey("addedByid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("addedBy");
                 });
@@ -275,31 +247,21 @@ namespace DataServer.Migrations
                         .WithMany("reviews")
                         .HasForeignKey("Placeid");
 
-                    b.HasOne("DataServer.Models.UserData", "addedBy")
+                    b.HasOne("DataServer.Models.User", "addedBy")
                         .WithMany()
-                        .HasForeignKey("addedByuserId");
+                        .HasForeignKey("addedByid");
 
                     b.Navigation("addedBy");
-                });
-
-            modelBuilder.Entity("PlaceUser", b =>
-                {
-                    b.HasOne("DataServer.Models.Place", null)
-                        .WithMany()
-                        .HasForeignKey("savedPlacesid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataServer.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("usersid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DataServer.Models.Place", b =>
                 {
                     b.Navigation("reviews");
+                });
+
+            modelBuilder.Entity("DataServer.Models.User", b =>
+                {
+                    b.Navigation("savedPlaces");
                 });
 #pragma warning restore 612, 618
         }
