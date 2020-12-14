@@ -30,7 +30,7 @@ accountModel = ServerAccountModel.getInstance();
    public User validate(@RequestBody LoginMessage loginMessage)
   {
 
-   return new User("tester","teest","tester@dk.dk",2,"bob","gob",200);
+   return new User("tester","teest","tester@dk.dk",2,"bob","gob",1);
 /*User user = new User();
     try
     {

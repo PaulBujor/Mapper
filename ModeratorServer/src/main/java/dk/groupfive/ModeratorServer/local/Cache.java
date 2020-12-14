@@ -18,6 +18,7 @@ public class Cache {
         placeReports = new HashMap<>();
         reviewReports = new HashMap<>();
         userReports = new HashMap<>();
+        bannedUsers = new HashMap<>();
     }
 
     public void loadPlaceReports(List<Report<Place>> reports) {
@@ -38,7 +39,7 @@ public class Cache {
         }
     }
 
-    public void loadBanneeUsers(List<UserData> users) {
+    public void loadBannedUsers(List<UserData> users) {
         for (UserData user : users) {
             bannedUsers.put(user.getUserId(), user);
         }
@@ -51,7 +52,7 @@ public class Cache {
     public List<Report<Review>> getReviewReports() {
         ArrayList<Report<Review>> reports = new ArrayList<Report<Review>>();
         for (Report<Review> report : reviewReports.values()) {
-            if(!report.isResolved())
+            if (!report.isResolved())
                 reports.add(report);
         }
         return reports;
@@ -60,7 +61,7 @@ public class Cache {
     public List<Report<Place>> getPlaceReports() {
         ArrayList<Report<Place>> reports = new ArrayList<Report<Place>>();
         for (Report<Place> report : placeReports.values()) {
-            if(!report.isResolved())
+            if (!report.isResolved())
                 reports.add(report);
         }
         return reports;
@@ -69,14 +70,18 @@ public class Cache {
     public List<Report<UserData>> getUserReports() {
         ArrayList<Report<UserData>> reports = new ArrayList<Report<UserData>>();
         for (Report<UserData> report : userReports.values()) {
-            if(!report.isResolved())
+            if (!report.isResolved())
                 reports.add(report);
         }
         return reports;
     }
 
     public List<UserData> getBannedUsers() {
-        return (List<UserData>) bannedUsers.values();
+        ArrayList<UserData> banned = new ArrayList<UserData>();
+        for (UserData user : bannedUsers.values()) {
+            banned.add(user);
+        }
+        return banned;
     }
 
     public void addBannedUser(UserData user) {

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace DataServer
 {
-    //todo store places here, evt. will connect to database
     class Model
     {
         PersistenceRouter router;
@@ -18,7 +17,13 @@ namespace DataServer
             router = new PersistenceRouter();
 
             //for demo
-            InitPlace();
+            try
+            {
+                //InitPlace();
+            } catch (Exception e)
+			{
+				Console.WriteLine(e.StackTrace);
+			}
         }
 
         private async Task InitPlace()
@@ -32,53 +37,56 @@ namespace DataServer
                 email = "bonjour@blyat.dk"
             };
             await router.CreateUser(user);
-            user.id = 200;
             
-            //from here it doesn't work
-            Place reitan = new Place()
+            PlaceLite reitan = new PlaceLite()
             {
                 title = "Reitan",
                 description = "Heaven",
                 longitude = 9.795995847440167,
                 latitude = 55.83663617092108,
                 reviews = new List<Review>(),
-                savedBy = new List<User>(),
-                addedBy = user
+                addedBy = new UserData(user)
             };
             await AddPlace(reitan);
-            Report<Place> report = new Report<Place>()
+            Report<PlaceLite> report = new Report<PlaceLite>()
             {
                 category = "Blyatity",
                 reportedItem = reitan
             };
             await AddPlaceReport(report);
-            Review review = new Review()
+            ReviewLite review = new ReviewLite()
             {
                 rating = 1,
                 comment = "very beautiful, but my back hurts",
-                addedBy = user
+                addedBy = new UserData(user)
             };
-            Review newReview = new Review()
+            ReviewLite newReview = new ReviewLite()
             {
                 rating = 1,
                 comment = "rema 1000 tak",
-                addedBy = new User()
-                {
-                    username = "adminomnom"
-                }
+                addedBy = new UserData(user)
             };
 
             await AddPlaceReview(reitan.id, review);
             await AddPlaceReview(reitan.id, newReview);
         }
 
-        public async Task AddPlaceReport(Report<Place> report)
+        //todo convert to placelite
+        public async Task AddPlaceReport(Report<PlaceLite> report)
         {
-            //cache.CreatePlaceReport(report);
-            await router.CreatePlaceReport(report);
+            Report<Place> fullReport = new Report<Place>()
+            {
+                reportId = report.reportId,
+                reportedClass = report.reportedClass,
+                reportedItem = await router.GetPlace(report.reportedItem.id),
+                description = report.description,
+                category = report.category,
+                resolved = report.resolved
+            };
+            await router.CreatePlaceReport(fullReport);
         }
 
-        //todo
+        
         public async Task AddUserReport(Report<UserData> report)
         {
             Report<User> fullReport = new Report<User>()
@@ -93,164 +101,170 @@ namespace DataServer
             await router.CreateUserReport(fullReport);
         }
 
-        //todo
-        public async Task AddReviewReport(Report<Review> report)
+        public async Task AddReviewReport(Report<ReviewLite> report)
         {
-            await router.CreateReviewReport(report);
+            Report<Review> fullReport = new Report<Review>()
+            {
+                reportId = report.reportId,
+                reportedClass = report.reportedClass,
+                reportedItem = await router.GetReview(report.reportedItem.id),
+                description = report.description,
+                category = report.category,
+                resolved = report.resolved
+            };
+            await router.CreateReviewReport(fullReport);
         }
 
-        //todo
         public async Task AddSavedPlace(long userId, long placeId)
         {
             await router.AddSavedPlace(userId, await router.GetPlace(placeId));
         }
 
-        //todo
         public async Task RemoveSavedPlace(long userId, long placeId)
         {
             await router.RemoveSavedPlace(userId, await router.GetPlace(placeId));
         }
 
-        public async Task<List<Place>> GetAllPlacesAsync()
+        public async Task<List<PlaceLite>> GetAllPlacesAsync()
         {
-            //return cache.GetPlaces().Result;
-            return await router.GetPlaces();
+            List<Place> places = await router.GetPlaces();
+            List<PlaceLite> newPlaces = new List<PlaceLite>();
+            foreach(Place place in places)
+			{
+                newPlaces.Add(new PlaceLite(place));
+			}
+            return newPlaces;
         }
 
-        public async Task<Place> AddPlace(Place place)
+        public async Task AddPlace(PlaceLite place)
         {
-            //cache.AddPlace(place);
-
-            Console.WriteLine("returned place id: " + place.id);
-            return await router.AddPlace(place); ;
+            Place addedPlace = new Place(place, await GetUserById(place.addedBy.userId));
+            await router.AddPlace(addedPlace);
+            place.id = addedPlace.id;
         }
 
-        public async Task UpdatePlace(Place place)
+        public async Task UpdatePlace(PlaceLite place)
         {
-            //cache.UpdatePlace(place);
-            await router.UpdatePlace(place);
+            Place addedPlace = new Place(place, await GetUserById(place.addedBy.userId));
+            await router.UpdatePlace(addedPlace);
+            place.id = addedPlace.id;
         }
 
         public async Task RemovePlace(long id)
         {
-            //cache.RemovePlace(id);
             await router.RemovePlace(id);
         }
 
         public async Task<bool> AuthroizeUser(User user)
         {
-            //User check = cache.GetUser(user.username, user.password).Result;
             User check = await router.GetUser(user.username, user.password);
             return check.auth >= 2;
         }
 
-        public async Task<List<Report<Place>>> GetPlaceReports()
+        public async Task<List<Report<PlaceLite>>> GetPlaceReports()
         {
-            //return cache.GetPlaceReports().Result.Values.ToList();
-            return await router.GetPlaceReports();
-        }
-        /*
-		public List<Report<Place>> GetPlaceReports()
-		{
-			return cache.GetPlaceReports().Result.Values.ToList();
-		}*/
-
-        //public Task<Dictionary<long, Report<Review>>> GetReviewReports()
-        public async Task<List<Report<Review>>> GetReviewReports()
-        {
-            //return cache.GetReviewReports();
-            return await router.GetReviewReports();
-        }
-        /*
-		public List<Report<Review>> GetReviewReports()
-		{
-			return cache.GetReviewReports().Result.Values.ToList();
-		}*/
-
-        //public Task<Dictionary<long, Report<User>>> GetUserReports()
-        public async Task<List<Report<User>>> GetUserReports()
-        {
-            //return cache.GetUserReports();
-            return await router.GetUserReports();
+            List<Report<Place>> reports = await router.GetPlaceReports();
+            List<Report<PlaceLite>> newReports = new List<Report<PlaceLite>>();
+            foreach (Report<Place> report in reports)
+            {
+				Console.WriteLine(report.reportedItem.id);
+                newReports.Add(new Report<PlaceLite>()
+                {
+                    reportId = report.reportId,
+                    reportedClass = report.reportedClass,
+                    reportedItem = new PlaceLite(report.reportedItem),
+                    description = report.description,
+                    category = report.category,
+                    resolved = report.resolved
+                });
+            }
+            return newReports;
         }
 
-        /*
-		public List<Report<UserData>> GetUserReports()
-		{
-			List<Report<User>> fullReports = cache.GetUserReports().Result.Values.ToList();
-			List<Report<UserData>> reports = new List<Report<UserData>>();
-			foreach (Report<User> report in fullReports)
+        public async Task<List<Report<ReviewLite>>> GetReviewReports()
+        {
+            List<Report<Review>> reports = await router.GetReviewReports();
+            List<Report<ReviewLite>> newReports = new List<Report<ReviewLite>>();
+            foreach (Report<Review> report in reports)
+            {
+                newReports.Add(new Report<ReviewLite>()
+                {
+                    reportId = report.reportId,
+                    reportedClass = report.reportedClass,
+                    reportedItem = new ReviewLite(report.reportedItem),
+                    description = report.description,
+                    category = report.category,
+                    resolved = report.resolved
+                });
+            }
+            return newReports;
+        }
+
+        public async Task<List<Report<UserData>>> GetUserReports()
+        {
+            List<Report<User>> reports = await router.GetUserReports(); ;
+            List<Report<UserData>> newReports = new List<Report<UserData>>();
+            foreach (Report<User> report in reports)
 			{
-				reports.Add(new Report<UserData>()
-				{
-					reportId = report.reportId,
-					category = report.category,
-					description = report.description,
-					reportedClass = "UserData",
-					reportedItem = new UserData()
-					{
-						userId = report.reportedItem.id,
-						username = report.reportedItem.username
-					},
-					resolved = report.resolved
-				});
+                newReports.Add(new Report<UserData>()
+                {
+                    reportId = report.reportId,
+                    reportedClass = report.reportedClass,
+                    reportedItem = new UserData(report.reportedItem),
+                    description = report.description,
+                    category = report.category,
+                    resolved = report.resolved
+                });
 			}
-			return reports;
-		}
-         */
+            return newReports;
+        }
 
         public async Task RemoveReview(long id)
         {
-            //cache.RemoveReview(id);
             await router.RemoveReview(id);
         }
 
         public async Task BanUser(long id)
         {
-            //cache.BanUser(id);
             await router.BanUser(id);
         }
 
         public async Task UnbanUser(long id)
         {
-            //cache.UnbanUser(id);
             await router.UnbanUser(id);
         }
 
 
-        public async Task<Review> AddPlaceReview(long id, Review review)
+        //todo convert to reviewlite
+        public async Task<Review> AddPlaceReview(long id, ReviewLite review)
         {
-            //return cache.AddPlaceReview(id, review);
-            return await router.AddReview(review, id); //not sure if it's this method
+            Review fullReview = new Review(review, await GetUserById(review.addedBy.userId));
+            return await router.AddReview(fullReview, id);
         }
 
         public async Task DismissPlaceReport(long reportId)
         {
-            //cache.DismissPlaceReport(reportId);
             await router.DismissPlaceReport(reportId);
         }
 
         public async Task DismissReviewReport(long reportId)
         {
-            //cache.DismissReviewReport(reportId);
             await router.DismissReviewReport(reportId);
         }
 
         public async Task DismissUserReport(long reportId)
         {
-            //cache.DismissUserReport(reportId);
             await router.DismissUserReport(reportId);
         }
 
         public async Task<User> GetUserById(long userId)
         {
-            //return cache.GetUserById(userId);
+            User user = await router.GetUserById(userId);
             return await router.GetUserById(userId);
         }
 
 
         //User CRUD
-
         public async Task<User> Login(string username, string password)
         {
             //return cache.GetUser(username, password);
@@ -304,9 +318,15 @@ namespace DataServer
             await router.UpdatePassword(id, password);
         }
 
-        public async Task<List<User>> GetBannedUsers()
+        public async Task<List<UserData>> GetBannedUsers()
         {
-            return await router.GetBannedUsers();
+            List<User> users = await router.GetBannedUsers();
+            List<UserData> strippedUsers = new List<UserData>();
+            foreach (User user in users)
+			{
+                strippedUsers.Add(new UserData(user));
+			}
+            return strippedUsers;
         }
     }
 }

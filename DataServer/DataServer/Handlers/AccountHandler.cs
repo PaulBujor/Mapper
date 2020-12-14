@@ -48,9 +48,10 @@ namespace DataServer.Handlers
 
 					await ProcessClientRequest(request);
 				}
-				catch (System.IO.IOException)
+				catch (System.IO.IOException e)
 				{
 					clientConnected = false;
+					Console.WriteLine(e.StackTrace);
 				}
 
 			} while (clientConnected);

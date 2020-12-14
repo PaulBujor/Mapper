@@ -10,9 +10,9 @@ namespace DataServer.Persistence.Impl
     {
         private MapDbContext dbContext;
 
-        public UserReportImpl()
+        public UserReportImpl(MapDbContext context)
         {
-            dbContext = new MapDbContext();
+            dbContext = context;
         }
         public async Task CreateUserReport(Report<User> userReport)
         {
@@ -29,7 +29,9 @@ namespace DataServer.Persistence.Impl
 
         public async Task<List<Report<User>>> GetUserReports()
         {
-            return await dbContext.UserReports.ToListAsync();
+            return await dbContext.UserReports
+                .Include(r => r.reportedItem)
+                .ToListAsync();
         }
 
         public async Task UpdateUserReport(Report<User> userReport)

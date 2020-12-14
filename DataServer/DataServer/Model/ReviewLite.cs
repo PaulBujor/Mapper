@@ -7,7 +7,7 @@ using System.Text;
 namespace DataServer.Models
 {
 	[Serializable]
-	class ReviewLite
+	public class ReviewLite
 	{
         [Key]
         public long id { get; set; }

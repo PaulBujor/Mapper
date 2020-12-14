@@ -47,9 +47,10 @@ namespace DataServer.Handlers
 
 					await ProcessClientRequest(request);
 				}
-				catch (System.IO.IOException)
+				catch (System.IO.IOException e)
 				{
 					clientConnected = false;
+					Console.WriteLine(e.StackTrace);
 				}
 
 			} while (clientConnected);
@@ -89,7 +90,7 @@ namespace DataServer.Handlers
 			JavaScriptSerializer js = new JavaScriptSerializer();
 			string aux = reader.ReadLine();
 			Console.WriteLine(aux);
-			Report<Review> reportedReview = js.Deserialize<Report<Review>>(aux);
+			Report<ReviewLite> reportedReview = js.Deserialize<Report<ReviewLite>>(aux);
             Console.WriteLine("Report id " + reportedReview.reportId);
 			Console.WriteLine("Report id " + reportedReview.reportedItem.id);
 			await model.AddReviewReport(reportedReview);
@@ -100,7 +101,7 @@ namespace DataServer.Handlers
 			JavaScriptSerializer js = new JavaScriptSerializer();
 			string aux = reader.ReadLine();
             Console.WriteLine(aux);
-			Report<Place> reportedPlace = js.Deserialize<Report<Place>>(aux);
+			Report<PlaceLite> reportedPlace = js.Deserialize<Report<PlaceLite>>(aux);
 
 			/*Report<PlaceForDeserialization> reportedPlaceForDeserialization = JsonSerializer.Deserialize<Report<PlaceForDeserialization>>(aux);
 			Report<Place> reportedPlace = new Report<Place>();

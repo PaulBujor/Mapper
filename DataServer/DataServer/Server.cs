@@ -59,8 +59,9 @@ namespace DataServer
 				}
 
 			}
-			catch (Exception)
-			{// 
+			catch (Exception e)
+			{
+				Console.WriteLine(e.StackTrace);
 			}
 		}
 

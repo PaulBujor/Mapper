@@ -28,6 +28,9 @@ namespace DataServer.Persistence
         {
             modelBuilder.Entity<User>().HasMany(u => u.savedPlaces).WithMany(p => p.savedBy);
             modelBuilder.Entity<Place>().HasOne(p => p.addedBy);
+            modelBuilder.Entity<Report<Place>>().HasOne(p => p.reportedItem);
+            modelBuilder.Entity<Report<Review>>().HasOne(p => p.reportedItem);
+            modelBuilder.Entity<Report<User>>().HasOne(p => p.reportedItem);
         }
     }
 }

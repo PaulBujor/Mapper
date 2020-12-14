@@ -47,9 +47,10 @@ namespace DataServer.Handlers
 
                     await ProcessClientRequest(request);
                 }
-                catch (System.IO.IOException)
+                catch (System.IO.IOException e)
                 {
                     clientConnected = false;
+					Console.WriteLine(e.StackTrace);
                 }
 
             } while (clientConnected);
@@ -99,8 +100,6 @@ namespace DataServer.Handlers
         {
             string placeJson;
             placeJson = JsonSerializer.Serialize(await model.GetAllPlacesAsync());
-            Console.WriteLine(placeJson);
-            Console.WriteLine(model.GetAllPlacesAsync().Result[0].GetRating());
             writer.WriteLine(placeJson);
         }
 
@@ -108,9 +107,10 @@ namespace DataServer.Handlers
         {
             string receive;
             receive = reader.ReadLine();
-            Place place = JsonSerializer.Deserialize<Place>(receive);
-            string placeJson;
-            placeJson = JsonSerializer.Serialize(await model.AddPlace(place));
+			Console.WriteLine(receive);
+            PlaceLite place = JsonSerializer.Deserialize<PlaceLite>(receive);
+            await model.AddPlace(place);
+            string placeJson = JsonSerializer.Serialize(place);
             writer.WriteLine(placeJson);
         }
 
@@ -118,7 +118,7 @@ namespace DataServer.Handlers
         {
             string receive;
             receive = reader.ReadLine();
-            Place place = JsonSerializer.Deserialize<Place>(receive);
+            PlaceLite place = JsonSerializer.Deserialize<PlaceLite>(receive);
 
             await model.UpdatePlace(place);
         }
@@ -135,8 +135,8 @@ namespace DataServer.Handlers
             string receivePlaceId = reader.ReadLine();
             string receiveReviewItem = reader.ReadLine();
             long placeId = long.Parse(receivePlaceId);
-            Review review = JsonSerializer.Deserialize<Review>(receiveReviewItem);
-            writer.WriteLine(JsonSerializer.Serialize<Review>(await model.AddPlaceReview(placeId, review)));
+            ReviewLite review = JsonSerializer.Deserialize<ReviewLite>(receiveReviewItem);
+            writer.WriteLine(JsonSerializer.Serialize(await model.AddPlaceReview(placeId, review)));
         }
 
         private async Task AddSavedPlace()

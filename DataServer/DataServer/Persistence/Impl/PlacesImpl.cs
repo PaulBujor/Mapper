@@ -10,26 +10,35 @@ namespace DataServer.Persistence
     public class PlacesImpl : IPlaces_Persistance
     {
         private MapDbContext dbContext;
-        public PlacesImpl()
+        public PlacesImpl(MapDbContext context)
         {
-            dbContext = new MapDbContext();
+            dbContext = context;
         }
-        public async Task<Place> AddPlace(Place place)
+        public async Task AddPlace(Place place)
         {
-            EntityEntry<Place> newlyAdded = await dbContext.Places.AddAsync(place);
+            await dbContext.Places.AddAsync(place);
+			//Console.WriteLine(newlyAdded.Entity.id);
             await dbContext.SaveChangesAsync();
-            return newlyAdded.Entity;
+            //return newlyAdded.Entity;
         }
 
         public async Task<Place> GetPlace(long id)
         {
-            Place toGet = await dbContext.Places.FirstOrDefaultAsync(p => p.id == id);
+            Place toGet = await dbContext.Places
+                .Include(p => p.reviews)
+                    .ThenInclude(r => r.addedBy)
+                .Include(p => p.addedBy).
+                FirstOrDefaultAsync(p => p.id == id);
             return toGet;
         }
 
         public async Task<List<Place>> GetPlaces()
         {
-            return await dbContext.Places.ToListAsync();
+            return await dbContext.Places
+                .Include(p=>p.reviews)
+                    .ThenInclude(r => r.addedBy)
+                .Include(p => p.addedBy)
+                .ToListAsync();
         }
 
         public async Task RemovePlace(long id)

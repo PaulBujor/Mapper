@@ -16,5 +16,15 @@ namespace DataServer.Models
         public string comment { get; set; }
         [Required]
         public User addedBy { get; set; }
+
+        public Review() { }
+
+        public Review(ReviewLite review, User user)
+		{
+            id = review.id;
+            rating = review.rating;
+            comment = review.comment;
+            addedBy = user;
+		}
     }
 }

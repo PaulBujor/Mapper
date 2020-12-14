@@ -11,9 +11,9 @@ namespace DataServer.Persistence.Impl
     {
         MapDbContext dbContext;
 
-        public ReportImpl()
+        public ReportImpl(MapDbContext context)
         {
-            dbContext = new MapDbContext();
+            dbContext = context;
         }
         /*public async Task CreatePlaceReport(Report<Place> placeReport)
         {

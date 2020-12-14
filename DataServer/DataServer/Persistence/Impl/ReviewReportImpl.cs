@@ -10,9 +10,9 @@ namespace DataServer.Persistence.Impl
     {
         private MapDbContext dbContext;
 
-        public ReviewReportImpl()
+        public ReviewReportImpl(MapDbContext context)
         {
-            dbContext = new MapDbContext();
+            dbContext = context;
         }
         public async Task CreateReviewReport(Report<Review> reviewReport)
         {
@@ -29,7 +29,10 @@ namespace DataServer.Persistence.Impl
 
         public async Task<List<Report<Review>>> GetReviewReports()
         {
-            return await dbContext.ReviewReports.ToListAsync();
+            return await dbContext.ReviewReports
+                .Include(r => r.reportedItem)
+                .ThenInclude(r => r.addedBy)
+                .ToListAsync();
         }
 
         public async Task UpdateReviewReport(Report<Review> reviewReport)

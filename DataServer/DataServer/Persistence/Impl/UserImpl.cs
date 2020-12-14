@@ -11,9 +11,9 @@ namespace DataServer.Persistence
     {
         private MapDbContext dbContext;
 
-        public UserImpl()
+        public UserImpl(MapDbContext context)
         {
-            dbContext = new MapDbContext();
+            dbContext = context;
         }
 
         /*public Task<Review> AddPlaceReview(long placeId, Review review)
@@ -64,15 +64,27 @@ namespace DataServer.Persistence
             await dbContext.SaveChangesAsync();
         }
 
-        public Task<User> GetUser(string username, string password)
+        public async Task<User> GetUser(string username, string password)
         {
             //User toGet = dbContext.Users.Select(u => u.username == username && u.password.Equals(password));
-            return (Task<User>)dbContext.Users.Where(u => u.username.Equals(username) && u.password.Equals(password));
+            return await dbContext.Users
+                .Include(u => u.savedPlaces)
+                    .ThenInclude(p => p.reviews)
+                        .ThenInclude(r => r.addedBy)
+                .Include(u => u.savedPlaces)
+                    .ThenInclude(p => p.addedBy)
+                .FirstOrDefaultAsync(u => u.username.Equals(username) && u.password.Equals(password));
         }
 
-        public Task<User> GetUserById(long userId)
+        public async Task<User> GetUserById(long userId)
         {
-            return (Task<User>)dbContext.Users.Where(u => u.id == userId);
+            return await dbContext.Users
+                .Include(u => u.savedPlaces)
+                    .ThenInclude(p => p.reviews)
+                        .ThenInclude(r => r.addedBy)
+                .Include(u => u.savedPlaces)
+                    .ThenInclude(p => p.addedBy)
+                .FirstOrDefaultAsync(u => u.id == userId);
         }
 
         public async Task UnbanUser(long userId)

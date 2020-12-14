@@ -10,9 +10,9 @@ namespace DataServer.Persistence.Impl
     {
         private MapDbContext dbContext;
 
-        public PlacesReportImpl()
+        public PlacesReportImpl(MapDbContext context)
         {
-            dbContext = new MapDbContext();
+            dbContext = context;
         }
         public async Task CreatePlaceReport(Report<Place> placeReport)
         {
@@ -30,14 +30,10 @@ namespace DataServer.Persistence.Impl
 
         public async Task<List<Report<Place>>> GetPlaceReports()
         {
-            /*List<Report<Place>> myList = await dbContext.PlaceReports.ToListAsync();
-            Dictionary<long, Report<Place>> myDic = new Dictionary<long, Report<Place>>();
-            foreach (Report<Place> item in myList)
-            {
-                myDic.Add(item.reportId, item);
-            }
-            return myDic;*/
-            return await dbContext.PlaceReports.ToListAsync();
+            return await dbContext.PlaceReports
+                .Include(r => r.reportedItem)
+                .ThenInclude(r => r.addedBy)
+                .ToListAsync();
         }
 
         public async Task UpdatePlaceReport(Report<Place> placeReport)

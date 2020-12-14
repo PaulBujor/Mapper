@@ -6,7 +6,7 @@ namespace DataServer.Persistence
 {
     public interface IPlaces_Persistance
     {
-        Task<Place> AddPlace(Place place);
+        Task AddPlace(Place place);
 
         Task<List<Place>> GetPlaces();
 

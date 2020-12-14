@@ -36,7 +36,19 @@ namespace DataServer.Models
             reviews = new List<Review>();
         }
 
-        public void AddReview(Review review)
+		public Place(PlaceLite place, User addedBy)
+		{
+			this.id = place.id;
+			this.longitude = place.longitude;
+			this.latitude = place.latitude;
+			this.title = place.title;
+			this.description = place.description;
+			this.reviews = place.reviews;
+            this.savedBy = new List<User>();
+			this.addedBy = addedBy;
+		}
+
+		public void AddReview(Review review)
         {
             reviews.Add(review);
         }

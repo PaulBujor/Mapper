@@ -7,7 +7,7 @@ using System.Text;
 namespace DataServer.Models
 {
     [Serializable]
-	class PlaceLite
+	public class PlaceLite
 	{
         [Key]
         public long id { get; set; }

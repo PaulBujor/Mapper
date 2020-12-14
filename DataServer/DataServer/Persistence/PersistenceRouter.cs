@@ -16,18 +16,19 @@ namespace DataServer.Persistence
 
         public PersistenceRouter()
         {
-            places = new PlacesImpl();
-            placesReport = new PlacesReportImpl();
-            users = new UserImpl();
-            usersReport = new UserReportImpl();
-            reviews = new ReviewImpl();
-            reviewsReport = new ReviewReportImpl();
+            MapDbContext context = new MapDbContext();
+            places = new PlacesImpl(context);
+            placesReport = new PlacesReportImpl(context);
+            users = new UserImpl(context);
+            usersReport = new UserReportImpl(context);
+            reviews = new ReviewImpl(context);
+            reviewsReport = new ReviewReportImpl(context);
         }
 
         //IPlaces_Persistence
-        public async Task<Place> AddPlace(Place place)
+        public async Task AddPlace(Place place)
         {
-            return await places.AddPlace(place);
+            await places.AddPlace(place);
         }
         public async Task<Place> GetPlace(long id)
         {
@@ -79,6 +80,11 @@ namespace DataServer.Persistence
         {
             return await reviews.GetReviews(placeId);
         }
+
+        public async Task<Review> GetReview(long reviewId)
+		{
+            return await reviews.GetReview(reviewId);
+		}
 
         public async Task RemoveReview(long reviewId)
         {

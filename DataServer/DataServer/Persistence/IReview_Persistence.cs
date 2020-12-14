@@ -10,6 +10,8 @@ namespace DataServer.Persistence
 
         Task<List<Review>> GetReviews(long placeId);
 
+        Task<Review> GetReview(long reviewId);
+
         Task UpdateReview(Review reviewItem);
 
         Task RemoveReview(long reviewId);
