@@ -21,24 +21,20 @@ namespace DataServer
             InitPlace();
         }
 
-        private async void InitPlace()
+        private async Task InitPlace()
         {
             User user = new User()
             {
-                id = 200,
                 savedPlaces = new List<Place>(),
                 auth = 1,
                 password = "123",
                 username = "mamamia",
                 email = "bonjour@blyat.dk"
             };
-            /*
             await router.CreateUser(user);
-            */
             
             Place reitan = new Place()
             {
-                id = 1,
                 title = "Reitan",
                 description = "Heaven",
                 longitude = 9.795995847440167,
@@ -47,23 +43,21 @@ namespace DataServer
                 savedBy = new List<User>(),
                 addedBy = user
             };
-            //await AddPlace(reitan);
+            await AddPlace(reitan);
             Report<Place> report = new Report<Place>()
             {
                 category = "Blyatity",
                 reportedItem = reitan
             };
-            //await AddPlaceReport(report);
+            await AddPlaceReport(report);
             Review review = new Review()
             {
-                id = 1,
                 rating = 1,
                 comment = "very beautiful, but my back hurts",
                 addedBy = user
             };
             Review newReview = new Review()
             {
-                id = 2,
                 rating = 1,
                 comment = "rema 1000 tak",
                 addedBy = new User()
@@ -72,8 +66,8 @@ namespace DataServer
                 }
             };
 
-            //await AddPlaceReview(reitan.id, review);
-            //await AddPlaceReview(reitan.id, newReview);
+            await AddPlaceReview(reitan.id, review);
+            await AddPlaceReview(reitan.id, newReview);
         }
 
         public async Task AddPlaceReport(Report<Place> report)
