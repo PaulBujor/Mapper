@@ -1,13 +1,14 @@
-﻿using System;
+﻿using DataServer.Models;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace DataServer.Models
 {
-    [Serializable]
-    public class Review
-    {
+	[Serializable]
+	public class ReviewLite
+	{
         [Key]
         public long id { get; set; }
         [Required]
@@ -15,16 +16,16 @@ namespace DataServer.Models
         [MaxLength(500)]
         public string comment { get; set; }
         [Required]
-        public User addedBy { get; set; }
+        public UserData addedBy { get; set; }
 
-        public Review() { }
+        public ReviewLite() { }
 
-        public Review(ReviewLite review, User user)
+        public ReviewLite(Review review)
 		{
             id = review.id;
             rating = review.rating;
             comment = review.comment;
-            addedBy = user;
+            addedBy = new UserData(review.addedBy);
 		}
     }
 }

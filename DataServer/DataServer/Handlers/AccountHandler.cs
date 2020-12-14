@@ -13,227 +13,228 @@ namespace DataServer.Handlers
 	class AccountHandler : IHandler
 	{
 
-        private TcpClient client;
-        private Model model;
+		private TcpClient client;
+		private Model model;
 
-        private StreamWriter writer;
-        private StreamReader reader;
+		private StreamWriter writer;
+		private StreamReader reader;
 
-        private bool clientConnected;
+		private bool clientConnected;
 
-        public AccountHandler(TcpClient client, Model model)
-        {
-            this.client = client;
-            this.model = model;
-
-            NetworkStream stream = client.GetStream();
-            writer = new StreamWriter(stream, Encoding.ASCII) { AutoFlush = true };
-            reader = new StreamReader(stream, Encoding.ASCII);
-
-        }
-        public void Start()
+		public AccountHandler(TcpClient client, Model model)
 		{
-            clientConnected = true;
-            string request = null;
+			this.client = client;
+			this.model = model;
 
-            //todo security protocol for connetion
+			NetworkStream stream = client.GetStream();
+			writer = new StreamWriter(stream, Encoding.ASCII) { AutoFlush = true };
+			reader = new StreamReader(stream, Encoding.ASCII);
 
-            // Loop to receive all the data sent by the client.
-            do
-            {
-                try
-                {
-                    request = reader.ReadLine();
-                    Console.WriteLine("Received: {0}", request);
+		}
+		public async Task Start()
+		{
+			clientConnected = true;
+			string request = null;
 
-                    ProcessClientRequest(request);
-                }
-                catch (System.IO.IOException e)
-                {
-                    clientConnected = false;
-                }
+			//todo security protocol for connetion
 
-            } while (clientConnected);
+			// Loop to receive all the data sent by the client.
+			do
+			{
+				try
+				{
+					request = reader.ReadLine();
+					Console.WriteLine("Received: {0}", request);
 
-            // Shutdown and end connection
-            client.Close();
-        }
+					await ProcessClientRequest(request);
+				}
+				catch (System.IO.IOException e)
+				{
+					clientConnected = false;
+					Console.WriteLine(e.StackTrace);
+				}
 
-        private void ProcessClientRequest(string request)
-        {
-            switch (request)
-            {
-                case "login":
-                    Login();
-                    break;
-                case "register":
-                    Register();
-                    break;
-                case "checkEmail":
-                    CheckEmail();
-                    break;
-                case "checkUserName":
-                    CheckUsername();
-                    break;
-                case "updateFirstName":
-                    UpdateFirstname();
-                    break;
-                case "updateLastName":
-                    UpdateLastName();
-                    break;
-                case "updateUserName":
-                    UpdateUserName();
-                    break;
-                case "updateEmail":
-                    UpdateEmail();
-                    break;
-                case "updatePassword":
-                    UpdatePassword();
-                    break;
-                default:
-                    Console.WriteLine("Default was called");
-                    break;
-            }
-        }
+			} while (clientConnected);
 
-        
-        private async Task Login()
-        {
-            string receivedUserName = reader.ReadLine();
-            string receivedPassword = reader.ReadLine();
-            
-              User tmpUser =  await model.Login(receivedUserName, receivedPassword);
-            string tmpUserSerialize = JsonSerializer.Serialize(tmpUser);
-              writer.WriteLine(tmpUserSerialize);
-              
-        }
+			// Shutdown and end connection
+			client.Close();
+		}
 
-        private void Register()
-        {
-            string receive = reader.ReadLine();
-            User user = JsonSerializer.Deserialize<User>(receive);
-            try
-            {
-                model.Register(user);
-                writer.WriteLine("true");
-            }
-            catch (Exception e)
-            {
-                writer.WriteLine("false");
-            }
-        }
+		private async Task ProcessClientRequest(string request)
+		{
+			switch (request)
+			{
+				case "login":
+					await Login();
+					break;
+				case "register":
+					await Register();
+					break;
+				case "checkEmail":
+					await CheckEmail();
+					break;
+				case "checkUserName":
+					await CheckUsername();
+					break;
+				case "updateFirstName":
+					await UpdateFirstname();
+					break;
+				case "updateLastName":
+					await UpdateLastName();
+					break;
+				case "updateUserName":
+					await UpdateUserName();
+					break;
+				case "updateEmail":
+					await UpdateEmail();
+					break;
+				case "updatePassword":
+					await UpdatePassword();
+					break;
+				default:
+					Console.WriteLine("Default was called");
+					break;
+			}
+		}
 
-        private void CheckUsername()
-        {
 
-            string receivedUserName = reader.ReadLine();
-            
-            try
-            {
-                model.CheckUsername(receivedUserName);
-                writer.WriteLine("true");
-            }
-            catch (Exception e)
-            {
-                writer.WriteLine("false");
-            }
-            
-        }
+		private async Task Login()
+		{
+			string receivedUserName = reader.ReadLine();
+			string receivedPassword = reader.ReadLine();
 
-        private void CheckEmail()
-        {
-            string receivedEmail = reader.ReadLine();
-            try
-            {
+			User tmpUser = await model.Login(receivedUserName, receivedPassword);
+			string tmpUserSerialize = JsonSerializer.Serialize(tmpUser);
+			writer.WriteLine(tmpUserSerialize);
 
-                model.CheckEmail(receivedEmail);
-                writer.WriteLine("true");
-            }
-            catch (Exception e)
-            {
-                writer.WriteLine("false");
-            }
-            
-        }
+		}
 
-        private void UpdateFirstname()
-        {
-            long id = long.Parse(reader.ReadLine());
-            string receivedName = reader.ReadLine();
-            try
-            {
-                model.UpdateFirstName(id,receivedName);
-                writer.WriteLine("true");
-            }
-            catch (Exception e)
-            {
-                writer.WriteLine("false");
-            }
-            
-        }
+		private async Task Register()
+		{
+			string receive = reader.ReadLine();
+			User user = JsonSerializer.Deserialize<User>(receive);
+			try
+			{
+				await model.Register(user);
+				writer.WriteLine("true");
+			}
+			catch (Exception)
+			{
+				writer.WriteLine("false");
+			}
+		}
 
-        private void UpdateLastName()
-        {
-            long id = long.Parse(reader.ReadLine());
-            string receivedLastName = reader.ReadLine();
-            try
-            {
-                model.UpdateLastName(id,receivedLastName);
-                writer.WriteLine("true");
-            }
-            catch (Exception e)
-            {
-                writer.WriteLine("false");
-            }
-        }
+		private async Task CheckUsername()
+		{
 
-        private void UpdateUserName()
-        {
-            
-            long id = long.Parse(reader.ReadLine());
-            string receivedUserName = reader.ReadLine();
-            
-            try
-            {
-                model.UpdateUsername(id,receivedUserName);
-                writer.WriteLine("true");
-            }
-            catch (Exception e)
-            {
-                writer.WriteLine("false");
-            }
-        }
+			string receivedUserName = reader.ReadLine();
 
-        private void UpdateEmail()
-        {
-            long id = long.Parse(reader.ReadLine());
-            string receivedEmail = reader.ReadLine();
-            try
-            {
-                model.UpdateEmail(id,receivedEmail);
-                writer.WriteLine("true");
-            }
-            catch (Exception e)
-            {
-                writer.WriteLine("false");
-            }
-        }
+			try
+			{
+				await model.CheckUsername(receivedUserName);
+				writer.WriteLine("true");
+			}
+			catch (Exception)
+			{
+				writer.WriteLine("false");
+			}
 
-        private void UpdatePassword()
-        {
-            long id = long.Parse(reader.ReadLine());
-            string receivedPassword = reader.ReadLine();
-            Console.WriteLine(receivedPassword);
-            try
-            {
-                model.UpdatePassword(id,receivedPassword); 
-                writer.WriteLine("true");
-            }
-            catch (Exception e)
-            {
-                writer.WriteLine("false");
-            }
+		}
 
-        }
-    }
+		private async Task CheckEmail()
+		{
+			string receivedEmail = reader.ReadLine();
+			try
+			{
+
+				await model.CheckEmail(receivedEmail);
+				writer.WriteLine("true");
+			}
+			catch (Exception)
+			{
+				writer.WriteLine("false");
+			}
+
+		}
+
+		private async Task UpdateFirstname()
+		{
+			long id = long.Parse(reader.ReadLine());
+			string receivedName = reader.ReadLine();
+			try
+			{
+				await model.UpdateFirstName(id, receivedName);
+				writer.WriteLine("true");
+			}
+			catch (Exception)
+			{
+				writer.WriteLine("false");
+			}
+
+		}
+
+		private async Task UpdateLastName()
+		{
+			long id = long.Parse(reader.ReadLine());
+			string receivedLastName = reader.ReadLine();
+			try
+			{
+				await model.UpdateLastName(id, receivedLastName);
+				writer.WriteLine("true");
+			}
+			catch (Exception)
+			{
+				writer.WriteLine("false");
+			}
+		}
+
+		private async Task UpdateUserName()
+		{
+
+			long id = long.Parse(reader.ReadLine());
+			string receivedUserName = reader.ReadLine();
+
+			try
+			{
+				await model.UpdateUsername(id, receivedUserName);
+				writer.WriteLine("true");
+			}
+			catch (Exception)
+			{
+				writer.WriteLine("false");
+			}
+		}
+
+		private async Task UpdateEmail()
+		{
+			long id = long.Parse(reader.ReadLine());
+			string receivedEmail = reader.ReadLine();
+			try
+			{
+				await model.UpdateEmail(id, receivedEmail);
+				writer.WriteLine("true");
+			}
+			catch (Exception)
+			{
+				writer.WriteLine("false");
+			}
+		}
+
+		private async Task UpdatePassword()
+		{
+			long id = long.Parse(reader.ReadLine());
+			string receivedPassword = reader.ReadLine();
+			Console.WriteLine(receivedPassword);
+			try
+			{
+				await model.UpdatePassword(id, receivedPassword);
+				writer.WriteLine("true");
+			}
+			catch (Exception)
+			{
+				writer.WriteLine("false");
+			}
+
+		}
+	}
 }

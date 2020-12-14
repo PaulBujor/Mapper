@@ -28,7 +28,7 @@ public class ModeratorModel implements Model {
                 cache.loadPlaceReports(server.getPlaceReports());
                 cache.loadReviewReports(server.getReviewReports());
                 cache.loadUserReports(server.getUserReports());
-                cache.loadBanneeUsers(server.getBannedUsers());
+                cache.loadBannedUsers(server.getBannedUsers());
             } catch (IOException e) {
                 e.printStackTrace();
             }

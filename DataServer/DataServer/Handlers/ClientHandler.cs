@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace DataServer.Handlers
 {
@@ -29,7 +30,7 @@ namespace DataServer.Handlers
 
         }
 
-        public void Start()
+        public async Task Start()
         {
             clientConnected = true;
             string request = null;
@@ -44,11 +45,12 @@ namespace DataServer.Handlers
                     request = reader.ReadLine();
                     Console.WriteLine("Received: {0}", request);
 
-                    ProcessClientRequest(request);
+                    await ProcessClientRequest(request);
                 }
                 catch (System.IO.IOException e)
                 {
                     clientConnected = false;
+					Console.WriteLine(e.StackTrace);
                 }
 
             } while (clientConnected);
@@ -58,33 +60,33 @@ namespace DataServer.Handlers
         }
 
         //this method routes to the correct method based on the first received request
-        private void ProcessClientRequest(string request)
+        private async Task ProcessClientRequest(string request)
         {
             switch (request)
             {
                 case "getAllPlaces":
-                    SendAllPlaces();
+                    await SendAllPlaces();
                     break;
                 case "getPlaceByID":
-                    SendAllPlaces();
+                    await SendAllPlaces();
                     break;
                 case "addPlace":
-                    AddPlace();
+                    await AddPlace();
                     break;
                 case "updatePlace":
-                    UpdatePlace();
+                    await UpdatePlace();
                     break;
                 case "authenticateUser":
-                    AuthenticateUser();
+                    await AuthenticateUser();
                     break;
                 case "addPlaceReview":
-                    AddPlaceReview();
+                    await AddPlaceReview();
                     break;
                 case "addSavedPlace":
-                    AddSavedPlace();
+                    await AddSavedPlace();
                     break;
                 case "removeSavedPlace":
-                    RemoveSavedPlace();
+                    await RemoveSavedPlace();
                     break;
                 default:
                     Console.WriteLine("Default was called");
@@ -93,51 +95,51 @@ namespace DataServer.Handlers
             }
         }
 
-        private void SendAllPlaces()
+        //todo
+        private async Task SendAllPlaces()
         {
             string placeJson;
-            placeJson = JsonSerializer.Serialize(model.GetAllPlaces());
-            Console.WriteLine(placeJson);
-            Console.WriteLine(model.GetAllPlaces()[0].GetRating());
+            placeJson = JsonSerializer.Serialize(await model.GetAllPlacesAsync());
             writer.WriteLine(placeJson);
         }
 
-        private void AddPlace()
+        private async Task AddPlace()
         {
             string receive;
             receive = reader.ReadLine();
-            Place place = JsonSerializer.Deserialize<Place>(receive);
-            string placeJson;
-            placeJson = JsonSerializer.Serialize(model.AddPlace(place));
+			Console.WriteLine(receive);
+            PlaceLite place = JsonSerializer.Deserialize<PlaceLite>(receive);
+            await model.AddPlace(place);
+            string placeJson = JsonSerializer.Serialize(place);
             writer.WriteLine(placeJson);
         }
 
-        private async void UpdatePlace()
+        private async Task UpdatePlace()
         {
             string receive;
             receive = reader.ReadLine();
-            Place place = JsonSerializer.Deserialize<Place>(receive);
+            PlaceLite place = JsonSerializer.Deserialize<PlaceLite>(receive);
 
             await model.UpdatePlace(place);
         }
 
-        private void AuthenticateUser()
+        private async Task AuthenticateUser()
         {
             string receive = reader.ReadLine();
             User user = JsonSerializer.Deserialize<User>(receive);
-            writer.WriteLine(model.AuthroizeUser(user));
+            writer.WriteLine(await model.AuthroizeUser(user));
         }
 
-        private void AddPlaceReview()
+        private async Task AddPlaceReview()
         {
             string receivePlaceId = reader.ReadLine();
             string receiveReviewItem = reader.ReadLine();
             long placeId = long.Parse(receivePlaceId);
-            Review review = JsonSerializer.Deserialize<Review>(receiveReviewItem);
-            writer.WriteLine(JsonSerializer.Serialize<Review>(model.AddPlaceReview(placeId, review).Result));
+            ReviewLite review = JsonSerializer.Deserialize<ReviewLite>(receiveReviewItem);
+            writer.WriteLine(JsonSerializer.Serialize(await model.AddPlaceReview(placeId, review)));
         }
 
-        private async void AddSavedPlace()
+        private async Task AddSavedPlace()
         {
             Console.WriteLine("AddSavedPlace called");
             string receiveUserId = reader.ReadLine();
@@ -147,7 +149,7 @@ namespace DataServer.Handlers
             await model.AddSavedPlace(userId, placeId);
         }
 
-        private async void RemoveSavedPlace()
+        private async Task RemoveSavedPlace()
         {
             Console.WriteLine("RempveSavedPlace called");
             string receiveUserId = reader.ReadLine();

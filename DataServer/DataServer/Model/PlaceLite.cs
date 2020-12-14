@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataServer.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -6,8 +7,8 @@ using System.Text;
 namespace DataServer.Models
 {
     [Serializable]
-    public class Place
-    {
+	public class PlaceLite
+	{
         [Key]
         public long id { get; set; }
         [Required]
@@ -19,36 +20,23 @@ namespace DataServer.Models
         [MaxLength(500)]
         public string description { get; set; }
         public List<Review> reviews { get; set; }
-        public IList<User> savedBy { get; set; }
         [Required]
-        public User addedBy { get; set; }
+        public UserData addedBy { get; set; }
 
-        public Place()
-        {
-        }
+        public PlaceLite() { }
 
-        public Place(double longitude, double latitude, string title, string description)
-        {
-            this.longitude = longitude;
-            this.latitude = latitude;
-            this.title = title;
-            this.description = description;
-            reviews = new List<Review>();
-        }
-
-		public Place(PlaceLite place, User addedBy)
+        public PlaceLite(Place place)
 		{
-			this.id = place.id;
-			this.longitude = place.longitude;
-			this.latitude = place.latitude;
-			this.title = place.title;
-			this.description = place.description;
-			this.reviews = place.reviews;
-            this.savedBy = new List<User>();
-			this.addedBy = addedBy;
+            id = place.id;
+            longitude = place.longitude;
+            latitude = place.latitude;
+            title = place.title;
+            description = place.description;
+            reviews = place.reviews;
+            addedBy = new UserData(place.addedBy);
 		}
 
-		public void AddReview(Review review)
+        public void AddReview(Review review)
         {
             reviews.Add(review);
         }

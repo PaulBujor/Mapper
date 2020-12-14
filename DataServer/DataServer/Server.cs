@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using DataServer.Handlers;
+using System.Threading.Tasks;
 
 namespace DataServer
 {
@@ -52,14 +53,16 @@ namespace DataServer
 							handler = new ClientHandler(client, model);
 							break;
 					}
-					Thread thread = new Thread(handler.Start);
+					Thread thread = new Thread(h => handler.Start());
 					thread.Start();
 
 				}
 
 			}
 			catch (Exception e)
-			{ }
+			{
+				Console.WriteLine(e.StackTrace);
+			}
 		}
 
 
