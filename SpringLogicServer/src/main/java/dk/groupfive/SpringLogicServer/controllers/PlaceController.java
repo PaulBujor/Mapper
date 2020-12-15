@@ -61,12 +61,12 @@ public class PlaceController implements PlaceNetwork {
 
     @PatchMapping("{id}")
     public void updatePlace(@RequestBody Place place) {
-        //todo
+        //
     }
 
     @DeleteMapping(value = "/places/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePlace(@PathVariable("id") long id) {
-        model.deletePlace(id);
+        //
     }
 }
