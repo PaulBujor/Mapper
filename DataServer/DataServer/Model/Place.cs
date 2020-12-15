@@ -23,6 +23,8 @@ namespace DataServer.Models
         [Required]
         public User addedBy { get; set; }
 
+        public bool removed { get; set; }
+
         public Place()
         {
         }

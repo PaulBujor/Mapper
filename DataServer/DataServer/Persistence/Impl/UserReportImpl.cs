@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataServer.Models;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace DataServer.Persistence.Impl
         public async Task<List<Report<User>>> GetUserReports()
         {
             return await dbContext.UserReports
+                .Where(r => !r.resolved)
                 .Include(r => r.reportedItem)
                 .ToListAsync();
         }

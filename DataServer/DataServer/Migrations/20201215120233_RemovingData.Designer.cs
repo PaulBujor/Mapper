@@ -3,14 +3,16 @@ using System;
 using DataServer.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataServer.Migrations
 {
     [DbContext(typeof(MapDbContext))]
-    partial class MapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201215120233_RemovingData")]
+    partial class RemovingData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,9 +37,6 @@ namespace DataServer.Migrations
                     b.Property<double>("longitude")
                         .HasColumnType("REAL");
 
-                    b.Property<bool>("removed")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -47,7 +46,7 @@ namespace DataServer.Migrations
 
                     b.HasIndex("addedByid");
 
-                    b.ToTable("Places");
+                    b.ToTable("Place");
                 });
 
             modelBuilder.Entity("DataServer.Models.Report<DataServer.Models.Place>", b =>
@@ -162,16 +161,13 @@ namespace DataServer.Migrations
                     b.Property<int>("rating")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("removed")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("id");
 
                     b.HasIndex("Placeid");
 
                     b.HasIndex("addedByid");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Review");
                 });
 
             modelBuilder.Entity("DataServer.Models.User", b =>

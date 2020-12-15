@@ -3,14 +3,16 @@ using System;
 using DataServer.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataServer.Migrations
 {
     [DbContext(typeof(MapDbContext))]
-    partial class MapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201215121305_RemovedBool")]
+    partial class RemovedBool
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

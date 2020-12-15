@@ -36,9 +36,9 @@ namespace DataServer.Persistence
         public async Task<List<Place>> GetPlaces()
         {
             return await dbContext.Places
-                .Where(p => !dbContext.RemovedPlaces.Contains(p))
+                .Where(p => !p.removed)
                 .Include(p => p.addedBy)
-                .Include(p => p.reviews.Where(r => !dbContext.RemovedReviews.Contains(r)))
+                .Include(p => p.reviews.Where(r => !r.removed))
                     .ThenInclude(r => r.addedBy)
                 .ToListAsync();
         }
@@ -48,7 +48,7 @@ namespace DataServer.Persistence
             Place toRemove = await dbContext.Places.FirstOrDefaultAsync(p => p.id == id);
             if (toRemove != null)
             {
-                await dbContext.RemovedPlaces.AddAsync(toRemove);
+                toRemove.removed = true;
                 await dbContext.PlaceReports.Where(r => r.reportedItem.id == id).ForEachAsync(r => r.resolved = true);
                 await dbContext.SaveChangesAsync();
             }

@@ -9,12 +9,8 @@ namespace DataServer.Persistence
         public DbSet<Report<User>> UserReports { get; set; }
         public DbSet<Place> Places { get; set; }
 
-        public DbSet<Place> RemovedPlaces { get; set; }
-
         public DbSet<Report<Place>> PlaceReports { get; set; }
         public DbSet<Review> Reviews { get; set; }
-
-        public DbSet<Review> RemovedReviews { get; set; }
         public DbSet<Report<Review>> ReviewReports { get; set; }
 
         public MapDbContext()
