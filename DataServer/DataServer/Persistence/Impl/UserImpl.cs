@@ -25,6 +25,7 @@ namespace DataServer.Persistence
         {
             User myUser = dbContext.Users.FirstOrDefault(u => u.id == userId);
             myUser.auth = 0;
+            await dbContext.UserReports.Where(r => r.reportedItem.id == userId).ForEachAsync(r => r.resolved = true);
             await dbContext.SaveChangesAsync();
         }
 

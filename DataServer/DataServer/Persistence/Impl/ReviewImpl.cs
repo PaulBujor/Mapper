@@ -45,7 +45,8 @@ namespace DataServer.Persistence
             Review toRemove = await dbContext.Reviews.FirstOrDefaultAsync(r => r.id == reviewId);
             if (toRemove != null)
             {
-                dbContext.Reviews.Remove(toRemove);
+                await dbContext.RemovedReviews.AddAsync(toRemove);
+                await dbContext.ReviewReports.Where(r => r.reportedItem.id == reviewId).ForEachAsync(r => r.resolved = true);
                 await dbContext.SaveChangesAsync();
             }
         }
