@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Z.EntityFramework.Plus;
 
 namespace DataServer.Persistence
 {
@@ -35,9 +37,10 @@ namespace DataServer.Persistence
         public async Task<List<Place>> GetPlaces()
         {
             return await dbContext.Places
-                .Include(p=>p.reviews)
-                    .ThenInclude(r => r.addedBy)
+                .Where(p => !dbContext.RemovedPlaces.Contains(p))
                 .Include(p => p.addedBy)
+                .Include(p => p.reviews.Where(r => !dbContext.RemovedReviews.Contains(r)))
+                    .ThenInclude(r => r.addedBy)
                 .ToListAsync();
         }
 
@@ -46,7 +49,8 @@ namespace DataServer.Persistence
             Place toRemove = await dbContext.Places.FirstOrDefaultAsync(p => p.id == id);
             if (toRemove != null)
             {
-                dbContext.Places.Remove(toRemove);
+                await dbContext.RemovedPlaces.AddAsync(toRemove);
+                await dbContext.PlaceReports.Where(r => r.reportedItem.id == id).ForEachAsync(r => r.resolved = true);
                 await dbContext.SaveChangesAsync();
             }
         }
