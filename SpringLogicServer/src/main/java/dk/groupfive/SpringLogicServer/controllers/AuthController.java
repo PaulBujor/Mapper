@@ -30,20 +30,26 @@ accountModel = ServerAccountModel.getInstance();
    public User validate(@RequestBody LoginMessage loginMessage)
   {
 
-   return new User("tester","teest","tester@dk.dk",2,"bob","gob",1);
-/*User user = new User();
+  /* return new User("tester","teest","tester@dk.dk",2,"bob","gob",1);*/
+User user = new User();
     try
     {
        user =  accountModel.validate(loginMessage);
     }catch (Exception e){
       e.printStackTrace();
     }
-    return user;*/
+    return user;
   }
 
   @PostMapping(value = "/reg")
   public ResponseEntity register(@RequestBody User user)
   {
+    System.out.println("register received");
+    System.out.println(user.getEmail());
+    System.out.println(user.getFirstname());
+    System.out.println(user.getLastname());
+    System.out.println(user.getUsername());
+    System.out.println(user.getPassword());
     try{
       boolean value = accountModel.register(user);
       if(value){

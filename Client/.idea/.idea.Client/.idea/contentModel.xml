@@ -98,6 +98,8 @@
               <e p="bootstrap.min.css" t="Include" />
               <e p="bootstrap.min.css.map" t="Include" />
             </e>
+            <e p="login_background_1.gif" t="Include" />
+            <e p="login_background_2.gif" t="Include" />
             <e p="open-iconic" t="Include">
               <e p="font" t="Include">
                 <e p="css" t="Include">

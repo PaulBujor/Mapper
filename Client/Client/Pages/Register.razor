@@ -62,7 +62,54 @@
     </NotAuthorized>
 </AuthorizeView>
 
+@*
+            //THE OLDER VERSION THAT SEEMS TO WORK
+            
+        <div id="form">
+            <EditForm Context="formContext" Model="@newUser" OnValidSubmit="@Submit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
 
+
+                <p>
+                    <InputText id="firstname" @bind-Value="newUser.firstname" />
+                    <label for="firstname">-First name</label>
+                </p>
+
+                <p>
+                    <InputText id="lastname" @bind-Value="newUser.lastname" />
+                    <label for="lastname">-Last name</label>
+                </p>
+
+                <p>
+                    <InputText id="username" @bind-Value="newUser.username" />
+                    <label for="username">-User name</label>
+                </p>
+
+                <p>
+                    <InputText id="email" @bind-Value="newUser.email" />
+                    <label for="email">-Email</label>
+                </p>
+
+                <p>
+                    <InputText type="password" @bind-Value="@newUser.password" />
+                    <label for="password">-Password</label>
+                </p>
+
+                <p>
+                    <InputText type="password" @bind-Value="@newUser.confirmpassword" />
+                    <label for="confirmpassword">-Confirm Password</label>
+                </p>
+                
+                
+
+
+
+                <button type="submit">Submit</button>
+
+            </EditForm>
+        </div>
+        *@
 
 @code {
     public string ErrorMessage  { get; set; }
@@ -71,6 +118,7 @@
 
     private async Task Submit()
     {
+        Console.WriteLine("test");
         ErrorMessage = "";
         try
         {
@@ -78,23 +126,27 @@
             var checkUserName = await Auth.CheckUserName(newUser.username);
 
 
-            if (checkEmail==false)
+            if (checkEmail!=false)
             {
                 ErrorMessage = "Email already exists";
 
                 throw new Exception("Email already exists");
 
             }
-            if (checkUserName==false)
+            if (checkUserName!=false)
             {
                 ErrorMessage = "Username already exists";
 
                 throw new Exception("Username already exists");
 
             }
-
+            Console.WriteLine("----------****************---------------*****************-----------------");
+            Console.WriteLine(newUser.lastname);
+            Console.WriteLine(newUser.firstname);
+            Console.WriteLine(newUser.email);
             await Auth.Register(newUser);
-            NavigationManager.NavigateTo("/login");
+            
+            /*NavigationManager.NavigateTo("/login");*/
         }
         catch (Exception e)
         {

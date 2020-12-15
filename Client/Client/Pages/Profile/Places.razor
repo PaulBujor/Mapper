@@ -10,7 +10,8 @@
 <h3>My Places</h3>
 <div id="map" style="height: 50vh;"></div>
 
-@if(user != null)
+@if (user != null)
+{
 	@foreach (Place place in user.savedPlaces)
 	{
 		<div class="card">
@@ -21,7 +22,7 @@
 			</div>
 		</div>
 	}
-
+}
 @code {
 	[CascadingParameter]
 	protected Task<AuthenticationState> AuthStat { get; set; }
