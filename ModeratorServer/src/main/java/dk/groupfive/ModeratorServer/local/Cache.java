@@ -22,24 +22,28 @@ public class Cache {
     }
 
     public void loadPlaceReports(List<Report<Place>> reports) {
+        placeReports.clear();
         for (Report<Place> report : reports) {
             placeReports.put(report.getReportId(), report);
         }
     }
 
     public void loadReviewReports(List<Report<Review>> reports) {
+        reviewReports.clear();
         for (Report<Review> report : reports) {
             reviewReports.put(report.getReportId(), report);
         }
     }
 
     public void loadUserReports(List<Report<UserData>> reports) {
+        userReports.clear();
         for (Report<UserData> report : reports) {
             userReports.put(report.getReportId(), report);
         }
     }
 
     public void loadBannedUsers(List<UserData> users) {
+        bannedUsers.clear();
         for (UserData user : users) {
             bannedUsers.put(user.getUserId(), user);
         }
