@@ -1,0 +1,31 @@
+{
+  "id": 1,
+  "longitude": 8.587951340193797,
+  "latitude": 56.35977627775739,
+  "title": "Cool place",
+  "description": "Some cool place somewhere in the world",
+  "reviews": [
+    {
+      "id": 5,
+      "rating": 4,
+      "comment": "This place is quite nice",
+      "addedBy": {
+        "userId": 5,
+        "username": "johndoe"
+      }
+    },
+    {
+      "id": 7,
+      "rating": 2,
+      "comment": "This place is not that nice",
+      "addedBy": {
+        "userId": 6,
+        "username": "marydoe"
+      }
+    }
+  ],
+  "addedBy": {
+    "userId": 1,
+    "username": "jeremyfunman"
+  }
+}

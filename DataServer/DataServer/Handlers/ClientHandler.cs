@@ -50,7 +50,7 @@ namespace DataServer.Handlers
                 catch (System.IO.IOException e)
                 {
                     clientConnected = false;
-					Console.WriteLine(e.StackTrace);
+					//Console.WriteLine(e.StackTrace);
                 }
 
             } while (clientConnected);
@@ -91,16 +91,20 @@ namespace DataServer.Handlers
                 default:
                     Console.WriteLine("Default was called");
                     break;
-
             }
         }
 
-        //todo
         private async Task SendAllPlaces()
         {
             string placeJson;
-            placeJson = JsonSerializer.Serialize(await model.GetAllPlacesAsync());
-            writer.WriteLine(placeJson);
+            try
+            {
+                placeJson = JsonSerializer.Serialize(await model.GetAllPlacesAsync());
+                writer.WriteLine(placeJson);
+            } catch (Exception e)
+			{
+				Console.WriteLine(e.StackTrace);
+			}
         }
 
         private async Task AddPlace()

@@ -103,9 +103,16 @@ namespace DataServer.Handlers
 			string receivedUserName = reader.ReadLine();
 			string receivedPassword = reader.ReadLine();
 
-			User tmpUser = await model.Login(receivedUserName, receivedPassword);
-			string tmpUserSerialize = JsonSerializer.Serialize(tmpUser);
-			writer.WriteLine(tmpUserSerialize);
+			UserLite tmpUser = new UserLite(await model.Login(receivedUserName, receivedPassword));
+
+			try
+			{
+				string tmpUserSerialize = JsonSerializer.Serialize(tmpUser);
+				writer.WriteLine(tmpUserSerialize);
+			} catch (Exception e)
+			{
+				Console.WriteLine(e.StackTrace);
+			}
 
 		}
 

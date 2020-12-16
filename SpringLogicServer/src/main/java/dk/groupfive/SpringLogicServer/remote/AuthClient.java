@@ -35,6 +35,7 @@ public class AuthClient implements AuthServer {
         out.println(loginMessage.username);
         out.println(loginMessage.password);
         String response = in.readLine();
+        System.out.println(response);
         User user = gson.fromJson(response, User.class);
         return user;
     }

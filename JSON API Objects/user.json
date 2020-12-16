@@ -1,0 +1,33 @@
+{
+  "id": 5,
+  "email": "user@email.com",
+  "username": "johndoe",
+  "password": "D5D410D48C9F4658CECC90927A20C9F3265E0A76AF5285B5D9DC384F461A735F",
+  "auth": 1,
+  "firstname": "John",
+  "lastname": "Doe",
+  "savedPlaces": [
+    {
+      "id": 2,
+      "longitude": 8.587951340193797,
+      "latitude": 56.35977627775739,
+      "title": "OK place",
+      "description": "Above average place next to an old tree",
+      "reviews": [
+        {
+          "id": 5,
+          "rating": 4,
+          "comment": "It's cool",
+          "addedBy": { "userId": 5, "username": "marydoe" }
+        },
+        {
+          "id": 3,
+          "rating": 5,
+          "comment": "Agreed",
+          "addedBy": { "userId": 1, "username": "johnnysilverhand" }
+        }
+      ],
+      "addedBy": { "userId": 1, "username": "johnnysilverhand" }
+    }
+  ]
+}

@@ -34,7 +34,10 @@ namespace DataServer.Persistence.Impl
             return await dbContext.PlaceReports
                 .Where(r => !r.resolved)
                 .Include(r => r.reportedItem)
-                .ThenInclude(r => r.addedBy)
+                    .ThenInclude(r => r.addedBy)
+                .Include(r => r.reportedItem)
+                    .ThenInclude(r => r.reviews)
+                        .ThenInclude(r => r.addedBy)
                 .ToListAsync();
         }
 

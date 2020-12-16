@@ -1,0 +1,9 @@
+{
+  "id": 7,
+  "rating": 2,
+  "comment": "This place is not that nice",
+  "addedBy": {
+    "userId": 6,
+    "username": "marydoe"
+  }
+}

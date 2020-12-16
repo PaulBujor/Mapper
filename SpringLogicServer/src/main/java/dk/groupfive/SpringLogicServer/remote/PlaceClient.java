@@ -30,13 +30,12 @@ public class PlaceClient {
         List<Place> places;
         out.println("getAllPlaces");
         String response = in.readLine();
-        System.out.println(response);
+        //System.out.println(response);
 
         Type placeListType = new TypeToken<ArrayList<Place>>() {
         }.getType();
         places = gson.fromJson(response, placeListType);
-        System.out.println(places);
-        System.out.println(gson.toJson(places));
+        System.out.printf("Retrieved %d places\n", places.size());
         return places;
     }
 

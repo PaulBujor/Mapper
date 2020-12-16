@@ -46,7 +46,9 @@ public class Client implements Server {
         out.println("getPlaceReports");
         Type placeReportsType = new TypeToken<List<Report<Place>>>() {
         }.getType();
-        return gson.fromJson(in.readLine(), placeReportsType);
+        String response = in.readLine();
+        System.out.println(response);
+        return gson.fromJson(response, placeReportsType);
     }
 
     @Override

@@ -1,0 +1,23 @@
+{
+  "reportId": 2,
+  "reportedItem": {
+    "id": 1,
+    "longitude": 9.795995847440167,
+    "latitude": 55.83663617092108,
+    "title": "F#@# this place",
+    "description": "It's the worst place i've ever seen",
+    "reviews": [
+      {
+        "id": 1,
+        "rating": 1,
+        "comment": "Full of junkies, come here and you'll get stabbed",
+        "addedBy": { "userId": 2, "username": "V" }
+      }
+    ],
+    "addedBy": { "userId": 3, "username": "definetlynotajunkie" }
+  },
+  "reportedClass": "Place",
+  "resolved": false,
+  "category": "Dangerous",
+  "description": "This place is full of dangerous people"
+}

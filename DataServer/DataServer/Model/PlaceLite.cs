@@ -19,7 +19,7 @@ namespace DataServer.Models
         public string title { get; set; }
         [MaxLength(500)]
         public string description { get; set; }
-        public List<Review> reviews { get; set; }
+        public List<ReviewLite> reviews { get; set; }
         [Required]
         public UserData addedBy { get; set; }
 
@@ -32,11 +32,13 @@ namespace DataServer.Models
             latitude = place.latitude;
             title = place.title;
             description = place.description;
-            reviews = place.reviews;
+            reviews = new List<ReviewLite>();
+            foreach (Review review in place.reviews)
+                AddReview(new ReviewLite(review));
             addedBy = new UserData(place.addedBy);
 		}
 
-        public void AddReview(Review review)
+        public void AddReview(ReviewLite review)
         {
             reviews.Add(review);
         }
@@ -44,14 +46,14 @@ namespace DataServer.Models
         public double GetRating()
         {
             long score = 0;
-            foreach (Review item in reviews)
+            foreach (ReviewLite item in reviews)
             {
                 score += item.rating;
             }
             return (double)score / reviews.Count;
         }
 
-        public List<Review> GetReviews()
+        public List<ReviewLite> GetReviews()
         {
             return reviews;
         }

@@ -44,7 +44,7 @@ namespace DataServer
                 description = "Heaven",
                 longitude = 9.795995847440167,
                 latitude = 55.83663617092108,
-                reviews = new List<Review>(),
+                reviews = new List<ReviewLite>(),
                 addedBy = new UserData(user)
             };
             await AddPlace(reitan);

@@ -47,12 +47,24 @@ namespace DataServer.Models
 			this.latitude = place.latitude;
 			this.title = place.title;
 			this.description = place.description;
-			this.reviews = place.reviews;
+            this.reviews = new List<Review>();
             this.savedBy = new List<User>();
 			this.addedBy = addedBy;
 		}
 
-		public void AddReview(Review review)
+        public Place(PlaceLite place, User addedBy, List<Review> fullReviews)
+        {
+            this.id = place.id;
+            this.longitude = place.longitude;
+            this.latitude = place.latitude;
+            this.title = place.title;
+            this.description = place.description;
+            this.reviews = fullReviews;
+            this.savedBy = new List<User>();
+            this.addedBy = addedBy;
+        }
+
+        public void AddReview(Review review)
         {
             reviews.Add(review);
         }
