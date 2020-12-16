@@ -24,6 +24,7 @@ public class PlaceController implements PlaceNetwork {
 
     @GetMapping("/places")
     public List<Place> getAllPlaces() {
+        List<Place> places = model.getAllPlaces();
         return model.getAllPlaces();
     }
 

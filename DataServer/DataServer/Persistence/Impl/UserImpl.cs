@@ -29,7 +29,7 @@ namespace DataServer.Persistence
             await dbContext.SaveChangesAsync();
         }
 
-        public Task CheckEmail(string email)
+        public async Task CheckEmail(string email)
         {
             //User toGet = dbContext.Users.FirstOrDefault(u => u.email == email);
             User toGet = dbContext.Users.FirstOrDefault(u => u.email == email);
@@ -40,12 +40,11 @@ namespace DataServer.Persistence
             else
             {
                 System.Console.WriteLine("e-mail available");
-                return null;
             }
 
         }
 
-        public Task CheckUsername(string username)
+        public async Task CheckUsername(string username)
         {
             User toGet = dbContext.Users.FirstOrDefault(u => u.username == username);
             if (!(toGet == null))
@@ -55,12 +54,12 @@ namespace DataServer.Persistence
             else
             {
                 System.Console.WriteLine("username available");
-                return null;
             }
         }
 
         public async Task CreateUser(User user)
         {
+            user.auth = 1;
             await dbContext.Users.AddAsync(user);
             await dbContext.SaveChangesAsync();
         }
@@ -90,14 +89,14 @@ namespace DataServer.Persistence
 
         public async Task UnbanUser(long userId)
         {
-            User myUser = (User)dbContext.Users.Where(u => u.id == userId);
-            myUser.auth = 1;
+            User toGet = await dbContext.Users.FirstOrDefaultAsync(u => u.id == userId);
+            toGet.auth = 1;
             await dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateEmail(long id, string email)
         {
-            User toGet = (User)dbContext.Users.Where(u => u.id == id);
+            User toGet = await dbContext.Users.FirstOrDefaultAsync(u => u.id == id);
             toGet.email = email;
             System.Console.WriteLine($"updating email to {toGet.email}");
             await dbContext.SaveChangesAsync();
@@ -105,23 +104,23 @@ namespace DataServer.Persistence
 
         public async Task UpdateFirstName(long id, string firstName)
         {
-            User toGet = (User)dbContext.Users.Where(u => u.id == id);
-            toGet.firstName = firstName;
-            System.Console.WriteLine($"updating first name to {toGet.firstName}");
+            User toGet = await dbContext.Users.FirstOrDefaultAsync(u => u.id == id);
+            toGet.firstname = firstName;
+            System.Console.WriteLine($"updating first name to {toGet.firstname}");
             await dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateLastName(long id, string lastName)
         {
-            User toGet = (User)dbContext.Users.Where(u => u.id == id);
-            toGet.lastName = lastName;
-            System.Console.WriteLine($"updating last name to {toGet.lastName}");
+            User toGet = await dbContext.Users.FirstOrDefaultAsync(u => u.id == id);
+            toGet.lastname = lastName;
+            System.Console.WriteLine($"updating last name to {toGet.lastname}");
             await dbContext.SaveChangesAsync();
         }
 
         public async Task UpdatePassword(long id, string password)
         {
-            User toGet = (User)dbContext.Users.Where(u => u.id == id);
+            User toGet = await dbContext.Users.FirstOrDefaultAsync(u => u.id == id);
             toGet.password = password;
             System.Console.WriteLine($"updating pasword to ******");
             await dbContext.SaveChangesAsync();
@@ -135,7 +134,7 @@ namespace DataServer.Persistence
 
         public async Task UpdateUsername(long id, string userName)
         {
-            User toGet = (User)dbContext.Users.Where(u => u.id == id);
+            User toGet = await dbContext.Users.FirstOrDefaultAsync(u => u.id == id);
             toGet.username = userName;
             System.Console.WriteLine($"updating username to {toGet.username}");
             await dbContext.SaveChangesAsync();

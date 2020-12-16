@@ -13,7 +13,7 @@ public class Cache {
     }
 
     public void load(List<Place> places) {
-        places.clear();
+        this.places.clear();
         for (Place place : places) {
             this.places.put(place.getId(), place);
         }
