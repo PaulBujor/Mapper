@@ -126,14 +126,14 @@
             var checkUserName = await Auth.CheckUserName(newUser.username);
 
 
-            if (checkEmail!=false)
+            if (checkEmail==false)
             {
                 ErrorMessage = "Email already exists";
 
                 throw new Exception("Email already exists");
 
             }
-            if (checkUserName!=false)
+            if (checkUserName==false)
             {
                 ErrorMessage = "Username already exists";
 
@@ -146,7 +146,7 @@
             Console.WriteLine(newUser.email);
             await Auth.Register(newUser);
             
-            /*NavigationManager.NavigateTo("/login");*/
+            NavigationManager.NavigateTo("/login");
         }
         catch (Exception e)
         {
