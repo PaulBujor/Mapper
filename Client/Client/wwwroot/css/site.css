@@ -604,6 +604,7 @@ app {
     color: #6e58fd;
     font-weight: 700;
     margin-left: 5px;
+    border: none;
 }
 .page-column-login>.register-container {
     min-height: 64%;
