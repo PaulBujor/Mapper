@@ -55,6 +55,7 @@ namespace Client.Data.Networking
         {
             try
             {
+                user.password = _encryptor.Encrypt(user.password);
                 HttpClient client = new HttpClient();
                 string userSerialized = JsonSerializer.Serialize(user);
                 StringContent content = new StringContent(userSerialized, Encoding.UTF8, "application/json");
