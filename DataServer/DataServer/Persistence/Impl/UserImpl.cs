@@ -72,7 +72,6 @@ namespace DataServer.Persistence
                     .ThenInclude(p => p.reviews)
                         .ThenInclude(r => r.addedBy)
                 .Include(u => u.savedPlaces)
-                    .ThenInclude(p => p.addedBy)
                 .FirstOrDefaultAsync(u => u.username.Equals(username) && u.password.Equals(password));
         }
 
