@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace DataServer.Models
 {
@@ -19,6 +20,7 @@ namespace DataServer.Models
         [MaxLength(500)]
         public string description { get; set; }
         public List<Review> reviews { get; set; }
+        [JsonIgnore]
         public IList<User> savedBy { get; set; }
         [Required]
         public User addedBy { get; set; }
