@@ -29,6 +29,13 @@ window.mapBoxFunctions = {
             logoPosition: 'top-right'
         });
 
+        map.addControl(new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        }));
+
         map.on("click", function (e) {
             console.log(e.lngLat);
             _dotNetReference.invokeMethodAsync('MapClickAsync', e.lngLat.toArray()[0], e.lngLat.toArray()[1]);
